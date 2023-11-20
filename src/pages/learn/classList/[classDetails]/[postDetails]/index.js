@@ -5,7 +5,7 @@ import LikeEmojiGroup from '@/components/common/likeEmojiGroup'
 import { useRouter } from 'next/navigation'
 
 const PostDetails = () => {
-    const router = useRouter();
+    const router = useRouter()
 
     return (
         <Box bg='#fff' mt='4' rounded='xl'>

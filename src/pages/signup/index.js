@@ -59,51 +59,49 @@ const PhoneAuth = () => {
                   <span style={{ color: "white" }}> (+91)8765543567</span> to
                   procced
                 </FormLabel>
-                <HStack gap='4' mt='5' fontWeight='600' color="white">
-                  <PinInput type="alphanumeric" focusBorderColor="white"  >
+                <HStack gap="4" mt="5" fontWeight="600" color="white">
+                  <PinInput type="alphanumeric" focusBorderColor="white">
                     <PinInputField
                       border="none"
                       bg="#252525"
                       width="60px"
                       height="60px"
-                      rounded='2xl'
-                      
+                      rounded="2xl"
                     />
                     <PinInputField
                       bg="#252525"
                       border="none"
                       width="60px"
                       height="60px"
-                     rounded='2xl'
-                    />
-                    <PinInputField
-                      
-                      bg="#252525"
-                      border="none"
-                      width="60px"
-                      height="60px"
-                     rounded='2xl'
+                      rounded="2xl"
                     />
                     <PinInputField
                       bg="#252525"
                       border="none"
                       width="60px"
                       height="60px"
-                     rounded='2xl'
+                      rounded="2xl"
                     />
                     <PinInputField
                       bg="#252525"
                       border="none"
                       width="60px"
                       height="60px"
-                     rounded='2xl'
+                      rounded="2xl"
                     />
                     <PinInputField
                       bg="#252525"
                       border="none"
                       width="60px"
                       height="60px"
-                     rounded='2xl'
+                      rounded="2xl"
+                    />
+                    <PinInputField
+                      bg="#252525"
+                      border="none"
+                      width="60px"
+                      height="60px"
+                      rounded="2xl"
                     />
                   </PinInput>
                 </HStack>
@@ -128,8 +126,10 @@ const PhoneAuth = () => {
                     color: "#7E7E7E !important",
                     bg: "#252525 !important",
                   }}
-                  _hover={{bg:"white  !important", color:"#F84D43 !important"}}
-
+                  _hover={{
+                    bg: "white  !important",
+                    color: "#F84D43 !important",
+                  }}
                 >
                   Continue
                 </Button>
@@ -182,9 +182,9 @@ const PhoneAuth = () => {
                     ml="2"
                     color="white"
                     _hover={{ color: "#F84D43", bg: "white !important" }}
-                    onClick={()=>setOtp(true)}
+                    onClick={() => setOtp(true)}
                   >
-                    <ChevronRight   size="30px" />
+                    <ChevronRight size="30px" />
                   </Button>
                 </InputGroup>
                 <Text
