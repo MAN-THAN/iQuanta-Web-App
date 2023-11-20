@@ -3,7 +3,7 @@ import { Box, Divider, ListItem, Text, UnorderedList } from '@chakra-ui/react'
 import { ChevronRight } from 'lucide-react'
 import React from 'react'
 import { usePathname } from 'next/navigation';
-import CustomLinkItem from '../customLinkItem'
+import CustomLinkItem from '../common/customLinkItem';
 
 
 const UserAccountSidebar = () => {

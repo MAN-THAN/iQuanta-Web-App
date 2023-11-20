@@ -29,7 +29,13 @@ const UserInfo = () => {
   return (
     <Flex align="center" bg="black" flexWrap="wrap">
       <Box w={{ base: "100%", md: "40%" }} position="relative">
-        <Image src="/back.png" objectFit="cover" width="100%" height="100vh" />
+        <Image
+          alt="icon"
+          src="/back.png"
+          objectFit="cover"
+          width="100%"
+          height="100vh"
+        />
         <div
           style={{
             position: "absolute",
@@ -47,7 +53,7 @@ const UserInfo = () => {
         <Container gap="6" mt={{ base: "40px", md: "0" }}>
           <Stack gap="6">
             <Box>
-              <Image src="/logowhite.png" />
+              <Image alt="logo" src="/logowhite.png" />
             </Box>
             <FormControl>
               <FormLabel fontSize="20px" fontWeight="600" color="#fff" py="3">
@@ -89,15 +95,15 @@ const UserInfo = () => {
               <Box display="flex" gap="6" pt="7">
                 <Box textAlign="center" color="#fff">
                   <Text>Male</Text>
-                  <Image scale="2px" src="/male.png" />
+                  <Image alt="male icon" scale="2px" src="/male.png" />
                 </Box>
                 <Box textAlign="center" color="#fff">
                   <Text>Female</Text>
-                  <Image src="/female.png" />
+                  <Image alt="female icon" src="/female.png" />
                 </Box>
                 <Box textAlign="center" color="#fff">
                   <Text>Don’t Prefer</Text>
-                  <Image src="/other.png" />
+                  <Image alt="other icon" src="/other.png" />
                 </Box>
               </Box>
               <Button

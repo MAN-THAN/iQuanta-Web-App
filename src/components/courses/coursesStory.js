@@ -14,10 +14,10 @@ const CoursesStory = () => {
             slidesPerView={2.5}
             navigation={true}
             >
-            {[...Array(4)].map(() => (
-                <SwiperSlide>
+            {[...Array(4)].map((d,i) => (
+                <SwiperSlide key={i}>
                     <Card border='1px solid #EAEAEC' rounded='2xl' width='260px' height='280px' align='center' p='6'>
-                        <Image objectFit='cover' src='/qouats.png' />
+                        <Image alt='image' objectFit='cover' src='/qouats.png' />
                         <Text textAlign='center' lineHeight='' fontSize='12px' color='#16222C' pt='3' fontWeight='500'>
                             “The CAT course is well structured, easy to understand and the help that I got from iQuanta was amazing! Highly recommended!”
                         </Text>

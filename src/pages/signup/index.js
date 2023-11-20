@@ -32,7 +32,7 @@ const PhoneAuth = () => {
   return (
     <Flex align="center" bg="black" flexWrap="wrap">
       <Box w={{ base: "100%", md: "40%" }} position="relative">
-        <Image src="/back.png" objectFit="cover" width="100%" height="100vh" />
+        <Image alt="icon" src="/back.png" objectFit="cover" width="100%" height="100vh" />
         <div
           style={{
             position: "absolute",
@@ -51,7 +51,7 @@ const PhoneAuth = () => {
           {otp ? (
             <Stack gap="6">
               <Box>
-                <Image src="/logowhite.png" />
+                <Image alt="logo" src="/logowhite.png" />
               </Box>
               <FormControl mt="10%">
                 <FormLabel fontSize="22px" width="400px" color="gray">
@@ -147,13 +147,14 @@ const PhoneAuth = () => {
           ) : (
             <Stack gap="6">
               <Box>
-                <Image src="/logowhite.png" />
+                <Image alt="logo" src="/logowhite.png" />
               </Box>
               <FormControl mt="10%">
                 <FormLabel fontSize="18px" color="white">
                   Sign up using your mobile number
                 </FormLabel>
                 <InputGroup alignItems="center">
+                   {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
                   <InputLeftAddon
                     p="6"
                     height="60px"
@@ -161,8 +162,7 @@ const PhoneAuth = () => {
                     color="white"
                     border="none"
                     fontWeight="bold"
-                    children="+91"
-                  />
+                  >+91</InputLeftAddon>
                   <Input
                     size="lg"
                     height="60px"
@@ -221,7 +221,7 @@ const PhoneAuth = () => {
                     color: "black !important",
                     bg: "white !important",
                   }}
-                  leftIcon={<Image w="22px" h="22px" src="/google.png" />}
+                  leftIcon={<Image alt="google image" w="22px" h="22px" src="/google.png" />}
                   variant="outline"
                 >
                   Sign with Google
