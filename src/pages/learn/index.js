@@ -4,11 +4,9 @@ import MyNotes from '@/components/learnAndClass/myNotes'
 
 const LearnClass = () => {
     return (
-        <div >
-            <CoursesAdd />
-            <YourExam />
-            <MyNotes/>
-        </div>
+       <>
+        
+       </>
     )
 }
 

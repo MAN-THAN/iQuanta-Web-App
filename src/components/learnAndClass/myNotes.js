@@ -36,8 +36,8 @@ function MyNotes() {
             <Box>
                 <HStack pt='6' pb='3' gap='3' maxW='800px' overflowX='scroll'>
                     {featursCard.map((data, index) => (
-                        <Box >
-                            <NoteCard key={index} data={data} />
+                        <Box key={index}>
+                            <NoteCard  data={data} />
                         </Box>
                     ))}
                 </HStack>

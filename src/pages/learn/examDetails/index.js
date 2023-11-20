@@ -19,8 +19,8 @@ const ExamDetails = () => {
         </HStack>
         <Flex mt='4' align='center' p='4' justify='space-between'>
           {[...Array(6)].map((e, index) => (
-            <Box onClick={() => router.push(`/learn/examDetails/${index}`)} cursor='pointer'>
-              <Image src='/exam.png' rounded='2xl' />
+            <Box key={index} onClick={() => router.push(`/learn/examDetails/${index}`)} cursor='pointer'>
+              <Image src='/exam.png' rounded='2xl' alt='exam image' />
               <Text textAlign='center' fontSize='14px' pt='4'>GMAT</Text>
             </Box>
           ))}
