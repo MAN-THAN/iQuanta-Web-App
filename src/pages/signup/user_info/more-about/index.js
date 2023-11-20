@@ -137,7 +137,13 @@ const MoreAbout = () => {
   return (
     <Flex align="center" bg="black" flexWrap="wrap">
       <Box w={{ base: "100%", md: "40%" }} position="relative">
-        <Image src="/back.png" objectFit="cover" width="100%" height="100vh" />
+        <Image
+          alt="icon"
+          src="/back.png"
+          objectFit="cover"
+          width="100%"
+          height="100vh"
+        />
         <div
           style={{
             position: "absolute",
@@ -155,7 +161,7 @@ const MoreAbout = () => {
         <Container gap="6" mt={{ base: "40px", md: "0" }}>
           <Stack gap="6">
             <Box>
-              <Image src="/logowhite.png" />
+              <Image alt="logo" src="/logowhite.png" />
             </Box>
             <FormControl>
               <Heading as="h2" fontSize="28px" color="#fff">

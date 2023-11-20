@@ -16,8 +16,8 @@ function YourCourses() {
             <Box>
                 <HStack pt='6' pb='3' gap='3' maxW='800px' overflowX='scroll'>
                     {featursCard.map((data, index) => (
-                        <Box>
-                            <CourseCards key={index} data={data} />
+                        <Box key={index}>
+                            <CourseCards  data={data} />
                         </Box>
                     ))}
                 </HStack>

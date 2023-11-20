@@ -17,7 +17,8 @@ const FAQs = () => {
                 </CardHeader>
                 <CardBody>
                     <Accordion defaultIndex={[0]} allowMultiple>
-                    {[...Array(10)].map((data,index) => ( <AccordionItem>
+                    {[...Array(10)].map((data,index) => ( 
+                        <AccordionItem key={index}>
                             <h2>
                                 <AccordionButton>
                                     <Box as="span" flex='1' textAlign='left' p='2' fontWeight='500' fontSize='14px' color='#171717'>

@@ -1,12 +1,12 @@
-import { Inter } from 'next/font/google'
+import RootLayout from '@/components/layouts/layout';
+import React from 'react'
 
-const inter = Inter({ subsets: ['latin'] })
-
-export default function Home() {
+const Home = () => {
   return (
- <>
-  
- </>
-
+    <div></div>
   )
 }
+Home.getLayout = (page) => {
+  return <RootLayout>{page}</RootLayout>;
+};
+export default Home;
