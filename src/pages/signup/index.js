@@ -53,6 +53,11 @@ const PhoneAuth = () => {
     { enabled: verifCall }
   );
 
+
+  // Error Handling Code 
+
+  
+
   return (
     <Flex align="center" bg="black" flexWrap="wrap">
       <Box w={{ base: "100%", md: "40%" }} position="relative">

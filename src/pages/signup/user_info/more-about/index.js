@@ -1,4 +1,3 @@
-"use client";
 import {
   Box,
   Button,
@@ -30,9 +29,10 @@ import {
 import React, { useReducer, useState } from "react";
 import { BsCheckLg } from "react-icons/bs";
 import { GrAdd } from "react-icons/gr";
-import SplashSearchCard from "../../../components/search-cards/splashSearchCard";
 import { useRouter } from "next/navigation";
 import { Search } from "lucide-react";
+import { userInterest } from "@/api/onboarding";
+import { useQuery } from "react-query";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -51,6 +51,7 @@ const reducer = (state, action) => {
 
 const MoreAbout = () => {
   const router = useRouter();
+  const {isLoading} = useQuery("userInterest", () => userInterest(selectedItems), {enabled : false})
 
   const initialState = {
     tech: [],
