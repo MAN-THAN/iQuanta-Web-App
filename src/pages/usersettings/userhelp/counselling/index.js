@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import {
   Box,
@@ -13,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, ChevronRight, Phone } from "lucide-react";
+import UserSettingLayout from "@/components/layouts/userSettingLayout";
 
 const CounsellingHelp = () => {
   const router = useRouter();
@@ -143,5 +143,7 @@ const CounsellingHelp = () => {
     </Box>
   );
 };
+
+CounsellingHelp.getLayout = (page) => <UserSettingLayout>{page}</UserSettingLayout>;
 
 export default CounsellingHelp;

@@ -16,7 +16,7 @@ const FeatureCardSide = () => {
                     <ChevronRight />
                 </Box>
             </Flex>
-            <Card maxW='md' bg='#5146D6' rounded='xl'>
+            <Card bg='#5146D6' rounded='xl'>
                 <CardBody>
                     <Image
                         width='100%'

@@ -1,4 +1,4 @@
-import "@/styles/globals.css";
+import '@/styles/global.css'
 import { ChakraProvider } from "@chakra-ui/react";
 import { Provider } from "react-redux";
 import { store } from "@/store";
@@ -32,11 +32,7 @@ export const theme = extendTheme({
       700: "#8D96A5",
       600: "#979797",
     },
-    background: {
-      600: "#000000",
-      500: "#F1F2F6",
-      400: "#FFFFFF",
-    },
+   
     button: {
       900: "#171717",
     },

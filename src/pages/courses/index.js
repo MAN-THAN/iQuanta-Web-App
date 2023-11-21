@@ -13,12 +13,14 @@ import CoursesAdd from "@/components/courses/courseAdd";
 import YourCourses from "@/components/courses/yourCourses";
 import OurOnlineCourse from "@/components/courses/ourOnlineCourse";
 import RootLayout from "@/components/layouts/layout";
+import FeatureCardSide from "@/components/feature/featureCardSide";
 
 const Courses = () => {
   return (
     <div>
       <CoursesAdd />
       <YourCourses />
+      <FeatureCardSide />
       <OurOnlineCourse />
     </div>
   );

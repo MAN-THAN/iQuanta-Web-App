@@ -9,7 +9,7 @@ const LearnRightSidebar = () => {
   return (
     <>
       <Stack>
-        <UpComeingCard />
+        <UpComeingCard path={path}/>
         <FeatureCardSide />
       </Stack>
     </>

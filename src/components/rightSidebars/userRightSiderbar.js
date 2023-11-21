@@ -8,6 +8,8 @@ import { CalendarDays, ChevronRight } from 'lucide-react'
 import NewsListCard from '../news/newsListCard'
 import DiscussionCard from '../feature/discussionCard'
 import { useRouter } from 'next/router'
+import CourseCards from '../courses/courseCards'
+
 
 
 const UserRightSiderbar = () => {
@@ -16,7 +18,7 @@ const UserRightSiderbar = () => {
   return (
     <>
       <Stack >
-        {path == "/learn" ?<UpComeingCard path={path} />: ""}
+        
         {path == '/learn/examDetails/subTopics/0' ? <DiscussionCard /> : <FeatureCardSide />}
         {path == "/learn/examDetails/0" ? <NewsListCard /> : ""}
       </Stack>

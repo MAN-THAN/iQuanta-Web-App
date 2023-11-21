@@ -1,6 +1,6 @@
 import CoursesAdd from "@/components/courses/courseAdd";
 import YourExam from "@/components/exams/yourExam";
-import RootLayout from "@/components/layouts/layout";
+import LernLayout from "@/components/layouts/lernLayout";
 import MyNotes from "@/components/learnAndClass/myNotes";
 
 const LearnClass = () => {
@@ -14,11 +14,6 @@ const LearnClass = () => {
     </>
   );
 };
-LearnClass.getLayout = (page) => (
-    <RootLayout>
-      {page}
-    </RootLayout>
-  );
-  
+LearnClass.getLayout = (page) => <LernLayout>{page}</LernLayout>;
 
 export default LearnClass;

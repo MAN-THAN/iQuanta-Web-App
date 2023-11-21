@@ -1,23 +1,17 @@
 import { Box, Flex } from "@chakra-ui/react";
 import React from "react";
-import MainHeader from "../mainHeader";
+import MainHeader from "@/components/mainHeader";
 import UserRightSiderbar from "@/components/rightSidebars/userRightSiderbar";
-import SubTopicLeftBar from "../leftSidebar/subTopicLeftBar";
+import UserSettingSidebar from "@/components/leftSidebar/userSettingSidebar";
 
-const SubTopicLayout = ({ children }) => {
+const UserSettingLayout = ({ children }) => {
   return (
     <>
       <div style={{ marginLeft: "10%", marginRight: "10%" }}>
         <MainHeader />
         <div className="flex pt-8">
-          <SubTopicLeftBar />
-          <Box
-            bg="#ffffff"
-            overflow="hidden"
-            flex="1"
-            pl={{ md: "4%", lg: "4%", sm: "5%" }}
-            pr="4%"
-          >
+          <UserSettingSidebar />
+          <Box overflow="hidden" flex="1" pl="6%" pr="4%">
             {children}
           </Box>
           <UserRightSiderbar />
@@ -27,4 +21,4 @@ const SubTopicLayout = ({ children }) => {
   );
 };
 
-export default SubTopicLayout;
+export default UserSettingLayout;

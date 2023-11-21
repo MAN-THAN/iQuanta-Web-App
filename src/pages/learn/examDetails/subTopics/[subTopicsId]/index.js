@@ -16,8 +16,6 @@ import {
 } from "lucide-react";
 import PracticeQuestionsSwiper from "@/components/practices/practiceQuestionsSwiper";
 import VideoComponent from "@/components/common/videoComponent";
-import { useEffect } from "react";
-import RootLayout from "@/components/layouts/layout";
 import SubTopicLayout from "@/components/layouts/subTopicLayout";
 
 const SunTopicDetails = () => {
@@ -74,7 +72,6 @@ const SunTopicDetails = () => {
         </Text>
         <br />
         <Text>
-          {" "}
           Both essays are graded holistically, meaning, "based on an overall
           impression." This means that you'll be judged not only on your
           reasoning, but also on how you write (the basics: putting sentences
