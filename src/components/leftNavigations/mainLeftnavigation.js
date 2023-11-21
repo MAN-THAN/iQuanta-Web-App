@@ -6,14 +6,11 @@ import { LuFileSpreadsheet } from "react-icons/lu";
 import { BiBookAlt, BiGroup, BiErrorCircle } from "react-icons/bi";
 import { MdOutlineLeaderboard } from "react-icons/md";
 import { TbBrandGoogleAnalytics } from "react-icons/tb";
-import { Box, Divider, Flex, HStack, ListItem, Text, UnorderedList } from "@chakra-ui/react";
+import { Box, ListItem, UnorderedList } from "@chakra-ui/react";
 import { usePathname, useRouter } from "next/navigation";
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight } from "lucide-react";
 import Link from "next/link";
-// import UserAccountSidebar from "./userAccountSidebar";
-// import UserSettingSidebar from "./userSettingSidebar";
 import SubTopicLeftBar from "../leftSidebar/subTopicLeftBar";
-
 
 const MainLeftnavigation = () => {
   const path = usePathname();
@@ -23,71 +20,84 @@ const MainLeftnavigation = () => {
     {
       icon: <AiOutlineHome className="text-xl" />,
       nav: "Home",
-      path: "/home"
+      path: "/home",
     },
     {
       icon: <BsBook className="text-xl" />,
       nav: "Learn",
-      path: "/learn"
+      path: "/learn",
     },
     {
       icon: <AiOutlineAim className="text-xl" />,
       nav: "Practice",
-      path: ""
+      path: "",
     },
     {
       icon: <HiMiniPencilSquare className="text-xl" />,
       nav: "Mock Tests",
-      path: ""
+      path: "",
     },
     {
       icon: <LuFileSpreadsheet className="text-xl" />,
       nav: "Read",
-      path: ""
+      path: "",
     },
     {
       icon: <BiBookAlt className="text-xl" />,
       nav: "Courses",
-      path: "/courses"
+      path: "/courses",
     },
     {
       icon: <MdOutlineLeaderboard className="text-xl" />,
       nav: "Leaderboard",
-      path: ""
+      path: "",
     },
     {
       icon: <BiGroup className="text-xl" />,
       nav: "Groups",
-      path: ""
-
+      path: "",
     },
     {
       icon: <TbBrandGoogleAnalytics className="text-xl" />,
-      nav: "Analytics"
+      nav: "Analytics",
     },
     {
       icon: <BiErrorCircle className="text-xl" />,
       nav: "Error Tracker",
-      path: ""
+      path: "",
     },
-  ]
+  ];
 
   return (
     <>
-      <Box >
-        {path === "/learn/examDetails/subTopics/0" ? <SubTopicLeftBar /> :
-          <UnorderedList styleType='none' display={{ md: "none", lg: "block", sm: "none" }}>
+      <Box bg="background.400">
+        {path === "/learn/examDetails/subTopics/0" ? (
+          <SubTopicLeftBar />
+        ) : (
+          <UnorderedList
+            styleType="none"
+            display={{ md: "none", lg: "block", sm: "none" }}
+          >
             {Navs.map((data, index) => {
               return (
-                <ListItem key={index} _hover={{ color: "#000", }} cursor='pointer' onClick={() => router.push(data.path)} className="flex" p='3' fontSize='16px' fontWeight="semibold">
+                <ListItem
+                  key={index}
+                  _hover={{ color: "#000" }}
+                  cursor="pointer"
+                  onClick={() => router.push(data.path)}
+                  className="flex"
+                  p="14"
+                  fontSize="16px"
+                  fontWeight="semibold"
+                >
                   {data.icon}
                   <span className="mx-4">{data.nav}</span>
                 </ListItem>
-              )
+              );
             })}
-          </UnorderedList>}
+          </UnorderedList>
+        )}
       </Box>
-
     </>
   );
 };
