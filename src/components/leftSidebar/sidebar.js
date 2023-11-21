@@ -76,7 +76,6 @@ const Leftsidebar = () => {
   return (
     <>
       <Box >
-        {path === "/learn/examDetails/subTopics/0" ? <SubTopicLeftBar /> :
           <UnorderedList styleType='none' display={{ md: "none", lg: "block", sm: "none" }}>
             {Navs.map((data, index) => {
               return (
@@ -86,7 +85,7 @@ const Leftsidebar = () => {
                 </ListItem>
               )
             })}
-          </UnorderedList>}
+          </UnorderedList>
       </Box>
 
     </>

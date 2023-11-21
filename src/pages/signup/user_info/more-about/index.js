@@ -1,36 +1,23 @@
-"use client";
 import {
   Box,
   Button,
-  Card,
-  CardBody,
-  CardFooter,
   Container,
-  Divider,
   Flex,
   FormControl,
   FormLabel,
-  Grid,
-  GridItem,
   HStack,
   Heading,
-  Icon,
   Image,
   Input,
   InputGroup,
-  InputLeftAddon,
   InputLeftElement,
   Stack,
-  Tag,
-  TagLabel,
-  TagLeftIcon,
   Text,
   VStack,
 } from "@chakra-ui/react";
 import React, { useReducer, useState } from "react";
 import { BsCheckLg } from "react-icons/bs";
 import { GrAdd } from "react-icons/gr";
-import SplashSearchCard from "../../../components/search-cards/splashSearchCard";
 import { useRouter } from "next/navigation";
 import { Search } from "lucide-react";
 

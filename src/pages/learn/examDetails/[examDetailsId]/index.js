@@ -1,3 +1,4 @@
+import RootLayout from "@/components/layouts/layout";
 import {
   Box,
   Button,
@@ -133,5 +134,7 @@ const ExamDetailsId = () => {
     </>
   );
 };
+
+ExamDetailsId.getLayout = (page) => <RootLayout>{page}</RootLayout>;
 
 export default ExamDetailsId;

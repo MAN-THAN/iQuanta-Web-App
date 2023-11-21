@@ -1,4 +1,3 @@
-"use client";
 import {
   Box,
   Button,
@@ -27,7 +26,6 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { BsCheckLg } from "react-icons/bs";
-import SplashSearchCard from "../../../components/search-cards/splashSearchCard";
 import { useRouter } from "next/navigation";
 import { ChevronDown, Search } from "lucide-react";
 import { GrAdd } from "react-icons/gr";

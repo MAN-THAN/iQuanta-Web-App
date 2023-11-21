@@ -11,6 +11,7 @@ import {
 import { useRouter } from "next/navigation";
 import UpComeingCard from "@/components/feature/upComeingCard";
 import { ArrowLeft } from "lucide-react";
+import RootLayout from "@/components/layouts/layout";
 
 const ClassList = () => {
   const router = useRouter();
@@ -18,7 +19,6 @@ const ClassList = () => {
     <Box bg="#ffffff" rounded="2xl">
       <HStack p="6">
         <Box onClick={() => router.back()}>
-          {" "}
           <ArrowLeft />
         </Box>
         <Text fontSize="18px" fontWeight="600">
@@ -52,7 +52,7 @@ const ClassList = () => {
             gap={2}
             justifyContent="center"
           >
-            {[...Array(10)].map((e, i) => (
+            {[...Array(6)].map((e, i) => (
               <UpComeingCard id={i} key={i} style={{ width: "48%" }} />
             ))}
           </TabPanel>
@@ -61,5 +61,7 @@ const ClassList = () => {
     </Box>
   );
 };
+
+ClassList.getLayout = (page) => <RootLayout>{page}</RootLayout>;
 
 export default ClassList;

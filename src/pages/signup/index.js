@@ -48,7 +48,7 @@ const PhoneAuth = () => {
       </Box>
       <Box w={{ base: "100%", md: "60%" }}>
         <Container gap="6" mt={{ base: "40px", md: "0" }}>
-          {otp ? (
+          {!otp ? (
             <Stack gap="6">
               <Box>
                 <Image alt="logo" src="/logowhite.png" />

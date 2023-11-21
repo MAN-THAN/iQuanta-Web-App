@@ -1,5 +1,5 @@
 import { Box, Card, CardBody, CardHeader, Divider, Flex, HStack,  ListItem, Text, UnorderedList } from '@chakra-ui/react'
-import CustomLinkItem from '../../components/customLinkItem'
+import CustomLinkItem from '@/components/common/customLinkItem'
 import { ChevronRight } from 'lucide-react'
 
 

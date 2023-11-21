@@ -1,4 +1,3 @@
-"use client";
 import {
   Badge,
   Box,
@@ -22,7 +21,6 @@ import {
   FormHelperText,
 } from "@chakra-ui/react";
 import { PenSquare, Settings } from "lucide-react";
-import React from "react";
 import { BsDot } from "react-icons/bs";
 import { useRouter } from "next/navigation";
 import FullProfileView from "./fullProfileView";

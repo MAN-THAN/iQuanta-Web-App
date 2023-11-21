@@ -1,9 +1,8 @@
-'use client'
 import React, { useState } from 'react'
 import { Box, Button, ButtonGroup, Card, CardBody, CardFooter, CardHeader, Divider, Flex, HStack, Image, ListItem, Switch, Text, UnorderedList } from '@chakra-ui/react'
 import { ChevronDown } from 'lucide-react'
-import ControlPost from '../../components/userPrivacyModals/controlPost'
-import BlockedAccount from '../../components/userPrivacyModals/blockedAccount'
+import ControlPost from '@/components/userPrivacyModals/controlPost'
+import BlockedAccount from '@/components/userPrivacyModals/blockedAccount'
 import { validateConfig } from 'next/dist/server/config-shared'
 
 

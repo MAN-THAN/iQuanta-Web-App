@@ -71,9 +71,6 @@ const MainLeftnavigation = () => {
   return (
     <>
       <Box bg="background.400">
-        {path === "/learn/examDetails/subTopics/0" ? (
-          <SubTopicLeftBar />
-        ) : (
           <UnorderedList
             styleType="none"
             display={{ md: "none", lg: "block", sm: "none" }}
@@ -96,7 +93,6 @@ const MainLeftnavigation = () => {
               );
             })}
           </UnorderedList>
-        )}
       </Box>
     </>
   );

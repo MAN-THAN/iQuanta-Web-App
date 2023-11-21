@@ -1,8 +1,8 @@
 import { Box, Flex } from '@chakra-ui/react'
 import React from 'react'
-import MainHeader from '../components/mainHeader'
-import UserRightSiderbar from '../components/rightSidebar/userRightSiderbar'
-import UserSettingSidebar from '../components/leftSidebar/userSettingSidebar'
+import MainHeader from '@/components/mainHeader'
+import UserRightSiderbar from '@/components/rightSidebars/userRightSiderbar'
+import UserSettingSidebar from '@/components/leftSidebar/userSettingSidebar'
 
 const UserSettingLayout = ({ children }) => {
     return (
