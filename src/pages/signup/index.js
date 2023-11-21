@@ -1,4 +1,3 @@
-"use client";
 import React, { useState } from "react";
 import {
   AbsoluteCenter,
@@ -23,16 +22,47 @@ import {
 import { Image } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { ChevronRight, Dot, Mail, MessageSquare, Phone } from "lucide-react";
+import { useFormik } from "formik";
+import { useQuery } from "react-query";
+import { userAuthGen } from "@/api/onboarding";
+import { TbRuler3 } from "react-icons/tb";
+import { userVerification } from "@/api/onboarding";
 
 const PhoneAuth = () => {
   const router = useRouter();
-  const [phoneNum, setPhoneNum] = useState();
-  const [otp, setOtp] = useState(false);
+  const [isOtp, setOtp] = useState(false);
+  const [verifCall, setVerifCall] = useState(false);
+  const [otpCode, setOtpCode] = useState("");
+  const formik = useFormik({
+    initialValues: {
+      phoneNum: "",
+    },
+    onSubmit: (values) => {
+      setVerifCall(true);
+      alert(JSON.stringify(otpCode, null, 2));
+    },
+  });
+  const { isLoadingAuth, isErrorAuth, dataAuth, errorAuth } = useQuery(
+    "authGenerate",
+    () => userAuthGen(formik.values.phoneNum),
+    { enabled: isOtp }
+  );
+  const { isLoadingVerf, isErrorVerf, dataVerf, errorVerf } = useQuery(
+    "userVerification",
+    () => userVerification(otpCode),
+    { enabled: verifCall }
+  );
 
   return (
     <Flex align="center" bg="black" flexWrap="wrap">
       <Box w={{ base: "100%", md: "40%" }} position="relative">
-        <Image alt="icon" src="/back.png" objectFit="cover" width="100%" height="100vh" />
+        <Image
+          alt="icon"
+          src="/back.png"
+          objectFit="cover"
+          width="100%"
+          height="100vh"
+        />
         <div
           style={{
             position: "absolute",
@@ -48,7 +78,7 @@ const PhoneAuth = () => {
       </Box>
       <Box w={{ base: "100%", md: "60%" }}>
         <Container gap="6" mt={{ base: "40px", md: "0" }}>
-          {otp ? (
+          {isOtp ? (
             <Stack gap="6">
               <Box>
                 <Image alt="logo" src="/logowhite.png" />
@@ -60,7 +90,14 @@ const PhoneAuth = () => {
                   procced
                 </FormLabel>
                 <HStack gap="4" mt="5" fontWeight="600" color="white">
-                  <PinInput type="alphanumeric" focusBorderColor="white">
+                  <PinInput
+                    id="otp"
+                    name="otp"
+                    type="number"
+                    otp
+                    focusBorderColor="white"
+                    onChange={(e) => setOtpCode(e)}
+                  >
                     <PinInputField
                       border="none"
                       bg="#252525"
@@ -130,6 +167,7 @@ const PhoneAuth = () => {
                     bg: "white  !important",
                     color: "#F84D43 !important",
                   }}
+                  onClick={formik.handleSubmit}
                 >
                   Continue
                 </Button>
@@ -154,7 +192,7 @@ const PhoneAuth = () => {
                   Sign up using your mobile number
                 </FormLabel>
                 <InputGroup alignItems="center">
-                   {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
+                  {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
                   <InputLeftAddon
                     p="6"
                     height="60px"
@@ -162,8 +200,12 @@ const PhoneAuth = () => {
                     color="white"
                     border="none"
                     fontWeight="bold"
-                  >+91</InputLeftAddon>
+                  >
+                    +91
+                  </InputLeftAddon>
                   <Input
+                    id="phoneNum"
+                    name="phoneNum"
                     size="lg"
                     height="60px"
                     type="tel"
@@ -171,6 +213,8 @@ const PhoneAuth = () => {
                     color="white"
                     border="none"
                     placeholder="Enter your mobile number"
+                    onChange={formik.handleChange}
+                    value={formik.values.phoneNum}
                   />
                   <Button
                     sx={{
@@ -182,7 +226,7 @@ const PhoneAuth = () => {
                     ml="2"
                     color="white"
                     _hover={{ color: "#F84D43", bg: "white !important" }}
-                    onClick={() => setOtp(true)}
+                    onClick={() => setOtp(true)} // form validation part
                   >
                     <ChevronRight size="30px" />
                   </Button>
@@ -221,7 +265,14 @@ const PhoneAuth = () => {
                     color: "black !important",
                     bg: "white !important",
                   }}
-                  leftIcon={<Image alt="google image" w="22px" h="22px" src="/google.png" />}
+                  leftIcon={
+                    <Image
+                      alt="google image"
+                      w="22px"
+                      h="22px"
+                      src="/google.png"
+                    />
+                  }
                   variant="outline"
                 >
                   Sign with Google

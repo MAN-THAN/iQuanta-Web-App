@@ -10,7 +10,7 @@ import {
 // import ChatMsgSection from "./chatSection/chatMsgSection"
 import { Image } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
-import { AlignJustify } from "lucide-react";
+import { AlignJustify, Bell } from "lucide-react";
 import SearchInput from "./searchInput";
 import { BsChatDots } from "react-icons/bs";
 
@@ -42,8 +42,18 @@ const MainHeader = () => {
       {isSmallerThan768 ? (
         <Box justifyContent="end" as={AlignJustify} />
       ) : (
-        <HStack spacing={4} color="grey.800">
-          <BsChatDots />
+        <Flex
+          gap="20px"
+          alignItems="center"
+          justifyContent="space-between"
+          color="grey.800"
+        >
+          <Box>
+            <BsChatDots size="24px" />
+          </Box>
+          <Box>
+            <Bell size="24px" />
+          </Box>
           <Box boxSize="50px">
             <Image
               objectFit="cover"
@@ -66,7 +76,7 @@ const MainHeader = () => {
               </Box>
             </MenuButton>
           </Menu>
-        </HStack>
+        </Flex>
       )}
     </Flex>
   );
