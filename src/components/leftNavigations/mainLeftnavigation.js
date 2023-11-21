@@ -78,9 +78,8 @@ const MainLeftnavigation = () => {
         >
           {Navs.map((data, index) => {
             return (
-              <CustomLinkItem href={`${data.path}`}>
+              <CustomLinkItem  key={index} href={`${data.path}`}>
               <ListItem
-                key={index}
                 _hover={{ color: "#000" }}
                 cursor="pointer"
                 onClick={() => router.push(data.path)}

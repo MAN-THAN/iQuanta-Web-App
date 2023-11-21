@@ -98,7 +98,7 @@ const PaymentPage = () => {
                 />
                 <FormLabel mt="4">Mobile Number</FormLabel>
                 <InputGroup>
-                  <InputLeftAddon children="+91" p="6" />
+                  <InputLeftAddon p="6">+91</InputLeftAddon>
                   <Input
                     p="6"
                     type="tel"
