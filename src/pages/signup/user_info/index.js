@@ -1,4 +1,3 @@
-"use client";
 import React, { useState } from "react";
 import {
   AbsoluteCenter,
@@ -26,6 +25,9 @@ import { Card } from "antd";
 
 const UserInfo = () => {
   const router = useRouter();
+  // Form validation 
+
+  
   return (
     <Flex align="center" bg="black" flexWrap="wrap">
       <Box w={{ base: "100%", md: "40%" }} position="relative">

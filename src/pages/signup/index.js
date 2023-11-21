@@ -29,6 +29,11 @@ const PhoneAuth = () => {
   const [phoneNum, setPhoneNum] = useState();
   const [otp, setOtp] = useState(false);
 
+
+  // Error Handling Code 
+
+  
+
   return (
     <Flex align="center" bg="black" flexWrap="wrap">
       <Box w={{ base: "100%", md: "40%" }} position="relative">
