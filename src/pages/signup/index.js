@@ -53,10 +53,7 @@ const PhoneAuth = () => {
     { enabled: verifCall }
   );
 
-
-  // Error Handling Code 
-
-  
+  // Error Handling Code
 
   return (
     <Flex align="center" bg="black" flexWrap="wrap">
@@ -91,8 +88,11 @@ const PhoneAuth = () => {
               <FormControl mt="10%">
                 <FormLabel fontSize="22px" width="400px" color="gray">
                   Please enter the code we just send to
-                  <span style={{ color: "white" }}> (+91)8765543567</span> to
-                  procced
+                  <span style={{ color: "white" }}>
+                    {" "}
+                    (+91) {formik.values.phoneNum}
+                  </span>{" "}
+                  to procced
                 </FormLabel>
                 <HStack gap="4" mt="5" fontWeight="600" color="white">
                   <PinInput

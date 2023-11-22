@@ -51,7 +51,8 @@ const reducer = (state, action) => {
 
 const MoreAbout = () => {
   const router = useRouter();
-  const {isLoading} = useQuery("userInterest", () => userInterest(selectedItems), {enabled : false})
+  const [apiCall, setApiCall]= useState(false);
+  const {isLoading} = useQuery("userInterest", () => userInterest(selectedItems), {enabled : apiCall});
 
   const initialState = {
     tech: [],
@@ -245,7 +246,10 @@ const MoreAbout = () => {
             </Box>
             <Box pt="4">
               <Button
-                onClick={() => router.push("/")}
+                onClick={() => {
+                  setApiCall(true);
+                  router.push("/");
+                }}
                 sx={{
                   backgroundColor: "#fff !important",
                   fontSize: "14px",
