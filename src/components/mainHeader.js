@@ -24,10 +24,10 @@ const MainHeader = () => {
   return (
     <Flex
       as="header"
-      bg="#fff"
+      bg="#F1F2F3"
       alignItems="center"
       justifyContent="space-between"
-      py={3}
+      py={8}
       position="sticky"
       top="0"
       zIndex="50"

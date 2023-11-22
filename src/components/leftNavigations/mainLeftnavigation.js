@@ -11,6 +11,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import SubTopicLeftBar from "../leftSidebar/subTopicLeftBar";
+import CustomLinkItem from "../common/customLinkItem";
 
 const MainLeftnavigation = () => {
   const path = usePathname();
@@ -71,32 +72,29 @@ const MainLeftnavigation = () => {
   return (
     <>
       <Box bg="background.400">
-        {path === "/learn/examDetails/subTopics/0" ? (
-          <SubTopicLeftBar />
-        ) : (
-          <UnorderedList
-            styleType="none"
-            display={{ md: "none", lg: "block", sm: "none" }}
-          >
-            {Navs.map((data, index) => {
-              return (
-                <ListItem
-                  key={index}
-                  _hover={{ color: "#000" }}
-                  cursor="pointer"
-                  onClick={() => router.push(data.path)}
-                  className="flex"
-                  p="14"
-                  fontSize="16px"
-                  fontWeight="semibold"
-                >
-                  {data.icon}
-                  <span className="mx-4">{data.nav}</span>
-                </ListItem>
-              );
-            })}
-          </UnorderedList>
-        )}
+        <UnorderedList
+          styleType="none"
+          display={{ md: "none", lg: "block", sm: "none" }}
+        >
+          {Navs.map((data, index) => {
+            return (
+              <CustomLinkItem  key={index} href={`${data.path}`}>
+              <ListItem
+                _hover={{ color: "#000" }}
+                cursor="pointer"
+                onClick={() => router.push(data.path)}
+                className="flex"
+                p="14"
+                fontSize="16px"
+                fontWeight="semibold"
+              >
+                {data.icon}
+                <span className="mx-4">{data.nav}</span>
+              </ListItem>
+              </CustomLinkItem>
+            );
+          })}
+        </UnorderedList>
       </Box>
     </>
   );

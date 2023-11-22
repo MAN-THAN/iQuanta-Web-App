@@ -1,4 +1,5 @@
 "use client";
+import UserSettingLayout from "@/components/layouts/userSettingLayout";
 import {
   Button,
   FormControl,
@@ -99,5 +100,7 @@ const CounsellingForm = () => {
     </Box>
   );
 };
+
+CounsellingForm.getLayout = (page) => <UserSettingLayout>{page}</UserSettingLayout>
 
 export default CounsellingForm;

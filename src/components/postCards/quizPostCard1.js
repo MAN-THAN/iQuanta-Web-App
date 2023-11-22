@@ -8,9 +8,8 @@ import {
   Tag,
   Text,
 } from "@chakra-ui/react";
-import TextArea from "antd/es/input/TextArea";
+// import TextArea from "antd/es/input/TextArea";
 import { Dot, MessageCircle, MoreVertical, ThumbsUp } from "lucide-react";
-import React from "react";
 import LikeEmojiGroup from "../common/likeEmojiGroup";
 
 const QuizPostCard1 = () => {
@@ -49,11 +48,11 @@ const QuizPostCard1 = () => {
           <Image alt="qus image" src="/qus.png" />
         </Box>
         <Box p="6">
-          <TextArea
+          {/* <TextArea
             rows={4}
             placeholder="Write your answer here..."
             maxLength={6}
-          />
+          /> */}
         </Box>
         <HStack align="center" fontWeight="400" fontSize="14px" padding="6">
           <Box display="flex" alignItems="center">

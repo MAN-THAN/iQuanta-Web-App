@@ -1,7 +1,5 @@
 import { Box, Divider, Flex, HStack, Image, Progress, Tag, Text, VStack } from '@chakra-ui/react'
-import TextArea from 'antd/es/input/TextArea'
 import { Dot, MessageCircle, MoreVertical, ThumbsUp } from 'lucide-react'
-import React from 'react'
 import LikeEmojiGroup from '../common/likeEmojiGroup'
 
 const QuizPostCard2 = () => {

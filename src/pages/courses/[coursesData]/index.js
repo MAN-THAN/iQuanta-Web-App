@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { Table } from "antd";
 import CoursesStory from "@/components/courses/coursesStory";
 import { Bookmark, Save } from "lucide-react";
+import RootLayout from "@/components/layouts/layout";
 
 const CoursesData = () => {
   const router = useRouter();
@@ -212,5 +213,8 @@ const CoursesData = () => {
     </div>
   );
 };
+
+CoursesData.getLayout = (page) => <RootLayout>{page}</RootLayout>;
+
 
 export default CoursesData;
