@@ -27,6 +27,7 @@ import { useQuery } from "react-query";
 import { userAuthGen } from "@/api/onboarding";
 import { TbRuler3 } from "react-icons/tb";
 import { userVerification } from "@/api/onboarding";
+import CountdownTimer from "@/components/countdownTimer/countdownTimer";
 
 const PhoneAuth = () => {
   const router = useRouter();
@@ -45,20 +46,33 @@ const PhoneAuth = () => {
   const { isLoadingAuth, isErrorAuth, dataAuth, errorAuth } = useQuery(
     "authGenerate",
     () => userAuthGen(formik.values.phoneNum),
-    { enabled: isOtp }
+    { enabled: isOtp, retry: false, refetchOnWindowFocus: false }
   );
   const { isLoadingVerf, isErrorVerf, dataVerf, errorVerf } = useQuery(
     "userVerification",
     () => userVerification(otpCode),
-    { enabled: verifCall }
+    { enabled: verifCall, retry: false, refetchOnWindowFocus: false }
   );
+
+  const renderer = ({ hours, minutes, seconds, completed }) => {
+    if (completed) {
+      // Render a completed state
+      return;
+    } else {
+      // Render a countdown
+
+      return (
+        <Text color="white">
+          {minutes < 10 ? `0${minutes}` : minutes}:
+          {seconds < 10 ? `0${seconds}` : seconds}
+        </Text>
+      );
+    }
+  };
 
   // Error Handling Code
 
-
-  // Error Handling Code 
-
-  
+  // Error Handling Code
 
   return (
     <Flex align="center" bg="black" flexWrap="wrap">
@@ -153,7 +167,7 @@ const PhoneAuth = () => {
                   </PinInput>
                 </HStack>
                 <HStack fontSize="18px" align="center" pt="5">
-                  <Text color="white">00:30 </Text>
+                  <CountdownTimer />
                   <Dot color="white" />
                   <Text display="flex" align="center" color="gray">
                     Resend OTP via :&nbsp;
