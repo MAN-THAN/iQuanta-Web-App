@@ -54,24 +54,6 @@ const PhoneAuth = () => {
     { enabled: verifCall, retry: false, refetchOnWindowFocus: false }
   );
 
-  const renderer = ({ hours, minutes, seconds, completed }) => {
-    if (completed) {
-      // Render a completed state
-      return;
-    } else {
-      // Render a countdown
-
-      return (
-        <Text color="white">
-          {minutes < 10 ? `0${minutes}` : minutes}:
-          {seconds < 10 ? `0${seconds}` : seconds}
-        </Text>
-      );
-    }
-  };
-
-  // Error Handling Code
-
   // Error Handling Code
 
   return (
