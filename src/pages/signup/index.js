@@ -34,6 +34,7 @@ const PhoneAuth = () => {
   const [isOtp, setOtp] = useState(false);
   const [verifCall, setVerifCall] = useState(false);
   const [otpCode, setOtpCode] = useState("");
+  const [resend, setResend] = useState(false);
   const formik = useFormik({
     initialValues: {
       phoneNum: "",
@@ -149,7 +150,7 @@ const PhoneAuth = () => {
                   </PinInput>
                 </HStack>
                 <HStack fontSize="18px" align="center" pt="5">
-                  <CountdownTimer />
+                  <CountdownTimer setResend={setResend} resend={resend} />
                   <Dot color="white" />
                   <Text display="flex" align="center" color="gray">
                     Resend OTP via :&nbsp;

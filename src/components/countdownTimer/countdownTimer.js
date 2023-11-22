@@ -3,11 +3,11 @@ import Countdown from "react-countdown";
 import { Text } from "@chakra-ui/react";
 
 // eslint-disable-next-line react/display-name
-const CountdownTimer = React.memo(() => {
+const CountdownTimer = React.memo(({ setResend }) => {
   const renderer = ({ hours, minutes, seconds, completed }) => {
     if (completed) {
       // Render a completed state
-      return;
+      return setResend(true);
     } else {
       // Render a countdown
 
