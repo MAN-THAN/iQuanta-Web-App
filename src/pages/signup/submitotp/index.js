@@ -159,8 +159,9 @@ const SubmitOtp = () => {
             <Divider mt="25%" width="250px" />
             <p style={{ color: "white", fontSize: "14px" }}>
               By continuing you agree to
-              <span style={{ fontWeight: "600" }}>Terms of services</span> and
-              <span style={{ fontWeight: "600" }}>Privacy Policy</span>
+              <span onClick={()=>router.push("/terms")} style={{ fontWeight: "600" }}>&nbsp;Terms of services</span>
+              and
+              <span style={{ fontWeight: "600" }}>&nbsp;Privacy Policy</span>
             </p>
           </Stack>
         </Container>

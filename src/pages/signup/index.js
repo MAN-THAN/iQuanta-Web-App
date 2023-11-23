@@ -27,9 +27,10 @@ import { useQuery } from "react-query";
 import { userAuthGen } from "@/api/onboarding";
 import { TbRuler3 } from "react-icons/tb";
 import { userVerification } from "@/api/onboarding";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+
 import * as Yup from "yup";
-import PhoneInput from "react-phone-number-input";
-import { Select } from "antd";
 
 const PhoneAuth = () => {
   const router = useRouter();
@@ -44,7 +45,10 @@ const PhoneAuth = () => {
     },
     validationSchema: Yup.object({
       phoneNum: Yup.string()
-        .matches(/^[0-9]{10}$/, "Invalid phone number")
+        .matches(/^[0-9]{10}$/, {
+          message: "Invalid phone number",
+          excludeEmptyString: true,
+        })
         .required("Phone number is required"),
     }),
     onSubmit: (values) => {
@@ -107,38 +111,8 @@ const PhoneAuth = () => {
               </FormLabel>
               <InputGroup alignItems="center">
                 {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
-                {/* <InputGroup alignItems="center">
-          <InputLeftAddon
-            p="6"
-            height="60px"
-            bg="#252525"
-            color="white"
-            border="none"
-            fontWeight="bold"
-          >
-            <Select
-              id="countryCode"
-              name="countryCode"
-              options={countries}
-              isSearchable={true}
-              onChange={(selectedOption) =>
-                formik.setFieldValue("countryCode", selectedOption)
-              }
-              onBlur={formik.handleBlur}
-              value={formik.values.countryCode}
-            />
-          </InputLeftAddon>
-          <PhoneInput
-            international
-            defaultCountry="IN"
-            placeholder="Enter your mobile number"
-            value={formik.values.phoneNum}
-            onChange={(value) => formik.setFieldValue("phoneNum", value)}
-            onBlur={formik.handleBlur}
-          />
-        </InputGroup> */}
 
-                <InputLeftAddon
+                {/* <InputLeftAddon
                   p="6"
                   height="60px"
                   bg="#252525"
@@ -147,16 +121,35 @@ const PhoneAuth = () => {
                   fontWeight="bold"
                 >
                   +91
-                </InputLeftAddon>
-                <Input
+                </InputLeftAddon> */}
+                {/* <Input
                   id="phoneNum"
                   name="phoneNum"
                   size="lg"
                   height="60px"
-                  type="tel"
+                  type="number"
                   bg="#252525"
                   color="white"
                   border="none"
+                  inputMode="numeric"
+                  placeholder="Enter your mobile number"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.phoneNum}
+                /> */}
+
+                <PhoneInput
+                  country={"in"}
+                  countryCodeEditable={false}
+                  id="phoneNum"
+                  name="phoneNum"
+                  size="lg"
+                  height="60px"
+                  type="number"
+                  bg="#252525"
+                  color="white"
+                  border="none"
+                  inputMode="numeric"
                   placeholder="Enter your mobile number"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -178,6 +171,7 @@ const PhoneAuth = () => {
                   <ChevronRight size="30px" />
                 </Button>
               </InputGroup>
+
               {formik.touched.phoneNum && formik.errors.phoneNum && (
                 <Text style={{ color: "red", marginTop: "8px" }}>
                   {formik.errors.phoneNum}
@@ -246,9 +240,9 @@ const PhoneAuth = () => {
             </Stack>
             <Divider mt="25%" width="250px" />
             <p style={{ color: "white", fontSize: "14px" }}>
-              By continuing you agree to
-              <span style={{ fontWeight: "600" }}>Terms of services</span> and
-              <span style={{ fontWeight: "600" }}>Privacy Policy</span>
+              By continuing you agree to 
+              <span style={{ fontWeight: "600" }}>&nbsp;Terms of services</span> and
+              <span style={{ fontWeight: "600" }}>&nbsp;Privacy Policy</span>
             </p>
           </Stack>
         </Container>
