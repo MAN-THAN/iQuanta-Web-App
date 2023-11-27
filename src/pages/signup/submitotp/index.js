@@ -52,7 +52,7 @@ const SubmitOtp = () => {
   const { isLoadingVerf, isErrorVerf, dataVerf, errorVerf } = useQuery(
     "userVerification",
     () => userVerification(formik.values.otpCode),
-    { enabled: verifCall }
+    { enabled: verifCall ,retry: false, refetchOnWindowFocus: false }
   );
 
   return (
