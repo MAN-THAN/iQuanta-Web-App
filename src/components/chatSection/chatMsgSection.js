@@ -63,9 +63,7 @@ const ChatMsgSection = () => {
                 },
               }}
             >
-        
-             <ChatSection />
-             
+              <ChatSection />
             </PopoverBody>
           </PopoverContent>
         </Popover>

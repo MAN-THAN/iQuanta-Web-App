@@ -43,7 +43,7 @@ const ChatSection = () => {
             <UnorderedList listStyleType='none'>
                 {chats.map((chat, index) => (
                     <>
-                        <ListItem key={index} py='2'
+                        <ListItem key={index} py='2' borderLeft="1px"
                         >
                             <Popover placement='left-end' >
                                 <PopoverTrigger>
