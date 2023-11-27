@@ -26,18 +26,13 @@ import { useFormik } from "formik";
 import { useQuery } from "react-query";
 import { userAuthGen } from "@/api/onboarding";
 import { TbRuler3 } from "react-icons/tb";
-import { userVerification } from "@/api/onboarding";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-
 import * as Yup from "yup";
 
 const PhoneAuth = () => {
   const router = useRouter();
-  const [value, setValue] = useState();
   const [isOtp, setOtp] = useState(false);
-  const [verifCall, setVerifCall] = useState(false);
-  const [otpCode, setOtpCode] = useState("");
 
   const formik = useFormik({
     initialValues: {
@@ -52,27 +47,16 @@ const PhoneAuth = () => {
         .required("Phone number is required"),
     }),
     onSubmit: (values) => {
-      setVerifCall(true);
-      alert(JSON.stringify(otpCode, null, 2));
-      router.push({
-        pathName: "/signup/submitotp",
-        query: { phoneNum: values.phoneNum },
-      });
+      alert(JSON.stringify(formik.values.phoneNum, null, 2));
+      setOtp(true);
     },
   });
 
   const { isLoadingAuth, isErrorAuth, dataAuth, errorAuth } = useQuery(
     "authGenerate",
     () => userAuthGen(formik.values.phoneNum),
-    { enabled: isOtp }
+    { enabled: isOtp, retry: false, refetchOnWindowFocus: false }
   );
-  const { isLoadingVerf, isErrorVerf, dataVerf, errorVerf } = useQuery(
-    "userVerification",
-    () => userVerification(otpCode),
-    { enabled: verifCall }
-  );
-
-  // Error Handling Code
 
   // Error Handling Code
 
@@ -240,8 +224,11 @@ const PhoneAuth = () => {
             </Stack>
             <Divider mt="25%" width="250px" />
             <p style={{ color: "white", fontSize: "14px" }}>
-              By continuing you agree to 
-              <span style={{ fontWeight: "600" }}>&nbsp;Terms of services</span> and
+              By continuing you agree to
+              <span style={{ fontWeight: "600" }}>
+                &nbsp;Terms of services
+              </span>{" "}
+              and
               <span style={{ fontWeight: "600" }}>&nbsp;Privacy Policy</span>
             </p>
           </Stack>

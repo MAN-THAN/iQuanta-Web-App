@@ -24,16 +24,16 @@ import { useRouter } from "next/navigation";
 import { ChevronRight, Dot, Mail, MessageSquare, Phone } from "lucide-react";
 import { useFormik } from "formik";
 import { useQuery } from "react-query";
-import { userAuthGen } from "@/api/onboarding";
 import { TbRuler3 } from "react-icons/tb";
 import { userVerification } from "@/api/onboarding";
+import CountdownTimer from "@/components/countdownTimer/countdownTimer";
 import * as Yup from "yup";
 
 const SubmitOtp = () => {
   const router = useRouter();
-  const [isOtp, setOtp] = useState(false);
   const [verifCall, setVerifCall] = useState(false);
-  const [otpCode, setOtpCode] = useState("");
+  const [resend, setResend] = useState(false);
+
   const formik = useFormik({
     initialValues: {
       otpCode: "",
@@ -45,18 +45,14 @@ const SubmitOtp = () => {
     }),
     onSubmit: (values) => {
       setVerifCall(true);
-      alert(JSON.stringify(otpCode, null, 2));
+      alert(JSON.stringify(formik.values.otpCode, null, 2));
     },
   });
-  const { isLoadingAuth, isErrorAuth, dataAuth, errorAuth } = useQuery(
-    "authGenerate",
-    () => userAuthGen(formik.values.phoneNum),
-    { enabled: isOtp }
-  );
+
   const { isLoadingVerf, isErrorVerf, dataVerf, errorVerf } = useQuery(
     "userVerification",
-    () => userVerification(otpCode),
-    { enabled: verifCall }
+    () => userVerification(formik.values.otpCode),
+    { enabled: verifCall ,retry: false, refetchOnWindowFocus: false }
   );
 
   return (
@@ -119,7 +115,8 @@ const SubmitOtp = () => {
                 </PinInput>
               </HStack>
               <HStack fontSize="18px" align="center" pt="5">
-                <Text color="white">00:30 </Text>
+                {/* <Text color="white">00:30 </Text> */}
+                <CountdownTimer setResend={setResend} />
                 <Dot color="white" />
                 <Text display="flex" align="center" color="gray">
                   Resend OTP via :&nbsp;
@@ -159,7 +156,12 @@ const SubmitOtp = () => {
             <Divider mt="25%" width="250px" />
             <p style={{ color: "white", fontSize: "14px" }}>
               By continuing you agree to
-              <span onClick={()=>router.push("/terms")} style={{ fontWeight: "600" }}>&nbsp;Terms of services</span>
+              <span
+                onClick={() => router.push("/terms")}
+                style={{ fontWeight: "600" }}
+              >
+                &nbsp;Terms of services
+              </span>
               and
               <span style={{ fontWeight: "600" }}>&nbsp;Privacy Policy</span>
             </p>
