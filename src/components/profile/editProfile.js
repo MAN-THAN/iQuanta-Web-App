@@ -24,10 +24,14 @@ import { PenSquare, Settings } from "lucide-react";
 import { BsDot } from "react-icons/bs";
 import { useRouter } from "next/navigation";
 import FullProfileView from "./fullProfileView";
+import { useQuery } from "react-query";
+import { getProfileInfo } from "@/api/profile";
 
 const EditProfile = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
+  const {isLoading, data} = useQuery("userProfileInfo", getProfileInfo);
+  console.log(data)
   return (
     <Box>
       <Card>
