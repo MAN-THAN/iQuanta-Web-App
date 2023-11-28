@@ -1,8 +1,8 @@
 import React from "react";
 import { Box, HStack, Text } from "@chakra-ui/react";
-import featursCard from "../../utilities/comanData";
 import { useRouter } from "next/navigation";
 import CourseCards from "../courses/courseCards";
+import { featursCard } from "@/utilities/comanData";
 
 const YourExam = () => {
   const router = useRouter();

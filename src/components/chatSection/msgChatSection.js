@@ -1,5 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import { Avatar, Flex, Image, Text } from "@chakra-ui/react";
+import TextMsgCard from "./msgCards/textMsgCard";
+import ImageMsgCard from "./msgCards/imageMsgCard";
+import AudioMsg from "./msgCards/audioMsg";
 
 const MsgChatSection = ({ messages }) => {
   const AlwaysScrollToBottom = () => {
@@ -9,21 +12,20 @@ const MsgChatSection = ({ messages }) => {
   };
 
   return (
-    <Flex w="100%" h="80%" overflowY="scroll" flexDirection="column" p="3">
+    <Flex w="100%" overflowY="scroll" flexDirection="column" p="3">
       {messages.map((item, index) => {
         if (item.from === "me") {
           return (
-            <Flex key={index} w="100%" align='end' gap={4} justify="flex-end">
-              <Flex
-                bg="brand.800"
-                minW="100px"
-                maxW="350px"
-                my="1"
-                p="3"
-                rounded="2xl"
-              >
-                <Text>{item.text}</Text>
-              </Flex>
+            <Flex key={index} w="100%" align="end" gap={4} justify="flex-end">
+              {item.type === "text" ? (
+                <TextMsgCard data={item} index={index} />
+              ) : item.type == "image" ? (
+                <ImageMsgCard data={item} index={index} />
+              ) : item.type == "audio" ? (
+                <AudioMsg data={item} index={index} />
+              ) : (
+                ""
+              )}
               <Image
                 boxSize="1.5rem"
                 borderRadius="md"
@@ -35,7 +37,7 @@ const MsgChatSection = ({ messages }) => {
           );
         } else {
           return (
-            <Flex key={index} w="100%" align='end'>
+            <Flex key={index} w="100%" align="end">
               <Image
                 boxSize="1.5rem"
                 borderRadius="md"
@@ -43,17 +45,15 @@ const MsgChatSection = ({ messages }) => {
                 alt="Fluffybuns the destroyer"
                 mr="12px"
               />
-              <Flex
-                bg="brand.900"
-                color="white.900"
-                minW="100px"
-                maxW="350px"
-                my="1"
-                p="3"
-                rounded="2xl"
-              >
-                <Text>{item.text}</Text>
-              </Flex>
+              {item.type === "text" ? (
+                <TextMsgCard data={item} index={index} />
+              ) : item.type == "image" ? (
+                <ImageMsgCard data={item} index={index} />
+              ) : item.type == "audio" ? (
+                <AudioMsg data={item} index={index} />
+              ) : (
+                ""
+              )}
             </Flex>
           );
         }

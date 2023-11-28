@@ -48,7 +48,7 @@ const MainHeader = () => {
           justifyContent="space-between"
           color="grey.800"
         >
-          <Box>
+          <Box onClick={()=>router.push('/chat')}>
             <BsChatDots size="24px" />
           </Box>
           <Box>

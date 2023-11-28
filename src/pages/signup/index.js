@@ -9,9 +9,6 @@ import {
   Flex,
   FormControl,
   FormLabel,
-  HStack,
-  Heading,
-  Input,
   InputGroup,
   InputLeftAddon,
   PinInput,
@@ -40,7 +37,7 @@ const PhoneAuth = () => {
     },
     validationSchema: Yup.object({
       phoneNum: Yup.string()
-        .matches(/^[0-9]{10}$/, {
+        .matches(/^[0-9]{12}$/, {
           message: "Invalid phone number",
           excludeEmptyString: true,
         })
@@ -123,6 +120,7 @@ const PhoneAuth = () => {
                 /> */}
 
                 <PhoneInput
+                  dropdownStyle={{ color:"red" , border:"1px solid",}}
                   country={"in"}
                   countryCodeEditable={false}
                   id="phoneNum"

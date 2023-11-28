@@ -1,10 +1,10 @@
 import React from 'react'
 import { Box, Button, ButtonGroup, Card, CardBody, CardHeader, Flex, HStack, ListItem, Text, UnorderedList } from '@chakra-ui/react'
 import NoteCard from './noteCard'
-import featursCard from '../../utilities/comanData'
 import { useRouter } from 'next/navigation'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import ColorSelector from '../common/colorSelector'
+import { featursCard } from '@/utilities/comanData'
 
 
 
