@@ -9,6 +9,7 @@ import {
   Flex,
   FormControl,
   FormLabel,
+  Input,
   InputGroup,
   InputLeftAddon,
   PinInput,
@@ -37,14 +38,14 @@ const PhoneAuth = () => {
     },
     validationSchema: Yup.object({
       phoneNum: Yup.string()
-        .matches(/^[0-9]{12}$/, {
+        .matches(/^[0-9]{10}$/, {
           message: "Invalid phone number",
-          excludeEmptyString: true,
+          excludeEmptyString: false,
         })
         .required("Phone number is required"),
     }),
     onSubmit: (values) => {
-      alert(JSON.stringify(formik.values.phoneNum, null, 2));
+      console.log("===>", values.phoneNum);
       setOtp(true);
     },
   });
@@ -54,8 +55,6 @@ const PhoneAuth = () => {
     () => userAuthGen(formik.values.phoneNum),
     { enabled: isOtp, retry: false, refetchOnWindowFocus: false }
   );
-
-  // Error Handling Code
 
   return (
     <Flex align="center" bg="black" flexWrap="wrap">
@@ -93,7 +92,7 @@ const PhoneAuth = () => {
               <InputGroup alignItems="center">
                 {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
 
-                {/* <InputLeftAddon
+                <InputLeftAddon
                   p="6"
                   height="60px"
                   bg="#252525"
@@ -102,8 +101,8 @@ const PhoneAuth = () => {
                   fontWeight="bold"
                 >
                   +91
-                </InputLeftAddon> */}
-                {/* <Input
+                </InputLeftAddon>
+                <Input
                   id="phoneNum"
                   name="phoneNum"
                   size="lg"
@@ -117,10 +116,10 @@ const PhoneAuth = () => {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.phoneNum}
-                /> */}
+                />
 
-                <PhoneInput
-                  dropdownStyle={{ color:"red" , border:"1px solid",}}
+                {/* <PhoneInput
+                  dropdownStyle={{ color: "red", border: "1px solid" }}
                   country={"in"}
                   countryCodeEditable={false}
                   id="phoneNum"
@@ -136,7 +135,7 @@ const PhoneAuth = () => {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.phoneNum}
-                />
+                /> */}
 
                 <Button
                   sx={{
