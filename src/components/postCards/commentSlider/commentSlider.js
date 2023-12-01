@@ -17,7 +17,7 @@ import LikeEmojiGroup from "@/components/common/likeEmojiGroup";
 
 const CommentSlider = () => {
   return (
-    <Box border="1px solid red" width="auto">
+    <Box width="auto">
       <Swiper
         pagination={{ dynamicBullets: true }}
         modules={[Navigation, Pagination, Scrollbar]}

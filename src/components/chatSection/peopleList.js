@@ -32,9 +32,8 @@ import {
 } from "lucide-react";
 import ChatHeader from "@/components/chatSection/chatHeader";
 import MsgChatSection from "@/components/chatSection/msgChatSection";
-import PeopleList from "./peopleList";
 
-const ChatDetailsView = () => {
+const PeopleList = () => {
   const [selectedChatIndex, setSelectedChatIndex] = useState(0);
 
   const truncateText = (text, maxLength) => {
@@ -93,11 +92,9 @@ const ChatDetailsView = () => {
     },
   ];
 
+
   return (
-    <>
-      <Box>
-        <HStack alignItems="start" gap="6" justifyContent="space-between">
-          {/* <Box bg="white.900" w="30%" h="80vh" rounded="lg">
+    <Box bg="white.900" w="30%" h="80vh" rounded="lg">
             <Flex
               alignItems="center"
               justifyContent="space-between"
@@ -173,69 +170,8 @@ const ChatDetailsView = () => {
                 </ListItem>
               ))}
             </UnorderedList>
-          </Box> */}
-          <PeopleList />
-          <Box bg="white.900" w="70%" h="80vh" rounded="lg">
-            {selectedChatIndex !== null && (
-              <>
-                <ChatHeader chatsData={chats[selectedChatIndex]} />
-                <Divider />
-                <Box
-                  h="65vh"
-                  overflowY="scroll"
-                  overflowX="hidden"
-                  sx={{
-                    "::-webkit-scrollbar": {
-                      width: "5px",
-                    },
-                    "::-webkit-scrollbar-thumb": {
-                      background: "#8D96A5",
-                      borderRadius: "10px",
-                    },
-                  }}
-                >
-                  <MsgChatSection messages={messages} />
-                </Box>
-
-                <Box
-                  display="flex"
-                  flexDirection="row"
-                  gap="6"
-                  alignItems="center"
-                  pr={4}
-                >
-                  <InputGroup pl="4">
-                    <Input type="tel" pr="6.3rem" placeholder="Type here..." />
-                    <InputRightElement
-                      width="100px"
-                      alignItems="center"
-                      justifyContent="space-around"
-                    >
-                      <Camera />
-                      <Upload />
-                      <Mic />
-                    </InputRightElement>
-                  </InputGroup>
-                  <Button
-                    size="md"
-                    sx={{
-                      bg: "black !important",
-                      color: "#fff",
-                      margin: "0 auto",
-                      fontSize: "12px",
-                    }}
-                    variant="solid"
-                  >
-                    Send
-                  </Button>
-                </Box>
-              </>
-            )}
           </Box>
-        </HStack>
-      </Box>
-    </>
-  );
-};
+  )
+}
 
-export default ChatDetailsView;
+export default PeopleList

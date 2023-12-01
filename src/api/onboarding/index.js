@@ -3,9 +3,9 @@ import request from "../request";
 export const userAuthGen = async (phoneNum) => {
   try {
     const res = await request({
-      url: `/api/user/v1/auth/generateMobileOtp`,
+      url: `/auth/v1/creds/send-otp`,
       type:'POST',
-      data: {num : phoneNum},
+      data: {phoneNumber : String(phoneNum)},
       headers: {
         "Content-Type": "application/json",
       },
@@ -17,12 +17,12 @@ export const userAuthGen = async (phoneNum) => {
   }
 };
 
-export const userVerification = async (otp) => {
+export const userVerification = async (phoneNum, otp) => {
   try {
     const res = await request({
-      url: `/auth/v1/creds/verify-otp      `,
+      url: `/auth/v1/creds/verify-otp`,
       type: 'POST',
-      data: {num : otp},
+      data: {phoneNumber : String(phoneNum), Otp : String(otp)},
       headers: {
         "Content-Type": "application/json",
       },
