@@ -4,6 +4,7 @@ export const userAuthGen = async (phoneNum) => {
   try {
     const res = await request({
       url: `/api/user/v1/auth/generateMobileOtp`,
+      type:'POST',
       data: {num : phoneNum},
       headers: {
         "Content-Type": "application/json",
@@ -19,7 +20,8 @@ export const userAuthGen = async (phoneNum) => {
 export const userVerification = async (otp) => {
   try {
     const res = await request({
-      url: `/api/user/v1/auth/verifyMobileOtp`,
+      url: `/auth/v1/creds/verify-otp      `,
+      type: 'POST',
       data: {num : otp},
       headers: {
         "Content-Type": "application/json",
@@ -36,6 +38,7 @@ export const userInterest = async (arr) => {
   try {
     const res = await request({
       url: `/api/user/v1/auth/`,
+      type: 'POST',
       data: arr,
       headers: {
         "Content-Type": "application/json",

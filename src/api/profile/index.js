@@ -4,7 +4,7 @@ export const getProfileInfo = async () => {
   try {
     const res = await request({
       url: `/api/user/v1/auth/`,
-      data: {num : phoneNum},
+    //   data: {num : phoneNum},
       headers: {
         "Content-Type": "application/json",
       },
