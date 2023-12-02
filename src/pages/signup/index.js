@@ -21,31 +21,41 @@ import { Image } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { ChevronRight, Dot, Mail, MessageSquare, Phone } from "lucide-react";
 import { useFormik } from "formik";
-import { useQuery } from "react-query";
 import { userAuthGen } from "@/api/onboarding";
 import { TbRuler3 } from "react-icons/tb";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useMutation } from "react-query";
 import * as Yup from "yup";
 
 const PhoneAuth = () => {
   const router = useRouter();
-  const [isOtp, setOtp] = useState(false);
-  const { isLoading, isError, data, error, refetch } = useQuery(
-    "authGenerate",
-    () => userAuthGen(formik.values.phoneNum),
-    {
-      enabled: isOtp,
-      retry: false,
-      refetchOnWindowFocus: false,
-      onError: (error) =>
-        toast.error("Error Notification !", {
-          position: toast.POSITION.TOP_RIGHT,
-        }),
-    }
-  );
+  const mutation = useMutation({
+    mutationFn: (phoneNum) => userAuthGen(phoneNum),
+    onMutate: (variables) => {
+      return console.log("mutation is happening");
+    },
+    onError: (error, variables, context) =>
+      toast.error("Error Notification !", {
+        position: toast.POSITION.TOP_RIGHT,
+      }),
+    onSuccess: (data, variables, context) => {
+      toast.success("OTP sent to your number!", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      setTimeout(
+        () =>
+          router.push({
+            pathname: "/signup/submitotp",
+            query: { phoneNum: formik.values.phoneNum },
+          }),
+        1500
+      );
+    },
+    onSettled: (data, error, variables, context) => {},
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -60,18 +70,9 @@ const PhoneAuth = () => {
         .required("Phone number is required"),
     }),
     onSubmit: (values) => {
-      console.log("===>", values.phoneNum);
-      setOtp(true);
-      refetch();
+      mutation.mutate(values.phoneNum);
     },
   });
-  console.log(error, "error");
-  if (data?.status == 200) {
-    router.push({
-      pathname: "/signup/submitotp",
-      query: { phoneNum: formik.values.phoneNum },
-    });
-  }
 
   return (
     <>

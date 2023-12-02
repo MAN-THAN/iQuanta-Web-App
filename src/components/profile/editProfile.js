@@ -30,7 +30,7 @@ import { getProfileInfo } from "@/api/profile";
 const EditProfile = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
-  const {isLoading, data} = useQuery("userProfileInfo", getProfileInfo);
+  const {isLoading, data} = useQuery("getUserProfileInfo", getProfileInfo);
   console.log(data)
   return (
     <Box>

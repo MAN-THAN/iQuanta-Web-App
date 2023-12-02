@@ -23,32 +23,41 @@ import { Image } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { ChevronRight, Dot, Mail, MessageSquare, Phone } from "lucide-react";
 import { useFormik } from "formik";
-import { useQuery } from "react-query";
 import { TbRuler3 } from "react-icons/tb";
 import { userVerification } from "@/api/onboarding";
 import CountdownTimer from "@/components/countdownTimer/countdownTimer";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useMutation } from "react-query";
 import * as Yup from "yup";
 
 const SubmitOtp = () => {
   const router = useRouter();
   const { phoneNum } = router?.query;
-  const [verifCall, setVerifCall] = useState(false);
   const [resend, setResend] = useState(false);
-  const { isLoading, isError, data, error, refetch } = useQuery(
-    "verifyOtp",
-    () => userVerification(phoneNum, formik.values.otpCode),
-    {
-      enabled: verifCall,
-      retry: false,
-      refetchOnWindowFocus: false,
-      onError: (error) =>
-        toast.error(`${error.response.data.message}`, {
-          position: toast.POSITION.TOP_RIGHT,
-        }),
-    }
-  );
+  const mutation = useMutation({
+    mutationFn: (otp) => userVerification(phoneNum, otp),
+    onMutate: (variables) => {
+      return console.log("mutation is happening");
+    },
+    onError: (error, variables, context) =>
+      toast.error("Error Notification !", {
+        position: toast.POSITION.TOP_RIGHT,
+      }),
+    onSuccess: (data, variables, context) => {
+      toast.success("Verification successful!", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      setTimeout(
+        () =>
+          router.push({
+            pathname: "/signup/user_info",
+          }),
+        1500
+      );
+    },
+    onSettled: (data, error, variables, context) => {},
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -60,18 +69,9 @@ const SubmitOtp = () => {
         .required("OTP is required"),
     }),
     onSubmit: (values) => {
-      // alert(JSON.stringify(formik.values.otpCode, null, 2));
-      setVerifCall(true);
-      refetch();
+      mutation.mutate(values.otpCode);
     },
   });
-
-  if (data?.status == 200) {
-    router.push({
-      pathname: "/signup/user_info",
-    });
-  }
-  console.log(error);
 
   return (
     <>
