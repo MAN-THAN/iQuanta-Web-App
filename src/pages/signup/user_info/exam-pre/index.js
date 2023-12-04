@@ -1,338 +1,270 @@
 import {
   Box,
   Button,
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
   Container,
-  Divider,
   Flex,
   FormControl,
   FormLabel,
-  Grid,
-  GridItem,
   HStack,
   Heading,
-  Icon,
   Image,
   Input,
   InputGroup,
-  InputLeftAddon,
   InputLeftElement,
   Stack,
   Text,
   VStack,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
 import { BsCheckLg } from "react-icons/bs";
-import { useRouter } from "next/navigation";
-import { ChevronDown, Search } from "lucide-react";
 import { GrAdd } from "react-icons/gr";
+import { useRouter } from "next/navigation";
+import { Search } from "lucide-react";
+import { userInterest } from "@/api/onboarding";
+import { useQuery } from "react-query";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "TOGGLE_SELECTION":
+      const updatedSelection = state[action.category].includes(action.title)
+        ? state[action.category].filter((val) => val !== action.title)
+        : [...state[action.category], action.title];
+      return {
+        ...state,
+        [action.category]: updatedSelection,
+      };
+    default:
+      return state;
+  }
+};
 
 const ExamPreChosse = () => {
   const router = useRouter();
-  const examArray = [
-    { id: 1, title: "GMAT", img: "/exam.png", selected: false },
-    { id: 2, title: "GMAT", img: "/exam.png", selected: false },
-    { id: 3, title: "GMAT", img: "/exam.png", selected: false },
-  ];
-  const examArray2 = [
-    { id: 1, title: "GMAT", img: "/exam.png", selected: false },
-    { id: 2, title: "GMAT", img: "/exam.png", selected: false },
-    { id: 3, title: "GMAT", img: "/exam.png", selected: false },
+  const [apiCall, setApiCall] = useState(false);
+  const { isLoading } = useQuery(
+    "userInterest",
+    () => userInterest(selectedItems),
+    { enabled: apiCall }
+  );
+
+  const initialState = {
+    afterCollege: [],
+    after12th: [],
+    before12th: [],
+  };
+
+  const [selectedItems, dispatch] = useReducer(reducer, initialState);
+
+  const handleToggleSelection = (category, title) => {
+    dispatch({ type: "TOGGLE_SELECTION", category, title });
+  };
+
+  const categories = [
+    {
+      category: "afterCollege",
+      title: "After college",
+      items: [
+        { id: 1, title: "CAT" },
+        { id: 2, title: "XAT" },
+        { id: 3, title: "NMAT" },
+        { id: 4, title: "GMAT" },
+        { id: 5, title: "GRE" },
+      ],
+    },
+    {
+      category: "after12th",
+      title: "After 12th",
+      items: [
+        { id: 1, title: "IPMAT" },
+        { id: 2, title: "JEE" },
+        { id: 3, title: "NEET" },
+        { id: 4, title: "IPMAT" },
+        { id: 5, title: "JEE" },
+        { id: 6, title: "NEET" },
+      ],
+    },
+    {
+      category: "before12th",
+      title: "Before 12th",
+      items: [
+        { id: 1, title: "Class 11" },
+        { id: 2, title: "Class 12" },
+        { id: 3, title: "Class 10" },
+      ],
+    },
   ];
 
-  const [selectedImages, setSelectedImages] = useState([]);
+  // const isCategoryValid = (category) => {
+  //   return selectedItems[category].length > 0;
+  // };
 
-  const handleImageSelect = (id) => {
-    if (selectedImages?.includes(id)) {
-      setSelectedImages(selectedImages.filter((val) => val !== id));
+  const isFormValid = () => {
+    return categories.every(
+      (category) => selectedItems[category.category].length > 0
+    );
+  };
+
+  const handleNextClick = () => {
+    if (isFormValid()) {
+      setApiCall(true);
+      toast.success("Thanks", {
+        position: "top-right",
+        autoClose: 2000, // 5 seconds
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      router.push("/signup/user_info/more-about");
     } else {
-      setSelectedImages([...(selectedImages ?? []), id]);
+      // Display a validation message or take any other action
+      toast.error("Please select at least one item in each category", {
+        position: "top-right",
+        autoClose: 2000, // 5 seconds
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
   return (
-    <Flex align="center" bg="black" flexWrap="wrap">
-      <Box w={{ base: "100%", md: "40%" }} position="relative">
-        <Image
-          alt="icon"
-          src="/back.png"
-          objectFit="cover"
-          width="100%"
-          height="100vh"
-        />
-        <div
-          style={{
-            position: "absolute",
-            top: "0",
-            right: "0",
-            bottom: "0",
-            left: "50%",
-            background: "linear-gradient(to right, #ffffff 0%, #000000 100%)",
-            zIndex: "1",
-            mixBlendMode: "multiply",
-          }}
-        ></div>
-      </Box>
-      <Box w={{ base: "100%", md: "60%" }}>
-        <Container gap="6" mt={{ base: "40px", md: "0" }}>
-          <Stack gap="6">
-            <Box>
-              <Image alt="logo" src="/logowhite.png" />
-            </Box>
-            <FormControl>
-              <Heading as="h2" fontSize="28px" color="#fff">
-                Which exams are you preparing for?
-              </Heading>
-              <FormLabel color="#8A8A8A">
-                You can add more later id needed
-              </FormLabel>
-              <InputGroup>
-                <InputLeftElement color="white" height="50px">
-                  <Search />
-                </InputLeftElement>
-                <Input
-                  height="50px"
-                  width="450px"
-                  type="text"
-                  bg="#252525"
-                  color="white"
-                  border="none"
-                  placeholder="Search"
-                />
-              </InputGroup>
-            </FormControl>
-          </Stack>
-        </Container>
-        <Box
-          mt="7"
-          width="100%"
-          h="auto"
-          display="flex"
-          justifyContent="space-between"
-          pl="20%"
-        >
-          <Box
-            width="260px"
-            alignItems="center"
-            justifyContent="center"
-            display="flex"
-            flexDirection="column"
-            p="2"
-          >
-            <div>
-              <p
-                style={{
-                  fontSize: "16px",
-                  color: "#FFFFFF",
-                  fontWeight: "500",
-                }}
-              >
-                After college
-              </p>
-              <p style={{ fontSize: "12px", color: "#FFFFFF80" }}>
-                MBA in India
-              </p>
-              {examArray.map(() => (
-                <Button
-                  variant="ghost"
-                  alignItems="center"
-                  size="sm"
-                  key=""
-                  bg={"#fff !important"}
-                  border={"1px solid gray"}
-                  mr="1"
-                  mt="2"
-                >
-                  <GrAdd fontSize="14px" fontWeight="900" />
-
-                  <Text fontSize="14px" px="1">
-                    CTE
-                  </Text>
-                </Button>
-              ))}
-              <p
-                style={{
-                  fontSize: "12px",
-                  color: "#FFFFFF80",
-                  marginTop: "7px",
-                }}
-              >
-                MBA in India
-              </p>
-              {examArray2.map(() => (
-                <Button
-                  variant="ghost"
-                  alignItems="center"
-                  size="sm"
-                  key=""
-                  bg={"#fff !important"}
-                  border={"1px solid gray"}
-                  mr="1"
-                  mt="2"
-                >
-                  <GrAdd fontSize="14px" fontWeight="900" />
-
-                  <Text fontSize="14px" px="1">
-                    CTE
-                  </Text>
-                </Button>
-              ))}
-            </div>
-            <ChevronDown color="#fff" />
-          </Box>
-          <Box
-            width="260px"
-            alignItems="center"
-            justifyContent="center"
-            display="flex"
-            flexDirection="column"
-            p="2"
-          >
-            <div>
-              <p
-                style={{
-                  fontSize: "16px",
-                  color: "#FFFFFF",
-                  fontWeight: "500",
-                }}
-              >
-                After college
-              </p>
-              <p style={{ fontSize: "12px", color: "#FFFFFF80" }}>&nbsp;</p>
-              {examArray.map(() => (
-                <Button
-                  variant="ghost"
-                  alignItems="center"
-                  size="sm"
-                  key=""
-                  bg={"#fff !important"}
-                  border={"1px solid gray"}
-                  mr="1"
-                  mt="2"
-                >
-                  <GrAdd fontSize="14px" fontWeight="900" />
-
-                  <Text fontSize="14px" px="1">
-                    CTE
-                  </Text>
-                </Button>
-              ))}
-              <p
-                style={{
-                  fontSize: "12px",
-                  color: "#FFFFFF80",
-                  marginTop: "7px",
-                }}
-              >
-                &nbsp;
-              </p>
-              {examArray2.map(() => (
-                <Button
-                  variant="ghost"
-                  alignItems="center"
-                  size="sm"
-                  key=""
-                  bg={"#fff !important"}
-                  border={"1px solid gray"}
-                  mr="1"
-                  mt="2"
-                >
-                  <GrAdd fontSize="14px" fontWeight="900" />
-
-                  <Text fontSize="14px" px="1">
-                    CTE
-                  </Text>
-                </Button>
-              ))}
-            </div>
-            <ChevronDown color="#fff" />
-          </Box>
-          <Box
-            width="260px"
-            alignItems="center"
-            justifyContent="center"
-            display="flex"
-            flexDirection="column"
-            p="2"
-          >
-            <div>
-              <p
-                style={{
-                  fontSize: "16px",
-                  color: "#FFFFFF",
-                  fontWeight: "500",
-                }}
-              >
-                After college
-              </p>
-              <p style={{ fontSize: "12px", color: "#FFFFFF80" }}>&nbsp;</p>
-              {examArray.map(() => (
-                <Button
-                  variant="ghost"
-                  alignItems="center"
-                  size="sm"
-                  key=""
-                  bg={"#fff !important"}
-                  border={"1px solid gray"}
-                  mr="1"
-                  mt="2"
-                >
-                  <GrAdd fontSize="14px" fontWeight="900" />
-
-                  <Text fontSize="14px" px="1">
-                    CTE
-                  </Text>
-                </Button>
-              ))}
-              <p
-                style={{
-                  fontSize: "12px",
-                  color: "#FFFFFF80",
-                  marginTop: "7px",
-                }}
-              >
-                &nbsp;
-              </p>
-              {examArray2.map(() => (
-                <Button
-                  variant="ghost"
-                  alignItems="center"
-                  size="sm"
-                  key=""
-                  bg={"#fff !important"}
-                  border={"1px solid gray"}
-                  mr="1"
-                  mt="2"
-                >
-                  <GrAdd fontSize="14px" fontWeight="900" />
-
-                  <Text fontSize="14px" px="1">
-                    CTE
-                  </Text>
-                </Button>
-              ))}
-            </div>
-            <ChevronDown color="#fff" />
-          </Box>
-        </Box>
-        <Box pt="4" width="300px" ml="20%">
-          <Button
-            onClick={() => router.push("/home")}
-            sx={{
-              backgroundColor: "#fff !important",
-              fontSize: "14px",
+    <>
+      <ToastContainer />
+      <Flex align="center" bg="black" flexWrap="wrap">
+        <Box w={{ base: "100%", md: "40%" }} position="relative">
+          <Image
+            alt="icon"
+            src="/back.png"
+            objectFit="cover"
+            width="100%"
+            height="100vh"
+          />
+          <div
+            style={{
+              position: "absolute",
+              top: "0",
+              right: "0",
+              bottom: "0",
+              left: "50%",
+              background: "linear-gradient(to right, #ffffff 0%, #000000 100%)",
+              zIndex: "1",
+              mixBlendMode: "multiply",
             }}
-            w="100%"
-            variant="solid"
-          >
-            Next
-          </Button>
+          ></div>
         </Box>
-      </Box>
-    </Flex>
+
+        <Box w={{ base: "100%", md: "60%" }}>
+          <Container gap="6" mt={{ base: "40px", md: "0" }}>
+            <Stack gap="6">
+              <Box>
+                <Image alt="logo" src="/logowhite.png" />
+              </Box>
+              <FormControl>
+                <Heading as="h2" fontSize="28px" color="#fff">
+                  Which exams are you preparing for?
+                </Heading>
+                <FormLabel color="#8A8A8A">
+                  You can add more later id needed
+                </FormLabel>
+                <InputGroup>
+                  <InputLeftElement color="white" height="50px">
+                    <Search />
+                  </InputLeftElement>
+                  <Input
+                    height="50px"
+                    width="450px"
+                    type="text"
+                    bg="#252525"
+                    color="white"
+                    border="none"
+                    placeholder="Search"
+                  />
+                </InputGroup>
+              </FormControl>
+              <Box maxH="30vh" overflow="scroll" color="#ffffff">
+                {categories.map(({ category, title, items }) => (
+                  <Box key={category}>
+                    <Text
+                      fontSize="md"
+                      align="start"
+                      fontWeight="600"
+                      py="2"
+                      pt="5"
+                    >
+                      {title}
+                    </Text>
+                    <HStack flexWrap="wrap" gap="3" pt="2">
+                      {items.map((data) => (
+                        <Button
+                          variant="ghost"
+                          alignItems="center"
+                          size="sm"
+                          key={data.title}
+                          bg={
+                            selectedItems[category].includes(data.title)
+                              ? "#F4F3FE"
+                              : "#fff !important"
+                          }
+                          border={
+                            selectedItems[category].includes(data.title)
+                              ? "1px solid #5146D6"
+                              : "1px solid gray"
+                          }
+                          onClick={() =>
+                            handleToggleSelection(category, data.title)
+                          }
+                        >
+                          {selectedItems[category].includes(data.title) ? (
+                            <BsCheckLg
+                              fontSize="14px"
+                              fontWeight="900"
+                              color="#5146D6"
+                            />
+                          ) : (
+                            <GrAdd fontSize="14px" fontWeight="900" />
+                          )}
+                          <Text
+                            fontSize="14px"
+                            px="1"
+                            color={
+                              selectedItems[category].includes(data.title)
+                                ? "#5146D6"
+                                : ""
+                            }
+                          >
+                            {data.title}
+                          </Text>
+                        </Button>
+                      ))}
+                    </HStack>
+                  </Box>
+                ))}
+              </Box>
+              <Box pt="4">
+                <Button
+                  onClick={handleNextClick}
+                  sx={{
+                    backgroundColor: "#fff !important",
+                    fontSize: "14px",
+                  }}
+                  w="100%"
+                  variant="solid"
+                >
+                  Next
+                </Button>
+              </Box>
+            </Stack>
+          </Container>
+        </Box>
+      </Flex>
+    </>
   );
 };
 

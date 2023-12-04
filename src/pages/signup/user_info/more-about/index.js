@@ -22,6 +22,9 @@ import { useRouter } from "next/navigation";
 import { Search } from "lucide-react";
 import { userInterest } from "@/api/onboarding";
 import { useQuery } from "react-query";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -40,8 +43,12 @@ const reducer = (state, action) => {
 
 const MoreAbout = () => {
   const router = useRouter();
-  const [apiCall, setApiCall]= useState(false);
-  const {isLoading} = useQuery("userInterest", () => userInterest(selectedItems), {enabled : apiCall});
+  const [apiCall, setApiCall] = useState(false);
+  const { isLoading } = useQuery(
+    "userInterest",
+    () => userInterest(selectedItems),
+    { enabled: apiCall }
+  );
 
   const initialState = {
     tech: [],
@@ -125,134 +132,167 @@ const MoreAbout = () => {
       ],
     },
   ];
+
+  const isFormValid = () => {
+    return categories.every(
+      (category) => selectedItems[category.category].length > 0
+    );
+  };
+
+  const handleNextClick = () => {
+    if (isFormValid()) {
+      setApiCall(true);
+      toast.success("Thanks", {
+        position: "top-right",
+        autoClose: 2000, // 5 seconds
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      router.push("/");
+    } else {
+      // Display a validation message or take any other action
+      toast.error("Please select at least one item in each category", {
+        position: "top-right",
+        autoClose: 2000, // 5 seconds
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  };
   return (
-    <Flex align="center" bg="black" flexWrap="wrap">
-      <Box w={{ base: "100%", md: "40%" }} position="relative">
-        <Image
-          alt="icon"
-          src="/back.png"
-          objectFit="cover"
-          width="100%"
-          height="100vh"
-        />
-        <div
-          style={{
-            position: "absolute",
-            top: "0",
-            right: "0",
-            bottom: "0",
-            left: "50%",
-            background: "linear-gradient(to right, #ffffff 0%, #000000 100%)",
-            zIndex: "1",
-            mixBlendMode: "multiply",
-          }}
-        ></div>
-      </Box>
-      <Box w={{ base: "100%", md: "60%" }}>
-        <Container gap="6" mt={{ base: "40px", md: "0" }}>
-          <Stack gap="6">
-            <Box>
-              <Image alt="logo" src="/logowhite.png" />
-            </Box>
-            <FormControl>
-              <Heading as="h2" fontSize="28px" color="#fff">
-                What are your interests?
-              </Heading>
-              <FormLabel color="#8A8A8A">Tell us more about you</FormLabel>
-              <InputGroup>
-                <InputLeftElement color="white" height="50px">
-                  <Search />
-                </InputLeftElement>
-                <Input
-                  height="50px"
-                  width="450px"
-                  type="text"
-                  bg="#252525"
-                  color="white"
-                  border="none"
-                  placeholder="Search"
-                />
-              </InputGroup>
-            </FormControl>
-            <Box maxH="30vh" overflow="scroll" color="#ffffff">
-              {categories.map(({ category, title, items }) => (
-                <Box key={category}>
-                  <Text
-                    fontSize="md"
-                    align="start"
-                    fontWeight="600"
-                    py="2"
-                    pt="5"
-                  >
-                    {title}
-                  </Text>
-                  <HStack flexWrap="wrap" gap="3" pt="2">
-                    {items.map((data) => (
-                      <Button
-                        variant="ghost"
-                        alignItems="center"
-                        size="sm"
-                        key={data.title}
-                        bg={
-                          selectedItems[category].includes(data.title)
-                            ? "#F4F3FE"
-                            : "#fff !important"
-                        }
-                        border={
-                          selectedItems[category].includes(data.title)
-                            ? "1px solid #5146D6"
-                            : "1px solid gray"
-                        }
-                        onClick={() =>
-                          handleToggleSelection(category, data.title)
-                        }
-                      >
-                        {selectedItems[category].includes(data.title) ? (
-                          <BsCheckLg
-                            fontSize="14px"
-                            fontWeight="900"
-                            color="#5146D6"
-                          />
-                        ) : (
-                          <GrAdd fontSize="14px" fontWeight="900" />
-                        )}
-                        <Text
-                          fontSize="14px"
-                          px="1"
-                          color={
+    <>
+      <ToastContainer />
+      <Flex align="center" bg="black" flexWrap="wrap">
+        <Box w={{ base: "100%", md: "40%" }} position="relative">
+          <Image
+            alt="icon"
+            src="/back.png"
+            objectFit="cover"
+            width="100%"
+            height="100vh"
+          />
+          <div
+            style={{
+              position: "absolute",
+              top: "0",
+              right: "0",
+              bottom: "0",
+              left: "50%",
+              background: "linear-gradient(to right, #ffffff 0%, #000000 100%)",
+              zIndex: "1",
+              mixBlendMode: "multiply",
+            }}
+          ></div>
+        </Box>
+        <Box w={{ base: "100%", md: "60%" }}>
+          <Container gap="6" mt={{ base: "40px", md: "0" }}>
+            <Stack gap="6">
+              <Box>
+                <Image alt="logo" src="/logowhite.png" />
+              </Box>
+              <FormControl>
+                <Heading as="h2" fontSize="28px" color="#fff">
+                  What are your interests?
+                </Heading>
+                <FormLabel color="#8A8A8A">Tell us more about you</FormLabel>
+                <InputGroup>
+                  <InputLeftElement color="white" height="50px">
+                    <Search />
+                  </InputLeftElement>
+                  <Input
+                    height="50px"
+                    width="450px"
+                    type="text"
+                    bg="#252525"
+                    color="white"
+                    border="none"
+                    placeholder="Search"
+                  />
+                </InputGroup>
+              </FormControl>
+              <Box maxH="30vh" overflow="scroll" color="#ffffff">
+                {categories.map(({ category, title, items }) => (
+                  <Box key={category}>
+                    <Text
+                      fontSize="md"
+                      align="start"
+                      fontWeight="600"
+                      py="2"
+                      pt="5"
+                    >
+                      {title}
+                    </Text>
+                    <HStack flexWrap="wrap" gap="3" pt="2">
+                      {items.map((data) => (
+                        <Button
+                          variant="ghost"
+                          alignItems="center"
+                          size="sm"
+                          key={data.title}
+                          bg={
                             selectedItems[category].includes(data.title)
-                              ? "#5146D6"
-                              : ""
+                              ? "#F4F3FE"
+                              : "#fff !important"
+                          }
+                          border={
+                            selectedItems[category].includes(data.title)
+                              ? "1px solid #5146D6"
+                              : "1px solid gray"
+                          }
+                          onClick={() =>
+                            handleToggleSelection(category, data.title)
                           }
                         >
-                          {data.title}
-                        </Text>
-                      </Button>
-                    ))}
-                  </HStack>
-                </Box>
-              ))}
-            </Box>
-            <Box pt="4">
-              <Button
-                onClick={() => {
-                  setApiCall(true);
-                  router.push("/");
-                }}
-                sx={{
-                  backgroundColor: "#fff !important",
-                  fontSize: "14px",
-                }}
-                w="100%"
-                variant="solid"
-              >
-                Next
-              </Button>
-            </Box>
-          </Stack>
-        </Container>
-      </Box>
-    </Flex>
+                          {selectedItems[category].includes(data.title) ? (
+                            <BsCheckLg
+                              fontSize="14px"
+                              fontWeight="900"
+                              color="#5146D6"
+                            />
+                          ) : (
+                            <GrAdd fontSize="14px" fontWeight="900" />
+                          )}
+                          <Text
+                            fontSize="14px"
+                            px="1"
+                            color={
+                              selectedItems[category].includes(data.title)
+                                ? "#5146D6"
+                                : ""
+                            }
+                          >
+                            {data.title}
+                          </Text>
+                        </Button>
+                      ))}
+                    </HStack>
+                  </Box>
+                ))}
+              </Box>
+              <Box pt="4">
+                <Button
+                  onClick={handleNextClick}
+                  sx={{
+                    backgroundColor: "#fff !important",
+                    fontSize: "14px",
+                  }}
+                  w="100%"
+                  variant="solid"
+                >
+                  Next
+                </Button>
+              </Box>
+            </Stack>
+          </Container>
+        </Box>
+      </Flex>
+    </>
   );
 };
 

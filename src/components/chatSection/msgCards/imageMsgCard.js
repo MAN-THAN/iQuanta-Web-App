@@ -16,7 +16,7 @@ const ImageMsgCard = ({ data, index }) => {
       roundedBottomRight={data.from !== "me" ? "xl" : undefined}
     >
       <Stack>
-        <Image rounded="xl" src={data.img} />
+        <Image alt="img chat" rounded="xl" src={data.img} />
         <Text>{data.text}</Text>
       </Stack>
     </Flex>
