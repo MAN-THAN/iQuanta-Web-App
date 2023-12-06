@@ -1,4 +1,3 @@
-'use client'
 import React, { useState, useEffect } from 'react';
 import { Progress, Button } from 'antd';
 import { ArrowLeft, ChevronRightIcon, Pause, Play } from 'lucide-react';

@@ -6,6 +6,7 @@ import QuizPostCard1 from "@/components/postCards/quizPostCard1";
 import QuizPostCard2 from "@/components/postCards/quizPostCard2";
 import TextPostCard from "@/components/postCards/textPostCard";
 import RootLayout from "@/components/layouts/layout";
+import TeacherLayout from "@/components/layouts/teacherLayout";
 
 const TeacherLiveClass = () => {
   const classDuration = 1800;
@@ -25,6 +26,6 @@ const TeacherLiveClass = () => {
   );
 };
 
-TeacherLiveClass.getLayout = (page) => <RootLayout>{page}</RootLayout>;
+TeacherLiveClass.getLayout = (page) => <TeacherLayout>{page}</TeacherLayout>;
 
 export default TeacherLiveClass;

@@ -10,13 +10,13 @@ const LernLayout = ({ children }) => {
     <>
       <div style={{ marginLeft: "10%", marginRight: "10%" }}>
         <MainHeader />
-        <div className="flex pt-8">
+        <Box display="flex" padding='8' >
           <MainLeftnavigation />
           <Box overflow="hidden" flex="1" pl="6%" pr="4%">
             {children}
           </Box>
           <LearnRightSidebar />
-        </div>
+        </Box>
       </div>
     </>
   );
