@@ -1,10 +1,13 @@
 import "@/styles/globals.css";
-import { ChakraProvider, CSSReset } from "@chakra-ui/react";
+import { ChakraProvider } from "@chakra-ui/react";
 import { Provider } from "react-redux";
 import { store } from "@/store";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { extendTheme } from "@chakra-ui/react";
+import { SessionProvider } from "next-auth/react";
+import { PersistGate } from "redux-persist/integration/react";
+import { persistor } from "@/store";
 
 const queryClient = new QueryClient();
 
@@ -60,10 +63,13 @@ export default function App({ Component, pageProps }) {
   return getLayout(
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
-        <ChakraProvider theme={theme}>
-          <CSSReset />
-          <Component {...pageProps} />
-        </ChakraProvider>
+        <PersistGate loading={null} persistor={persistor}>
+          <ChakraProvider theme={theme}>
+            <SessionProvider session={pageProps.session}>
+              <Component {...pageProps} />
+            </SessionProvider>
+          </ChakraProvider>
+        </PersistGate>
       </Provider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

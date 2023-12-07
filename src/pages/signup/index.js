@@ -28,21 +28,23 @@ import "react-phone-input-2/lib/style.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useMutation } from "react-query";
+import { useSession, signIn, signOut } from "next-auth/react"
 import * as Yup from "yup";
 
 const PhoneAuth = () => {
   const router = useRouter();
+  const { data: session } = useSession()
   const mutation = useMutation({
     mutationFn: (phoneNum) => userAuthGen(phoneNum),
     onMutate: (variables) => {
       return console.log("mutation is happening");
     },
     onError: (error, variables, context) =>
-      toast.error("Error Notification !", {
+      toast.error(`${error.response.data.message}`, {
         position: toast.POSITION.TOP_RIGHT,
       }),
     onSuccess: (data, variables, context) => {
-      toast.success("OTP sent to your number!", {
+      toast.success("OTP Sent !", {
         position: toast.POSITION.TOP_RIGHT,
       });
       setTimeout(
@@ -51,7 +53,7 @@ const PhoneAuth = () => {
             pathname: "/signup/submitotp",
             query: { phoneNum: formik.values.phoneNum },
           }),
-        1500
+        1000
       );
     },
     onSettled: (data, error, variables, context) => {},
@@ -73,6 +75,7 @@ const PhoneAuth = () => {
       mutation.mutate(values.phoneNum);
     },
   });
+  console.log(mutation.error);
 
   return (
     <>
@@ -221,8 +224,9 @@ const PhoneAuth = () => {
                     />
                   }
                   variant="outline"
+                  onClick={() => signIn()}
                 >
-                  Sign with Google
+                  {"Sign in with Google"}
                 </Button>
                 <Button
                   p="6"
