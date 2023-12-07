@@ -30,30 +30,35 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useMutation } from "react-query";
 import * as Yup from "yup";
+import { useDispatch } from "react-redux";
+import { addUserData } from "@/store/slices/userSlice";
 
 const SubmitOtp = () => {
   const router = useRouter();
   const { phoneNum } = router?.query;
   const [resend, setResend] = useState(false);
+  const dispatch = useDispatch();
   const mutation = useMutation({
     mutationFn: (otp) => userVerification(phoneNum, otp),
     onMutate: (variables) => {
       return console.log("mutation is happening");
     },
     onError: (error, variables, context) =>
-      toast.error("Error Notification !", {
+      toast.error(`${error.response.data.message}`, {
         position: toast.POSITION.TOP_RIGHT,
       }),
     onSuccess: (data, variables, context) => {
       toast.success("Verification successful!", {
         position: toast.POSITION.TOP_RIGHT,
       });
+      console.log(data);
+      dispatch(addUserData(data.data.user))
       setTimeout(
         () =>
           router.push({
             pathname: "/signup/user_info",
           }),
-        1500
+        1000
       );
     },
     onSettled: (data, error, variables, context) => {},

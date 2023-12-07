@@ -16,41 +16,65 @@ import { Image } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { Card } from "antd";
 import { useFormik } from "formik";
+import { updateProfile } from "@/api/onboarding";
+import { useMutation } from "react-query";
 import * as Yup from "yup";
+import { useSelector } from "react-redux";
 
 const UserInfo = () => {
   const router = useRouter();
+  const {_id : uid} = useSelector(state => state.userData);
   // Form validation
 
   // Formik hook
   const formik = useFormik({
     initialValues: {
-      userName: "",
-      userEmail: "",
-      phoneNum: "",
+      name: "",
+      email: "",
+      phoneNumber: "",
       gender: "male",
     },
     validationSchema: Yup.object({
-      phoneNum: Yup.string()
+      phoneNumber: Yup.string()
         .matches(/^[0-9]{10}$/, {
           message: "Invalid phone number",
           excludeEmptyString: false,
         })
         .required("Phone number is required"),
-      userName: Yup.string()
+      name: Yup.string()
         .required("Name is required")
         .required("Name is required")
         .matches(/^[a-zA-Z\s]*$/, "Only alphabets and spaces are allowed"),
 
-      userEmail: Yup.string()
+      email: Yup.string()
         .email("Invalid email address")
         .required("Email is required"),
       gender: Yup.string().required("Please select your gender"),
     }),
     onSubmit: (values) => {
-      // mutation.mutate(values.phoneNum);
+      mutation.mutate(values);
       console.log("dfdgdf", values);
     },
+  });
+
+  // Mutation 
+
+  const mutation = useMutation({
+    mutationFn: (values) => updateProfile(uid, values),
+    onMutate: (variables) => {
+      return console.log("mutation is happening");
+    },
+    onError: (error, variables, context) =>
+      toast.error(`${error.response.data.message}`, {
+        position: toast.POSITION.TOP_RIGHT,
+      }),
+    onSuccess: (data, variables, context) => {
+      router.push({
+        pathname: "/signup/user_info/exam-pre",
+        // query: { phoneNum: formik.values.phoneNum },
+      })
+    },
+    onSettled: (data, error, variables, context) => {},
   });
 
   const selectedPlan = formik.values.gender;
@@ -98,12 +122,12 @@ const UserInfo = () => {
                 placeholder="Enter your name"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                value={formik.values.userName}
-                name="userName"
+                value={formik.values.name}
+                name="name"
               />
-              {formik.touched.userName && formik.errors.userName && (
+              {formik.touched.name && formik.errors.name && (
                 <Text style={{ color: "red", marginTop: "8px" }}>
-                  {formik.errors.userName}
+                  {formik.errors.name}
                 </Text>
               )}
               <FormLabel fontSize="20px" fontWeight="600" color="#fff" py="3">
@@ -121,12 +145,12 @@ const UserInfo = () => {
                     placeholder="Enter your email "
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    value={formik.values.userEmail}
-                    name="userEmail"
+                    value={formik.values.email}
+                    name="email"
                   />
-                  {formik.touched.userEmail && formik.errors.userEmail && (
+                  {formik.touched.email && formik.errors.email && (
                     <Text style={{ color: "red", marginTop: "8px" }}>
-                      {formik.errors.userEmail}
+                      {formik.errors.email}
                     </Text>
                   )}
                 </VStack>
@@ -142,12 +166,12 @@ const UserInfo = () => {
                     placeholder="Enter your mobile number"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    value={formik.values.phoneNum}
-                    name="phoneNum"
+                    value={formik.values.phoneNumber}
+                    name="phoneNumber"
                   />
-                  {formik.touched.phoneNum && formik.errors.phoneNum && (
+                  {formik.touched.phoneNumber && formik.errors.phoneNumber && (
                     <Text style={{ color: "red", marginTop: "8px" }}>
-                      {formik.errors.phoneNum}
+                      {formik.errors.phoneNumber}
                     </Text>
                   )}
                 </VStack>

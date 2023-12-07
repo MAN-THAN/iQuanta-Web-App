@@ -20,109 +20,71 @@ import { BsCheckLg } from "react-icons/bs";
 import { GrAdd } from "react-icons/gr";
 import { useRouter } from "next/navigation";
 import { Search } from "lucide-react";
-import { userInterest } from "@/api/onboarding";
+import { postUserExams } from "@/api/onboarding";
 import { useQuery } from "react-query";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useMutation } from "react-query";
 import { ToastContainer } from "react-toastify";
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case "TOGGLE_SELECTION":
-      const updatedSelection = state[action.category].includes(action.title)
-        ? state[action.category].filter((val) => val !== action.title)
-        : [...state[action.category], action.title];
-      return {
-        ...state,
-        [action.category]: updatedSelection,
-      };
-    default:
-      return state;
-  }
-};
+import { getExams } from "@/api/onboarding";
+import { useSelector } from "react-redux";
 
 const ExamPreChosse = () => {
   const router = useRouter();
-  const [apiCall, setApiCall] = useState(false);
-  const { isLoading } = useQuery(
-    "userInterest",
-    () => userInterest(selectedItems),
-    { enabled: apiCall }
-  );
+  const { isLoading, data, isError, error } = useQuery("getExams", getExams);
+  const {_id : uid} = useSelector(state => state.userData);
+  console.log(data);
 
-  const initialState = {
-    afterCollege: [],
-    after12th: [],
-    before12th: [],
+  // Mutation
+  const mutation = useMutation({
+    mutationFn: (payload) => postUserExams(uid, payload),
+    onMutate: (variables) => {
+      return console.log("mutation is happening");
+    },
+    onError: (error, variables, context) =>
+      toast.error(`${error.response.data.message}`, {
+        position: toast.POSITION.TOP_RIGHT,
+      }),
+    onSuccess: (data, variables, context) => {
+      router.push("/signup/user_info/more-about");
+    },
+    onSettled: (data, error, variables, context) => {},
+  });
+
+  const initialState = [];
+
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case "TOGGLE_SELECTION":
+        const updatedSelection = state?.includes(action.title)
+          ? state.filter((val) => val !== action.title)
+          : [...state, action.title];
+        return updatedSelection;
+      default:
+        return state;
+    }
   };
 
   const [selectedItems, dispatch] = useReducer(reducer, initialState);
 
-  const handleToggleSelection = (category, title) => {
-    dispatch({ type: "TOGGLE_SELECTION", category, title });
+  const handleToggleSelection = (title) => {
+    dispatch({ type: "TOGGLE_SELECTION", title });
   };
 
-  const categories = [
-    {
-      category: "afterCollege",
-      title: "After college",
-      items: [
-        { id: 1, title: "CAT" },
-        { id: 2, title: "XAT" },
-        { id: 3, title: "NMAT" },
-        { id: 4, title: "GMAT" },
-        { id: 5, title: "GRE" },
-      ],
-    },
-    {
-      category: "after12th",
-      title: "After 12th",
-      items: [
-        { id: 1, title: "IPMAT" },
-        { id: 2, title: "JEE" },
-        { id: 3, title: "NEET" },
-        { id: 4, title: "IPMAT" },
-        { id: 5, title: "JEE" },
-        { id: 6, title: "NEET" },
-      ],
-    },
-    {
-      category: "before12th",
-      title: "Before 12th",
-      items: [
-        { id: 1, title: "Class 11" },
-        { id: 2, title: "Class 12" },
-        { id: 3, title: "Class 10" },
-      ],
-    },
-  ];
-
-  // const isCategoryValid = (category) => {
-  //   return selectedItems[category].length > 0;
-  // };
-
   const isFormValid = () => {
-    return categories.every(
-      (category) => selectedItems[category.category].length > 0
-    );
+    if (selectedItems.length > 0) {
+      return true;
+    } else {
+      return false;
+    }
   };
 
   const handleNextClick = () => {
     if (isFormValid()) {
-      setApiCall(true);
-      toast.success("Thanks", {
-        position: "top-right",
-        autoClose: 2000, // 5 seconds
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-      router.push("/signup/user_info/more-about");
+      mutation.mutate(selectedItems);
     } else {
       // Display a validation message or take any other action
-      toast.error("Please select at least one item in each category", {
+      toast.error("Please select at least one item", {
         position: "top-right",
         autoClose: 2000, // 5 seconds
         hideProgressBar: false,
@@ -133,10 +95,10 @@ const ExamPreChosse = () => {
       });
     }
   };
+  console.log(selectedItems);
 
   return (
     <>
-      <ToastContainer />
       <Flex align="center" bg="black" flexWrap="wrap">
         <Box w={{ base: "100%", md: "40%" }} position="relative">
           <Image
@@ -189,63 +151,63 @@ const ExamPreChosse = () => {
                 </InputGroup>
               </FormControl>
               <Box maxH="30vh" overflow="scroll" color="#ffffff">
-                {categories.map(({ category, title, items }) => (
-                  <Box key={category}>
-                    <Text
-                      fontSize="md"
-                      align="start"
-                      fontWeight="600"
-                      py="2"
-                      pt="5"
-                    >
-                      {title}
-                    </Text>
-                    <HStack flexWrap="wrap" gap="3" pt="2">
-                      {items.map((data) => (
-                        <Button
-                          variant="ghost"
-                          alignItems="center"
-                          size="sm"
-                          key={data.title}
-                          bg={
-                            selectedItems[category].includes(data.title)
-                              ? "#F4F3FE"
-                              : "#fff !important"
-                          }
-                          border={
-                            selectedItems[category].includes(data.title)
-                              ? "1px solid #5146D6"
-                              : "1px solid gray"
-                          }
-                          onClick={() =>
-                            handleToggleSelection(category, data.title)
-                          }
-                        >
-                          {selectedItems[category].includes(data.title) ? (
-                            <BsCheckLg
-                              fontSize="14px"
-                              fontWeight="900"
-                              color="#5146D6"
-                            />
-                          ) : (
-                            <GrAdd fontSize="14px" fontWeight="900" />
-                          )}
-                          <Text
-                            fontSize="14px"
-                            px="1"
-                            color={
-                              selectedItems[category].includes(data.title)
-                                ? "#5146D6"
-                                : ""
+                {data?.data.data.list.map(
+                  ({ category, title, entity_types }) => (
+                    <Box key={category}>
+                      <Text
+                        fontSize="md"
+                        align="start"
+                        fontWeight="600"
+                        py="2"
+                        pt="5"
+                      >
+                        {title}
+                      </Text>
+                      <HStack flexWrap="wrap" gap="3" pt="2">
+                        {entity_types.map((data) => (
+                          <Button
+                            variant="ghost"
+                            alignItems="center"
+                            size="sm"
+                            key={data.title}
+                            bg={
+                              selectedItems?.includes(data.title)
+                                ? "#F4F3FE"
+                                : "#fff !important"
                             }
+                            border={
+                              selectedItems?.includes(data.title)
+                                ? "1px solid #5146D6"
+                                : "1px solid gray"
+                            }
+                            onClick={() => handleToggleSelection(data.title)}
                           >
-                            {data.title}
-                          </Text>
-                        </Button>
-                      ))}
-                    </HStack>
-                  </Box>
-                ))}
+                            {selectedItems?.includes(data.title) ? (
+                              <BsCheckLg
+                                fontSize="14px"
+                                fontWeight="900"
+                                color="#5146D6"
+                              />
+                            ) : (
+                              <GrAdd fontSize="14px" fontWeight="900" />
+                            )}
+                            <Text
+                              fontSize="14px"
+                              px="1"
+                              color={
+                                selectedItems?.includes(data.title)
+                                  ? "#5146D6"
+                                  : ""
+                              }
+                            >
+                              {data.title}
+                            </Text>
+                          </Button>
+                        ))}
+                      </HStack>
+                    </Box>
+                  )
+                )}
               </Box>
               <Box pt="4">
                 <Button
@@ -264,6 +226,7 @@ const ExamPreChosse = () => {
           </Container>
         </Box>
       </Flex>
+      <ToastContainer />
     </>
   );
 };

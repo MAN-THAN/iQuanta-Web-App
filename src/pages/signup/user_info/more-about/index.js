@@ -20,141 +20,66 @@ import { BsCheckLg } from "react-icons/bs";
 import { GrAdd } from "react-icons/gr";
 import { useRouter } from "next/navigation";
 import { Search } from "lucide-react";
-import { userInterest } from "@/api/onboarding";
+import { postUserInterest, getInterests } from "@/api/onboarding";
 import { useQuery } from "react-query";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useMutation } from "react-query";
 import { ToastContainer } from "react-toastify";
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case "TOGGLE_SELECTION":
-      const updatedSelection = state[action.category].includes(action.title)
-        ? state[action.category].filter((val) => val !== action.title)
-        : [...state[action.category], action.title];
-      return {
-        ...state,
-        [action.category]: updatedSelection,
-      };
-    default:
-      return state;
-  }
-};
+import { useSelector } from "react-redux";
 
 const MoreAbout = () => {
   const router = useRouter();
-  const [apiCall, setApiCall] = useState(false);
-  const { isLoading } = useQuery(
-    "userInterest",
-    () => userInterest(selectedItems),
-    { enabled: apiCall }
+  const { isLoading, data, isError, error } = useQuery(
+    "getInterest",
+    getInterests
   );
-
-  const initialState = {
-    tech: [],
-    arts: [],
-    knowledge: [],
-    worldAffairs: [],
-    sports: [],
+  const {_id : uid} = useSelector(state => state.userData);
+  console.log(data);
+  // Mutation
+  const mutation = useMutation({
+    mutationFn: (payload) => postUserInterest(uid, payload),
+    onMutate: (variables) => {
+      return console.log("mutation is happening");
+    },
+    onError: (error, variables, context) =>
+      toast.error(`${error.response.data.message}`, {
+        position: toast.POSITION.TOP_RIGHT,
+      }),
+    onSuccess: (data, variables, context) => {
+      router.push("/");
+    },
+    onSettled: (data, error, variables, context) => {},
+  });
+  const initialState = [];
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case "TOGGLE_SELECTION":
+        const updatedSelection = state.includes(action.title)
+          ? state.filter((val) => val !== action.title)
+          : [...state, action.title];
+        return updatedSelection;
+      default:
+        return state;
+    }
   };
-
   const [selectedItems, dispatch] = useReducer(reducer, initialState);
-
-  const handleToggleSelection = (category, title) => {
-    dispatch({ type: "TOGGLE_SELECTION", category, title });
+  const handleToggleSelection = (title) => {
+    dispatch({ type: "TOGGLE_SELECTION", title });
   };
-
-  const categories = [
-    {
-      category: "tech",
-      title: "Tech",
-      items: [
-        { id: 1, title: "Start ups" },
-        { id: 2, title: "Engineering" },
-        { id: 3, title: "Venture Capital" },
-        { id: 4, title: "Marketing" },
-        { id: 5, title: "Video Games" },
-        { id: 6, title: "Crypto" },
-        { id: 7, title: "Products" },
-        { id: 8, title: "Angel Investing" },
-      ],
-    },
-    {
-      category: "arts",
-      title: "Arts",
-      items: [
-        { id: 1, title: "Architecture" },
-        { id: 2, title: "Design" },
-        { id: 3, title: "Beauty" },
-        { id: 4, title: "Writing" },
-        { id: 5, title: "Photography" },
-        { id: 6, title: "Advertising" },
-        { id: 7, title: "Food & Drinks" },
-        { id: 8, title: "Fashion" },
-      ],
-    },
-    {
-      category: "knowledge",
-      title: "Knowledge",
-      items: [
-        { id: 1, title: "Math" },
-        { id: 2, title: "Philosophy" },
-        { id: 3, title: "History" },
-        { id: 4, title: "Physics" },
-        { id: 5, title: "Science" },
-        { id: 6, title: "Biology" },
-        { id: 7, title: "Psychology" },
-        { id: 8, title: "Chemistry" },
-      ],
-    },
-    {
-      category: "worldAffairs",
-      title: "World Affairs",
-      items: [
-        { id: 1, title: "Economics" },
-        { id: 2, title: "Current Events" },
-        { id: 3, title: "Law and Order" },
-        { id: 4, title: "Geopolitics" },
-        { id: 5, title: "Indian Politics" },
-        { id: 6, title: "Start ups" },
-      ],
-    },
-    {
-      category: "sports",
-      title: "Sports",
-      items: [
-        { id: 1, title: "Cricket" },
-        { id: 2, title: "Football" },
-        { id: 3, title: "Tennis" },
-        { id: 4, title: "IPL" },
-        { id: 5, title: "NBA" },
-        { id: 6, title: "Volleyball" },
-      ],
-    },
-  ];
 
   const isFormValid = () => {
-    return categories.every(
-      (category) => selectedItems[category.category].length > 0
-    );
+    if (selectedItems.length > 2) {
+      return true;
+    } else return false;
   };
 
   const handleNextClick = () => {
     if (isFormValid()) {
-      setApiCall(true);
-      toast.success("Thanks", {
-        position: "top-right",
-        autoClose: 2000, // 5 seconds
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-      router.push("/");
+      mutation.mutate(selectedItems);
     } else {
       // Display a validation message or take any other action
-      toast.error("Please select at least one item in each category", {
+      toast.error("Please select at least three item", {
         position: "top-right",
         autoClose: 2000, // 5 seconds
         hideProgressBar: false,
@@ -217,7 +142,7 @@ const MoreAbout = () => {
                 </InputGroup>
               </FormControl>
               <Box maxH="30vh" overflow="scroll" color="#ffffff">
-                {categories.map(({ category, title, items }) => (
+                {data?.data.data.list.map(({ category, title, items }) => (
                   <Box key={category}>
                     <Text
                       fontSize="md"
@@ -236,20 +161,18 @@ const MoreAbout = () => {
                           size="sm"
                           key={data.title}
                           bg={
-                            selectedItems[category].includes(data.title)
+                            selectedItems.includes(data.title)
                               ? "#F4F3FE"
                               : "#fff !important"
                           }
                           border={
-                            selectedItems[category].includes(data.title)
+                            selectedItems.includes(data.title)
                               ? "1px solid #5146D6"
                               : "1px solid gray"
                           }
-                          onClick={() =>
-                            handleToggleSelection(category, data.title)
-                          }
+                          onClick={() => handleToggleSelection(data.title)}
                         >
-                          {selectedItems[category].includes(data.title) ? (
+                          {selectedItems.includes(data.title) ? (
                             <BsCheckLg
                               fontSize="14px"
                               fontWeight="900"
@@ -262,7 +185,7 @@ const MoreAbout = () => {
                             fontSize="14px"
                             px="1"
                             color={
-                              selectedItems[category].includes(data.title)
+                              selectedItems.includes(data.title)
                                 ? "#5146D6"
                                 : ""
                             }
