@@ -15,7 +15,7 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import React, { useReducer, useState } from "react";
+import React, { useReducer, useState, useEffect, useMemo } from "react";
 import { BsCheckLg } from "react-icons/bs";
 import { GrAdd } from "react-icons/gr";
 import { useRouter } from "next/navigation";
@@ -31,9 +31,39 @@ import { useSelector } from "react-redux";
 
 const ExamPreChosse = () => {
   const router = useRouter();
+  const [exams, setExams] = useState();
+  const [searchTerm, setSearchTerm] = useState();
   const { isLoading, data, isError, error } = useQuery("getExams", getExams);
-  const {_id : uid} = useSelector(state => state.userData);
-  console.log(data);
+  const { _id: uid } = useSelector((state) => state.userData);
+  //Setting exams state
+  useEffect(() => {
+    if (data?.status == 200) {
+      setExams(data?.data.data.list);
+    }
+  }, [data]);
+
+  // Search Func
+  const filteredData = useMemo(() => {
+    if (!exams || !searchTerm) {
+      return exams; // If exams or searchTerm is not present, return original data
+    }
+    return exams
+      .filter((category) => {
+        const filteredEntityTypes = category.entity_types.filter((entity) =>
+          entity.title.toLowerCase().startsWith(searchTerm)
+        );
+
+        return filteredEntityTypes.length > 0; // Include only if there are matching entity_types
+      })
+      .map((category) => ({
+        ...category,
+        entity_types: category.entity_types.filter((entity) =>
+          entity.title.toLowerCase().startsWith(searchTerm)
+        ),
+      }));
+  }, [exams, searchTerm]);
+
+  console.log(filteredData);
 
   // Mutation
   const mutation = useMutation({
@@ -133,7 +163,7 @@ const ExamPreChosse = () => {
                   Which exams are you preparing for?
                 </Heading>
                 <FormLabel color="#8A8A8A">
-                  You can add more later id needed
+                  You can add more later if needed
                 </FormLabel>
                 <InputGroup>
                   <InputLeftElement color="white" height="50px">
@@ -147,67 +177,66 @@ const ExamPreChosse = () => {
                     color="white"
                     border="none"
                     placeholder="Search"
+                    onChange={(e) => setSearchTerm(e.target.value)}
                   />
                 </InputGroup>
               </FormControl>
               <Box maxH="30vh" overflow="scroll" color="#ffffff">
-                {data?.data.data.list.map(
-                  ({ category, title, entity_types }) => (
-                    <Box key={category}>
-                      <Text
-                        fontSize="md"
-                        align="start"
-                        fontWeight="600"
-                        py="2"
-                        pt="5"
-                      >
-                        {title}
-                      </Text>
-                      <HStack flexWrap="wrap" gap="3" pt="2">
-                        {entity_types.map((data) => (
-                          <Button
-                            variant="ghost"
-                            alignItems="center"
-                            size="sm"
-                            key={data.title}
-                            bg={
-                              selectedItems?.includes(data.title)
-                                ? "#F4F3FE"
-                                : "#fff !important"
-                            }
-                            border={
-                              selectedItems?.includes(data.title)
-                                ? "1px solid #5146D6"
-                                : "1px solid gray"
-                            }
-                            onClick={() => handleToggleSelection(data.title)}
-                          >
-                            {selectedItems?.includes(data.title) ? (
-                              <BsCheckLg
-                                fontSize="14px"
-                                fontWeight="900"
-                                color="#5146D6"
-                              />
-                            ) : (
-                              <GrAdd fontSize="14px" fontWeight="900" />
-                            )}
-                            <Text
+                {filteredData?.map(({ category, title, entity_types, _id }) => (
+                  <Box key={_id}>
+                    <Text
+                      fontSize="md"
+                      align="start"
+                      fontWeight="600"
+                      py="2"
+                      pt="5"
+                    >
+                      {title}
+                    </Text>
+                    <HStack flexWrap="wrap" gap="3" pt="2">
+                      {entity_types.map((data) => (
+                        <Button
+                          variant="ghost"
+                          alignItems="center"
+                          size="sm"
+                          key={data._id}
+                          bg={
+                            selectedItems?.includes(data.title)
+                              ? "#F4F3FE"
+                              : "#fff !important"
+                          }
+                          border={
+                            selectedItems?.includes(data.title)
+                              ? "1px solid #5146D6"
+                              : "1px solid gray"
+                          }
+                          onClick={() => handleToggleSelection(data.title)}
+                        >
+                          {selectedItems?.includes(data.title) ? (
+                            <BsCheckLg
                               fontSize="14px"
-                              px="1"
-                              color={
-                                selectedItems?.includes(data.title)
-                                  ? "#5146D6"
-                                  : ""
-                              }
-                            >
-                              {data.title}
-                            </Text>
-                          </Button>
-                        ))}
-                      </HStack>
-                    </Box>
-                  )
-                )}
+                              fontWeight="900"
+                              color="#5146D6"
+                            />
+                          ) : (
+                            <GrAdd fontSize="14px" fontWeight="900" />
+                          )}
+                          <Text
+                            fontSize="14px"
+                            px="1"
+                            color={
+                              selectedItems?.includes(data.title)
+                                ? "#5146D6"
+                                : ""
+                            }
+                          >
+                            {data.title}
+                          </Text>
+                        </Button>
+                      ))}
+                    </HStack>
+                  </Box>
+                ))}
               </Box>
               <Box pt="4">
                 <Button
