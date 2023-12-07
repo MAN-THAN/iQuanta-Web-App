@@ -37,7 +37,6 @@ const MoreAbout = () => {
   const [interests, setInterests] = useState();
   const [searchTerm, setSearchTerm] = useState();
   const { _id: uid } = useSelector((state) => state.userData);
-  console.log(data);
 
   //Setting Interests state
   useEffect(() => {

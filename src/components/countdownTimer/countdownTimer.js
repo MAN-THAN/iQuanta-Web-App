@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Countdown from "react-countdown";
 import { Text } from "@chakra-ui/react";
 
 // eslint-disable-next-line react/display-name
-const CountdownTimer = React.memo(({ setResend }) => {
+const CountdownTimer = React.memo(({ setResend, timerKey }) => {
   const renderer = ({ hours, minutes, seconds, completed }) => {
     if (completed) {
       // Render a completed state
@@ -22,7 +22,7 @@ const CountdownTimer = React.memo(({ setResend }) => {
   return (
     <>
       <Countdown
-        key={"countdown_timer"}
+        key={timerKey}
         date={Date.now() + 30 * 1000}
         renderer={renderer}
         autoStart={true}
