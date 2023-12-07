@@ -15,7 +15,7 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import React, { useReducer, useState } from "react";
+import React, { useReducer, useState, useEffect, useMemo } from "react";
 import { BsCheckLg } from "react-icons/bs";
 import { GrAdd } from "react-icons/gr";
 import { useRouter } from "next/navigation";
@@ -34,8 +34,17 @@ const MoreAbout = () => {
     "getInterest",
     getInterests
   );
-  const {_id : uid} = useSelector(state => state.userData);
+  const [interests, setInterests] = useState();
+  const [searchTerm, setSearchTerm] = useState();
+  const { _id: uid } = useSelector((state) => state.userData);
   console.log(data);
+
+  //Setting Interests state
+  useEffect(() => {
+    if (data?.status == 200) {
+      setInterests(data?.data.data.list);
+    }
+  }, [data]);
   // Mutation
   const mutation = useMutation({
     mutationFn: (payload) => postUserInterest(uid, payload),
@@ -63,6 +72,27 @@ const MoreAbout = () => {
         return state;
     }
   };
+  // Search Func
+  const filteredData = useMemo(() => {
+    if (!interests || !searchTerm) {
+      return interests; // If INTERESTS or searchTerm is not present, return original data
+    }
+    return interests
+      .filter((category) => {
+        const filteredEntityTypes = category.items.filter((entity) =>
+          entity.title.toLowerCase().startsWith(searchTerm)
+        );
+
+        return filteredEntityTypes.length > 0; // Include only if there are matching entity_types
+      })
+      .map((category) => ({
+        ...category,
+        items: category.items.filter((entity) =>
+          entity.title.toLowerCase().startsWith(searchTerm)
+        ),
+      }));
+  }, [interests, searchTerm]);
+
   const [selectedItems, dispatch] = useReducer(reducer, initialState);
   const handleToggleSelection = (title) => {
     dispatch({ type: "TOGGLE_SELECTION", title });
@@ -138,12 +168,13 @@ const MoreAbout = () => {
                     color="white"
                     border="none"
                     placeholder="Search"
+                    onChange={(e) => setSearchTerm(e.target.value)}
                   />
                 </InputGroup>
               </FormControl>
               <Box maxH="30vh" overflow="scroll" color="#ffffff">
-                {data?.data.data.list.map(({ category, title, items }) => (
-                  <Box key={category}>
+                {filteredData?.map(({ category, title, items, _id }) => (
+                  <Box key={_id}>
                     <Text
                       fontSize="md"
                       align="start"
@@ -156,10 +187,10 @@ const MoreAbout = () => {
                     <HStack flexWrap="wrap" gap="3" pt="2">
                       {items.map((data) => (
                         <Button
+                          key={data._id}
                           variant="ghost"
                           alignItems="center"
                           size="sm"
-                          key={data.title}
                           bg={
                             selectedItems.includes(data.title)
                               ? "#F4F3FE"
