@@ -32,11 +32,13 @@ import { useMutation } from "react-query";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { addUserData } from "@/store/slices/userSlice";
+import { userAuthGen } from "@/api/onboarding";
 
 const SubmitOtp = () => {
   const router = useRouter();
   const { phoneNum } = router?.query;
   const [resend, setResend] = useState(false);
+  const [timerKey, setTimerKey] = useState(0);
   const dispatch = useDispatch();
   const mutation = useMutation({
     mutationFn: (otp) => userVerification(phoneNum, otp),
@@ -52,7 +54,7 @@ const SubmitOtp = () => {
         position: toast.POSITION.TOP_RIGHT,
       });
       console.log(data);
-      dispatch(addUserData(data.data.user))
+      dispatch(addUserData(data.data.user));
       setTimeout(
         () =>
           router.push({
@@ -60,6 +62,26 @@ const SubmitOtp = () => {
           }),
         1000
       );
+    },
+    onSettled: (data, error, variables, context) => {},
+  });
+
+  const resendOtpMutation = useMutation({
+    mutationFn: (phoneNum) => userAuthGen(phoneNum),
+    onMutate: (variables) => {
+      return console.log("mutation is happening");
+    },
+    onError: (error, variables, context) =>
+      toast.error(`${error.response.data.message}`, {
+        position: toast.POSITION.TOP_RIGHT,
+      }),
+    onSuccess: (data, variables, context) => {
+      toast.success("OTP Sent !", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      setResend(false);
+      setTimerKey(state => state + 1);
+      formik.resetForm();
     },
     onSettled: (data, error, variables, context) => {},
   });
@@ -77,6 +99,7 @@ const SubmitOtp = () => {
       mutation.mutate(values.otpCode);
     },
   });
+  console.log(resend);
 
   return (
     <>
@@ -141,11 +164,15 @@ const SubmitOtp = () => {
                 </HStack>
                 <HStack fontSize="18px" align="center" pt="5">
                   {/* <Text color="white">00:30 </Text> */}
-                  <CountdownTimer setResend={setResend} />
+                  <CountdownTimer setResend={setResend} timerKey={timerKey} />
                   <Dot color="white" />
                   <Text display="flex" align="center" color="gray">
                     Resend OTP via :&nbsp;
-                    <MessageSquare color="white" />
+                    <MessageSquare
+                      color={resend ? "green" : "white"}
+                      cursor={"pointer"}
+                      onClick={() => resendOtpMutation.mutate(phoneNum)}
+                    />
                     &nbsp; SMS &nbsp;
                     <Phone color="white" />
                     &nbsp;Call
@@ -171,6 +198,8 @@ const SubmitOtp = () => {
                     color: "#F84D43 !important",
                   }}
                   onClick={formik.handleSubmit}
+                  isLoading={mutation.isLoading}
+                  isDisabled={resend}
                 >
                   Continue
                 </Button>
