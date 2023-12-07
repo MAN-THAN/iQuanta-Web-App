@@ -4,30 +4,16 @@ import { chats, messages } from "@/utilities/comanData";
 import {
   Box,
   Divider,
-  Flex,
   HStack,
-  Image,
   Input,
   InputGroup,
-  InputLeftElement,
   InputRightElement,
-  ListItem,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  Text,
-  UnorderedList,
+  Button,
+  Stack
 } from "@chakra-ui/react";
-import { DownOutlined } from "@ant-design/icons";
-import { Button, Dropdown, Space } from "antd";
 import {
-  ArrowLeft,
   Camera,
-  EditIcon,
   Mic,
-  MoreVertical,
-  SearchIcon,
   Upload,
 } from "lucide-react";
 import ChatHeader from "@/components/chatSection/chatHeader";
@@ -96,7 +82,7 @@ const ChatDetailsView = () => {
   return (
     <>
       <Box>
-        <HStack alignItems="start" gap="6" justifyContent="space-between">
+        <HStack alignItems="start" gap="6" justifyContent="space-between" >
           {/* <Box bg="white.900" w="30%" h="80vh" rounded="lg">
             <Flex
               alignItems="center"
@@ -175,13 +161,13 @@ const ChatDetailsView = () => {
             </UnorderedList>
           </Box> */}
           <PeopleList />
-          <Box bg="white.900" w="70%" h="80vh" rounded="lg">
+          <Box bg="white.900" w="70%" h="85vh" rounded="lg">
             {selectedChatIndex !== null && (
-              <>
+              <Stack>
                 <ChatHeader chatsData={chats[selectedChatIndex]} />
                 <Divider />
                 <Box
-                  h="65vh"
+                  h="68vh"
                   overflowY="scroll"
                   overflowX="hidden"
                   sx={{
@@ -196,12 +182,10 @@ const ChatDetailsView = () => {
                 >
                   <MsgChatSection messages={messages} />
                 </Box>
-
                 <Box
                   display="flex"
                   flexDirection="row"
                   gap="6"
-                  alignItems="center"
                   pr={4}
                 >
                   <InputGroup pl="4">
@@ -218,9 +202,9 @@ const ChatDetailsView = () => {
                   </InputGroup>
                   <Button
                     size="md"
+                    bg="black.900"
                     sx={{
-                      bg: "black !important",
-                      color: "#fff",
+                      color: "#fff", 
                       margin: "0 auto",
                       fontSize: "12px",
                     }}
@@ -229,7 +213,7 @@ const ChatDetailsView = () => {
                     Send
                   </Button>
                 </Box>
-              </>
+              </Stack>
             )}
           </Box>
         </HStack>

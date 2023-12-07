@@ -32,6 +32,7 @@ import {
 } from "lucide-react";
 import ChatHeader from "@/components/chatSection/chatHeader";
 import MsgChatSection from "@/components/chatSection/msgChatSection";
+import SearchWithSuggestions from "./searchChat";
 
 const PeopleList = () => {
   const [selectedChatIndex, setSelectedChatIndex] = useState(0);
@@ -49,8 +50,6 @@ const PeopleList = () => {
   const activeChatStyle = {
     backgroundColor: "#F4F3FE",
     borderLeft: "4px solid #5146D6",
-    borderTopLeftRadius: "12px",
-    borderBottomLeftRadius: "12px",
   };
 
   const items = [
@@ -92,86 +91,79 @@ const PeopleList = () => {
     },
   ];
 
-
   return (
-    <Box bg="white.900" w="30%" h="80vh" rounded="lg">
-            <Flex
+    <Box bg="white.900" w="30%" h="85vh" rounded="lg">
+      <Flex alignItems="center" justifyContent="space-between" padding="4">
+        <HStack>
+          <ArrowLeft />
+          <Text fontSize="lg">Messages</Text>
+        </HStack>
+        <EditIcon />
+      </Flex>
+      <Box padding={4}>
+        <SearchWithSuggestions/>
+      </Box>
+      <UnorderedList
+        sx={{
+          margin: "0px",
+        }}
+        listStyleType="none"
+      >
+        {chats.map((chat, index) => (
+          <>
+            <ListItem
+              display="flex"
               alignItems="center"
               justifyContent="space-between"
-              padding="4"
+              key={index}
+              style={selectedChatIndex === index ? activeChatStyle : {}}
+              onClick={() => handleChatItemClick(index)}
             >
-              <HStack>
-                <ArrowLeft />
-                <Text fontSize="lg">Messages</Text>
-              </HStack>
-              <EditIcon />
-            </Flex>
-            <Box padding={4}>
-              <InputGroup>
-                <InputLeftElement>
-                  <SearchIcon />
-                </InputLeftElement>
-                <Input pl="3.0rem" placeholder="Search" />
-              </InputGroup>
-            </Box>
-            <UnorderedList
-              sx={{
-                margin: "0px",
-              }}
-              listStyleType="none"
-            >
-              {chats.map((chat, index) => (
-                <ListItem
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="space-between"
-                  key={index}
-                  style={selectedChatIndex === index ? activeChatStyle : {}}
-                  onClick={() => handleChatItemClick(index)}
+              <Flex align="center" padding={4}>
+                <Image
+                  boxSize="2.5rem"
+                  borderRadius="md"
+                  src={chat.img}
+                  alt="Fluffybuns the destroyer"
+                  mr="12px"
+                />
+                <Box>
+                  <p style={{ fontSize: "16px", color: "#171717" }}>
+                    {chat.name}
+                  </p>
+                  <p
+                    style={{
+                      fontSize: "12px",
+                      color: "#636363",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
+                    {truncateText(chat.message, 30)}
+                  </p>
+                </Box>
+              </Flex>
+              <Box>
+                <Dropdown
+                  placement="bottom"
+                  menu={{
+                    items,
+                  }}
+                  trigger={["click"]}
                 >
-                  <Flex align="center" padding={4}>
-                    <Image
-                      boxSize="2.5rem"
-                      borderRadius="md"
-                      src={chat.img}
-                      alt="Fluffybuns the destroyer"
-                      mr="12px"
-                    />
-                    <Box>
-                      <p style={{ fontSize: "16px", color: "#171717" }}>
-                        {chat.name}
-                      </p>
-                      <p
-                        style={{
-                          fontSize: "12px",
-                          color: "#636363",
-                          textOverflow: "ellipsis",
-                        }}
-                      >
-                        {truncateText(chat.message, 30)}
-                      </p>
-                    </Box>
-                  </Flex>
-                  <Box>
-                    <Dropdown
-                      placement="bottom"
-                      menu={{
-                        items,
-                      }}
-                      trigger={["click"]}
-                    >
-                      <a onClick={(e) => e.preventDefault()}>
-                        <Space>
-                          <MoreVertical />
-                        </Space>
-                      </a>
-                    </Dropdown>
-                  </Box>
-                </ListItem>
-              ))}
-            </UnorderedList>
-          </Box>
-  )
-}
+                  <a onClick={(e) => e.preventDefault()}>
+                    <Space>
+                      <MoreVertical />
+                    </Space>
+                  </a>
+                </Dropdown>
+              </Box>
+            </ListItem>
+            <Divider />
+          </>
+        ))}
+      </UnorderedList>
+    </Box>
+  );
+};
 
-export default PeopleList
+export default PeopleList;

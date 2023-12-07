@@ -70,7 +70,7 @@ const MainLeftnavigation = () => {
   ];
 
   return (
-    <>
+
       <Box bg="background.400">
         <UnorderedList
           styleType="none"
@@ -78,25 +78,25 @@ const MainLeftnavigation = () => {
         >
           {Navs.map((data, index) => {
             return (
-              <CustomLinkItem  key={index} href={`${data.path}`}>
-              <ListItem
-                _hover={{ color: "#000" }}
-                cursor="pointer"
-                onClick={() => router.push(data.path)}
-                className="flex"
-                p="14"
-                fontSize="16px"
-                fontWeight="semibold"
-              >
-                {data.icon}
-                <span className="mx-4">{data.nav}</span>
-              </ListItem>
+              <CustomLinkItem key={index} href={`${data.path}`}>
+                <ListItem
+                  _hover={{ color: "#000" }}
+                  cursor="pointer"
+                  onClick={() => router.push(data.path)}
+                  className="flex"
+                  p="14"
+                  fontSize="16px"
+                  fontWeight="semibold"
+                >
+                  {data.icon}
+                  <span className="mx-4">{data.nav}</span>
+                </ListItem>
               </CustomLinkItem>
             );
           })}
         </UnorderedList>
       </Box>
-    </>
+
   );
 };
 

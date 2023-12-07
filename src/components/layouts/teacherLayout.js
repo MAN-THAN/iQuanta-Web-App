@@ -9,17 +9,17 @@ import TeacherRightSidebar from "../rightSidebars/teacherRightSidebar";
 const TeacherLayout = ({ children }) => {
   return (
     <>
-      <div style={{ marginLeft: "10%", marginRight: "10%" }}>
+      <div style={{ marginLeft: "8%", marginRight: "8%" }}>
         <MainHeader />
         <Box display="flex" padding="8">
-          <Box className="basis-1/12">
-          <MainLeftnavigation />
+          <Box className="basis-3/12">
+            <MainLeftnavigation />
           </Box>
-          <Box overflow="hidden" className="basis-10/12" pl="6%" pr="4%">
+          <Box overflow="hidden" className="basis-10/12" pl="4%" pr="4%">
             {children}
           </Box>
           <Box className="basis-4/12">
-          <TeacherRightSidebar />
+            <TeacherRightSidebar />
           </Box>
         </Box>
       </div>

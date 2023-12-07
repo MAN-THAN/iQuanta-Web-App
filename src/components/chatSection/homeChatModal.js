@@ -7,6 +7,7 @@ import {
   AccordionItem,
   AccordionPanel,
   Box,
+  Flex,
   HStack,
   Input,
   InputGroup,
@@ -26,21 +27,19 @@ const HomeChatModal = () => {
         allowMultiple
       >
         <AccordionItem>
-          <AccordionButton bg="#FFFFFF" borderTopRadius="xl">
-            <HStack align="center">
-              <Text color="#171717" fontSize="18px">
-                Messages
-              </Text>
-              <Box
-                sx={{
-                  margin: "0 auto",
-                  display: "flex",
-                  justifyContent: "flex-end",
-                }}
-              >
-                <MessageCircle />
-                <ChevronDown />
-              </Box>
+          <AccordionButton
+            bg="white.900"
+            borderTopRadius="xl"
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
+          >
+            <Text color="#171717" fontSize="18px">
+              Messages
+            </Text>
+            <HStack>
+              <MessageCircle />
+              <ChevronDown />
             </HStack>
           </AccordionButton>
           <AccordionPanel

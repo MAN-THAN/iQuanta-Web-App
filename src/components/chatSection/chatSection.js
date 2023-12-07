@@ -60,7 +60,7 @@ const ChatSection = () => {
       <UnorderedList listStyleType="none">
         {chats.map((chat, index) => (
           <>
-            <ListItem key={index} py="2" borderLeft="1px">
+            <ListItem key={index} py="2">
               <Popover placement="left-end">
                 <PopoverTrigger>
                   <Box
@@ -92,7 +92,12 @@ const ChatSection = () => {
                     </Box>
                   </Box>
                 </PopoverTrigger>
-                <PopoverContent>
+                <PopoverContent
+                  bg="white.900"
+                  position="fixed"
+                  right="10"
+                  top="0"
+                >
                   <PopoverArrow borderWidth="1px" />
                   <PopoverHeader>
                     <HStack align="center">
@@ -146,7 +151,7 @@ const ChatSection = () => {
                     }}
                   >
                     <Flex align="end" pt="3" pr="2">
-                      <Box width="auto" bg="#F4F3FE" rounded="lg">
+                      <Box width="auto" bg="brand.800" rounded="lg">
                         <Text fontSize="12px" p="2">
                           {chat.message}
                         </Text>
@@ -167,8 +172,8 @@ const ChatSection = () => {
                         alt="Fluffybuns the destroyer"
                         mr="12px"
                       />
-                      <Box width="auto" bg="#F4F3FE" rounded="lg">
-                        <Text fontSize="12px" p="2">
+                      <Box width="auto" bg="brand.900" rounded="lg">
+                        <Text fontSize="12px" color="white.900" p="2">
                           {chat.message}
                         </Text>
                       </Box>
