@@ -33,6 +33,7 @@ import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { addUserData } from "@/store/slices/userSlice";
 import { userAuthGen } from "@/api/onboarding";
+import OnBordingLayout from "@/components/layouts/onBordingLayout";
 
 const SubmitOtp = () => {
   const router = useRouter();
@@ -202,5 +203,6 @@ const SubmitOtp = () => {
     </>
   );
 };
+SubmitOtp.getLayout = (page) => <OnBordingLayout>{page}</OnBordingLayout>;
 
 export default SubmitOtp;

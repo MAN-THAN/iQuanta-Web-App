@@ -20,6 +20,7 @@ import { updateProfile } from "@/api/onboarding";
 import { useMutation } from "react-query";
 import * as Yup from "yup";
 import { useSelector } from "react-redux";
+import OnBordingLayout from "@/components/layouts/onBordingLayout";
 
 const UserInfo = () => {
   const router = useRouter();
@@ -268,5 +269,7 @@ const UserInfo = () => {
     </Flex>
   );
 };
+UserInfo.getLayout = (page) => <OnBordingLayout>{page}</OnBordingLayout>;
+
 
 export default UserInfo;

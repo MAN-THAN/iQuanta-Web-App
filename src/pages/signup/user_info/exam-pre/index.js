@@ -28,6 +28,7 @@ import { useMutation } from "react-query";
 import { ToastContainer } from "react-toastify";
 import { getExams } from "@/api/onboarding";
 import { useSelector } from "react-redux";
+import OnBordingLayout from "@/components/layouts/onBordingLayout";
 
 const ExamPreChosse = () => {
   const router = useRouter();
@@ -223,5 +224,6 @@ const ExamPreChosse = () => {
     </>
   );
 };
+ExamPreChosse.getLayout = (page) => <OnBordingLayout>{page}</OnBordingLayout>;
 
 export default ExamPreChosse;

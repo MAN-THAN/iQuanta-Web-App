@@ -41,7 +41,7 @@ const UpcomingSection = () => {
           </Box>
         </HStack>
       </Flex>
-      <Swiper modules={[Navigation]} slidesPerView={1.7} spaceBetween={10} className="mySwiper" ref={swiperRef}>
+      <Swiper modules={[Navigation]} slidesPerView={1.8} spaceBetween={30} className="mySwiper" ref={swiperRef}>
         <SwiperSlide>
           <UpComeingCard />
         </SwiperSlide>

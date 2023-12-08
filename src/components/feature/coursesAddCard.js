@@ -18,22 +18,20 @@ const CoursesAddCard = () => {
         position="relative"
         padding="5"
         overflow="hidden"
-
       >
-     
-          <div
-            style={{
-              height: "220px",
-              width: "220px",
-              position: "absolute",
-              top:"-10vh",
-              right: "-10vh",
-              borderRadius: "100%",
-              background: "#76CBC1",
-            }}
-            class="circle"
-          ></div>
-        
+        <div
+          style={{
+            height: "220px",
+            width: "220px",
+            position: "absolute",
+            top: "-14vh",
+            right: "-8vh",
+            borderRadius: "100%",
+            background: "#76CBC1",
+          }}
+          class="circle"
+        ></div>
+
         <Text fontSize="lg" fontWeight="500">
           Get access to premium <br /> content & ace your exams.
         </Text>

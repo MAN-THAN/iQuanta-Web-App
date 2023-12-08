@@ -27,6 +27,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useMutation } from "react-query";
 import { ToastContainer } from "react-toastify";
 import { useSelector } from "react-redux";
+import OnBordingLayout from "@/components/layouts/onBordingLayout";
 
 const MoreAbout = () => {
   const router = useRouter();
@@ -211,5 +212,6 @@ const MoreAbout = () => {
     </>
   );
 };
+MoreAbout.getLayout = (page) => <OnBordingLayout>{page}</OnBordingLayout>;
 
 export default MoreAbout;

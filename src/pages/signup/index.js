@@ -28,12 +28,14 @@ import "react-phone-input-2/lib/style.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useMutation } from "react-query";
-import { useSession, signIn, signOut } from "next-auth/react"
+import { useSession, signIn, signOut } from "next-auth/react";
 import * as Yup from "yup";
+import TeacherLayout from "@/components/layouts/teacherLayout";
+import OnBordingLayout from "@/components/layouts/onBordingLayout";
 
 const PhoneAuth = () => {
   const router = useRouter();
-  const { data: session } = useSession()
+  const { data: session } = useSession();
   const mutation = useMutation({
     mutationFn: (phoneNum) => userAuthGen(phoneNum),
     onMutate: (variables) => {
@@ -50,7 +52,7 @@ const PhoneAuth = () => {
       router.push({
         pathname: "/signup/submitotp",
         query: { phoneNum: formik.values.phoneNum },
-      })
+      });
     },
     onSettled: (data, error, variables, context) => {},
   });
@@ -78,13 +80,7 @@ const PhoneAuth = () => {
       <ToastContainer />
       <Flex align="center" bg="black" flexWrap="wrap">
         <Box w={{ base: "100%", md: "40%" }} position="relative">
-          <Image
-            alt="icon"
-            src="/back.png"
-            objectFit="cover"
-            width="100%"
-            height="100vh"
-          />
+          <Image alt="icon" src="/back.png" objectFit="cover" width="100%" height="100vh" />
           <div
             style={{
               position: "absolute",
@@ -111,14 +107,7 @@ const PhoneAuth = () => {
                 <InputGroup alignItems="center">
                   {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
 
-                  <InputLeftAddon
-                    p="6"
-                    height="60px"
-                    bg="#252525"
-                    color="white"
-                    border="none"
-                    fontWeight="bold"
-                  >
+                  <InputLeftAddon p="6" height="60px" bg="#252525" color="white" border="none" fontWeight="bold">
                     +91
                   </InputLeftAddon>
                   <Input
@@ -173,19 +162,10 @@ const PhoneAuth = () => {
                 </InputGroup>
 
                 {formik.touched.phoneNum && formik.errors.phoneNum && (
-                  <Text style={{ color: "red", marginTop: "8px" }}>
-                    {formik.errors.phoneNum}
-                  </Text>
+                  <Text style={{ color: "red", marginTop: "8px" }}>{formik.errors.phoneNum}</Text>
                 )}
-                <Text
-                  py="4"
-                  color="white"
-                  fontWeight="500"
-                  lineHeight="16.94px"
-                  fontSize="16px"
-                >
-                  We will send you an OTP code on this number for your
-                  verification
+                <Text py="4" color="white" fontWeight="500" lineHeight="16.94px" fontSize="16px">
+                  We will send you an OTP code on this number for your verification
                 </Text>
               </FormControl>
               <Box position="relative">
@@ -211,14 +191,7 @@ const PhoneAuth = () => {
                     color: "black !important",
                     bg: "white !important",
                   }}
-                  leftIcon={
-                    <Image
-                      alt="google image"
-                      w="22px"
-                      h="22px"
-                      src="/google.png"
-                    />
-                  }
+                  leftIcon={<Image alt="google image" w="22px" h="22px" src="/google.png" />}
                   variant="outline"
                   onClick={() => signIn()}
                 >
@@ -242,10 +215,7 @@ const PhoneAuth = () => {
               <Divider mt="25%" width="250px" />
               <p style={{ color: "white", fontSize: "14px" }}>
                 By continuing you agree to
-                <span style={{ fontWeight: "600" }}>
-                  &nbsp;Terms of services
-                </span>{" "}
-                and
+                <span style={{ fontWeight: "600" }}>&nbsp;Terms of services</span> and
                 <span style={{ fontWeight: "600" }}>&nbsp;Privacy Policy</span>
               </p>
             </Stack>
@@ -255,5 +225,7 @@ const PhoneAuth = () => {
     </>
   );
 };
+ 
+PhoneAuth.getLayout = (page) => <OnBordingLayout>{page}</OnBordingLayout>;
 
 export default PhoneAuth;
