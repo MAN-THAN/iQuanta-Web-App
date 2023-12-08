@@ -30,10 +30,7 @@ import { useSelector } from "react-redux";
 
 const MoreAbout = () => {
   const router = useRouter();
-  const { isLoading, data, isError, error } = useQuery(
-    "getInterest",
-    getInterests
-  );
+  const { isLoading, data, isError, error } = useQuery("getInterest", getInterests);
   const [interests, setInterests] = useState();
   const [searchTerm, setSearchTerm] = useState();
   const { _id: uid } = useSelector((state) => state.userData);
@@ -86,9 +83,7 @@ const MoreAbout = () => {
       })
       .map((category) => ({
         ...category,
-        items: category.items.filter((entity) =>
-          entity.title.toLowerCase().startsWith(searchTerm)
-        ),
+        items: category.items.filter((entity) => entity.title.toLowerCase().startsWith(searchTerm)),
       }));
   }, [interests, searchTerm]);
 
@@ -124,13 +119,7 @@ const MoreAbout = () => {
       <ToastContainer />
       <Flex align="center" bg="black" flexWrap="wrap">
         <Box w={{ base: "100%", md: "40%" }} position="relative">
-          <Image
-            alt="icon"
-            src="/back.png"
-            objectFit="cover"
-            width="100%"
-            height="100vh"
-          />
+          <Image alt="icon" src="/back.png" objectFit="cover" width="100%" height="100vh" />
           <div
             style={{
               position: "absolute",
@@ -174,13 +163,7 @@ const MoreAbout = () => {
               <Box maxH="30vh" overflow="scroll" color="#ffffff">
                 {filteredData?.map(({ category, title, items, _id }) => (
                   <Box key={_id}>
-                    <Text
-                      fontSize="md"
-                      align="start"
-                      fontWeight="600"
-                      py="2"
-                      pt="5"
-                    >
+                    <Text fontSize="md" align="start" fontWeight="600" py="2" pt="5">
                       {title}
                     </Text>
                     <HStack flexWrap="wrap" gap="3" pt="2">
@@ -190,36 +173,16 @@ const MoreAbout = () => {
                           variant="ghost"
                           alignItems="center"
                           size="sm"
-                          bg={
-                            selectedItems.includes(data.title)
-                              ? "#F4F3FE"
-                              : "#fff !important"
-                          }
-                          border={
-                            selectedItems.includes(data.title)
-                              ? "1px solid #5146D6"
-                              : "1px solid gray"
-                          }
+                          bg={selectedItems.includes(data.title) ? "#F4F3FE" : "#fff !important"}
+                          border={selectedItems.includes(data.title) ? "1px solid #5146D6" : "1px solid gray"}
                           onClick={() => handleToggleSelection(data.title)}
                         >
                           {selectedItems.includes(data.title) ? (
-                            <BsCheckLg
-                              fontSize="14px"
-                              fontWeight="900"
-                              color="#5146D6"
-                            />
+                            <BsCheckLg fontSize="14px" fontWeight="900" color="#5146D6" />
                           ) : (
                             <GrAdd fontSize="14px" fontWeight="900" />
                           )}
-                          <Text
-                            fontSize="14px"
-                            px="1"
-                            color={
-                              selectedItems.includes(data.title)
-                                ? "#5146D6"
-                                : ""
-                            }
-                          >
+                          <Text fontSize="14px" px="1" color={selectedItems.includes(data.title) ? "#5146D6" : ""}>
                             {data.title}
                           </Text>
                         </Button>

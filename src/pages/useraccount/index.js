@@ -11,6 +11,6 @@ const UserAccount = () => {
     </div>
   );
 };
-UserAccount.getLayout = (page) => <UserAccountLayout>{page}</UserAccountLayout>
+UserAccount.getLayout = (page) => <UserAccountLayout>{page}</UserAccountLayout>;
 
 export default UserAccount;

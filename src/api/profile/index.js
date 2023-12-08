@@ -1,10 +1,9 @@
 import request from "../request";
 
-export const getProfileInfo = async () => {
+export const getProfileInfo = async (uid) => {
   try {
     const res = await request({
-      url: `/api/user/v1/auth/`,
-    //   data: {num : phoneNum},
+      url: `/auth/v1/profile/detail/${uid}`,
       headers: {
         "Content-Type": "application/json",
       },
