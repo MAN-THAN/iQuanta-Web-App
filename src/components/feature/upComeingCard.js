@@ -19,6 +19,8 @@ const UpComeingCard = ({ style, id }) => {
     <Box mb="4" sx={{ ...style }}>
       {path === "/learn/classList" ? (
         ""
+      ) : path === "/" ? (
+        ""
       ) : (
         <Flex align="center" justify="space-between" pb="4">
           <HStack>
@@ -35,16 +37,16 @@ const UpComeingCard = ({ style, id }) => {
         </Flex>
       )}
       <Card
-        maxW="md"
+        maxW="sm"
         bg="#5146D6"
-        h="200px"
+        h="auto"
         rounded="xl"
         bgImage="url('/static/images/profile.jpeg')"
         bgSize="cover"
         bgRepeat="no-repeat"
         bgfilter="grayscale(100%)"
         bgPosition="center"
-        position="relative" 
+        position="relative"
       >
         <Box h="150px" zIndex="999">
           <Flex p="3" align="center" gap="2">
