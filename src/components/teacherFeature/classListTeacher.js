@@ -1,14 +1,11 @@
-import {
-  ListItem,
-  UnorderedList,
-} from "@chakra-ui/react";
+import { ListItem, UnorderedList } from "@chakra-ui/react";
 import React from "react";
 import ClassToggle from "./classToggle";
 
 const ClassListTeacher = () => {
   return (
     <>
-      <UnorderedList padding="0" listStyleType="none" spacing="24">
+      <UnorderedList  listStyleType="none" spacing="5">
         {[...Array(5)].map((data, index) => (
           <ListItem key={index}>
             <ClassToggle />

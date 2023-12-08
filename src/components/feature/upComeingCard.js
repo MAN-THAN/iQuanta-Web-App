@@ -16,7 +16,7 @@ const UpComeingCard = ({ style, id }) => {
   const router = useRouter();
   const path = usePathname();
   return (
-    <Box mb="4" sx={{ ...style }}>
+    <Box mb="4" w='full'>
       {path === "/learn/classList" ? (
         ""
       ) : path === "/" ? (
@@ -37,7 +37,7 @@ const UpComeingCard = ({ style, id }) => {
         </Flex>
       )}
       <Card
-        maxW="sm"
+        // maxW="sm"
         bg="#5146D6"
         h="auto"
         rounded="xl"

@@ -9,7 +9,6 @@ const LearnClass = () => {
     <>
       <div>
         <CoursesAdd />
-        <FeatureCardSide />
         <YourExam />
         <MyNotes />
       </div>

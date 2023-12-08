@@ -40,7 +40,7 @@ const EditProfile = () => {
                   <Settings />
                 </Box>
                 <Box p="1" rounded="full" bg="#8D96A5" onClick={(e) => router.push("/useraccount/updateprofile")}>
-                  <PenSquare p="4" color="#ffff" />
+                  <PenSquare/>
                 </Box>
               </HStack>
             </Box>
@@ -64,7 +64,6 @@ const EditProfile = () => {
                 />
               </Box>
             </Box>
-            <Settings />
           </Box>
           <FullProfileView isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
 
@@ -100,7 +99,6 @@ const EditProfile = () => {
           </Box>
         </CardBody>
       </Card>
-
       <Card mt="1">
         <CardBody alignItems="center" justifyContent="center" p="6">
           <Text textAlign="start" color="heading.700" fontWeight="semibold" fontSize="lg">

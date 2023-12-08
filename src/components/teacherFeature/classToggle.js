@@ -40,7 +40,6 @@ const ClassToggle = () => {
           <Tag
             bg="#5146D6"
             color="#fff"
-            p="3"
             fontSize="10px"
             style={{ borderRadius: "6px" }}
           >
@@ -49,11 +48,11 @@ const ClassToggle = () => {
           <MoreVertical size="18px" />
         </Box>
       </HStack>
-      <Flex alignItems="center" pt="10" justifyContent="space-between">
-        <Text fontSize="13px">
+      <Flex alignItems="center" pt="5" justifyContent="space-between">
+        <Text fontSize="13px" w='200px'>
           There are two writing tasks you'll have to co...
         </Text>
-        <Switch size="small" />
+        <Switch size="md" />
       </Flex>
     </Box>
   );
