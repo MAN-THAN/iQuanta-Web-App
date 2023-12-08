@@ -16,8 +16,10 @@ const UpComeingCard = ({ style, id }) => {
   const router = useRouter();
   const path = usePathname();
   return (
-    <Box mb="4" sx={{ ...style }}>
+    <Box mb="4" w='full'>
       {path === "/learn/classList" ? (
+        ""
+      ) : path === "/" ? (
         ""
       ) : (
         <Flex align="center" justify="space-between" pb="4">
@@ -35,16 +37,16 @@ const UpComeingCard = ({ style, id }) => {
         </Flex>
       )}
       <Card
-        maxW="md"
+        // maxW="sm"
         bg="#5146D6"
-        h="200px"
+        h="auto"
         rounded="xl"
         bgImage="url('/static/images/profile.jpeg')"
         bgSize="cover"
         bgRepeat="no-repeat"
         bgfilter="grayscale(100%)"
         bgPosition="center"
-        position="relative" 
+        position="relative"
       >
         <Box h="150px" zIndex="999">
           <Flex p="3" align="center" gap="2">

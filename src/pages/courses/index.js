@@ -20,7 +20,6 @@ const Courses = () => {
     <div>
       <CoursesAdd />
       <YourCourses />
-      <FeatureCardSide />
       <OurOnlineCourse />
     </div>
   );

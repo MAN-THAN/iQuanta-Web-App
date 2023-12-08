@@ -33,9 +33,9 @@ import {
 
 const FullProfileView = ({ isOpen, onOpen, onClose }) => {
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size={["3xl", null, "6xl"]}>
+    <Modal isOpen={isOpen}  onClose={onClose} size={["3xl", null, "6xl"]}>
       <ModalOverlay />
-      <ModalContent padding="10px">
+      <ModalContent bg='brand.700' padding="10px">
         <ModalCloseButton
           position="absolute"
           left="0"

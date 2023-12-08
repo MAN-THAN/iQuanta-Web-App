@@ -6,7 +6,7 @@ import { LuFileSpreadsheet } from "react-icons/lu";
 import { BiBookAlt, BiGroup, BiErrorCircle } from "react-icons/bi";
 import { MdOutlineLeaderboard } from "react-icons/md";
 import { TbBrandGoogleAnalytics } from "react-icons/tb";
-import { Box, ListItem, UnorderedList } from "@chakra-ui/react";
+import { Box, ListItem, Text, UnorderedList } from "@chakra-ui/react";
 import { usePathname, useRouter } from "next/navigation";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
@@ -21,7 +21,7 @@ const MainLeftnavigation = () => {
     {
       icon: <AiOutlineHome className="text-xl" />,
       nav: "Home",
-      path: "/home",
+      path: "/",
     },
     {
       icon: <BsBook className="text-xl" />,
@@ -70,33 +70,29 @@ const MainLeftnavigation = () => {
   ];
 
   return (
-
-      <Box bg="background.400">
-        <UnorderedList
-          styleType="none"
-          display={{ md: "none", lg: "block", sm: "none" }}
-        >
-          {Navs.map((data, index) => {
-            return (
-              <CustomLinkItem key={index} href={`${data.path}`}>
-                <ListItem
-                  _hover={{ color: "#000" }}
-                  cursor="pointer"
-                  onClick={() => router.push(data.path)}
-                  className="flex"
-                  p="14"
-                  fontSize="16px"
-                  fontWeight="semibold"
-                >
+    <Box bg="background.400">
+      <UnorderedList styleType="none" display={{ md: "none", lg: "block", sm: "none" }}>
+        {Navs.map((data, index) => {
+          return (
+            <CustomLinkItem key={index} href={`${data.path}`}>
+              <ListItem
+                _hover={{ color: "#000" }}
+                cursor="pointer"
+                onClick={() => router.push(data.path)}
+                className="flex"
+                fontSize="16px"
+                fontWeight="semibold"
+              >
+                <Text alignItems="center" pb="10" display="flex">
                   {data.icon}
                   <span className="mx-4">{data.nav}</span>
-                </ListItem>
-              </CustomLinkItem>
-            );
-          })}
-        </UnorderedList>
-      </Box>
-
+                </Text>
+              </ListItem>
+            </CustomLinkItem>
+          );
+        })}
+      </UnorderedList>
+    </Box>
   );
 };
 

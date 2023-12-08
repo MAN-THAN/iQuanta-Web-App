@@ -33,12 +33,7 @@ const UserSettings = () => {
           </HStack>
         </CardHeader>
         <CardBody>
-          <UnorderedList
-            listStyleType="none"
-            fontSize="14px"
-            fontWeight="500"
-            color="#455564"
-          >
+          <UnorderedList listStyleType="none" fontSize="14px" fontWeight="500" color="#455564">
             <ListItem key="1">
               <Flex align="center" justify="space-between">
                 <Text>Posts you’ve liked</Text>
@@ -53,7 +48,6 @@ const UserSettings = () => {
               <Flex align="center" justify="space-between">
                 <Text>Posts you marked helpful</Text>
                 <Box>
-                  {" "}
                   <ChevronRight />
                 </Box>
               </Flex>
@@ -63,7 +57,6 @@ const UserSettings = () => {
               <Flex align="center" justify="space-between">
                 <Text>Challenges you’ve participated in</Text>
                 <Box>
-                  {" "}
                   <ChevronRight />
                 </Box>
               </Flex>
@@ -114,6 +107,6 @@ const UserSettings = () => {
   );
 };
 
-UserSettings.getLayout = (page) => <UserSettingLayout>{page}</UserSettingLayout>
+UserSettings.getLayout = (page) => <UserSettingLayout>{page}</UserSettingLayout>;
 
 export default UserSettings;
