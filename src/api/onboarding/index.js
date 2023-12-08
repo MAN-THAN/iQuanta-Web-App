@@ -70,7 +70,7 @@ export const postUserExams = async (uid, payload) => {
     const res = await request({
       url: `/auth/v1/onboard/update/${uid}`,
       type: "PATCH",
-      data: {exams : payload},
+      data: { exams: payload },
       headers: {
         "Content-Type": "application/json",
       },
@@ -102,7 +102,7 @@ export const postUserInterest = async (uid, payload) => {
     const res = await request({
       url: `/auth/v1/onboard/update/${uid}`,
       type: "PATCH",
-      data: {interests : payload},
+      data: { interests: payload },
       headers: {
         "Content-Type": "application/json",
       },

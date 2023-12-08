@@ -23,7 +23,7 @@ import { useSelector } from "react-redux";
 
 const UserInfo = () => {
   const router = useRouter();
-  const {_id : uid} = useSelector(state => state.userData);
+  const { _id: uid } = useSelector((state) => state.userData);
   // Form validation
 
   // Formik hook
@@ -46,9 +46,7 @@ const UserInfo = () => {
         .required("Name is required")
         .matches(/^[a-zA-Z\s]*$/, "Only alphabets and spaces are allowed"),
 
-      email: Yup.string()
-        .email("Invalid email address")
-        .required("Email is required"),
+      email: Yup.string().email("Invalid email address").required("Email is required"),
       gender: Yup.string().required("Please select your gender"),
     }),
     onSubmit: (values) => {
@@ -57,7 +55,7 @@ const UserInfo = () => {
     },
   });
 
-  // Mutation 
+  // Mutation
 
   const mutation = useMutation({
     mutationFn: (values) => updateProfile(uid, values),
@@ -72,7 +70,7 @@ const UserInfo = () => {
       router.push({
         pathname: "/signup/user_info/exam-pre",
         // query: { phoneNum: formik.values.phoneNum },
-      })
+      });
     },
     onSettled: (data, error, variables, context) => {},
   });
@@ -82,13 +80,7 @@ const UserInfo = () => {
   return (
     <Flex align="center" bg="black" flexWrap="wrap">
       <Box w={{ base: "100%", md: "40%" }} position="relative">
-        <Image
-          alt="icon"
-          src="/back.png"
-          objectFit="cover"
-          width="100%"
-          height="100vh"
-        />
+        <Image alt="icon" src="/back.png" objectFit="cover" width="100%" height="100vh" />
         <div
           style={{
             position: "absolute",
@@ -126,9 +118,7 @@ const UserInfo = () => {
                 name="name"
               />
               {formik.touched.name && formik.errors.name && (
-                <Text style={{ color: "red", marginTop: "8px" }}>
-                  {formik.errors.name}
-                </Text>
+                <Text style={{ color: "red", marginTop: "8px" }}>{formik.errors.name}</Text>
               )}
               <FormLabel fontSize="20px" fontWeight="600" color="#fff" py="3">
                 How do we reach you out?
@@ -149,9 +139,7 @@ const UserInfo = () => {
                     name="email"
                   />
                   {formik.touched.email && formik.errors.email && (
-                    <Text style={{ color: "red", marginTop: "8px" }}>
-                      {formik.errors.email}
-                    </Text>
+                    <Text style={{ color: "red", marginTop: "8px" }}>{formik.errors.email}</Text>
                   )}
                 </VStack>
 
@@ -170,9 +158,7 @@ const UserInfo = () => {
                     name="phoneNumber"
                   />
                   {formik.touched.phoneNumber && formik.errors.phoneNumber && (
-                    <Text style={{ color: "red", marginTop: "8px" }}>
-                      {formik.errors.phoneNumber}
-                    </Text>
+                    <Text style={{ color: "red", marginTop: "8px" }}>{formik.errors.phoneNumber}</Text>
                   )}
                 </VStack>
               </InputGroup>
@@ -186,9 +172,7 @@ const UserInfo = () => {
                   <label htmlFor="gender-male">
                     <Text>Male</Text>
                     <Image
-                      border={`${
-                        selectedPlan === "male" ? "4px solid red" : ""
-                      }`}
+                      border={`${selectedPlan === "male" ? "4px solid red" : ""}`}
                       rounded="3xl"
                       alt="male icon"
                       scale="2px"
@@ -214,9 +198,7 @@ const UserInfo = () => {
                   <label htmlFor="gender-female">
                     <Text>Female</Text>
                     <Image
-                      border={`${
-                        selectedPlan === "female" ? "4px solid red" : ""
-                      }`}
+                      border={`${selectedPlan === "female" ? "4px solid red" : ""}`}
                       rounded="3xl"
                       alt="male icon"
                       scale="2px"
@@ -242,9 +224,7 @@ const UserInfo = () => {
                   <label htmlFor="gender-other">
                     <Text>Don't Prefer</Text>
                     <Image
-                      border={`${
-                        selectedPlan === "other" ? "4px solid red" : ""
-                      }`}
+                      border={`${selectedPlan === "other" ? "4px solid red" : ""}`}
                       rounded="3xl"
                       alt="male icon"
                       scale="2px"

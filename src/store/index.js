@@ -10,9 +10,8 @@ const persistConfig = {
   storage,
 };
 
-const rootReducer = combineReducers({ userData: userSliceReducer, feedData : feedSliceReducer});
+const rootReducer = combineReducers({ userData: userSliceReducer, feedData: feedSliceReducer });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
-
 
 export const store = configureStore({
   reducer: persistedReducer,

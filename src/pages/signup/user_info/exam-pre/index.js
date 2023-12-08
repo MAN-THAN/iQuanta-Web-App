@@ -57,9 +57,7 @@ const ExamPreChosse = () => {
       })
       .map((category) => ({
         ...category,
-        entity_types: category.entity_types.filter((entity) =>
-          entity.title.toLowerCase().startsWith(searchTerm)
-        ),
+        entity_types: category.entity_types.filter((entity) => entity.title.toLowerCase().startsWith(searchTerm)),
       }));
   }, [exams, searchTerm]);
 
@@ -131,13 +129,7 @@ const ExamPreChosse = () => {
     <>
       <Flex align="center" bg="black" flexWrap="wrap">
         <Box w={{ base: "100%", md: "40%" }} position="relative">
-          <Image
-            alt="icon"
-            src="/back.png"
-            objectFit="cover"
-            width="100%"
-            height="100vh"
-          />
+          <Image alt="icon" src="/back.png" objectFit="cover" width="100%" height="100vh" />
           <div
             style={{
               position: "absolute",
@@ -162,9 +154,7 @@ const ExamPreChosse = () => {
                 <Heading as="h2" fontSize="28px" color="#fff">
                   Which exams are you preparing for?
                 </Heading>
-                <FormLabel color="#8A8A8A">
-                  You can add more later if needed
-                </FormLabel>
+                <FormLabel color="#8A8A8A">You can add more later if needed</FormLabel>
                 <InputGroup>
                   <InputLeftElement color="white" height="50px">
                     <Search />
@@ -184,13 +174,7 @@ const ExamPreChosse = () => {
               <Box maxH="30vh" overflow="scroll" color="#ffffff">
                 {filteredData?.map(({ category, title, entity_types, _id }) => (
                   <Box key={_id}>
-                    <Text
-                      fontSize="md"
-                      align="start"
-                      fontWeight="600"
-                      py="2"
-                      pt="5"
-                    >
+                    <Text fontSize="md" align="start" fontWeight="600" py="2" pt="5">
                       {title}
                     </Text>
                     <HStack flexWrap="wrap" gap="3" pt="2">
@@ -200,36 +184,16 @@ const ExamPreChosse = () => {
                           alignItems="center"
                           size="sm"
                           key={data._id}
-                          bg={
-                            selectedItems?.includes(data.title)
-                              ? "#F4F3FE"
-                              : "#fff !important"
-                          }
-                          border={
-                            selectedItems?.includes(data.title)
-                              ? "1px solid #5146D6"
-                              : "1px solid gray"
-                          }
+                          bg={selectedItems?.includes(data.title) ? "#F4F3FE" : "#fff !important"}
+                          border={selectedItems?.includes(data.title) ? "1px solid #5146D6" : "1px solid gray"}
                           onClick={() => handleToggleSelection(data.title)}
                         >
                           {selectedItems?.includes(data.title) ? (
-                            <BsCheckLg
-                              fontSize="14px"
-                              fontWeight="900"
-                              color="#5146D6"
-                            />
+                            <BsCheckLg fontSize="14px" fontWeight="900" color="#5146D6" />
                           ) : (
                             <GrAdd fontSize="14px" fontWeight="900" />
                           )}
-                          <Text
-                            fontSize="14px"
-                            px="1"
-                            color={
-                              selectedItems?.includes(data.title)
-                                ? "#5146D6"
-                                : ""
-                            }
-                          >
+                          <Text fontSize="14px" px="1" color={selectedItems?.includes(data.title) ? "#5146D6" : ""}>
                             {data.title}
                           </Text>
                         </Button>

@@ -13,20 +13,14 @@ const CountdownTimer = React.memo(({ setResend, timerKey }) => {
 
       return (
         <Text color="white">
-          {minutes < 10 ? `0${minutes}` : minutes}:
-          {seconds < 10 ? `0${seconds}` : seconds}
+          {minutes < 10 ? `0${minutes}` : minutes}:{seconds < 10 ? `0${seconds}` : seconds}
         </Text>
       );
     }
   };
   return (
     <>
-      <Countdown
-        key={timerKey}
-        date={Date.now() + 30 * 1000}
-        renderer={renderer}
-        autoStart={true}
-      />
+      <Countdown key={timerKey} date={Date.now() + 30 * 1000} renderer={renderer} autoStart={true} />
     </>
   );
 });

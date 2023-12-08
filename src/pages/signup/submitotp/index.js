@@ -55,13 +55,9 @@ const SubmitOtp = () => {
       });
       console.log(data);
       dispatch(addUserData(data.data.user));
-      setTimeout(
-        () =>
-          router.push({
-            pathname: "/signup/user_info",
-          }),
-        1000
-      );
+      router.push({
+        pathname: "/signup/user_info",
+      });
     },
     onSettled: (data, error, variables, context) => {},
   });
@@ -80,7 +76,7 @@ const SubmitOtp = () => {
         position: toast.POSITION.TOP_RIGHT,
       });
       setResend(false);
-      setTimerKey(state => state + 1);
+      setTimerKey((state) => state + 1);
       formik.resetForm();
     },
     onSettled: (data, error, variables, context) => {},
@@ -106,13 +102,7 @@ const SubmitOtp = () => {
       <ToastContainer />
       <Flex align="center" bg="black" flexWrap="wrap">
         <Box w={{ base: "100%", md: "40%" }} position="relative">
-          <Image
-            alt="icon"
-            src="/back.png"
-            objectFit="cover"
-            width="100%"
-            height="100vh"
-          />
+          <Image alt="icon" src="/back.png" objectFit="cover" width="100%" height="100vh" />
           <div
             style={{
               position: "absolute",
@@ -135,9 +125,7 @@ const SubmitOtp = () => {
               <FormControl mt="10%">
                 <FormLabel fontSize="22px" width="400px" color="gray">
                   Please enter the code we just send to
-                  <span style={{ color: "white" }}>
-                    (+91) {phoneNum} &nbsp;
-                  </span>
+                  <span style={{ color: "white" }}>&nbsp; (+91) {phoneNum} &nbsp;</span>
                   to procced
                 </FormLabel>
                 <HStack gap="4" mt="5" fontWeight="600" color="white">
@@ -151,14 +139,7 @@ const SubmitOtp = () => {
                     onChange={(value) => formik.setFieldValue("otpCode", value)}
                   >
                     {[...Array(6)].map((_, index) => (
-                      <PinInputField
-                        key={index}
-                        border="none"
-                        bg="#252525"
-                        width="60px"
-                        height="60px"
-                        rounded="2xl"
-                      />
+                      <PinInputField key={index} border="none" bg="#252525" width="60px" height="60px" rounded="2xl" />
                     ))}
                   </PinInput>
                 </HStack>
@@ -180,9 +161,7 @@ const SubmitOtp = () => {
                 </HStack>
               </FormControl>
               {formik.touched.otpCode && formik.errors.otpCode && (
-                <Text style={{ color: "red", marginTop: "8px" }}>
-                  {formik.errors.otpCode}
-                </Text>
+                <Text style={{ color: "red", marginTop: "8px" }}>{formik.errors.otpCode}</Text>
               )}
               <Stack direction="row" spacing={2} justify="start">
                 <Button
@@ -210,10 +189,7 @@ const SubmitOtp = () => {
               <Divider mt="25%" width="250px" />
               <p style={{ color: "white", fontSize: "14px" }}>
                 By continuing you agree to
-                <span
-                  onClick={() => router.push("/terms")}
-                  style={{ fontWeight: "600" }}
-                >
+                <span onClick={() => router.push("/terms")} style={{ fontWeight: "600" }}>
                   &nbsp;Terms of services
                 </span>
                 and
