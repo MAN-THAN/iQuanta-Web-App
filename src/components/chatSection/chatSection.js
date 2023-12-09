@@ -94,11 +94,10 @@ const ChatSection = () => {
                 </PopoverTrigger>
                 <PopoverContent
                   bg="white.900"
-                  position="fixed"
+                  position="absolute"
                   right="10"
-                  top="0"
+                  top="-60"
                 >
-                  <PopoverArrow borderWidth="1px" />
                   <PopoverHeader>
                     <HStack align="center">
                       <Box
