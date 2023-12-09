@@ -1,12 +1,9 @@
 import React from "react";
-import { Box } from "@chakra-ui/react";
-import MainHeader from "../mainHeader";
-import MainLeftnavigation from "@/components/leftNavigations/mainLeftnavigation";
-import UserRightSiderbar from "@/components/rightSidebars/userRightSiderbar";
+import { Box, Image } from "@chakra-ui/react";
 import { extendTheme } from "@chakra-ui/react";
 import { ChakraProvider } from "@chakra-ui/react";
 
-const RootLayout = ({ children }) => {
+const OnBordingLayout = ({ children }) => {
   const theme = extendTheme({
     colors: {
       brand: {
@@ -55,20 +52,9 @@ const RootLayout = ({ children }) => {
   });
   return (
     <ChakraProvider theme={theme}>
-      <div style={{ marginLeft: "10%", marginRight: "10%" }}>
-        <MainHeader />
-        <div className="flex pt-8">
-          <Box>
-            <MainLeftnavigation />
-          </Box>
-          <Box overflow="hidden" flex="1" pl="6%" pr="4%">
-            {children}
-          </Box>
-          <UserRightSiderbar />
-        </div>
-      </div>
+      <Box overflow="hidden">{children}</Box>
     </ChakraProvider>
   );
 };
 
-export default RootLayout;
+export default OnBordingLayout;

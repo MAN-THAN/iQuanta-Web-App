@@ -42,7 +42,7 @@ const EditProfile = () => {
       }),
     onSuccess: (data) => setState(data.data.data.user_data),
   });
-  console.log(state)
+  console.log(state);
 
   return (
     <>
@@ -96,12 +96,13 @@ const EditProfile = () => {
               </Flex>
             </Box>
             <Flex align="center" justify="center" gap={3} pt="4">
-              
-            {state?.exams?.map((item, ind) => {
-              return (<Badge key={ind} px="4" py="2" rounded="2xl" color="text.900" colorScheme="green">
-              {item}
-            </Badge>)
-            })}
+              {state?.exams?.map((item, ind) => {
+                return (
+                  <Badge key={ind} px="4" py="2" rounded="2xl" color="text.900" colorScheme="green">
+                    {item}
+                  </Badge>
+                );
+              })}
             </Flex>
             <Box fontSize="md" pt="5">
               <p>

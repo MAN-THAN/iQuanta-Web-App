@@ -1,5 +1,6 @@
 import request from "../request";
 
+//get user profile details
 export const getProfileInfo = async (uid) => {
   try {
     const res = await request({
@@ -14,3 +15,4 @@ export const getProfileInfo = async (uid) => {
     throw err;
   }
 };
+
