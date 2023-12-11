@@ -9,35 +9,35 @@ const PollFeedCard = () => {
   return (
     <>
       <Box bg="white.900" w="full" mx="auto" mt="4">
-      <HStack align="center" justifyContent="space-between" padding={["3", null, "4"]}>
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <Box boxSize="40px">
-            <Image
-              objectFit="cover"
-              width="100%"
-              height="100%"
-              className="rounded-md"
-              src="/static/images/Profile.jpeg"
-              alt="Profile Image"
-            />
-          </Box>
-          <Box ml="2">
-            <Box display="flex" alignItems="center">
-              <p style={{ fontSize: "14px", color: "#171717", fontWeight: "600" }}>Hardik Beniwal</p> <MdPlayArrow />
-              <p style={{ fontSize: "14px", color: "#171717", fontWeight: "400" }}>Posted in CAT 2021</p>
+        <HStack align="center" justifyContent="space-between" padding={["3", null, "4"]}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <Box boxSize="40px">
+              <Image
+                objectFit="cover"
+                width="100%"
+                height="100%"
+                className="rounded-md"
+                src="/static/images/Profile.jpeg"
+                alt="Profile Image"
+              />
             </Box>
-            <p style={{ fontSize: "14px", color: "#636363" }}>2h ago</p>
+            <Box ml="2">
+              <Box display="flex" alignItems="center">
+                <p style={{ fontSize: "14px", color: "#171717", fontWeight: "600" }}>Hardik Beniwal</p> <MdPlayArrow />
+                <p style={{ fontSize: "14px", color: "#171717", fontWeight: "400" }}>Posted in CAT 2021</p>
+              </Box>
+              <p style={{ fontSize: "14px", color: "#636363" }}>2h ago</p>
+            </Box>
           </Box>
-        </Box>
-        <Box display="flex" alignItems="center" gap="4">
-          <MoreVertical size="24px" />
-        </Box>
-      </HStack>
+          <Box display="flex" alignItems="center" gap="4">
+            <MoreVertical size="24px" />
+          </Box>
+        </HStack>
         <Text p="5" fontSize="md" fontWeight="semibold">
           Which exam are you folks applying for?
         </Text>
@@ -111,7 +111,6 @@ const PollFeedCard = () => {
               </span>
             </Box>
           </HStack>
-          
         </div>
         <Divider />
         <Flex align="center" justify="space-between" p="3">
@@ -125,7 +124,7 @@ const PollFeedCard = () => {
             <Share2 /> <span>Share</span>
           </HStack>
         </Flex>
-        <Divider pb='4'/>
+        <Divider pb="4" />
       </Box>
     </>
   );
