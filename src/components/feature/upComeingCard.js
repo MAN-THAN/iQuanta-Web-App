@@ -1,56 +1,100 @@
-import React from 'react'
-import { Card, CardHeader, CardBody, CardFooter, Box, Stack, Heading, Text, Divider, ButtonGroup, Button, UnorderedList, ListItem, VStack, HStack, Flex, Image } from '@chakra-ui/react'
-import { CalendarDays, ChevronRight, Dot, Scale } from 'lucide-react'
-import { useRouter, usePathname } from 'next/navigation'
-
+import React from "react";
+import {
+  Card,
+  Box,
+  Stack,
+  Heading,
+  Text,
+  Button,
+  HStack,
+  Flex,
+} from "@chakra-ui/react";
+import { CalendarDays, ChevronRight, Dot, Scale } from "lucide-react";
+import { useRouter, usePathname } from "next/navigation";
 
 const UpComeingCard = ({ style, id }) => {
   const router = useRouter();
   const path = usePathname();
   return (
-    <Box mb='4' sx={{ ...style }}>
-      {path === "/learn/classList" ? "" : 
-      <Flex align='center' justify='space-between' pb='4'>
-        <HStack>
+    <Box mb="4" w='full'>
+      {path === "/learn/classList" ? (
+        ""
+      ) : path === "/" ? (
+        ""
+      ) : (
+        <Flex align="center" justify="space-between" pb="4">
+          <HStack>
+            <Box>
+              <CalendarDays />
+            </Box>
+            <Heading fontSize="18px" fontWeight="500">
+              Calender
+            </Heading>
+          </HStack>
           <Box>
-            <CalendarDays />
+            <ChevronRight />
           </Box>
-          <Heading fontSize='18px' fontWeight='500'>Calender</Heading>
-        </HStack>
-        <Box>
-          <ChevronRight />
-        </Box>
-      </Flex>}
-      <Card maxW='md' bg='#5146D6' h='200px' rounded='xl' bgImage="url('/static/images/profile.jpeg')"
+        </Flex>
+      )}
+      <Card
+        // maxW="sm"
+        bg="#5146D6"
+        h="auto"
+        rounded="xl"
+        bgImage="url('/static/images/profile.jpeg')"
         bgSize="cover"
         bgRepeat="no-repeat"
-        bgfilter='grayscale(100%)'
+        bgfilter="grayscale(100%)"
         bgPosition="center"
         position="relative"
       >
-        <Box h='150px' zIndex='999'>
-          <Flex p='3' align='center' gap='2'>
-            <Box w="0.8rem"
-              h="0.8rem"
-              bg="green.500"
-              rounded='full'
-            />
-            <Text padding='0' color='#fff' fontSize='16px' fontWeight='500'>Aniket Kumar</Text>
+        <Box h="150px" zIndex="999">
+          <Flex p="3" align="center" gap="2">
+            <Box w="0.8rem" h="0.8rem" bg="green.500" rounded="full" />
+            <Text padding="0" color="#fff" fontSize="16px" fontWeight="500">
+              Aniket Kumar
+            </Text>
           </Flex>
         </Box>
-        <Flex zIndex='9' align='center' justify='space-between' bg='#000000B8' rounded='lg' m='2' padding='2'>
-          <Stack align='self-start'>
-            <Text fontSize='16px' color='#fff'>Logical Reasoning</Text>
-            <HStack fontSize='10px' textAlign="start"><span className='text-green-500'>Starts in 04mins</span></HStack>
+        <Flex
+          zIndex="9"
+          align="center"
+          justify="space-between"
+          bg="#000000B8"
+          rounded="lg"
+          m="2"
+          padding="2"
+        >
+          <Stack align="self-start">
+            <Text fontSize="16px" color="#fff">
+              Logical Reasoning
+            </Text>
+            <HStack fontSize="10px" textAlign="start">
+              <span className="text-green-500">Starts in 04mins</span>
+            </HStack>
           </Stack>
-          <Box bg="#9696965C" padding="0" rounded='md'>
-            {
-              path == "/learn" ? <Button onClick={() => router.push("/learn/classList")} variant="solid" color='#fff' backgroundColor="#9696965C" _hover={{ color: "#000", backgroundColor: "#fff" }} >
-                View
-              </Button> : <Button onClick={() => router.push(`/learn/classList/${id}`)} variant="solid" color='#fff' backgroundColor="#9696965C" _hover={{ color: "#000", backgroundColor: "#fff" }} >
+          <Box bg="#9696965C" padding="0" rounded="md">
+            {path == "/learn" ? (
+              <Button
+                onClick={() => router.push("/learn/classList")}
+                variant="solid"
+                color="#fff"
+                backgroundColor="#9696965C"
+                _hover={{ color: "#000", backgroundColor: "#fff" }}
+              >
                 View
               </Button>
-            }
+            ) : (
+              <Button
+                onClick={() => router.push(`/learn/classList/${id}`)}
+                variant="solid"
+                color="#fff"
+                backgroundColor="#9696965C"
+                _hover={{ color: "#000", backgroundColor: "#fff" }}
+              >
+                View
+              </Button>
+            )}
           </Box>
         </Flex>
         <div
@@ -63,12 +107,12 @@ const UpComeingCard = ({ style, id }) => {
             background: "rgba(0,0,0,0.3)",
             zIndex: "1",
             mixBlendMode: "multiply",
-            borderRadius: "8px"
+            borderRadius: "8px",
           }}
         ></div>
       </Card>
     </Box>
-  )
-}
+  );
+};
 
-export default UpComeingCard
+export default UpComeingCard;

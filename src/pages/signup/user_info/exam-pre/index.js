@@ -1,341 +1,229 @@
-"use client";
 import {
   Box,
   Button,
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
   Container,
-  Divider,
   Flex,
   FormControl,
   FormLabel,
-  Grid,
-  GridItem,
   HStack,
   Heading,
-  Icon,
   Image,
   Input,
   InputGroup,
-  InputLeftAddon,
   InputLeftElement,
   Stack,
   Text,
   VStack,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useReducer, useState, useEffect, useMemo } from "react";
 import { BsCheckLg } from "react-icons/bs";
-import SplashSearchCard from "../../../components/search-cards/splashSearchCard";
-import { useRouter } from "next/navigation";
-import { ChevronDown, Search } from "lucide-react";
 import { GrAdd } from "react-icons/gr";
+import { useRouter } from "next/navigation";
+import { Search } from "lucide-react";
+import { postUserExams } from "@/api/onboarding";
+import { useQuery } from "react-query";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useMutation } from "react-query";
+import { ToastContainer } from "react-toastify";
+import { getExams } from "@/api/onboarding";
+import { useSelector } from "react-redux";
+import OnBordingLayout from "@/components/layouts/onBordingLayout";
 
 const ExamPreChosse = () => {
   const router = useRouter();
-  const examArray = [
-    { id: 1, title: "GMAT", img: "/exam.png", selected: false },
-    { id: 2, title: "GMAT", img: "/exam.png", selected: false },
-    { id: 3, title: "GMAT", img: "/exam.png", selected: false },
-  ];
-  const examArray2 = [
-    { id: 1, title: "GMAT", img: "/exam.png", selected: false },
-    { id: 2, title: "GMAT", img: "/exam.png", selected: false },
-    { id: 3, title: "GMAT", img: "/exam.png", selected: false },
-  ];
+  const [exams, setExams] = useState();
+  const [searchTerm, setSearchTerm] = useState();
+  const { isLoading, data, isError, error } = useQuery("getExams", getExams);
+  const { _id: uid } = useSelector((state) => state.userData);
+  //Setting exams state
+  useEffect(() => {
+    if (data?.status == 200) {
+      setExams(data?.data.data.list);
+    }
+  }, [data]);
 
-  const [selectedImages, setSelectedImages] = useState([]);
+  // Search Func
+  const filteredData = useMemo(() => {
+    if (!exams || !searchTerm) {
+      return exams; // If exams or searchTerm is not present, return original data
+    }
+    return exams
+      .filter((category) => {
+        const filteredEntityTypes = category.entity_types.filter((entity) =>
+          entity.title.toLowerCase().startsWith(searchTerm)
+        );
 
-  const handleImageSelect = (id) => {
-    if (selectedImages?.includes(id)) {
-      setSelectedImages(selectedImages.filter((val) => val !== id));
-    } else {
-      setSelectedImages([...(selectedImages ?? []), id]);
+        return filteredEntityTypes.length > 0; // Include only if there are matching entity_types
+      })
+      .map((category) => ({
+        ...category,
+        entity_types: category.entity_types.filter((entity) => entity.title.toLowerCase().startsWith(searchTerm)),
+      }));
+  }, [exams, searchTerm]);
+
+  console.log(filteredData);
+
+  // Mutation
+  const mutation = useMutation({
+    mutationFn: (payload) => postUserExams(uid, payload),
+    onMutate: (variables) => {
+      return console.log("mutation is happening");
+    },
+    onError: (error, variables, context) =>
+      toast.error(`${error.response.data.message}`, {
+        position: toast.POSITION.TOP_RIGHT,
+      }),
+    onSuccess: (data, variables, context) => {
+      router.push("/signup/user_info/more-about");
+    },
+    onSettled: (data, error, variables, context) => {},
+  });
+
+  const initialState = [];
+
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case "TOGGLE_SELECTION":
+        const updatedSelection = state?.includes(action.title)
+          ? state.filter((val) => val !== action.title)
+          : [...state, action.title];
+        return updatedSelection;
+      default:
+        return state;
     }
   };
 
+  const [selectedItems, dispatch] = useReducer(reducer, initialState);
+
+  const handleToggleSelection = (title) => {
+    dispatch({ type: "TOGGLE_SELECTION", title });
+  };
+
+  const isFormValid = () => {
+    if (selectedItems.length > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const handleNextClick = () => {
+    if (isFormValid()) {
+      mutation.mutate(selectedItems);
+    } else {
+      // Display a validation message or take any other action
+      toast.error("Please select at least one item", {
+        position: "top-right",
+        autoClose: 2000, // 5 seconds
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  };
+  console.log(selectedItems);
+
   return (
-    <Flex align="center" bg="black" flexWrap="wrap">
-      <Box w={{ base: "100%", md: "40%" }} position="relative">
-        <Image
-          alt="icon"
-          src="/back.png"
-          objectFit="cover"
-          width="100%"
-          height="100vh"
-        />
-        <div
-          style={{
-            position: "absolute",
-            top: "0",
-            right: "0",
-            bottom: "0",
-            left: "50%",
-            background: "linear-gradient(to right, #ffffff 0%, #000000 100%)",
-            zIndex: "1",
-            mixBlendMode: "multiply",
-          }}
-        ></div>
-      </Box>
-      <Box w={{ base: "100%", md: "60%" }}>
-        <Container gap="6" mt={{ base: "40px", md: "0" }}>
-          <Stack gap="6">
-            <Box>
-              <Image alt="logo" src="/logowhite.png" />
-            </Box>
-            <FormControl>
-              <Heading as="h2" fontSize="28px" color="#fff">
-                Which exams are you preparing for?
-              </Heading>
-              <FormLabel color="#8A8A8A">
-                You can add more later id needed
-              </FormLabel>
-              <InputGroup>
-                <InputLeftElement color="white" height="50px">
-                  <Search />
-                </InputLeftElement>
-                <Input
-                  height="50px"
-                  width="450px"
-                  type="text"
-                  bg="#252525"
-                  color="white"
-                  border="none"
-                  placeholder="Search"
-                />
-              </InputGroup>
-            </FormControl>
-          </Stack>
-        </Container>
-        <Box
-          mt="7"
-          width="100%"
-          h="auto"
-          display="flex"
-          justifyContent="space-between"
-          pl="20%"
-        >
-          <Box
-            width="260px"
-            alignItems="center"
-            justifyContent="center"
-            display="flex"
-            flexDirection="column"
-            p="2"
-          >
-            <div>
-              <p
-                style={{
-                  fontSize: "16px",
-                  color: "#FFFFFF",
-                  fontWeight: "500",
-                }}
-              >
-                After college
-              </p>
-              <p style={{ fontSize: "12px", color: "#FFFFFF80" }}>
-                MBA in India
-              </p>
-              {examArray.map(() => (
-                <Button
-                  variant="ghost"
-                  alignItems="center"
-                  size="sm"
-                  key=""
-                  bg={"#fff !important"}
-                  border={"1px solid gray"}
-                  mr="1"
-                  mt="2"
-                >
-                  <GrAdd fontSize="14px" fontWeight="900" />
-
-                  <Text fontSize="14px" px="1">
-                    CTE
-                  </Text>
-                </Button>
-              ))}
-              <p
-                style={{
-                  fontSize: "12px",
-                  color: "#FFFFFF80",
-                  marginTop: "7px",
-                }}
-              >
-                MBA in India
-              </p>
-              {examArray2.map(() => (
-                <Button
-                  variant="ghost"
-                  alignItems="center"
-                  size="sm"
-                  key=""
-                  bg={"#fff !important"}
-                  border={"1px solid gray"}
-                  mr="1"
-                  mt="2"
-                >
-                  <GrAdd fontSize="14px" fontWeight="900" />
-
-                  <Text fontSize="14px" px="1">
-                    CTE
-                  </Text>
-                </Button>
-              ))}
-            </div>
-            <ChevronDown color="#fff" />
-          </Box>
-          <Box
-            width="260px"
-            alignItems="center"
-            justifyContent="center"
-            display="flex"
-            flexDirection="column"
-            p="2"
-          >
-            <div>
-              <p
-                style={{
-                  fontSize: "16px",
-                  color: "#FFFFFF",
-                  fontWeight: "500",
-                }}
-              >
-                After college
-              </p>
-              <p style={{ fontSize: "12px", color: "#FFFFFF80" }}>&nbsp;</p>
-              {examArray.map(() => (
-                <Button
-                  variant="ghost"
-                  alignItems="center"
-                  size="sm"
-                  key=""
-                  bg={"#fff !important"}
-                  border={"1px solid gray"}
-                  mr="1"
-                  mt="2"
-                >
-                  <GrAdd fontSize="14px" fontWeight="900" />
-
-                  <Text fontSize="14px" px="1">
-                    CTE
-                  </Text>
-                </Button>
-              ))}
-              <p
-                style={{
-                  fontSize: "12px",
-                  color: "#FFFFFF80",
-                  marginTop: "7px",
-                }}
-              >
-                &nbsp;
-              </p>
-              {examArray2.map(() => (
-                <Button
-                  variant="ghost"
-                  alignItems="center"
-                  size="sm"
-                  key=""
-                  bg={"#fff !important"}
-                  border={"1px solid gray"}
-                  mr="1"
-                  mt="2"
-                >
-                  <GrAdd fontSize="14px" fontWeight="900" />
-
-                  <Text fontSize="14px" px="1">
-                    CTE
-                  </Text>
-                </Button>
-              ))}
-            </div>
-            <ChevronDown color="#fff" />
-          </Box>
-          <Box
-            width="260px"
-            alignItems="center"
-            justifyContent="center"
-            display="flex"
-            flexDirection="column"
-            p="2"
-          >
-            <div>
-              <p
-                style={{
-                  fontSize: "16px",
-                  color: "#FFFFFF",
-                  fontWeight: "500",
-                }}
-              >
-                After college
-              </p>
-              <p style={{ fontSize: "12px", color: "#FFFFFF80" }}>&nbsp;</p>
-              {examArray.map(() => (
-                <Button
-                  variant="ghost"
-                  alignItems="center"
-                  size="sm"
-                  key=""
-                  bg={"#fff !important"}
-                  border={"1px solid gray"}
-                  mr="1"
-                  mt="2"
-                >
-                  <GrAdd fontSize="14px" fontWeight="900" />
-
-                  <Text fontSize="14px" px="1">
-                    CTE
-                  </Text>
-                </Button>
-              ))}
-              <p
-                style={{
-                  fontSize: "12px",
-                  color: "#FFFFFF80",
-                  marginTop: "7px",
-                }}
-              >
-                &nbsp;
-              </p>
-              {examArray2.map(() => (
-                <Button
-                  variant="ghost"
-                  alignItems="center"
-                  size="sm"
-                  key=""
-                  bg={"#fff !important"}
-                  border={"1px solid gray"}
-                  mr="1"
-                  mt="2"
-                >
-                  <GrAdd fontSize="14px" fontWeight="900" />
-
-                  <Text fontSize="14px" px="1">
-                    CTE
-                  </Text>
-                </Button>
-              ))}
-            </div>
-            <ChevronDown color="#fff" />
-          </Box>
-        </Box>
-        <Box pt="4" width="300px" ml="20%">
-          <Button
-            onClick={() => router.push("/home")}
-            sx={{
-              backgroundColor: "#fff !important",
-              fontSize: "14px",
+    <>
+      <Flex align="center" bg="black" flexWrap="wrap">
+        <Box w={{ base: "100%", md: "40%" }} position="relative">
+          <Image alt="icon" src="/back.png" objectFit="cover" width="100%" height="100vh" />
+          <div
+            style={{
+              position: "absolute",
+              top: "0",
+              right: "0",
+              bottom: "0",
+              left: "50%",
+              background: "linear-gradient(to right, #ffffff 0%, #000000 100%)",
+              zIndex: "1",
+              mixBlendMode: "multiply",
             }}
-            w="100%"
-            variant="solid"
-          >
-            Next
-          </Button>
+          ></div>
         </Box>
-      </Box>
-    </Flex>
+
+        <Box w={{ base: "100%", md: "60%" }}>
+          <Container gap="6" mt={{ base: "40px", md: "0" }}>
+            <Stack gap="6">
+              <Box>
+                <Image alt="logo" src="/logowhite.png" />
+              </Box>
+              <FormControl>
+                <Heading as="h2" fontSize="28px" color="#fff">
+                  Which exams are you preparing for?
+                </Heading>
+                <FormLabel color="#8A8A8A">You can add more later if needed</FormLabel>
+                <InputGroup>
+                  <InputLeftElement color="white" height="50px">
+                    <Search />
+                  </InputLeftElement>
+                  <Input
+                    height="50px"
+                    width="450px"
+                    type="text"
+                    bg="#252525"
+                    color="white"
+                    border="none"
+                    placeholder="Search"
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+                </InputGroup>
+              </FormControl>
+              <Box maxH="30vh" overflow="scroll" color="#ffffff">
+                {filteredData?.map(({ category, title, entity_types, _id }) => (
+                  <Box key={_id}>
+                    <Text fontSize="md" align="start" fontWeight="600" py="2" pt="5">
+                      {title}
+                    </Text>
+                    <HStack flexWrap="wrap" gap="3" pt="2">
+                      {entity_types.map((data) => (
+                        <Button
+                          variant="ghost"
+                          alignItems="center"
+                          size="sm"
+                          key={data._id}
+                          bg={selectedItems?.includes(data.title) ? "#F4F3FE" : "#fff !important"}
+                          border={selectedItems?.includes(data.title) ? "1px solid #5146D6" : "1px solid gray"}
+                          onClick={() => handleToggleSelection(data.title)}
+                        >
+                          {selectedItems?.includes(data.title) ? (
+                            <BsCheckLg fontSize="14px" fontWeight="900" color="#5146D6" />
+                          ) : (
+                            <GrAdd fontSize="14px" fontWeight="900" />
+                          )}
+                          <Text fontSize="14px" px="1" color={selectedItems?.includes(data.title) ? "#5146D6" : ""}>
+                            {data.title}
+                          </Text>
+                        </Button>
+                      ))}
+                    </HStack>
+                  </Box>
+                ))}
+              </Box>
+              <Box pt="4">
+                <Button
+                  onClick={handleNextClick}
+                  sx={{
+                    backgroundColor: "#fff !important",
+                    fontSize: "14px",
+                  }}
+                  w="100%"
+                  variant="solid"
+                >
+                  Next
+                </Button>
+              </Box>
+            </Stack>
+          </Container>
+        </Box>
+      </Flex>
+      <ToastContainer />
+    </>
   );
 };
+ExamPreChosse.getLayout = (page) => <OnBordingLayout>{page}</OnBordingLayout>;
 
 export default ExamPreChosse;

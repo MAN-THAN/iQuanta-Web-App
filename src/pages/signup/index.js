@@ -1,4 +1,3 @@
-"use client";
 import React, { useState } from "react";
 import {
   AbsoluteCenter,
@@ -10,8 +9,6 @@ import {
   Flex,
   FormControl,
   FormLabel,
-  HStack,
-  Heading,
   Input,
   InputGroup,
   InputLeftAddon,
@@ -21,130 +18,84 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Image } from "@chakra-ui/react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import { ChevronRight, Dot, Mail, MessageSquare, Phone } from "lucide-react";
+import { useFormik } from "formik";
+import { userAuthGen } from "@/api/onboarding";
+import { TbRuler3 } from "react-icons/tb";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useMutation } from "react-query";
+import { useSession, signIn, signOut } from "next-auth/react";
+import * as Yup from "yup";
+import TeacherLayout from "@/components/layouts/teacherLayout";
+import OnBordingLayout from "@/components/layouts/onBordingLayout";
 
 const PhoneAuth = () => {
   const router = useRouter();
-  const [phoneNum, setPhoneNum] = useState();
-  const [otp, setOtp] = useState(false);
+  const { data: session } = useSession();
+  const mutation = useMutation({
+    mutationFn: (phoneNum) => userAuthGen(phoneNum),
+    onMutate: (variables) => {
+      return console.log("mutation is happening");
+    },
+    onError: (error, variables, context) =>
+      toast.error(`${error.response.data.message}`, {
+        position: toast.POSITION.TOP_RIGHT,
+      }),
+    onSuccess: (data, variables, context) => {
+      // toast.success("OTP Sent !", {
+      //   position: toast.POSITION.TOP_RIGHT,
+      // });
+      router.push({
+        pathname: "/signup/submitotp",
+        query: { phoneNum: formik.values.phoneNum },
+      });
+    },
+    onSettled: (data, error, variables, context) => {},
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      phoneNum: "",
+    },
+    validationSchema: Yup.object({
+      phoneNum: Yup.string()
+        .matches(/^[0-9]{10}$/, {
+          message: "Invalid phone number",
+          excludeEmptyString: false,
+        })
+        .required("Phone number is required"),
+    }),
+    onSubmit: (values) => {
+      mutation.mutate(values.phoneNum);
+    },
+  });
+  console.log(mutation.error);
 
   return (
-    <Flex align="center" bg="black" flexWrap="wrap">
-      <Box w={{ base: "100%", md: "40%" }} position="relative">
-        <Image alt="icon" src="/back.png" objectFit="cover" width="100%" height="100vh" />
-        <div
-          style={{
-            position: "absolute",
-            top: "0",
-            right: "0",
-            bottom: "0",
-            left: "50%",
-            background: "linear-gradient(to right, #ffffff 0%, #000000 100%)",
-            zIndex: "1",
-            mixBlendMode: "multiply",
-          }}
-        ></div>
-      </Box>
-      <Box w={{ base: "100%", md: "60%" }}>
-        <Container gap="6" mt={{ base: "40px", md: "0" }}>
-          {otp ? (
-            <Stack gap="6">
-              <Box>
-                <Image alt="logo" src="/logowhite.png" />
-              </Box>
-              <FormControl mt="10%">
-                <FormLabel fontSize="22px" width="400px" color="gray">
-                  Please enter the code we just send to
-                  <span style={{ color: "white" }}> (+91)8765543567</span> to
-                  procced
-                </FormLabel>
-                <HStack gap="4" mt="5" fontWeight="600" color="white">
-                  <PinInput type="alphanumeric" focusBorderColor="white">
-                    <PinInputField
-                      border="none"
-                      bg="#252525"
-                      width="60px"
-                      height="60px"
-                      rounded="2xl"
-                    />
-                    <PinInputField
-                      bg="#252525"
-                      border="none"
-                      width="60px"
-                      height="60px"
-                      rounded="2xl"
-                    />
-                    <PinInputField
-                      bg="#252525"
-                      border="none"
-                      width="60px"
-                      height="60px"
-                      rounded="2xl"
-                    />
-                    <PinInputField
-                      bg="#252525"
-                      border="none"
-                      width="60px"
-                      height="60px"
-                      rounded="2xl"
-                    />
-                    <PinInputField
-                      bg="#252525"
-                      border="none"
-                      width="60px"
-                      height="60px"
-                      rounded="2xl"
-                    />
-                    <PinInputField
-                      bg="#252525"
-                      border="none"
-                      width="60px"
-                      height="60px"
-                      rounded="2xl"
-                    />
-                  </PinInput>
-                </HStack>
-                <HStack fontSize="18px" align="center" pt="5">
-                  <Text color="white">00:30 </Text>
-                  <Dot color="white" />
-                  <Text display="flex" align="center" color="gray">
-                    Resend OTP via :&nbsp;
-                    <MessageSquare color="white" />
-                    &nbsp; SMS &nbsp;
-                    <Phone color="white" />
-                    &nbsp;Call
-                  </Text>
-                </HStack>
-              </FormControl>
-              <Stack direction="row" spacing={2} justify="start">
-                <Button
-                  p="6"
-                  sx={{
-                    fontSize: "16px",
-                    width: "250px",
-                    color: "#7E7E7E !important",
-                    bg: "#252525 !important",
-                  }}
-                  _hover={{
-                    bg: "white  !important",
-                    color: "#F84D43 !important",
-                  }}
-                >
-                  Continue
-                </Button>
-              </Stack>
-              <Text fontSize="18px" color="gray" fontWeight="500">
-                Truble logging in?
-              </Text>
-              <Divider mt="25%" width="250px" />
-              <p style={{ color: "white", fontSize: "14px" }}>
-                By continuing you agree to
-                <span style={{ fontWeight: "600" }}>Terms of services</span> and
-                <span style={{ fontWeight: "600" }}>Privacy Policy</span>
-              </p>
-            </Stack>
-          ) : (
+    <>
+      <ToastContainer />
+      <Flex align="center" bg="black" flexWrap="wrap">
+        <Box w={{ base: "100%", md: "40%" }} position="relative">
+          <Image alt="icon" src="/back.png" objectFit="cover" width="100%" height="100vh" />
+          <div
+            style={{
+              position: "absolute",
+              top: "0",
+              right: "0",
+              bottom: "0",
+              left: "50%",
+              background: "linear-gradient(to right, #ffffff 0%, #000000 100%)",
+              zIndex: "1",
+              mixBlendMode: "multiply",
+            }}
+          ></div>
+        </Box>
+        <Box w={{ base: "100%", md: "60%" }}>
+          <Container gap="6" mt={{ base: "40px", md: "0" }}>
             <Stack gap="6">
               <Box>
                 <Image alt="logo" src="/logowhite.png" />
@@ -154,24 +105,46 @@ const PhoneAuth = () => {
                   Sign up using your mobile number
                 </FormLabel>
                 <InputGroup alignItems="center">
-                   {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
-                  <InputLeftAddon
-                    p="6"
-                    height="60px"
-                    bg="#252525"
-                    color="white"
-                    border="none"
-                    fontWeight="bold"
-                  >+91</InputLeftAddon>
+                  {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
+
+                  <InputLeftAddon p="6" height="60px" bg="#252525" color="white" border="none" fontWeight="bold">
+                    +91
+                  </InputLeftAddon>
                   <Input
+                    id="phoneNum"
+                    name="phoneNum"
                     size="lg"
                     height="60px"
-                    type="tel"
+                    type="number"
                     bg="#252525"
                     color="white"
                     border="none"
+                    inputMode="numeric"
                     placeholder="Enter your mobile number"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.phoneNum}
                   />
+
+                  {/* <PhoneInput
+                  dropdownStyle={{ color: "red", border: "1px solid" }}
+                  country={"in"}
+                  countryCodeEditable={false}
+                  id="phoneNum"
+                  name="phoneNum"
+                  size="lg"
+                  height="60px"
+                  type="number"
+                  bg="#252525"
+                  color="white"
+                  border="none"
+                  inputMode="numeric"
+                  placeholder="Enter your mobile number"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.phoneNum}
+                /> */}
+
                   <Button
                     sx={{
                       bg: "#252525 !important",
@@ -182,20 +155,17 @@ const PhoneAuth = () => {
                     ml="2"
                     color="white"
                     _hover={{ color: "#F84D43", bg: "white !important" }}
-                    onClick={() => setOtp(true)}
+                    onClick={formik.handleSubmit} // form validation part
                   >
                     <ChevronRight size="30px" />
                   </Button>
                 </InputGroup>
-                <Text
-                  py="4"
-                  color="white"
-                  fontWeight="500"
-                  lineHeight="16.94px"
-                  fontSize="16px"
-                >
-                  We will send you an OTP code on this number for your
-                  verification
+
+                {formik.touched.phoneNum && formik.errors.phoneNum && (
+                  <Text style={{ color: "red", marginTop: "8px" }}>{formik.errors.phoneNum}</Text>
+                )}
+                <Text py="4" color="white" fontWeight="500" lineHeight="16.94px" fontSize="16px">
+                  We will send you an OTP code on this number for your verification
                 </Text>
               </FormControl>
               <Box position="relative">
@@ -223,8 +193,9 @@ const PhoneAuth = () => {
                   }}
                   leftIcon={<Image alt="google image" w="22px" h="22px" src="/google.png" />}
                   variant="outline"
+                  onClick={() => signIn()}
                 >
-                  Sign with Google
+                  {"Sign in with Google"}
                 </Button>
                 <Button
                   p="6"
@@ -244,15 +215,17 @@ const PhoneAuth = () => {
               <Divider mt="25%" width="250px" />
               <p style={{ color: "white", fontSize: "14px" }}>
                 By continuing you agree to
-                <span style={{ fontWeight: "600" }}>Terms of services</span> and
-                <span style={{ fontWeight: "600" }}>Privacy Policy</span>
+                <span style={{ fontWeight: "600" }}>&nbsp;Terms of services</span> and
+                <span style={{ fontWeight: "600" }}>&nbsp;Privacy Policy</span>
               </p>
             </Stack>
-          )}
-        </Container>
-      </Box>
-    </Flex>
+          </Container>
+        </Box>
+      </Flex>
+    </>
   );
 };
+ 
+PhoneAuth.getLayout = (page) => <OnBordingLayout>{page}</OnBordingLayout>;
 
 export default PhoneAuth;

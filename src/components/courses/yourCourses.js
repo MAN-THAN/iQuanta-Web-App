@@ -1,8 +1,8 @@
 "use client"
 import React from 'react'
-import { Box, Button, Card, CardBody, CardHeader, Flex, HStack, ListItem, Text, UnorderedList } from '@chakra-ui/react'
+import { Box,  HStack,  Text, } from '@chakra-ui/react'
 import CourseCards from './courseCards'
-import featursCard from '../../utilities/comanData'
+import {featursCard} from '@/utilities/comanData'
 import { useRouter } from 'next/navigation'
 
 
