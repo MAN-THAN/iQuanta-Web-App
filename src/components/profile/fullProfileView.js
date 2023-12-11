@@ -22,7 +22,7 @@ import {
   InputRightElement,
 } from "@chakra-ui/react";
 import { Image } from "@chakra-ui/react";
-import EmojiGroup from "../common/emojiGroup";
+import EmojiGroup from "../common/avatarGroups";
 import {
   ChevronDownIcon,
   Dot,

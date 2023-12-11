@@ -12,7 +12,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Dot, MoreVertical } from "lucide-react";
-import EmojiGroup from "@/components/common/emojiGroup";
+import EmojiGroup from "@/components/common/avatarGroups";
 import LikeEmojiGroup from "@/components/common/likeEmojiGroup";
 
 const CommentSlider = () => {
@@ -23,7 +23,7 @@ const CommentSlider = () => {
         modules={[Navigation, Pagination, Scrollbar]}
         spaceBetween={15}
         slidesPerView={1.5}
-        navigation={true}
+        navigation={false}
       >
         {[...Array(4)].map((d, i) => (
           <SwiperSlide key={i}>

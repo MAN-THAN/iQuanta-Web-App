@@ -38,7 +38,6 @@ const UserSettings = () => {
               <Flex align="center" justify="space-between">
                 <Text>Posts you’ve liked</Text>
                 <Box>
-                  {" "}
                   <ChevronRight />
                 </Box>
               </Flex>

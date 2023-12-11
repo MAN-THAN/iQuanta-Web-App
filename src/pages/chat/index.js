@@ -3,10 +3,9 @@ import ChatLayout from "@/components/layouts/chatLayout";
 import ChatDetailsView from "@/components/chatSection/chatDetailsView";
 
 const ChatPage = () => {
-
   return (
     <>
-      <ChatDetailsView/>
+      <ChatDetailsView />
     </>
   );
 };

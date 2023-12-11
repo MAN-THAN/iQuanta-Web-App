@@ -1,9 +1,14 @@
 import HomeChatModal from "@/components/chatSection/homeChatModal";
+import FeedTabsSection from "@/components/home/feedTabsSection";
 import GroupSection from "@/components/home/groupSection";
 import Pagination from "@/components/home/pageinationSection";
-import PostFormSection from "@/components/home/postFormSection";
+import SuggestionSection from "@/components/home/suggestionSection";
 import UpcomingSection from "@/components/home/upcomingSection";
 import RootLayout from "@/components/layouts/layout";
+import ImagePostCard from "@/components/postCards/imagePostCard";
+import PollPostCard from "@/components/postCards/pollPostCard";
+import TextCardPostCard from "@/components/postCards/textCardPostCard";
+import TextPostCard from "@/components/postCards/textPostCard";
 
 
 const Home = () => {
@@ -12,8 +17,8 @@ const Home = () => {
     <UpcomingSection/> 
     <GroupSection/>
     <Pagination/>
-    <PostFormSection/>
-      <HomeChatModal/>  
+    <FeedTabsSection/>
+    <HomeChatModal/>  
     </div>
   );
 };
