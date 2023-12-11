@@ -18,7 +18,7 @@ import {
 import React, { useReducer, useState, useEffect, useMemo } from "react";
 import { BsCheckLg } from "react-icons/bs";
 import { GrAdd } from "react-icons/gr";
-import { useRouter } from "next/navigation";
+import { useRouter } from 'next/router'
 import { Search } from "lucide-react";
 import { postUserExams } from "@/api/onboarding";
 import { useQuery } from "react-query";

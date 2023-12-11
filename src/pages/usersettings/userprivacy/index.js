@@ -31,8 +31,10 @@ const UserPrivacy = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState("Everyone");
+  const [modalType, setModalType] = useState();
 
-  const handleOpenModal = () => {
+  const handleOpenModal = (type) => {
+    setModalType(type);
     setIsModalOpen(true);
   };
 
@@ -50,6 +52,8 @@ const UserPrivacy = () => {
 
   const handleChangeValue = (value) => {
     setSelectedValue(value);
+    // mutation.mutate({ type: modalType, status: value });
+    console.log({ type: modalType, status: value });
   };
   const [state, setState] = useState();
   const { _id: uid } = useSelector((state) => state.userData);
@@ -110,7 +114,7 @@ const UserPrivacy = () => {
                   <Text>Comments</Text>
                   <Box>
                     <Button
-                      onClick={handleOpenModal}
+                      onClick={() => handleOpenModal("comments")}
                       size="sm"
                       fontSize="12px"
                       rightIcon={<ChevronDown fontSize="10px" />}
@@ -127,7 +131,7 @@ const UserPrivacy = () => {
                   <Text>Mentions</Text>
                   <Box>
                     <Button
-                      onClick={handleOpenModal}
+                      onClick={() => handleOpenModal("mentions")}
                       size="sm"
                       fontSize="12px"
                       rightIcon={<ChevronDown fontSize="10px" />}
@@ -144,7 +148,7 @@ const UserPrivacy = () => {
                   <Text>Invites</Text>
                   <Box>
                     <Button
-                      onClick={handleOpenModal}
+                      onClick={() => handleOpenModal("invites")}
                       size="sm"
                       fontSize="12px"
                       rightIcon={<ChevronDown fontSize="10px" />}
@@ -184,6 +188,7 @@ const UserPrivacy = () => {
           onClose={handleCloseModal}
           setValue={handleChangeValue}
           value={selectedValue}
+          modalType={modalType}
         />
         <BlockedAccount isOpen={isOpen} onClose={handleCloseBlocked} />
       </Box>
