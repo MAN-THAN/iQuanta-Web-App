@@ -50,12 +50,12 @@ const SubmitOtp = () => {
       toast.error(`${error.response.data.message}`, {
         position: toast.POSITION.TOP_RIGHT,
       }),
-    onSuccess: (data, variables, context) => {
+    onSuccess: (res, variables, context) => {
       toast.success("Verification successful!", {
         position: toast.POSITION.TOP_RIGHT,
       });
-      console.log(data);
-      dispatch(addUserData(data.data.user));
+      console.log(res);
+      dispatch(addUserData(res.data.data.user));
       router.push({
         pathname: "/signup/user_info",
       });

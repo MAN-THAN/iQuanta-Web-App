@@ -46,9 +46,9 @@ const PhoneAuth = () => {
         position: toast.POSITION.TOP_RIGHT,
       }),
     onSuccess: (data, variables, context) => {
-      toast.success("OTP Sent !", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
+      // toast.success("OTP Sent !", {
+      //   position: toast.POSITION.TOP_RIGHT,
+      // });
       router.push({
         pathname: "/signup/submitotp",
         query: { phoneNum: formik.values.phoneNum },

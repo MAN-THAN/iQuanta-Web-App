@@ -1,9 +1,10 @@
 import request from "../request";
 
+//get user profile details
 export const getProfileInfo = async (uid) => {
   try {
     const res = await request({
-      url: `/auth/v1/profile/detail/${uid}`,
+      url: `/auth/v1/profile/settings/basic/${uid}`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -14,3 +15,4 @@ export const getProfileInfo = async (uid) => {
     throw err;
   }
 };
+
