@@ -32,12 +32,14 @@ const FeatureCardSide = () => {
       </Flex>
       <Card bg="#5146D6" rounded="xl">
         <CardBody>
-          <Image
+         <Box>
+         <Image
             width="100%"
             src="/Featurecard.png"
             alt="Green double couch with wooden legs"
             borderRadius="lg"
           />
+         </Box>
           <Stack mt="6" spacing="3" color="#fff">
             <Heading size="sm">GMAT TOEFL 2021 course</Heading>
             <Text fontSize="12px" fontWeight="500">

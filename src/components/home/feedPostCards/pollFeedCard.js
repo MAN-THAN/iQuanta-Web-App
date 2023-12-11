@@ -1,5 +1,5 @@
 import React from "react";
-import { Avatar, AvatarGroup, Box, Divider, Flex, HStack, Image, Text } from "@chakra-ui/react";
+import { Box, Divider, Flex, HStack, Image, Text } from "@chakra-ui/react";
 import { Dot, MessageCircle, MoreVertical, Share2, ThumbsUp } from "lucide-react";
 import LikeEmojiGroup from "@/components/common/likeEmojiGroup";
 import AvatarGroups from "@/components/common/avatarGroups";

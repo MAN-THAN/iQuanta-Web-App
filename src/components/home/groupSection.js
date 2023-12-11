@@ -10,7 +10,10 @@ const GroupSection = () => {
   const groups = [
     { tittle: "CAT-2021", iconText: "c&" },
     { tittle: "Banking", iconText: "a$" },
-    { tittle: "IIT Aspirants", iconText: "x%" },
+    { tittle: "IIT Aspirants", iconText: "x&" },
+    { tittle: "IIT Aspirants", iconText: "x&" },
+    { tittle: "IIT Aspirants", iconText: "x&" },
+
   ];
 
   return (
@@ -26,7 +29,7 @@ const GroupSection = () => {
           <ChevronRight />
         </HStack>
       </Flex>
-      <Box display="flex" justifyContent="space-between" overflow="scroll" gap="4">
+      <Box display="flex" justifyContent="space-between" overflow="scroll" gap='4'>
         {groups.map((data, i) => (
           <div key={i} className="flex">
             <Box
@@ -41,7 +44,7 @@ const GroupSection = () => {
                 position="absolute"
                 fontSize="9xl"
                 fontWeight="600"
-                opacity="0.2"
+                opacity="0.1"
                 color="white.900"
                 right="-3"
                 top="-16"

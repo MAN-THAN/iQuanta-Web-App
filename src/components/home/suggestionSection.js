@@ -24,7 +24,7 @@ const SuggestionSection = () => {
 
   return (
     <section>
-      <div className="rounded-lg  bg-white border w-full mx-auto mt-4">
+      <div className="bg-white border w-full mx-auto mt-2">
         <div className="p-5 text-md font-semibold">
           <p>Suggested people to learn from</p>
         </div>

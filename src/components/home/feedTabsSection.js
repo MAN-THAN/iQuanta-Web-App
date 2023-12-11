@@ -10,6 +10,10 @@ import TextFeedCard from "./feedPostCards/textFeedCard";
 import ImageFeedCard from "./feedPostCards/imageFeedCard";
 import CardFeedCard from "./feedPostCards/cardFeedCard";
 import PollFeedCard from "./feedPostCards/pollFeedCard";
+import ChallengeCard from "./challengesPostCard/challengeCard";
+import ChallengeForm from "./challengesPostCard/challengeForm";
+import ChallengeLivecard from "./challengesPostCard/challengeLivecard";
+import ChallengeLeaderbordCard from "./challengesPostCard/challengeLeaderbordCard";
 
 const FeedTabsSection = () => {
   return (
@@ -52,7 +56,13 @@ const FeedTabsSection = () => {
             <SuggestionSection />
             <PollFeedCard />
           </TabPanel>
-          <TabPanel></TabPanel>
+          <TabPanel padding="0">
+            <ChallengeForm />
+            <ChallengeCard />
+            <ChallengeLivecard />
+            <SuggestionSection />
+            <ChallengeLeaderbordCard />
+          </TabPanel>
         </TabPanels>
       </Tabs>
     </Box>
