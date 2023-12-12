@@ -20,6 +20,11 @@ const SuggestionSection = () => {
       dsg: "Reasoning expert",
       img: "/reel2.jpg",
     },
+    {
+      name: "Himadri Rana",
+      dsg: "Reasoning expert",
+      img: "/reel2.jpg",
+    },
   ];
 
   return (
@@ -30,7 +35,7 @@ const SuggestionSection = () => {
         </div>
         <div className="flex flex-col bg-white p-auto">
           <div className="flex overflow-x-scroll pb-10 hide-scroll-bar">
-            <div className="flex flex-nowrap">
+            <div className="flex flex-nowrap ">
               {suggestionList.map((data, i) => (
                 <Box className="px-3 relative justify-between">
                   <Box

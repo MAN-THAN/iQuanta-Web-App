@@ -1,20 +1,23 @@
 import { Image } from "@chakra-ui/image";
 import { Box, Text } from "@chakra-ui/react";
+import { Plus } from "lucide-react";
 import React from "react";
 
 const Pagination = () => {
   return (
     <section className="mt-5 flex gap-2 text-xs font-semibold">
       <Box
+        padding="0"
         textAlign="center"
         display="flex"
         alignItems="center"
         justifyContent="center"
         border="2px solid #757575"
         rounded="md"
-        w="300px"
+        w="50%"
       >
-        <Text fontSize='sm'>+Study Room</Text>
+        <Plus />
+        <Text fontSize="sm">Study Room</Text>
       </Box>
       <Box
         textAlign="center"
@@ -23,9 +26,10 @@ const Pagination = () => {
         justifyContent="center"
         border="2px solid #757575"
         rounded="md"
-        w="300px"
+        w="50%"
+
       >
-        <Text fontSize='sm'> Find Study Partner</Text>
+        <Text fontSize="sm"> Find Study Partner</Text>
       </Box>
 
       <div className="rounded-md">
@@ -50,9 +54,10 @@ const Pagination = () => {
         justifyContent="center"
         border="2px solid #757575"
         rounded="md"
-        w="120px"
+        w="30%"
       >
-        <Text fontSize='sm'> +10</Text>
+        <Plus />
+        <Text fontSize="sm">10</Text>
       </Box>
     </section>
   );
