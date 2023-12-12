@@ -128,7 +128,7 @@ const EditProfile = () => {
                 <InputGroup>
                   {/* eslint-disable-next-line */}
                   <InputLeftAddon children="+91" />
-                  <Input type="tel" readOnly value={state?.phoneNumber} placeholder="Phone number" />
+                  <Input type="tel" readOnly value={state?.phone} placeholder="Phone number" />
                 </InputGroup>
               </Box>
               <Box width="48%">

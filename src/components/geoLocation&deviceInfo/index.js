@@ -2,15 +2,21 @@ import { useState, useEffect } from "react";
 import { useMutation } from "react-query";
 import { postLoginActivity } from "@/api/security/loginActivity";
 import { useSelector } from "react-redux";
+import { isMobile, isDesktop, isTablet } from "react-device-detect";
+import { getUserIp } from "@/api/security/loginActivity";
+import request from "@/api/request";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function GetLocationAndDeviceInfo() {
   const [location, setLocation] = useState();
   const [deviceInfo, setDeviceInfo] = useState();
   const { _id: uid } = useSelector((state) => state.userData);
-  const [ip, setIp] = useState();
+  console.log(isMobile, isDesktop);
 
   const mutation = useMutation({
-    mutationFn: (payload) => postLoginActivity(uid, {location : location, deviceInfo : "laptop", ip : "54738957.5435"}),
+    mutationFn: (payload) =>
+      postLoginActivity(uid, { location: location?.city, deviceInfo: deviceInfo, ip: location?.ip }),
     onMutate: (variables) => {
       return console.log("mutation is happening");
     },
@@ -19,9 +25,9 @@ export default function GetLocationAndDeviceInfo() {
         position: toast.POSITION.TOP_RIGHT,
       }),
     onSuccess: (res, variables, context) => {
-      // toast.success(" successful!", {
-      //   position: toast.POSITION.TOP_RIGHT,
-      // });
+      toast.success("Your location & IP address sent", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
       //   queryClient.invalidateQueries({ queryKey: ["getUserNotifSettings"] });
       console.log(res);
     },
@@ -29,36 +35,40 @@ export default function GetLocationAndDeviceInfo() {
   });
 
   useEffect(() => {
-    if ("geolocation" in navigator) {
-      // Request the current position
-      navigator.geolocation.getCurrentPosition(
-        // Success callback
-        function (position) {
-          console.log("Latitude:", position.coords.latitude);
-          console.log("Longitude:", position.coords.longitude);
-          console.log("Accuracy:", position.coords.accuracy + " meters");
-          setLocation({ latitude: position.coords.latitude, longitude: position.coords.longitude });
-        },
-        // Error callback
-        function (error) {
-          console.error("Error getting geolocation:", error.message);
-        },
-        // Optional options
-        {
-          enableHighAccuracy: true, // Use high-accuracy mode if available
-          timeout: 5000, // Set a timeout (in milliseconds) for the request
-          maximumAge: 0, // Force a fresh location retrieval
-        }
-      );
-    } else {
-      console.error("Geolocation is not supported by this browser.");
+    if (isMobile) {
+      setDeviceInfo("mobile");
+    } else if (isDesktop) {
+      setDeviceInfo("desktop");
+    } else if (isTablet) {
+      setDeviceInfo("tablet");
     }
+    getUserIp();
   }, []);
   console.log(location);
 
   useEffect(() => {
-    if(location){
-        mutation.mutate(location)
+    if (location) {
+      mutation.mutate(location);
     }
-  }, [location])
+  }, [location, deviceInfo]);
+
+  const getUserIp = async () => {
+    const apiKey = process.env.NEXT_PUBLIC_IPDATA_API_KEY;
+    try {
+      const res = await request({
+        url: `https://api.ipdata.co?api-key=${apiKey}`,
+      });
+      console.log(res);
+      setLocation(res.data);
+      return res;
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
+  };
+  return (
+    <>
+      <ToastContainer />
+    </>
+  );
 }
