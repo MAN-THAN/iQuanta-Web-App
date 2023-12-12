@@ -1,19 +1,26 @@
-"use client";
 import UserSettingLayout from "@/components/layouts/userSettingLayout";
-import {
-  Box,
-  Card,
-  CardBody,
-  CardHeader,
-  HStack,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Card, CardBody, CardHeader, HStack, Stack, Text } from "@chakra-ui/react";
 import { ArrowLeft, Dot, MapPin } from "lucide-react";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
+import { useQuery } from "react-query";
+import { getLoginActivity, deleteLoginActivity } from "@/api/security/loginActivity";
 
 const LoginActivity = () => {
   const router = useRouter();
+  const [state, setState] = useState();
+  const { _id: uid } = useSelector((state) => state.userData);
+  const { isLoading, data, isError, error, isPending, isSuccess } = useQuery({
+    queryKey: ["getUserLoginActivity", uid],
+    queryFn: () => getLoginActivity(uid),
+    onError: (error, variables, context) =>
+      toast.error(`${error?.response?.data.error.message}`, {
+        position: toast.POSITION.TOP_RIGHT,
+      }),
+    onSuccess: (res) => setState(res?.data.data.loginActivity?.data),
+  });
+  console.log(data);
   return (
     <Box>
       <Card>
@@ -31,31 +38,35 @@ const LoginActivity = () => {
         <CardBody>
           <Stack>
             <Text>Where You're Logged In</Text>
-            <HStack align="center" justify="space-between">
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                }}
-              >
-                <Box>
-                  <MapPin />
-                </Box>
-                <Box pl="4">
-                  <p style={{ fontSize: "18px", color: "#171717" }}>Mumbai</p>
-                  <p
-                    style={{
-                      fontSize: "14px",
-                      color: "#24B670",
+            {state?.map((item, ind) => (
+              <>
+                <HStack key={ind} align="center" justify="space-between">
+                  <Box
+                    sx={{
                       display: "flex",
+                      alignItems: "center",
                     }}
                   >
-                    Active Now <Dot />
-                    <span style={{ color: "#455564" }}>iPhone6s</span>
-                  </p>
-                </Box>
-              </Box>
-            </HStack>
+                    <Box>
+                      <MapPin />
+                    </Box>
+                    <Box pl="4">
+                      <p style={{ fontSize: "18px", color: "#171717" }}>{item.location}</p>
+                      <p
+                        style={{
+                          fontSize: "14px",
+                          color: "#24B670",
+                          display: "flex",
+                        }}
+                      >
+                        {item?.status || "Active"} <Dot />
+                        <span style={{ color: "#455564" }}>{item.deviceInfo}</span>
+                      </p>
+                    </Box>
+                  </Box>
+                </HStack>
+              </>
+            ))}
           </Stack>
         </CardBody>
       </Card>
@@ -63,7 +74,6 @@ const LoginActivity = () => {
   );
 };
 
-LoginActivity.getLayout = (page) => <UserSettingLayout>{page}</UserSettingLayout>
-
+LoginActivity.getLayout = (page) => <UserSettingLayout>{page}</UserSettingLayout>;
 
 export default LoginActivity;
