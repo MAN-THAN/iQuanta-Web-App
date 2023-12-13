@@ -191,7 +191,7 @@ const ChatSection = () => {
                         <Camera />
                         <Mic />
                       </Box>
-                      <Button
+                    <Button  
                         size="sm"
                         sx={{
                           bg: "black !important",
