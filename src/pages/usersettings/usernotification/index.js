@@ -33,7 +33,7 @@ const UserNotification = () => {
     queryKey: ["getUserNotifSettings", uid],
     queryFn: () => getNotifSettings(uid),
     onError: (error, variables, context) =>
-      toast.error(`${error.response.data.message}`, {
+      toast.error(`${error?.response?.data.error.message}`, {
         position: toast.POSITION.TOP_RIGHT,
       }),
     onSuccess: (res) => setState(res.data.data.notification_settings),
@@ -45,7 +45,7 @@ const UserNotification = () => {
       return console.log("mutation is happening");
     },
     onError: (error, variables, context) =>
-      toast.error(`${error.response.data.message}`, {
+      toast.error(`${error.response.data.error.message}`, {
         position: toast.POSITION.TOP_RIGHT,
       }),
     onSuccess: (res, variables, context) => {

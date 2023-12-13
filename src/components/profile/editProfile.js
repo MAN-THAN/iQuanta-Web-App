@@ -37,7 +37,7 @@ const EditProfile = () => {
     queryKey: ["getUserDetailData", uid],
     queryFn: () => getProfileInfo(uid),
     onError: (error, variables, context) =>
-      toast.error(`${error.response.data.message}`, {
+      toast.error(`${error?.response?.data.error.message}`, {
         position: toast.POSITION.TOP_RIGHT,
       }),
     onSuccess: (data) => setState(data.data.data.user_data),
@@ -128,7 +128,7 @@ const EditProfile = () => {
                 <InputGroup>
                   {/* eslint-disable-next-line */}
                   <InputLeftAddon children="+91" />
-                  <Input type="tel" readOnly value={state?.phoneNumber} placeholder="Phone number" />
+                  <Input type="tel" readOnly value={state?.phone} placeholder="Phone number" />
                 </InputGroup>
               </Box>
               <Box width="48%">

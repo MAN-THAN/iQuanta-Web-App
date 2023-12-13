@@ -18,7 +18,7 @@ export const getNotifSettings = async (uid) => {
   export const updateNotifSettings = async (uid, payload) => {
     try {
       const res = await request({
-        url: `/auth/v1/profile/settings/activity/notification/${uid}/status`,
+        url: `/auth/v1/profile/settings/activity/notification/${uid}`,
         type: "PATCH",
         data: payload,
         headers: {
@@ -50,7 +50,7 @@ export const getNotifSettings = async (uid) => {
   export const updatePrivacySettings = async (uid, payload) => {
     try {
       const res = await request({
-        url: `/auth/v1/profile/settings/activity/privacy/${uid}/status`,
+        url: `/auth/v1/profile/settings/activity/privacy/${uid}`,
         type: "PATCH",
         data: payload,
         headers: {
