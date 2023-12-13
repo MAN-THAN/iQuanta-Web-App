@@ -269,7 +269,6 @@ const UserInfo = () => {
     </Flex>
   );
 };
-UserInfo.getLayout = (page) => <OnBordingLayout>{page}</OnBordingLayout>;
 
 
 export default UserInfo;

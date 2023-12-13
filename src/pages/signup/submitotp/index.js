@@ -203,6 +203,5 @@ const SubmitOtp = () => {
     </>
   );
 };
-SubmitOtp.getLayout = (page) => <OnBordingLayout>{page}</OnBordingLayout>;
 
 export default SubmitOtp;

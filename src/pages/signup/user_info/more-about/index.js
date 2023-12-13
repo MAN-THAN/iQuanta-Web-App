@@ -13,7 +13,6 @@ import {
   InputLeftElement,
   Stack,
   Text,
-  VStack,
 } from "@chakra-ui/react";
 import React, { useReducer, useState, useEffect, useMemo } from "react";
 import { BsCheckLg } from "react-icons/bs";
@@ -212,6 +211,5 @@ const MoreAbout = () => {
     </>
   );
 };
-MoreAbout.getLayout = (page) => <OnBordingLayout>{page}</OnBordingLayout>;
 
 export default MoreAbout;

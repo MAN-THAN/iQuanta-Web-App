@@ -224,6 +224,5 @@ const ExamPreChosse = () => {
     </>
   );
 };
-ExamPreChosse.getLayout = (page) => <OnBordingLayout>{page}</OnBordingLayout>;
 
 export default ExamPreChosse;

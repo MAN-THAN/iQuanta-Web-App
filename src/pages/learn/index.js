@@ -1,20 +1,18 @@
 import CoursesAdd from "@/components/courses/courseAdd";
 import YourExam from "@/components/exams/yourExam";
-import LernLayout from "@/components/layouts/lernLayout";
+import LearnLayout from "@/components/layouts/learnLayout";
 import MyNotes from "@/components/learnAndClass/myNotes";
-import FeatureCardSide from "@/components/feature/featureCardSide";
 
 const LearnClass = () => {
   return (
     <>
-      <div>
+      <LearnLayout>
         <CoursesAdd />
         <YourExam />
         <MyNotes />
-      </div>
+      </LearnLayout>
     </>
   );
 };
-LearnClass.getLayout = (page) => <LernLayout>{page}</LernLayout>;
 
 export default LearnClass;

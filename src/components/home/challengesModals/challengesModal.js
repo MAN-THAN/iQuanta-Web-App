@@ -1,4 +1,3 @@
-// ChallengesModal.jsx
 import React, { useState } from "react";
 import {
   Button,
@@ -20,9 +19,16 @@ import {
   Text,
   MenuList,
   MenuItem,
+  InputGroup,
+  InputLeftElement,
+  Input,
+  UnorderedList,
+  ListItem,
+  Checkbox,
 } from "@chakra-ui/react";
-import { ChevronDown, Minus, Plus } from "lucide-react";
+import { ChevronDown, ChevronRight, Minus, Plus, SearchIcon } from "lucide-react";
 import TopicsModal from "./topicsModal";
+import topicsData from "@/utilities/topicsDummy";
 
 const ChallengesModal = ({ isOpen, onClose }) => {
   const [secondModalOpen, setSecondModalOpen] = useState(false);
@@ -44,7 +50,7 @@ const ChallengesModal = ({ isOpen, onClose }) => {
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent bg="white.900" color="#000" height="80vh">
+       {secondModalOpen ?  (<ModalContent bg="white.900" color="#000" height="80vh">
           <ModalCloseButton />
           <ModalHeader>New Challenge</ModalHeader>
           <ModalBody>
@@ -54,16 +60,16 @@ const ChallengesModal = ({ isOpen, onClose }) => {
                 <FormLabel>You want to challenge in</FormLabel>
                 <Menu isLazy>
                   <MenuButton border="1px solid #8D96A5" rounded="lg" p="1" onClick={openSecondModal}>
-                    <Box display="flex" alignItems='center' px='2' justifyContent='space-between'>
+                    <Box display="flex" alignItems="center" px="2" justifyContent="space-between">
                       <Text fontSize="14px">Select the topic(s)</Text>
-                      <ChevronDown size='14px' />
+                      <ChevronDown size="14px" />
                     </Box>
                   </MenuButton>
                 </Menu>
               </FormControl>
-              <HStack gap="30" py='4'>
+              <HStack gap="30" py="4">
                 <FormControl>
-                  <FormLabel >Questions</FormLabel>
+                  <FormLabel>Questions</FormLabel>
                   <Box border="1px solid #8D96A5" rounded="lg" p="1">
                     <Box display="flex" justifyContent="space-between" alignItems="center" fontSize="14px">
                       <Minus size="18px" />
@@ -83,7 +89,7 @@ const ChallengesModal = ({ isOpen, onClose }) => {
                   </Box>
                 </FormControl>
               </HStack>
-              <FormControl py='4'>
+              <FormControl py="4">
                 <FormLabel>Difficulty</FormLabel>
                 <Menu isLazy>
                   <MenuButton border="1px solid #8D96A5" rounded="lg" p="1">
@@ -121,9 +127,51 @@ const ChallengesModal = ({ isOpen, onClose }) => {
               Done
             </Button>
           </ModalFooter>
+        </ModalContent>):(
+          <ModalContent bg="white.900" color="#000" height="80vh">
+          <ModalCloseButton />
+          <ModalHeader fontSize="18px">Select topis (s)</ModalHeader>
+          <ModalBody>
+            <InputGroup size="md">
+              <InputLeftElement>
+                <SearchIcon />
+              </InputLeftElement>
+              <Input pl="3.0rem" placeholder="Search" />
+            </InputGroup>
+            <Box overflowY="scroll" height="40vh">
+              <UnorderedList listStyleType="none">
+                {topicsData.map((data, i) => (
+                  <ListItem key={data.id} display="flex" py="3" alignItems="center" justifyContent="space-between">
+                    <Checkbox gap='4' alignItems='center' >
+                      <Box>
+                        <Text>{data.name}</Text>
+                        <Text fontSize='12px' color='#636363'>{data.subtopics.length} Sub Topic</Text>
+                      </Box>
+                    </Checkbox>
+                    <ChevronRight />
+                  </ListItem>
+                ))}
+              </UnorderedList>
+            </Box>
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              w="full"
+              sx={{
+                bg: "black !important",
+                color: "#fff",
+                margin: "0 auto",
+                fontSize: "12px",
+              }}
+              variant="solid"
+            >
+              Done
+            </Button>
+          </ModalFooter>
         </ModalContent>
+        )} 
       </Modal>
-      <TopicsModal isOpen={secondModalOpen} onClose={closeSecondModal} />
+      {/* <TopicsModal isOpen={secondModalOpen} onClose={closeSecondModal} /> */}
     </>
   );
 };

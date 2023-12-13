@@ -53,12 +53,10 @@ const TopicsModal = ({ isOpen, onClose }) => {
               <UnorderedList listStyleType="none">
                 {topicsData.map((data, i) => (
                   <ListItem key={data.id} display="flex" py="3" alignItems="center" justifyContent="space-between">
-                    <Checkbox gap="4" alignItems="center" onChange={() => openSubTopicModal(data)}>
+                    <Checkbox gap='4' alignItems='center' onChange={() => openSubTopicModal(data)}>
                       <Box>
                         <Text>{data.name}</Text>
-                        <Text fontSize="12px" color="#636363">
-                          {data.subtopics.length} Sub Topic
-                        </Text>
+                        <Text fontSize='12px' color='#636363'>{data.subtopics.length} Sub Topic</Text>
                       </Box>
                     </Checkbox>
                     <ChevronRight />

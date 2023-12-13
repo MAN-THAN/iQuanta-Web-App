@@ -5,13 +5,11 @@ import ChatDetailsView from "@/components/chatSection/chatDetailsView";
 const ChatPage = () => {
   return (
     <>
-      <ChatDetailsView />
+      <ChatLayout>
+        <ChatDetailsView />
+      </ChatLayout>
     </>
   );
-};
-
-ChatPage.getLayout = (page) => {
-  return <ChatLayout>{page}</ChatLayout>;
 };
 
 export default ChatPage;

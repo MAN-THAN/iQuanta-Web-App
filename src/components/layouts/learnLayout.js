@@ -5,7 +5,7 @@ import MainLeftnavigation from "@/components/leftNavigations/mainLeftnavigation"
 import UserRightSiderbar from "@/components/rightSidebars/userRightSiderbar";
 import LearnRightSidebar from "../rightSidebars/learnRightSidebar";
 
-const LernLayout = ({ children }) => {
+const LearnLayout = ({ children }) => {
 
   return (
       <div style={{ marginLeft: "10%", marginRight: "10%" }}>
@@ -23,4 +23,4 @@ const LernLayout = ({ children }) => {
   );
 };
 
-export default LernLayout;
+export default LearnLayout;

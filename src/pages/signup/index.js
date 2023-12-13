@@ -76,7 +76,7 @@ const PhoneAuth = () => {
   console.log(mutation.error);
 
   return (
-    <>
+    <OnBordingLayout>
       <ToastContainer />
       <Flex align="center" bg="black" flexWrap="wrap">
         <Box w={{ base: "100%", md: "40%" }} position="relative">
@@ -222,10 +222,8 @@ const PhoneAuth = () => {
           </Container>
         </Box>
       </Flex>
-    </>
+    </OnBordingLayout>
   );
 };
- 
-PhoneAuth.getLayout = (page) => <OnBordingLayout>{page}</OnBordingLayout>;
 
 export default PhoneAuth;

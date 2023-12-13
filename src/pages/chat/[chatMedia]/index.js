@@ -5,13 +5,11 @@ import React from "react";
 const ChatMedia = () => {
   return (
     <>
-      <ChatMediaSection />
+      <ChatLayout>
+        <ChatMediaSection />
+      </ChatLayout>
     </>
   );
-};
-
-ChatMedia.getLayout = (page) => {
-  return <ChatLayout>{page}</ChatLayout>;
 };
 
 export default ChatMedia;

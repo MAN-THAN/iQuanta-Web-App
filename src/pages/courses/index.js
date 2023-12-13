@@ -1,30 +1,18 @@
-import {
-  Box,
-  Button,
-  Card,
-  CardBody,
-  ListItem,
-  Stack,
-  Text,
-  UnorderedList,
-} from "@chakra-ui/react";
 import React from "react";
 import CoursesAdd from "@/components/courses/courseAdd";
 import YourCourses from "@/components/courses/yourCourses";
 import OurOnlineCourse from "@/components/courses/ourOnlineCourse";
 import RootLayout from "@/components/layouts/layout";
-import FeatureCardSide from "@/components/feature/featureCardSide";
+import LearnLayout from "@/components/layouts/learnLayout";
 
 const Courses = () => {
   return (
-    <div>
+    <LearnLayout>
       <CoursesAdd />
       <YourCourses />
       <OurOnlineCourse />
-    </div>
+    </LearnLayout>
   );
 };
-
-Courses.getLayout = (page) => <RootLayout>{page}</RootLayout>;
 
 export default Courses;
