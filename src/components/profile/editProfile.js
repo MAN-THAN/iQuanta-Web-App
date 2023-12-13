@@ -40,7 +40,7 @@ const EditProfile = () => {
       toast.error(`${error?.response?.data.error.message}`, {
         position: toast.POSITION.TOP_RIGHT,
       }),
-    onSuccess: (data) => setState(data.data.data.user_data),
+    onSuccess: (res) => setState(res.data.data.user_data),
   });
   console.log(state);
 

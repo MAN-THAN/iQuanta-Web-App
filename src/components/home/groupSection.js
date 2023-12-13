@@ -3,18 +3,32 @@ import { Box, Card, Flex, HStack, Heading, Text } from "@chakra-ui/react";
 import { ChevronRight, Star } from "lucide-react";
 import React from "react";
 import { BsStarFill } from "react-icons/bs";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { useQuery } from "react-query";
+import { getGroups } from "@/api/feed/groups";
 
 const GroupSection = () => {
   const cardColors = ["bg-teal-600", "bg-blue-500", "bg-purple-500"];
-
   const groups = [
     { tittle: "CAT-2021", iconText: "c&" },
     { tittle: "Banking", iconText: "a$" },
     { tittle: "IIT Aspirants", iconText: "x&" },
     { tittle: "IIT Aspirants", iconText: "x&" },
     { tittle: "IIT Aspirants", iconText: "x&" },
-
   ];
+  const [state, setState] = useState();
+  const { _id: uid } = useSelector((state) => state.userData);
+  const { isLoading, data, isError, error, isPending, isSuccess } = useQuery({
+    queryKey: ["getGroups", uid],
+    queryFn: () => getGroups(uid),
+    onError: (error, variables, context) =>
+      toast.error(`${error?.response?.data.error.message}`, {
+        position: toast.POSITION.TOP_RIGHT,
+      }),
+    onSuccess: (res) => setState(res.data.data),
+  });
+  console.log(state);
 
   return (
     <>
@@ -29,9 +43,9 @@ const GroupSection = () => {
           <ChevronRight />
         </HStack>
       </Flex>
-      <Box display="flex" justifyContent="space-between" overflow="scroll" gap='4'>
-        {groups.map((data, i) => (
-          <div key={i} className="flex">
+      <Box display="flex" justifyContent="space-between" overflow="scroll" gap="4">
+        {state?.map((item, ind) => (
+          <div key={ind} className="flex">
             <Box
               bg={randomColors(["#336792", "#E56951", "#339287"])}
               position="relative"
@@ -49,20 +63,20 @@ const GroupSection = () => {
                 right="-3"
                 top="-16"
               >
-                {data.iconText}
+                {item?.iconText}
               </Text>
               <Box color="#FCB461" position="absolute" left={3} top={4} fontSize="3xl">
-                <BsStarFill />
+                {item?.group_type === "Premium" ? <BsStarFill /> : <></>}
               </Box>
               <div className="absolute  right-5 top-3 text-2xl text-white">
                 <ChevronRight />
               </div>
               <div className="absolute bottom-10 text-white text-2xl px-3  ">
                 <p>
-                  {data.tittle}
+                  {item?.title}
                   <br />
                 </p>
-                <p className="text-xs">Premium</p>
+                <p className="text-xs">{item?.group_type}</p>
               </div>
             </Box>
           </div>
