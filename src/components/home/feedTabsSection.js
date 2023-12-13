@@ -58,7 +58,7 @@ const FeedTabsSection = () => {
           </TabList>
           <TabPanels>
             <TabPanel padding="0">
-              <PostFormSection openModal={openModal} />
+              <PostFormSection />
               <TextFeedCard />
               <ImageFeedCard />
               <CardFeedCard />
@@ -66,7 +66,7 @@ const FeedTabsSection = () => {
               <PollFeedCard />
             </TabPanel>
             <TabPanel padding="0">
-              <ChallengeForm />
+              <ChallengeForm  openModal={openModal}/>
               <ChallengeCard />
               <ChallengeLivecard />
               <SuggestionSection />

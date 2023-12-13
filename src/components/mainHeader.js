@@ -1,11 +1,4 @@
-import {
-  Box,
-  HStack,
-  Menu,
-  MenuButton,
-  useMediaQuery,
-  Flex,
-} from "@chakra-ui/react";
+import { Box, HStack, Menu, MenuButton, useMediaQuery, Flex } from "@chakra-ui/react";
 // import Notification from "./notification"
 // import ChatMsgSection from "./chatSection/chatMsgSection"
 import { Image } from "@chakra-ui/react";
@@ -57,13 +50,8 @@ const MainHeader = () => {
       {isSmallerThan768 ? (
         <Box justifyContent="end" as={AlignJustify} />
       ) : (
-        <Flex
-          gap="20px"
-          alignItems="center"
-          justifyContent="space-between"
-          color="grey.800"
-        >
-          <Box onClick={()=>router.push('/chat')}>
+        <Flex gap="20px" alignItems="center" justifyContent="space-between" color="grey.800">
+          <Box onClick={() => router.push("/chat")}>
             <BsChatDots size="24px" />
           </Box>
           <Box>
