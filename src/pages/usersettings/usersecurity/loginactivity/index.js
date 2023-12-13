@@ -22,6 +22,7 @@ const LoginActivity = () => {
   });
   console.log(data);
   return (
+    <UserSettingLayout>
     <Box>
       <Card>
         <CardHeader>
@@ -71,9 +72,9 @@ const LoginActivity = () => {
         </CardBody>
       </Card>
     </Box>
+    </UserSettingLayout>
   );
 };
 
-LoginActivity.getLayout = (page) => <UserSettingLayout>{page}</UserSettingLayout>;
 
 export default LoginActivity;

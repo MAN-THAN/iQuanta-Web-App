@@ -5,12 +5,12 @@ import UserAccountSidebar from "@/components/leftSidebar/userAccountSidebar";
 
 const UserAccount = () => {
   return (
-    <div>
+    <UserAccountLayout>
       <EditProfile />
       {/* <UserAccountSidebar/> */}
-    </div>
+    </UserAccountLayout>
+
   );
 };
-UserAccount.getLayout = (page) => <UserAccountLayout>{page}</UserAccountLayout>;
 
 export default UserAccount;

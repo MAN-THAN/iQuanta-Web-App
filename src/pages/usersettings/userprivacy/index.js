@@ -90,6 +90,7 @@ const UserPrivacy = () => {
 
   return (
     <>
+    <UserSettingLayout>
       <Box>
         <Card>
           <CardBody>
@@ -193,10 +194,10 @@ const UserPrivacy = () => {
         <BlockedAccount isOpen={isOpen} onClose={handleCloseBlocked} />
       </Box>
       <ToastContainer />
+      </UserSettingLayout>
     </>
   );
 };
 
-UserPrivacy.getLayout = (page) => <UserSettingLayout>{page}</UserSettingLayout>;
 
 export default UserPrivacy;

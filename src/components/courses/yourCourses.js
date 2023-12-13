@@ -1,4 +1,3 @@
-"use client"
 import React from 'react'
 import { Box,  HStack,  Text, } from '@chakra-ui/react'
 import CourseCards from './courseCards'

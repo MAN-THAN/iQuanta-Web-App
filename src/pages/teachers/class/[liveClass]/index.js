@@ -15,17 +15,15 @@ const TeacherLiveClass = () => {
   //   const [_id, route] = classDetails;
   const _id = 1;
   return (
-    <div>
+    <TeacherLayout>
       <LiveClassTimer classDuration={classDuration} />
       <TextPostCard classId={_id} />
       <ImagePostCard />
       <TextCardPostCard />
       <QuizPostCard1 />
       <QuizPostCard2 />
-    </div>
+    </TeacherLayout>
   );
 };
-
-TeacherLiveClass.getLayout = (page) => <TeacherLayout>{page}</TeacherLayout>;
 
 export default TeacherLiveClass;

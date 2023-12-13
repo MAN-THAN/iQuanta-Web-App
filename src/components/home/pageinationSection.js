@@ -12,7 +12,7 @@ const Pagination = () => {
         display="flex"
         alignItems="center"
         justifyContent="center"
-        border="2px solid #757575"
+        border="1px solid #757575"
         rounded="md"
         w="50%"
       >
@@ -24,7 +24,7 @@ const Pagination = () => {
         display="flex"
         alignItems="center"
         justifyContent="center"
-        border="2px solid #757575"
+        border="1px solid #757575"
         rounded="md"
         w="50%"
 
@@ -52,7 +52,7 @@ const Pagination = () => {
         display="flex"
         alignItems="center"
         justifyContent="center"
-        border="2px solid #757575"
+        border="1px solid #757575"
         rounded="md"
         w="30%"
       >

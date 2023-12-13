@@ -1,4 +1,3 @@
-"use client";
 import {
   Box,
   Card,
@@ -18,6 +17,7 @@ const TermUse = () => {
   const router = useRouter();
 
   return (
+    <UserSettingLayout>
     <Box>
       <Card>
         <CardHeader>
@@ -77,11 +77,10 @@ const TermUse = () => {
         </CardBody>
       </Card>
     </Box>
+    </UserSettingLayout>
   );
 };
 
-TermUse.getLayout = (page) => (
-  <UserSettingLayout>{page}</UserSettingLayout>
-);
+
 
 export default TermUse;
