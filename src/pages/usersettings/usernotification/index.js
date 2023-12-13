@@ -60,117 +60,117 @@ const UserNotification = () => {
   console.log(state?.reaction);
   return (
     <>
-      <Box>
-        <Card>
-          <CardHeader>
-            <HStack>
-              <Text fontSize="18px" fontWeight="600">
-                Push Notifications
-              </Text>
-            </HStack>
-          </CardHeader>
-          <CardBody>
-            <UnorderedList spacing="4" listStyleType="none" fontSize="14px" fontWeight="500" color="#455564">
-              <ListItem key="1">
-                <Flex align="center" justify="space-between">
-                  <Text>Pause All Notifications</Text>
-                  <Box>
-                    <Switch
-                      isChecked={state?.pause_all}
-                      name="pause_all"
-                      size="md"
-                      colorScheme="green"
-                      onChange={() => mutation.mutate({ type: "pause_all", status: !state.pause_all })}
-                    />
-                  </Box>
-                </Flex>
-                <Divider pt="4" />
-              </ListItem>
-              <ListItem>
-                <Flex align="center" justify="space-between">
-                  <Text>Reactions</Text>
-                  <Box>
-                    <Switch
-                      isChecked={state?.reaction}
-                      name="reaction"
-                      size="md"
-                      colorScheme="green"
-                      onChange={() => mutation.mutate({ type: "reaction", status: !state.reaction })}
-                    />
-                  </Box>
-                </Flex>
-                <Divider pt="4" />
-              </ListItem>
-              <ListItem>
-                <Flex align="center" justify="space-between">
-                  <Text>Comments</Text>
-                  <Box>
-                    <Switch
-                      isChecked={state?.comments}
-                      name="comments"
-                      size="md"
-                      colorScheme="green"
-                      onChange={() => mutation.mutate({ type: "comments", status: !state.comments })}
-                    />
-                  </Box>
-                </Flex>
-                <Divider pt="4" />
-              </ListItem>
-              <ListItem>
-                <Flex align="center" justify="space-between">
-                  <Text>Direct Messages</Text>
-                  <Box>
-                    <Switch
-                      isChecked={state?.directMessages}
-                      name="directMessages"
-                      size="md"
-                      colorScheme="green"
-                      onChange={() => mutation.mutate({ type: "directMessages", status: !state.directMessages })}
-                    />
-                  </Box>
-                </Flex>
-                <Divider pt="4" />
-              </ListItem>
-              <ListItem>
-                <Flex align="center" justify="space-between">
-                  <Text>Group Notifications</Text>
-                  <Box>
-                    <Switch
-                      isChecked={state?.group_notifiacation}
-                      name="group_notifiacation"
-                      size="md"
-                      colorScheme="green"
-                      onChange={() =>
-                        mutation.mutate({ type: "group_notifiacation", status: !state.group_notifiacation })
-                      }
-                    />
-                  </Box>
-                </Flex>
-                <Divider pt="4" />
-              </ListItem>
-              <ListItem>
-                <Flex align="center" justify="space-between">
-                  <Text>Invites</Text>
-                  <Box>
-                    <Switch
-                      isChecked={state?.invites}
-                      name="invites"
-                      size="md"
-                      colorScheme="green"
-                      onChange={() => mutation.mutate({ type: "invites", status: !state.invites })}
-                    />
-                  </Box>
-                </Flex>
-              </ListItem>
-            </UnorderedList>
-          </CardBody>
-        </Card>
-      </Box>
-      <ToastContainer />
+      <UserSettingLayout>
+        <Box>
+          <Card>
+            <CardHeader>
+              <HStack>
+                <Text fontSize="18px" fontWeight="600">
+                  Push Notifications
+                </Text>
+              </HStack>
+            </CardHeader>
+            <CardBody>
+              <UnorderedList spacing="4" listStyleType="none" fontSize="14px" fontWeight="500" color="#455564">
+                <ListItem key="1">
+                  <Flex align="center" justify="space-between">
+                    <Text>Pause All Notifications</Text>
+                    <Box>
+                      <Switch
+                        isChecked={state?.pause_all}
+                        name="pause_all"
+                        size="md"
+                        colorScheme="green"
+                        onChange={() => mutation.mutate({ type: "pause_all", status: !state.pause_all })}
+                      />
+                    </Box>
+                  </Flex>
+                  <Divider pt="4" />
+                </ListItem>
+                <ListItem>
+                  <Flex align="center" justify="space-between">
+                    <Text>Reactions</Text>
+                    <Box>
+                      <Switch
+                        isChecked={state?.reaction}
+                        name="reaction"
+                        size="md"
+                        colorScheme="green"
+                        onChange={() => mutation.mutate({ type: "reaction", status: !state.reaction })}
+                      />
+                    </Box>
+                  </Flex>
+                  <Divider pt="4" />
+                </ListItem>
+                <ListItem>
+                  <Flex align="center" justify="space-between">
+                    <Text>Comments</Text>
+                    <Box>
+                      <Switch
+                        isChecked={state?.comments}
+                        name="comments"
+                        size="md"
+                        colorScheme="green"
+                        onChange={() => mutation.mutate({ type: "comments", status: !state.comments })}
+                      />
+                    </Box>
+                  </Flex>
+                  <Divider pt="4" />
+                </ListItem>
+                <ListItem>
+                  <Flex align="center" justify="space-between">
+                    <Text>Direct Messages</Text>
+                    <Box>
+                      <Switch
+                        isChecked={state?.directMessages}
+                        name="directMessages"
+                        size="md"
+                        colorScheme="green"
+                        onChange={() => mutation.mutate({ type: "directMessages", status: !state.directMessages })}
+                      />
+                    </Box>
+                  </Flex>
+                  <Divider pt="4" />
+                </ListItem>
+                <ListItem>
+                  <Flex align="center" justify="space-between">
+                    <Text>Group Notifications</Text>
+                    <Box>
+                      <Switch
+                        isChecked={state?.group_notifiacation}
+                        name="group_notifiacation"
+                        size="md"
+                        colorScheme="green"
+                        onChange={() =>
+                          mutation.mutate({ type: "group_notifiacation", status: !state.group_notifiacation })
+                        }
+                      />
+                    </Box>
+                  </Flex>
+                  <Divider pt="4" />
+                </ListItem>
+                <ListItem>
+                  <Flex align="center" justify="space-between">
+                    <Text>Invites</Text>
+                    <Box>
+                      <Switch
+                        isChecked={state?.invites}
+                        name="invites"
+                        size="md"
+                        colorScheme="green"
+                        onChange={() => mutation.mutate({ type: "invites", status: !state.invites })}
+                      />
+                    </Box>
+                  </Flex>
+                </ListItem>
+              </UnorderedList>
+            </CardBody>
+          </Card>
+        </Box>
+        <ToastContainer />
+      </UserSettingLayout>
     </>
   );
 };
-
-UserNotification.getLayout = (page) => <UserSettingLayout>{page}</UserSettingLayout>;
 
 export default UserNotification;

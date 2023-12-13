@@ -1,4 +1,3 @@
-"use client"
 import React from 'react'
 import { Box, Flex, HStack, Text,  } from '@chakra-ui/react'
 import { ListFilter } from 'lucide-react'

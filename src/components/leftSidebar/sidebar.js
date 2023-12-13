@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import { AiOutlineHome, AiOutlineAim } from "react-icons/ai";
 import { BsBook } from "react-icons/bs";

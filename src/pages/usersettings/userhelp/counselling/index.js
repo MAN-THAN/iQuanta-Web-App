@@ -17,6 +17,7 @@ import UserSettingLayout from "@/components/layouts/userSettingLayout";
 const CounsellingHelp = () => {
   const router = useRouter();
   return (
+    <UserSettingLayout>
     <Box>
       <Card>
         <CardHeader>
@@ -141,9 +142,9 @@ const CounsellingHelp = () => {
         </CardBody>
       </Card>
     </Box>
+    </UserSettingLayout>
   );
 };
 
-CounsellingHelp.getLayout = (page) => <UserSettingLayout>{page}</UserSettingLayout>;
 
 export default CounsellingHelp;

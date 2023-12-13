@@ -69,13 +69,15 @@ const EditProfile = () => {
                 bg="#fff"
                 rounded="full"
               >
+
+
                 <Box boxSize="130px" rounded="full">
                   <Image
                     rounded="full"
                     objectFit="cover"
                     width="100%"
                     height="100%"
-                    src={state?.profile_pic}
+                    src={state?.profile_pic ? state.profile_pic :"/noImage.svg"}
                     alt="Profile Image"
                   />
                 </Box>

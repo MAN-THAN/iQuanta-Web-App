@@ -1,22 +1,6 @@
-"use client";
 import React, { useState } from "react";
-import {
-  Button,
-  CardFooter,
-  FormControl,
-  FormLabel,
-  Input,
-  InputGroup,
-  InputRightElement,
-} from "@chakra-ui/react";
-import {
-  Box,
-  Card,
-  CardBody,
-  CardHeader,
-  HStack,
-  Text,
-} from "@chakra-ui/react";
+import { Button, CardFooter, FormControl, FormLabel, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
+import { Box, Card, CardBody, CardHeader, HStack, Text } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
@@ -28,6 +12,7 @@ const ResetPassword = () => {
   const handleClick = () => setShow(!show);
 
   return (
+    <UserSettingLayout>
     <Box>
       <Card>
         <CardHeader>
@@ -46,11 +31,7 @@ const ResetPassword = () => {
             <Box>
               <FormLabel>Current Password</FormLabel>
               <InputGroup size="md">
-                <Input
-                  pr="4.5rem"
-                  type={show ? "text" : "password"}
-                  placeholder="Enter password"
-                />
+                <Input pr="4.5rem" type={show ? "text" : "password"} placeholder="Enter password" />
                 <InputRightElement width="4.5rem">
                   <Button h="1.75rem" size="sm" onClick={handleClick}>
                     {show ? "Hide" : "Show"}
@@ -62,11 +43,7 @@ const ResetPassword = () => {
             <Box>
               <FormLabel>New Password</FormLabel>
               <InputGroup size="md">
-                <Input
-                  pr="4.5rem"
-                  type={show ? "text" : "password"}
-                  placeholder="Enter password"
-                />
+                <Input pr="4.5rem" type={show ? "text" : "password"} placeholder="Enter password" />
                 <InputRightElement width="4.5rem">
                   <Button h="1.75rem" size="sm" onClick={handleClick}>
                     {show ? "Hide" : "Show"}
@@ -77,11 +54,7 @@ const ResetPassword = () => {
             <Box>
               <FormLabel>Repeat New Password</FormLabel>
               <InputGroup size="md">
-                <Input
-                  pr="4.5rem"
-                  type={show ? "text" : "password"}
-                  placeholder="Enter password"
-                />
+                <Input pr="4.5rem" type={show ? "text" : "password"} placeholder="Enter password" />
                 <InputRightElement width="4.5rem">
                   <Button h="1.75rem" size="sm" onClick={handleClick}>
                     {show ? "Hide" : "Show"}
@@ -103,9 +76,7 @@ const ResetPassword = () => {
         </CardBody>
         <CardFooter>
           <Button
-            onClick={() =>
-              router.push("/usersettings/userhelp/counselling/confirmed")
-            }
+            onClick={() => router.push("/usersettings/userhelp/counselling/confirmed")}
             width="100%"
             p="5"
             size="sm"
@@ -121,10 +92,8 @@ const ResetPassword = () => {
         </CardFooter>
       </Card>
     </Box>
+    </UserSettingLayout>
   );
 };
-
-ResetPassword.getLayout = (page) => <UserSettingLayout>{page}</UserSettingLayout>
-
 
 export default ResetPassword;

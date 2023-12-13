@@ -23,65 +23,65 @@ const SearchHistory = () => {
   console.log(data);
   //delete search history
   return (
-    <Box>
-      <Card>
-        <CardHeader>
-          <HStack>
-            <Box onClick={() => router.back()}>
-              {" "}
-              <ArrowLeft />
-            </Box>
-            <Text fontSize="18px" fontWeight="600">
-              My Search History
-            </Text>
-          </HStack>
-        </CardHeader>
-        <CardBody>
-          <Stack>
-            {state?.map((item, ind) => (
-              <>
-                <HStack key={ind} align="center" justify="space-between">
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Box boxSize="40px" rounded="md">
-                      <Image
-                        rounded="md"
-                        objectFit="cover"
-                        width="100%"
-                        height="100%"
-                        src="/static/images/Profile.jpeg"
-                        alt="Profile Image"
-                      />
+    <UserSettingLayout>
+      <Box>
+        <Card>
+          <CardHeader>
+            <HStack>
+              <Box onClick={() => router.back()}>
+                {" "}
+                <ArrowLeft />
+              </Box>
+              <Text fontSize="18px" fontWeight="600">
+                My Search History
+              </Text>
+            </HStack>
+          </CardHeader>
+          <CardBody>
+            <Stack>
+              {state?.map((item, ind) => (
+                <>
+                  <HStack key={ind} align="center" justify="space-between">
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Box boxSize="40px" rounded="md">
+                        <Image
+                          rounded="md"
+                          objectFit="cover"
+                          width="100%"
+                          height="100%"
+                          src="/static/images/Profile.jpeg"
+                          alt="Profile Image"
+                        />
+                      </Box>
+                      <Box pl="4">
+                        <p style={{ fontSize: "16px", color: "#171717" }}> {item?.searchQuery}</p>
+                        <p
+                          style={{
+                            fontSize: "12px",
+                            color: "#636363",
+                            display: "flex",
+                          }}
+                        >
+                          {item?.searchCategory}
+                        </p>
+                      </Box>
                     </Box>
-                    <Box pl="4">
-                      <p style={{ fontSize: "16px", color: "#171717" }}> {item?.searchQuery}</p>
-                      <p
-                        style={{
-                          fontSize: "12px",
-                          color: "#636363",
-                          display: "flex",
-                        }}
-                      >
-                        {item?.searchCategory}
-                      </p>
-                    </Box>
-                  </Box>
-                  <X cursor="pointer" />
-                </HStack>
-              </>
-            ))}
-            <Divider pt="2" />
-          </Stack>
-        </CardBody>
-      </Card>
-    </Box>
+                    <X cursor="pointer" />
+                  </HStack>
+                </>
+              ))}
+              <Divider pt="2" />
+            </Stack>
+          </CardBody>
+        </Card>
+      </Box>
+    </UserSettingLayout>
   );
 };
-
-SearchHistory.getLayout = (page) => <UserSettingLayout>{page}</UserSettingLayout>;
 
 export default SearchHistory;

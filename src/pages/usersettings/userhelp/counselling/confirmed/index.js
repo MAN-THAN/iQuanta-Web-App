@@ -1,4 +1,3 @@
-"use client";
 import UserSettingLayout from "@/components/layouts/userSettingLayout";
 import {
   Box,
@@ -19,6 +18,7 @@ const Confirmed = () => {
   const router = useRouter();
 
   return (
+    <UserSettingLayout>
     <Box>
       <Card>
         <CardHeader>
@@ -70,10 +70,10 @@ const Confirmed = () => {
         </CardFooter>
       </Card>
     </Box>
+    </UserSettingLayout>
   );
 };
 
-Confirmed.getLayout = (page) => <UserSettingLayout>{page}</UserSettingLayout>
 
 
 export default Confirmed;

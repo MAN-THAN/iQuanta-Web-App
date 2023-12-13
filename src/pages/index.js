@@ -19,7 +19,5 @@ const Home = () => {
     </HomeLayout>
   );
 };
-// Home.getLayout = (page) => {
-//   return page}</HomeLayout>;
-// };
+
 export default Home;

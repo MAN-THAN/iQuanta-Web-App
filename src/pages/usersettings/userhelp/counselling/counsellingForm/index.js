@@ -1,4 +1,3 @@
-"use client";
 import UserSettingLayout from "@/components/layouts/userSettingLayout";
 import {
   Button,
@@ -24,6 +23,7 @@ import { useRouter } from "next/navigation";
 const CounsellingForm = () => {
   const router = useRouter();
   return (
+    <UserSettingLayout>
     <Box>
       <Card>
         <CardHeader>
@@ -98,9 +98,9 @@ const CounsellingForm = () => {
         </CardBody>
       </Card>
     </Box>
+    </UserSettingLayout>
   );
 };
 
-CounsellingForm.getLayout = (page) => <UserSettingLayout>{page}</UserSettingLayout>
 
 export default CounsellingForm;
