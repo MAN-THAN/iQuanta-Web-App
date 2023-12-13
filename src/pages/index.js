@@ -9,17 +9,17 @@ import GetLocationAndDeviceInfo from "@/components/geoLocation&deviceInfo";
 
 const Home = () => {
   return (
-    <div>
-      <GetLocationAndDeviceInfo />
-      <UpcomingSection />
-      <GroupSection />
-      <Pagination />
-      <FeedTabsSection />
-      <HomeChatModal />
-    </div>
+    <HomeLayout>
+        <GetLocationAndDeviceInfo />
+        <UpcomingSection />
+        <GroupSection />
+        <Pagination />
+        <FeedTabsSection />
+        <HomeChatModal />
+    </HomeLayout>
   );
 };
-Home.getLayout = (page) => {
-  return <HomeLayout>{page}</HomeLayout>;
-};
+// Home.getLayout = (page) => {
+//   return page}</HomeLayout>;
+// };
 export default Home;

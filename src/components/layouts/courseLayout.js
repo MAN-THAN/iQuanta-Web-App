@@ -9,7 +9,6 @@ import MainLeftnavigation from "../leftNavigations/mainLeftnavigation";
 const ActiveMenuLink = ({ children, href }) => {
   const pathname = usePathname();
   const active = href === pathname;
-  const theme = extendTheme({});
   return (
     <Link
       href={href}
@@ -22,7 +21,6 @@ const ActiveMenuLink = ({ children, href }) => {
 
 const CourseLayout = ({ children }) => {
   return (
-    <ChakraProvider theme={theme}>
     <div style={{ marginLeft: "10%", marginRight: "10%" }}>
       <MainHeader />
       <div className="flex pt-8">
@@ -35,7 +33,6 @@ const CourseLayout = ({ children }) => {
         <UserRightSiderbar />
       </div>
     </div>
-  </ChakraProvider>
   );
 };
 
