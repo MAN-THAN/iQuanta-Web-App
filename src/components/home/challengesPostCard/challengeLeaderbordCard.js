@@ -55,7 +55,7 @@ const ChallengeLeaderbordCard = ({ classId }) => {
       <Box p="4">
         <Box bg="#469AD6" color="white.900" p="6" roundedTop="2xl" position="relative" overflow="hidden">
           <Box position="absolute" top="0" right="0">
-            <Image src="/Vector103.svg" />
+            <Image alt="vector img" src="/Vector103.svg" />
           </Box>
           <Text>5 Member</Text>
           <Text fontSize="22px" fontWeight="500" pt="4">

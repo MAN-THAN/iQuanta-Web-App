@@ -12,20 +12,28 @@ import ChallengeLivecard from "./challengesPostCard/challengeLivecard";
 import ChallengeLeaderbordCard from "./challengesPostCard/challengeLeaderbordCard";
 import { useState } from "react";
 import ChallengesModal from "./challengesModals/challengesModal";
+import DiscussionModal from "./challengesModals/discussionModal";
 
 const FeedTabsSection = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [challengesModal, setChallengesModal] = useState(false);
+  const [discussionModal, setDiscussionModal] = useState(false);
 
   const openModal = () => {
-    setIsModalOpen(true);
+    setChallengesModal(true);
   };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
+  const discussionModalOpen = () => {
+    setDiscussionModal(true);
+  };
+  const closeChallengesModal = () => {
+    setChallengesModal(false);
+  };
+  const closeDiscussionModal = () => {
+    setDiscussionModal(false);
   };
   return (
     <>
-      <ChallengesModal isOpen={isModalOpen} onClose={closeModal} />
+      <ChallengesModal isOpen={challengesModal} onClose={closeChallengesModal} />
+      <DiscussionModal isOpen={discussionModal} onClose={closeDiscussionModal} />
       <Box mt="6">
         <Tabs isFitted>
           <TabList>
@@ -58,7 +66,7 @@ const FeedTabsSection = () => {
           </TabList>
           <TabPanels>
             <TabPanel padding="0">
-              <PostFormSection />
+              <PostFormSection openModal={discussionModalOpen} />
               <TextFeedCard />
               <ImageFeedCard />
               <CardFeedCard />
@@ -66,7 +74,7 @@ const FeedTabsSection = () => {
               <PollFeedCard />
             </TabPanel>
             <TabPanel padding="0">
-              <ChallengeForm  openModal={openModal}/>
+              <ChallengeForm openModal={openModal} />
               <ChallengeCard />
               <ChallengeLivecard />
               <SuggestionSection />

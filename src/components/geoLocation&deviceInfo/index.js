@@ -50,7 +50,7 @@ export default function GetLocationAndDeviceInfo() {
     if (location) {
       mutation.mutate(location);
     }
-  }, [location, deviceInfo]);
+  }, [location, deviceInfo, ]);
 
   const getUserIp = async () => {
     const apiKey = process.env.NEXT_PUBLIC_IPDATA_API_KEY;

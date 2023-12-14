@@ -37,7 +37,7 @@ const SuggestionSection = () => {
           <div className="flex overflow-x-scroll pb-10 hide-scroll-bar">
             <div className="flex flex-nowrap ">
               {suggestionList.map((data, i) => (
-                <Box className="px-3 relative justify-between">
+                <Box key={i} className="px-3 relative justify-between">
                   <Box
                     rounded="3xl"
                     className="w-52 h-72 max-w-xs relative  overflow-hidden  shadow-md bg-cover bg-center hover:shadow-xl transition-shadow duration-300 ease-in-out"
