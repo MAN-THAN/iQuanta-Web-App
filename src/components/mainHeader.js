@@ -44,7 +44,7 @@ const MainHeader = () => {
     >
       <HStack spacing={isSmallerThan768 ? 4 : 0}>
         <Box>
-          <Image alt="logo" width="100%" src="/Logo.png" />
+          <Image alt="logo" width="100%" src="/Logo.png" cursor={'pointer'} onClick={() => router.push("/")}/>
         </Box>
       </HStack>
       {!isSmallerThan768 && <SearchInput />}
