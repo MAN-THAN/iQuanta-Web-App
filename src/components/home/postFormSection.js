@@ -2,7 +2,7 @@ import { Box, Divider, Flex, HStack, Image, Text } from "@chakra-ui/react";
 import { BiDoughnutChart } from "react-icons/bi";
 import { CiImageOn } from "react-icons/ci";
 
-const PostFormSection = ( ) => {
+const PostFormSection = ({openModal}) => {
   return (
     <Box bg="#fff" p="4">
       <Flex alignItems="center">
@@ -17,7 +17,7 @@ const PostFormSection = ( ) => {
             mr="2"
           />
         </Box>
-        <Box width="full">
+        <Box width="full" onClick={openModal}>
           <Text ml="4">Create a new post</Text>
         </Box>
       </Flex>
@@ -56,7 +56,7 @@ const PostFormSection = ( ) => {
         </button>
         <button className="hover:text-blue-500  w-full">
           <div className="flex items-center justify-center gap-2 text-sm font-semibold">
-            <Image src="/megaphone.svg" />
+            <Image alt="megaphon icon" src="/megaphone.svg" />
             <span> Debate</span>
           </div>
         </button>

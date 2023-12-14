@@ -10,10 +10,9 @@ export default function isAuth(Component: any) {
 
     useEffect(() => {
       if (!auth) {
-        router.push("");
+        router.push("/");
       }
     }, [auth]);
-
     if (!auth) {
       return null;
     }

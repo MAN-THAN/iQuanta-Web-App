@@ -63,12 +63,12 @@ const ChallengeLivecard = ({ classId }) => {
       <Box p="4">
         <Box bg="#D68B46" color="white.900" p="6" roundedTop="2xl" position="relative" overflow="hidden">
           <HStack position='absolute' right='10' align="center" bg="#AE723B"  rounded="2xl" padding='2'>
-            <Image width='10px' src="/Dot.svg" />
+            <Image alt="dot icon" width='10px' src="/Dot.svg" />
             <Text fontSize='14px' fontWeight='400'>Live</Text>
           </HStack>
 
           <Box position="absolute" top="0" right="0">
-            <Image src="/Vector103.svg" />
+            <Image alt="vector img" src="/Vector103.svg" />
           </Box>
           <Text>5 Member</Text>
           <Text fontSize="22px" fontWeight="500" pt="4">

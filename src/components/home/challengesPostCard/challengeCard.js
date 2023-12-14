@@ -61,7 +61,7 @@ const ChallengeCard = ({ classId }) => {
         <Text>Let’s see who comes on top!</Text>
         <Box bg="brand.900" color="white.900" p="6" rounded="2xl" position="relative" overflow="hidden">
           <Box position="absolute" top="0" right="0">
-            <Image src="/Vector103.svg" />
+            <Image alt="vector img" src="/Vector103.svg" />
           </Box>
           <AvatarGroups size="md" />
           <Text fontSize="22px" fontWeight="500" pt="4">

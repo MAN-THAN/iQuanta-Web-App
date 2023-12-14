@@ -13,7 +13,6 @@ import {
   Stack,
   HStack,
   Box,
-  Image,
   Menu,
   MenuButton,
   Text,
@@ -26,7 +25,7 @@ import {
   InputLeftElement,
   Input,
 } from "@chakra-ui/react";
-import { ArrowLeft, ChevronDown, ChevronRight, Minus, Plus, SearchIcon } from "lucide-react";
+import { ChevronDown, ChevronRight, Minus, Plus, SearchIcon } from "lucide-react";
 import topicsData from "@/utilities/topicsDummy";
 
 const ChallengesModal = ({ isOpen, onClose }) => {
@@ -192,7 +191,6 @@ const ChallengesModal = ({ isOpen, onClose }) => {
           </ModalFooter>
         </ModalContent>
       </Modal>
-      {/* <TopicsModal isOpen={secondModalOpen} onClose={closeSecondModal} /> */}
     </>
   );
 };
