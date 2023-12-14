@@ -34,18 +34,30 @@ const MainHeader = () => {
 
   return (
     <>
-      <Flex
-        as="header"
-        bg="#F1F2F3"
-        alignItems="center"
-        justifyContent="space-between"
-        py={8}
-        position="sticky"
-        top="0"
-        zIndex="50"
-        padding={{ base: "20px" }}
-      >
-        <HStack spacing={isSmallerThan768 ? 4 : 0}>
+    <Flex
+      as="header"
+      bg="#F1F2F3"
+      alignItems="center"
+      justifyContent="space-between"
+      py={8}
+      position="sticky"
+      top="0"
+      zIndex="50"
+      padding={{ base: "20px" }}
+    >
+      <HStack spacing={isSmallerThan768 ? 4 : 0}>
+        <Box>
+          <Image alt="logo" width="100%" src="/Logo.png" />
+        </Box>
+      </HStack>
+      {!isSmallerThan768 && <SearchInput />}
+      {isSmallerThan768 ? (
+        <Box justifyContent="end" as={AlignJustify} />
+      ) : (
+        <Flex gap="20px" alignItems="center" justifyContent="space-between" color="grey.800">
+          <Box onClick={() => router.push("/chat")}>
+            <BsChatDots size="24px" />
+          </Box>
           <Box>
             <Image alt="logo" width="100%" src="/Logo.png" />
           </Box>

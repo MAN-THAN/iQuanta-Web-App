@@ -2,7 +2,7 @@ import { Box, Divider, Flex, HStack, Image, Text } from "@chakra-ui/react";
 import { BiDoughnutChart } from "react-icons/bi";
 import { CiImageOn } from "react-icons/ci";
 
-const PostFormSection = ({ openModal }) => {
+const PostFormSection = ( ) => {
   return (
     <Box bg="#fff" p="4">
       <Flex alignItems="center">
@@ -17,7 +17,7 @@ const PostFormSection = ({ openModal }) => {
             mr="2"
           />
         </Box>
-        <Box width="full" onClick={openModal}>
+        <Box width="full">
           <Text ml="4">Create a new post</Text>
         </Box>
       </Flex>
