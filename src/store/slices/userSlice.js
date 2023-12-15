@@ -7,9 +7,9 @@ const userSlice = createSlice({
     addUserData(state, action) {
       return action.payload;
     },
-    addUserDetailedData(state, action){
-      return action.payload
-    }
+    addUserDetailedData(state, action) {
+      return action.payload;
+    },
   },
 });
 
