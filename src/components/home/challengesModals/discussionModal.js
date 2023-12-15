@@ -1,15 +1,10 @@
-import React, { useState } from "react";
 import {
   Button,
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalHeader,
   ModalFooter,
   ModalBody,
-  ModalCloseButton,
-  FormControl,
-  FormLabel,
   Stack,
   HStack,
   Box,
@@ -22,10 +17,9 @@ import {
   Image,
   UnorderedList,
   ListItem,
-  ListIcon,
   Textarea,
 } from "@chakra-ui/react";
-import { ChevronDown, ImageDown, Minus, Plus } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
 const DiscussionModal = ({ isOpen, onClose }) => {
   return (
@@ -80,20 +74,20 @@ const DiscussionModal = ({ isOpen, onClose }) => {
                   resize="none"
                 />
               </Box>
-              <Box height="30vh"></Box>
+              <Box borderBottom="1px solid" height="30vh"></Box>
               <Box>
                 <UnorderedList listStyleType="none">
                   <ListItem py="3" display="flex" gap="4" alignItems="center">
-                    <Image alt="img icon" src="/colorImage.svg" /> <Text>Photo / video</Text>
+                    <Image alt="img icon" src="/colorImage.svg" /> <Text>Photo or Video</Text>
                   </ListItem>
                   <ListItem py="3" display="flex" gap="4" alignItems="center">
-                    <Image alt="poll icon" src="/Poll.svg" /> <Text>Photo / video</Text>
+                    <Image alt="poll icon" src="/Poll.svg" /> <Text>Poll</Text>
                   </ListItem>
                   <ListItem py="3" display="flex" gap="4" alignItems="center">
-                    <Image alt="megaphone icon" src="/Megaphone copy.svg" /> <Text>Photo / video</Text>
+                    <Image alt="megaphone icon" src="/Megaphone copy.svg" /> <Text>Create Meme</Text>
                   </ListItem>
                   <ListItem py="3" display="flex" gap="4" alignItems="center">
-                    <Image alt="paperchip" src="/Paperclip.svg" /> <Text>Photo / video</Text>
+                    <Image alt="paperchip" src="/Paperclip.svg" /> <Text>Upload Document</Text>
                   </ListItem>
                 </UnorderedList>
               </Box>
