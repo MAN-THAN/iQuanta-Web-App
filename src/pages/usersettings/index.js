@@ -1,4 +1,5 @@
 import UserSettingLayout from "@/components/layouts/userSettingLayout";
+import LogoutAndDeactivateButtons from "@/components/logoutSection/logoutAndDeactivateButtons";
 import {
   Avatar,
   Box,
@@ -39,7 +40,7 @@ const UserSettings = () => {
               Linked Accounts
             </Text>
             <UnorderedList cursor="pointer" listStyleType="none" fontSize="14px" fontWeight="500" color="#455564">
-              <ListItem key="1" onClick={()=>router.push("/usersettings/myAccountAndLearning")}>
+              <ListItem key="1" onClick={() => router.push("/usersettings/myAccountAndLearning")}>
                 <Flex align="center" justify="space-between">
                   <Box display="flex" alignItems="center">
                     <Avatar size="lg" alt="user img" src="/man1.jpg" />
@@ -88,33 +89,7 @@ const UserSettings = () => {
             </UnorderedList>
           </CardBody>
           <CardFooter>
-            <ButtonGroup width="full" spacing="2">
-              <Button
-                onClick={() => router.push("/usersettings/deactivate")}
-                border="1px solid"
-                width="300px"
-                size="md"
-                variant="solid"
-                sx={{
-                  margin: "0 auto",
-                  backgroundColor: "#ffff !important",
-                }}
-              >
-                Deactivate Account
-              </Button>
-              <Button
-                width="300px"
-                size="md"
-                variant="solid"
-                sx={{
-                  margin: "0 auto",
-                  backgroundColor: "black !important",
-                  color: "white",
-                }}
-              >
-                Log out
-              </Button>
-            </ButtonGroup>
+            <LogoutAndDeactivateButtons />
           </CardFooter>
         </Card>
       </Box>
