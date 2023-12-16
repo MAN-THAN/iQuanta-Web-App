@@ -1,31 +1,22 @@
 import UserSettingLayout from "@/components/layouts/userSettingLayout";
-import LogoutAndDeactivateButtons from "@/components/logoutSection/logoutAndDeactivateButtons";
 import {
-  Avatar,
   Box,
   Button,
-  ButtonGroup,
   Card,
   CardBody,
   CardFooter,
   CardHeader,
-  Divider,
   Flex,
-  FormErrorMessage,
   FormLabel,
   HStack,
-  Image,
   Input,
   InputGroup,
   InputLeftAddon,
-  ListItem,
   PinInput,
   PinInputField,
   Text,
-  UnorderedList,
-  VStack,
 } from "@chakra-ui/react";
-import { ArrowLeft, ChevronRight, Plus, X } from "lucide-react";
+import { ArrowLeft, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 

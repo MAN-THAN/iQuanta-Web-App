@@ -18,16 +18,27 @@ import {
   UnorderedList,
   ListItem,
   Textarea,
+  Divider,
 } from "@chakra-ui/react";
 import { ChevronDown } from "lucide-react";
+import { useState } from "react";
+import RowButton from "../homePostComponents/rowButton";
+import ColumnButtons from "../homePostComponents/columnButtons";
 
 const DiscussionModal = ({ isOpen, onClose }) => {
+  const [isTyping, setIsTyping] = useState(false);
+
+  const handleTypingStart = () => {
+    setIsTyping(true);
+  };
+
   return (
     <>
       <Modal
         isOpen={isOpen}
         onClose={() => {
           onClose();
+          handleTypingEnd();
         }}
       >
         <ModalOverlay />
@@ -65,35 +76,33 @@ const DiscussionModal = ({ isOpen, onClose }) => {
                   </Box>
                 </Box>
               </HStack>
+
               <Box pt="2">
                 <Textarea
+                  width="full"
+                  height="auto"
                   border="none"
-                  draggable={false}
-                  maxLength={100}
                   placeholder="Write your post here..."
                   resize="none"
+                  onInput={handleTypingStart}
+                  onBlur={(e) => {
+                    if (!e.target.value.trim()) {
+                      setIsTyping(false);
+                    }
+                  }}
                 />
-              </Box>
-              <Box borderBottom="1px solid" height="30vh"></Box>
-              <Box>
-                <UnorderedList listStyleType="none">
-                  <ListItem py="3" display="flex" gap="4" alignItems="center">
-                    <Image alt="img icon" src="/colorImage.svg" /> <Text>Photo or Video</Text>
-                  </ListItem>
-                  <ListItem py="3" display="flex" gap="4" alignItems="center">
-                    <Image alt="poll icon" src="/Poll.svg" /> <Text>Poll</Text>
-                  </ListItem>
-                  <ListItem py="3" display="flex" gap="4" alignItems="center">
-                    <Image alt="megaphone icon" src="/Megaphone copy.svg" /> <Text>Create Meme</Text>
-                  </ListItem>
-                  <ListItem py="3" display="flex" gap="4" alignItems="center">
-                    <Image alt="paperchip" src="/Paperclip.svg" /> <Text>Upload Document</Text>
-                  </ListItem>
-                </UnorderedList>
               </Box>
             </Stack>
           </ModalBody>
-          <ModalFooter>
+          <Divider />
+          <ModalFooter flexDirection="column" alignItems="start">
+            {!isTyping ? (
+              <ColumnButtons />
+            ) : (
+              <>
+                <RowButton />
+              </>
+            )}
             <Button
               w="full"
               sx={{
