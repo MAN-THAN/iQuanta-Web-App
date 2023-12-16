@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   Button,
   Modal,
@@ -15,21 +16,61 @@ import {
   MenuItem,
   Flex,
   Image,
-  UnorderedList,
-  ListItem,
   Textarea,
   Divider,
 } from "@chakra-ui/react";
 import { ChevronDown } from "lucide-react";
-import { useState } from "react";
+import { useRef } from "react";
 import RowButton from "../homePostComponents/rowButton";
 import ColumnButtons from "../homePostComponents/columnButtons";
+import ImagePreview from "../homePostComponents/ImagePreview";
+import PollInputs from "../homePostComponents/pollInputs";
+import MemeCard from "../homePostComponents/memeCard";
 
 const DiscussionModal = ({ isOpen, onClose }) => {
   const [isTyping, setIsTyping] = useState(false);
+  const fileInputRef = useRef(null);
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [selectedComponent, setSelectedComponent] = useState(null);
 
   const handleTypingStart = () => {
     setIsTyping(true);
+  };
+
+  const handleClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleChange = (event) => {
+    const files = event.target.files;
+
+    if (files.length > 0) {
+      const selectedImages = Array.from(files).map((file) => URL.createObjectURL(file));
+      setSelectedFiles((prevFiles) => [...prevFiles, ...selectedImages]);
+    }
+  };
+
+  const handleRemoveImage = (index) => {
+    setSelectedFiles((prevFiles) => {
+      const newFiles = [...prevFiles];
+      newFiles.splice(index, 1);
+      return newFiles;
+    });
+  };
+
+  const handleOptionButtonClick = (componentName) => {
+    setSelectedComponent(componentName);
+  };
+
+  const renderSelectedComponent = () => {
+    switch (selectedComponent) {
+      case "meme":
+        return <MemeCard />;
+      case "poll":
+        return <PollInputs />;
+      default:
+        return null;
+    }
   };
 
   return (
@@ -38,7 +79,6 @@ const DiscussionModal = ({ isOpen, onClose }) => {
         isOpen={isOpen}
         onClose={() => {
           onClose();
-          handleTypingEnd();
         }}
       >
         <ModalOverlay />
@@ -76,7 +116,6 @@ const DiscussionModal = ({ isOpen, onClose }) => {
                   </Box>
                 </Box>
               </HStack>
-
               <Box pt="2">
                 <Textarea
                   width="full"
@@ -94,14 +133,49 @@ const DiscussionModal = ({ isOpen, onClose }) => {
               </Box>
             </Stack>
           </ModalBody>
+
+          <Box>{renderSelectedComponent()}</Box>
+          <Box
+            padding="4"
+            display="flex"
+            overflowY="hidden"
+            overflowX="scroll"
+            css={{ scrollbarWidth: "thin", scrollbarColor: "#888 #f5f5f5" }}
+            sx={{
+              "-webkit-overflow-scrolling": "touch",
+              scrollBehavior: "smooth",
+            }}
+          >
+            <ImagePreview selectedFiles={selectedFiles} removeImage={handleRemoveImage} />
+          </Box>
           <Divider />
           <ModalFooter flexDirection="column" alignItems="start">
-            {!isTyping ? (
-              <ColumnButtons />
-            ) : (
+            {isTyping ? (
+              <RowButton
+                fileInputRef={fileInputRef}
+                handleClick={handleClick}
+                handleChange={handleChange}
+                selectedFiles={selectedFiles}
+                handleOptionButtonClick={handleOptionButtonClick}
+              />
+            ) : selectedFiles.length > 0 ? (
               <>
-                <RowButton />
+                <RowButton
+                  fileInputRef={fileInputRef}
+                  handleClick={handleClick}
+                  handleChange={handleChange}
+                  selectedFiles={selectedFiles}
+                  handleOptionButtonClick={handleOptionButtonClick}
+                />
               </>
+            ) : (
+              <ColumnButtons
+                fileInputRef={fileInputRef}
+                handleClick={handleClick}
+                handleChange={handleChange}
+                selectedFiles={selectedFiles}
+                handleOptionButtonClick={handleOptionButtonClick}
+              />
             )}
             <Button
               w="full"

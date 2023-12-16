@@ -10,6 +10,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useQuery } from "react-query";
 import { getProfileInfo } from "@/api/profile";
+import { toast } from "react-toastify";
 
 const MainHeader = () => {
   const router = useRouter();
@@ -44,7 +45,7 @@ const MainHeader = () => {
     >
       <HStack spacing={isSmallerThan768 ? 4 : 0}>
         <Box>
-          <Image alt="logo" width="100%" src="/Logo.png" cursor={'pointer'} onClick={() => router.push("/")}/>
+          <Image alt="logo" width="100%" src="/Logo.png" cursor={"pointer"} onClick={() => router.push("/")} />
         </Box>
       </HStack>
       {!isSmallerThan768 && <SearchInput />}
