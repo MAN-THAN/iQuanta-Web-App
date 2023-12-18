@@ -16,8 +16,11 @@ const RowButton = ({ fileInputRef, handleClick, handleChange, handleOptionButton
         <ListItem cursor="pointer" py="3" display="flex" gap="4" onClick={() => handleButtonClick("poll")}>
           <Image alt="poll icon" src="/Poll.svg" />
         </ListItem>
-        <ListItem cursor="pointer" py="3" display="flex" gap="4" onClick={() => handleButtonClick("meme")}>
+        <ListItem cursor="pointer" py="3" display="flex" gap="4" onClick={() => handleButtonClick("debate")}>
           <Image alt="megaphone icon" src="/Megaphone copy.svg" />
+        </ListItem>
+        <ListItem cursor="pointer" py="3" display="flex" gap="4" onClick={() => handleButtonClick("meme")}>
+          <Image alt="megaphone icon" src="/Brush.svg" />
         </ListItem>
         <ListItem cursor="pointer" py="3" display="flex" gap="4">
           <Image alt="paperchip" src="/Paperclip.svg" />

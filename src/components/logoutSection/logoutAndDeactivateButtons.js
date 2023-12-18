@@ -59,7 +59,7 @@ const LogoutAndDeactivateButtons = () => {
     <>
       <ButtonGroup width="full" spacing="2">
         <Button
-          onClick={() => router.push("/usersettings/detailseactivateAccount")}
+          onClick={() => router.push("/usersettings/deactivateAccount")}
           border="1px solid"
           width="300px"
           size="md"
