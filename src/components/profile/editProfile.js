@@ -1,8 +1,10 @@
 import {
   Badge,
   Box,
+  Button,
   Card,
   CardBody,
+  CardFooter,
   Flex,
   HStack,
   Image,
@@ -28,6 +30,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const EditProfile = () => {
+  const [updateProfile, setUpdateProfile] = useState(true);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const dispatch = useDispatch();
   const router = useRouter();
@@ -52,12 +55,38 @@ const EditProfile = () => {
             <Box position="relative">
               <Box height="130px" bg="#F1F2F6" rounded="lg">
                 <HStack p="2" align="center" justify="flex-end">
-                  <Box p="1" onClick={(e) => router.push("/usersettings")} rounded="full" bg="#8D96A5">
-                    <Settings />
+                  <Box
+                    p="1"
+                    boxSize="30px"
+                    color="white.900"
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    cursor="pointer"
+                    onClick={(e) => router.push("/usersettings")}
+                    rounded="full"
+                    bg="#8D96A5"
+                  >
+                    <Image alt="setting icon" src="/setting.svg" />
                   </Box>
-                  <Box p="1" rounded="full" bg="#8D96A5" onClick={(e) => router.push("/useraccount/updateprofile")}>
-                    <PenSquare />
-                  </Box>
+                  {!updateProfile ? (
+                    ""
+                  ) : (
+                    <Box
+                      p="1"
+                      boxSize="30px"
+                      color="white.900"
+                      cursor="pointer"
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="center"
+                      rounded="full"
+                      bg="#8D96A5"
+                      onClick={() => setUpdateProfile(false)}
+                    >
+                      <Image src="/pentab.svg" alt="pen tab icon" />
+                    </Box>
+                  )}
                 </HStack>
               </Box>
               <Box
@@ -69,22 +98,19 @@ const EditProfile = () => {
                 bg="#fff"
                 rounded="full"
               >
-
-
                 <Box boxSize="130px" rounded="full">
                   <Image
                     rounded="full"
                     objectFit="cover"
                     width="100%"
                     height="100%"
-                    src={state?.profile_pic ? state.profile_pic :"/noImage.svg"}
+                    src={state?.profile_pic ? state.profile_pic : "/noImage.svg"}
                     alt="Profile Image"
                   />
                 </Box>
               </Box>
             </Box>
             <FullProfileView isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
-
             <Box mt="16">
               <Text fontSize="2xl" textAlign="center" fontWeight="600" color="heading.900">
                 {state?.name}
@@ -123,25 +149,25 @@ const EditProfile = () => {
             <FormControl display="flex" gap="1" flexWrap="wrap" mt="4">
               <Box width="48%">
                 <FormLabel>Name</FormLabel>
-                <Input type="text" readOnly value={state?.name} placeholder="Name" />
+                <Input type="text" readOnly={updateProfile} value={state?.name} placeholder="Name" />
               </Box>
               <Box width="48%">
                 <FormLabel>Phone</FormLabel>
                 <InputGroup>
                   {/* eslint-disable-next-line */}
                   <InputLeftAddon children="+91" />
-                  <Input type="tel" readOnly value={state?.phone} placeholder="Phone number" />
+                  <Input type="tel" readOnly={updateProfile} value={state?.phone} placeholder="Phone number" />
                 </InputGroup>
               </Box>
               <Box width="48%">
                 <FormLabel>Email Id</FormLabel>
-                <Input type="email" readOnly value={state?.email} placeholder="Email" />
+                <Input type="email" readOnly={updateProfile} value={state?.email} placeholder="Email" />
               </Box>
               <Box width="100%">
                 <FormLabel>Bio</FormLabel>
                 <Textarea
                   placeholder="Here is a sample placeholder"
-                  readOnly
+                  readOnly={updateProfile}
                   value="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ex esse laborum error, possimus culpa tenetur aliquam neque corrupti excepturi ratione expedita illum amet saepe tempore voluptas. Corporis animi veniam accusamus!"
                 />
               </Box>
@@ -168,7 +194,7 @@ const EditProfile = () => {
             <FormControl display="flex" gap="1" flexWrap="wrap" mt="4">
               <Box width="48%">
                 <FormLabel>Date of Birth</FormLabel>
-                <Input type="text" placeholder="DoB" value={state?.dob} readOnly />
+                <Input type="text" placeholder="DoB" value={state?.dob} readOnly={updateProfile} />
               </Box>
               <Box width="48%">
                 <FormLabel>Gender</FormLabel>
@@ -176,18 +202,37 @@ const EditProfile = () => {
               </Box>
               <Box width="48%">
                 <FormLabel>Education</FormLabel>
-                <Input type="text" placeholder="Education" readOnly value="BCA" />
+                <Input type="text" placeholder="Education" readOnly={updateProfile} value="BCA" />
               </Box>
               <Box width="48%">
                 <FormLabel>Work Experience</FormLabel>
-                <Input type="text" placeholder="Experience" readOnly value="2 Year" />
+                <Input type="text" placeholder="Experience" readOnly={updateProfile} value="2 Year" />
               </Box>
               <Box width="48%">
                 <FormLabel>Medical Conditiom</FormLabel>
-                <Input type="text" placeholder="Medical Conditiom" readOnly value="None" />
+                <Input type="text" placeholder="Medical Conditiom" readOnly={updateProfile} value="None" />
               </Box>
             </FormControl>
           </CardBody>
+          {!updateProfile ? (
+            <CardFooter>
+              <Button
+                w="full"
+                onClick={() => setUpdateProfile(true)}
+                sx={{
+                  bg: "black !important",
+                  color: "#fff",
+                  margin: "0 auto",
+                  fontSize: "14px",
+                }}
+                variant="solid"
+              >
+                Update Profile
+              </Button>
+            </CardFooter>
+          ) : (
+            ""
+          )}
         </Card>
       </Box>
       <ToastContainer />

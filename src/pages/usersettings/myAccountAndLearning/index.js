@@ -1,4 +1,5 @@
 import UserSettingLayout from "@/components/layouts/userSettingLayout";
+import LogoutAndDeactivateButtons from "@/components/logoutSection/logoutAndDeactivateButtons";
 import {
   Box,
   Button,
@@ -89,33 +90,7 @@ const MyAccountAndLearning = () => {
             </UnorderedList>
           </CardBody>
           <CardFooter>
-            <ButtonGroup width="full" spacing="2">
-              <Button
-                onClick={() => router.push("/usersettings/deactivate")}
-                border="1px solid"
-                width="300px"
-                size="md"
-                variant="solid"
-                sx={{
-                  margin: "0 auto",
-                  backgroundColor: "#ffff !important",
-                }}
-              >
-                Deactivate Account
-              </Button>
-              <Button
-                width="300px"
-                size="md"
-                variant="solid"
-                sx={{
-                  margin: "0 auto",
-                  backgroundColor: "black !important",
-                  color: "white",
-                }}
-              >
-                Log out
-              </Button>
-            </ButtonGroup>
+          <LogoutAndDeactivateButtons/>
           </CardFooter>
         </Card>
       </Box>
