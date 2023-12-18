@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   Button,
   Modal,
@@ -15,13 +16,63 @@ import {
   MenuItem,
   Flex,
   Image,
-  UnorderedList,
-  ListItem,
   Textarea,
+  Divider,
 } from "@chakra-ui/react";
 import { ChevronDown } from "lucide-react";
+import { useRef } from "react";
+import RowButton from "../homePostComponents/rowButton";
+import ColumnButtons from "../homePostComponents/columnButtons";
+import ImagePreview from "../homePostComponents/ImagePreview";
+import PollInputs from "../homePostComponents/pollInputs";
+import MemeCard from "../homePostComponents/memeCard";
 
 const DiscussionModal = ({ isOpen, onClose }) => {
+  const [isTyping, setIsTyping] = useState(false);
+  const fileInputRef = useRef(null);
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [selectedComponent, setSelectedComponent] = useState(null);
+
+  const handleTypingStart = () => {
+    setIsTyping(true);
+  };
+
+  const handleClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleChange = (event) => {
+    const files = event.target.files;
+
+    if (files.length > 0) {
+      const selectedImages = Array.from(files).map((file) => URL.createObjectURL(file));
+      setSelectedFiles((prevFiles) => [...prevFiles, ...selectedImages]);
+    }
+  };
+
+  const handleRemoveImage = (index) => {
+    setSelectedFiles((prevFiles) => {
+      const newFiles = [...prevFiles];
+      newFiles.splice(index, 1);
+      return newFiles;
+    });
+  };
+
+  const handleOptionButtonClick = (componentName) => {
+    setSelectedComponent(componentName);
+  };
+
+  const renderSelectedComponent = () => {
+    switch (selectedComponent) {
+      case "meme":
+        return <MemeCard />;
+      case "poll":
+        return <PollInputs />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <>
       <Modal
@@ -67,33 +118,65 @@ const DiscussionModal = ({ isOpen, onClose }) => {
               </HStack>
               <Box pt="2">
                 <Textarea
+                  width="full"
+                  height="auto"
                   border="none"
-                  draggable={false}
-                  maxLength={100}
                   placeholder="Write your post here..."
                   resize="none"
+                  onInput={handleTypingStart}
+                  onBlur={(e) => {
+                    if (!e.target.value.trim()) {
+                      setIsTyping(false);
+                    }
+                  }}
                 />
-              </Box>
-              <Box borderBottom="1px solid" height="30vh"></Box>
-              <Box>
-                <UnorderedList listStyleType="none">
-                  <ListItem py="3" display="flex" gap="4" alignItems="center">
-                    <Image alt="img icon" src="/colorImage.svg" /> <Text>Photo or Video</Text>
-                  </ListItem>
-                  <ListItem py="3" display="flex" gap="4" alignItems="center">
-                    <Image alt="poll icon" src="/Poll.svg" /> <Text>Poll</Text>
-                  </ListItem>
-                  <ListItem py="3" display="flex" gap="4" alignItems="center">
-                    <Image alt="megaphone icon" src="/Megaphone copy.svg" /> <Text>Create Meme</Text>
-                  </ListItem>
-                  <ListItem py="3" display="flex" gap="4" alignItems="center">
-                    <Image alt="paperchip" src="/Paperclip.svg" /> <Text>Upload Document</Text>
-                  </ListItem>
-                </UnorderedList>
               </Box>
             </Stack>
           </ModalBody>
-          <ModalFooter>
+
+          <Box>{renderSelectedComponent()}</Box>
+          <Box
+            padding="4"
+            display="flex"
+            overflowY="hidden"
+            overflowX="scroll"
+            css={{ scrollbarWidth: "thin", scrollbarColor: "#888 #f5f5f5" }}
+            sx={{
+              "-webkit-overflow-scrolling": "touch",
+              scrollBehavior: "smooth",
+            }}
+          >
+            <ImagePreview selectedFiles={selectedFiles} removeImage={handleRemoveImage} />
+          </Box>
+          <Divider />
+          <ModalFooter flexDirection="column" alignItems="start">
+            {isTyping ? (
+              <RowButton
+                fileInputRef={fileInputRef}
+                handleClick={handleClick}
+                handleChange={handleChange}
+                selectedFiles={selectedFiles}
+                handleOptionButtonClick={handleOptionButtonClick}
+              />
+            ) : selectedFiles.length > 0 ? (
+              <>
+                <RowButton
+                  fileInputRef={fileInputRef}
+                  handleClick={handleClick}
+                  handleChange={handleChange}
+                  selectedFiles={selectedFiles}
+                  handleOptionButtonClick={handleOptionButtonClick}
+                />
+              </>
+            ) : (
+              <ColumnButtons
+                fileInputRef={fileInputRef}
+                handleClick={handleClick}
+                handleChange={handleChange}
+                selectedFiles={selectedFiles}
+                handleOptionButtonClick={handleOptionButtonClick}
+              />
+            )}
             <Button
               w="full"
               sx={{
