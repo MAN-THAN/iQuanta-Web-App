@@ -63,3 +63,19 @@ export const getNotifSettings = async (uid) => {
       throw err;
     }
   };
+    // logout api
+    export const userLogOut = async (uid) => {
+      try {
+        const res = await request({
+          url: `/auth/v1/creds/logout/${uid}`,
+          type: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        return res;
+      } catch (err) {
+        console.log(err);
+        throw err;
+      }
+    };
