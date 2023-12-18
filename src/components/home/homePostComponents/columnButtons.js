@@ -29,9 +29,19 @@ const ColumnButtons = ({ fileInputRef, handleClick, handleChange, selectedFiles,
           display="flex"
           gap="4"
           alignItems="center"
+          onClick={() => handleButtonClick("debate")}
+        >
+          <Image alt="megaphone icon" src="/Megaphone copy.svg" /> <Text>Debate</Text>
+        </ListItem>
+        <ListItem
+          cursor="pointer"
+          py="3"
+          display="flex"
+          gap="4"
+          alignItems="center"
           onClick={() => handleButtonClick("meme")}
         >
-          <Image alt="megaphone icon" src="/Megaphone copy.svg" /> <Text>Create Meme</Text>
+          <Image alt="megaphone icon" src="/Brush.svg" /> <Text>Create Meme</Text>
         </ListItem>
         <ListItem cursor="pointer" py="3" display="flex" gap="4" alignItems="center">
           <Image alt="paperchip" src="/Paperclip.svg" /> <Text>Upload Document</Text>

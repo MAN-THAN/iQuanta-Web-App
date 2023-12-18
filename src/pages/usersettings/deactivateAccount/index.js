@@ -34,7 +34,7 @@ const DetailseactivateAccount = () => {
         <Card>
           <CardHeader>
             <HStack px="4" pt="3">
-              <ArrowLeft />
+              <ArrowLeft cursor='pointer' onClick={()=>router.back()} />
               <Text fontSize="18px" fontWeight="600">
                 Deactivate Account
               </Text>
