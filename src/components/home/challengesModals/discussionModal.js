@@ -71,6 +71,10 @@ const DiscussionModal = ({ isOpen, onClose }) => {
     setParticipantsShow(true);
   };
 
+  const closeParticipants = () => {
+    setParticipantsShow(false);
+  };
+
   const renderSelectedComponent = () => {
     switch (selectedComponent) {
       case "meme":
@@ -213,7 +217,7 @@ const DiscussionModal = ({ isOpen, onClose }) => {
         ) : (
           <ModalContent bg="white.900" color="#000" height="80vh" overflow="hidden">
             <ModalBody>
-              <ParticipantsModal/>
+              <ParticipantsModal closeParticipants={closeParticipants} />
             </ModalBody>
             <Divider />
             <ModalFooter flexDirection="column" alignItems="start">
