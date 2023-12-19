@@ -20,9 +20,27 @@ import {
 } from "@chakra-ui/react";
 import { ArrowLeft, ChevronRight, Plus, X } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { useQuery } from "react-query";
+import { getLinkedAccounts } from "@/api/account/accountSetting";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const UserSettings = () => {
   const router = useRouter();
+  const [state, setState] = useState();
+  const { _id: uid } = useSelector((state) => state.userData);
+  const { isLoading, data, isError, error, isPending, isSuccess } = useQuery({
+    queryKey: ["getLinkedAccounts", uid],
+    queryFn: () => getLinkedAccounts(uid),
+    onError: (error, variables, context) =>
+      toast.error(`${error?.response?.data.error.message}`, {
+        position: toast.POSITION.TOP_RIGHT,
+      }),
+    onSuccess: (res) => setState(res.data.data.linkedAccounts),
+  });
+  console.log(state);
   return (
     <UserSettingLayout>
       <Box>
@@ -39,23 +57,41 @@ const UserSettings = () => {
             <Text px="4" pb="6" fontSize="14px" color="#455564" fontWeight="600">
               Linked Accounts
             </Text>
-            <UnorderedList cursor="pointer" listStyleType="none" fontSize="14px" fontWeight="500" color="#455564">
-              <ListItem key="1" onClick={() => router.push("/usersettings/myAccountAndLearning")}>
-                <Flex align="center" justify="space-between">
-                  <Box display="flex" alignItems="center">
-                    <Avatar size="lg" alt="user img" src="/man1.jpg" />
-                    <Box ml="4">
-                      <Text fontSize="16px" fontWeight="500">
-                        Gmail
-                      </Text>
-                      <Text fontSize="14px" fontWeight="400">
-                        xyz@gmail.com
-                      </Text>
-                    </Box>
-                  </Box>
-                  <X />
-                </Flex>
-              </ListItem>
+            <UnorderedList
+              cursor="pointer"
+              listStyleType="none"
+              fontSize="14px"
+              fontWeight="500"
+              color="#455564"
+              spacing={4}
+            >
+              {state?.length === 0 ? (
+                <Text textAlign={"center"}>No Accounts linked!</Text>
+              ) : (
+                <>
+                  {state?.map((item, ind) => (
+                    <>
+                      {" "}
+                      <ListItem key={ind} onClick={() => router.push("/usersettings/myAccountAndLearning")}>
+                        <Flex align="center" justify="space-between">
+                          <Box display="flex" alignItems="center">
+                            <Avatar size="lg" alt="user img" src={item?.icon} />
+                            <Box ml="4">
+                              <Text fontSize="16px" fontWeight="500">
+                                {item?.name}
+                              </Text>
+                              <Text fontSize="14px" fontWeight="400">
+                                {item?.email}{" "}
+                              </Text>
+                            </Box>
+                          </Box>
+                          <X />
+                        </Flex>
+                      </ListItem>
+                    </>
+                  ))}
+                </>
+              )}
             </UnorderedList>
             <Text px="4" py="6" fontSize="18px" fontWeight="600">
               My Learning

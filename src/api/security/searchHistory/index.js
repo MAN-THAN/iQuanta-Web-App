@@ -35,10 +35,10 @@ export const postSearchHistory = async (uid, payload) => {
 };
 
 //delete user search history
-export const deleteSearchHistory = async (uid) => {
+export const deleteSearchHistory = async (uid, itemId) => {
   try {
     const res = await request({
-      url: `/auth/v1/profile/settings/searchHistory/${uid}`,
+      url: `/auth/v1/profile/settings/searchHistory/${uid}/${itemId}`,
       type: "DELETE",
       headers: {
         "Content-Type": "application/json",

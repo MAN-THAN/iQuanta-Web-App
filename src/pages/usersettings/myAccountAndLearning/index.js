@@ -18,16 +18,32 @@ import {
 } from "@chakra-ui/react";
 import { ArrowLeft, ChevronRight } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { useQuery } from "react-query";
+import { getLinkedAccounts } from "@/api/account/accountSetting";
 
 const MyAccountAndLearning = () => {
   const router = useRouter();
+  const [state, setState] = useState();
+  const { _id: uid } = useSelector((state) => state.userData);
+  const { isLoading, data, isError, error, isPending, isSuccess } = useQuery({
+    // queryKey: ["getLinkedAccounts", uid],
+    // queryFn: () => getLinkedAccounts(uid),
+    // onError: (error, variables, context) =>
+    //   toast.error(`${error?.response?.data.error.message}`, {
+    //     position: toast.POSITION.TOP_RIGHT,
+    //   }),
+    // onSuccess: (res) => setState(res.data.data.linkedAccounts),
+  });
+  console.log(state);
   return (
     <UserSettingLayout>
       <Box>
         <Card>
           <CardHeader>
             <HStack>
-              <ArrowLeft  cursor='pointer' onClick={()=>router.back()}/>
+              <ArrowLeft cursor="pointer" onClick={() => router.back()} />
               <Text fontSize="18px" fontWeight="600">
                 Account Activity
               </Text>
@@ -38,7 +54,7 @@ const MyAccountAndLearning = () => {
               <ListItem key="1">
                 <Flex align="center" justify="space-between">
                   <Text>Posts you’ve liked</Text>
-                  <Box >
+                  <Box>
                     <ChevronRight />
                   </Box>
                 </Flex>
@@ -82,4 +98,4 @@ const MyAccountAndLearning = () => {
   );
 };
 
-export default MyAccountAndLearning
+export default MyAccountAndLearning;

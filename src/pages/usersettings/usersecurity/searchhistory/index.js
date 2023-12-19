@@ -2,14 +2,16 @@ import UserSettingLayout from "@/components/layouts/userSettingLayout";
 import { Box, Button, Card, CardBody, CardHeader, Divider, HStack, Image, Stack, Text } from "@chakra-ui/react";
 import { ArrowLeft, X } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient, useMutation } from "react-query";
 import { getSearchHistory } from "@/api/security/searchHistory";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { deleteSearchHistory } from "@/api/security/searchHistory";
 
 const SearchHistory = () => {
   const router = useRouter();
   const [state, setState] = useState();
+  const queryClient = useQueryClient();
   const { _id: uid } = useSelector((state) => state.userData);
   const { isLoading, data, isError, error, isPending, isSuccess } = useQuery({
     queryKey: ["getUserSearchHistory", uid],
@@ -22,6 +24,25 @@ const SearchHistory = () => {
   });
   console.log(data);
   //delete search history
+
+  const mutation = useMutation({
+    mutationFn: (itemId) => deleteSearchHistory(uid, itemId),
+    onMutate: (variables) => {
+      return console.log("mutation is happening");
+    },
+    onError: (error, variables, context) =>
+      toast.error(`${error?.response?.data.error.message}`, {
+        position: toast.POSITION.TOP_RIGHT,
+      }),
+    onSuccess: (res, variables, context) => {
+      // toast.success("Deletion successful!", {
+      //   position: toast.POSITION.TOP_RIGHT,
+      // });
+      queryClient.invalidateQueries({ queryKey: ["getUserSearchHistory"] })
+      console.log(res);
+    },
+    onSettled: (data, error, variables, context) => {},
+  });
   return (
     <UserSettingLayout>
       <Box>
@@ -54,7 +75,7 @@ const SearchHistory = () => {
                           objectFit="cover"
                           width="100%"
                           height="100%"
-                          src="/static/images/Profile.jpeg"
+                          src={item?.thumbnail}
                           alt="Profile Image"
                         />
                       </Box>
@@ -71,7 +92,7 @@ const SearchHistory = () => {
                         </p>
                       </Box>
                     </Box>
-                    <X cursor="pointer" />
+                    <X onClick={() => mutation.mutate(item?._id)} cursor="pointer" />
                   </HStack>
                 </>
               ))}

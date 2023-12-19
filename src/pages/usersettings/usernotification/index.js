@@ -36,7 +36,10 @@ const UserNotification = () => {
       toast.error(`${error?.response?.data.error.message}`, {
         position: toast.POSITION.TOP_RIGHT,
       }),
-    onSuccess: (res) => setState(res.data.data.notification_settings),
+    onSuccess: (res) => {
+      console.log(res);
+      setState(res?.data?.data?.notification_settings);
+    },
   });
   console.log(state);
   const mutation = useMutation({
@@ -52,8 +55,8 @@ const UserNotification = () => {
       // toast.success(" successful!", {
       //   position: toast.POSITION.TOP_RIGHT,
       // });
-      queryClient.invalidateQueries({ queryKey: ["getUserNotifSettings"] });
       console.log(res);
+      queryClient.setQueryData(["getUserNotifSettings", uid], res);
     },
     onSettled: (data, error, variables, context) => {},
   });
