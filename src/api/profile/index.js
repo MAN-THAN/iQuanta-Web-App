@@ -15,4 +15,21 @@ export const getProfileInfo = async (uid) => {
     throw err;
   }
 };
-
+//update user profile details
+export const updateProfileInfo = async (uid, payload) => {
+  try {
+    console.log(payload)
+    const res = await request({
+      url: `/auth/v1/profile/settings/basic/${uid}`,
+      type: "PATCH",
+      data: payload,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return res;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};
