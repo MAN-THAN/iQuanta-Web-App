@@ -21,13 +21,16 @@ import { PenSquare, Settings } from "lucide-react";
 import { BsDot } from "react-icons/bs";
 import { useRouter } from "next/navigation";
 import FullProfileView from "./fullProfileView";
-import { useQuery } from "react-query";
+import { useQuery, useMutation } from "react-query";
 import { getProfileInfo } from "@/api/profile";
 import { useDispatch, useSelector } from "react-redux";
 import { addUserDetailedData } from "@/store/slices/userSlice";
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { updateProfileInfo } from "@/api/profile";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 const EditProfile = () => {
   const [updateProfile, setUpdateProfile] = useState(true);
@@ -36,6 +39,24 @@ const EditProfile = () => {
   const router = useRouter();
   const [state, setState] = useState();
   const { _id: uid } = useSelector((state) => state.userData);
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      phone: "",
+      email: "",
+      bio: "",
+      dob: "",
+      gender: "",
+      education: "",
+      workEx: "",
+      medicalCondition: "",
+    },
+    validationSchema: Yup.object({}),
+    onSubmit: (values) => {
+      console.log(values)
+      mutation.mutate(values);
+    },
+  });
   const { isLoading, data, isError, error, isPending, isSuccess } = useQuery({
     queryKey: ["getUserDetailData", uid],
     queryFn: () => getProfileInfo(uid),
@@ -46,6 +67,24 @@ const EditProfile = () => {
     onSuccess: (res) => setState(res.data.data.user_data),
   });
   console.log(state);
+  const mutation = useMutation({
+    mutationFn: (payload) => updateProfileInfo(uid, payload),
+    onMutate: (variables) => {
+      return console.log("mutation is happening");
+    },
+    onError: (error, variables, context) =>
+      toast.error(`${error?.response?.data.error.message}`, {
+        position: toast.POSITION.TOP_RIGHT,
+      }),
+    onSuccess: (res, variables, context) => {
+      toast.success("Changes successful!", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      setUpdateProfile(true);
+      console.log(res);
+    },
+    onSettled: (data, error, variables, context) => {},
+  });
 
   return (
     <>
@@ -218,7 +257,7 @@ const EditProfile = () => {
             <CardFooter>
               <Button
                 w="full"
-                onClick={() => setUpdateProfile(true)}
+                onClick={formik.handleSubmit}
                 sx={{
                   bg: "black !important",
                   color: "#fff",
