@@ -13,7 +13,7 @@ import {
 import { SearchIcon, X } from "lucide-react";
 import React from "react";
 
-const ParticipantsModal = ({closeParticipants}) => {
+const ParticipantsModal = ({ closeParticipants }) => {
   return (
     <>
       <Box>
@@ -32,8 +32,8 @@ const ParticipantsModal = ({closeParticipants}) => {
           <Input pl="3.0rem" placeholder="Search" />
         </InputGroup>
         <UnorderedList listStyleType="none" overflowY="scroll">
-          {[...Array(4)].map(() => (
-            <ListItem display="flex" justifyContent="space-between" pt="5">
+          {[...Array(4)].map((d, i) => (
+            <ListItem key={i} display="flex" justifyContent="space-between" pt="5">
               <Box
                 sx={{
                   display: "flex",

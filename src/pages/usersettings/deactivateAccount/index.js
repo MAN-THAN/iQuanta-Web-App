@@ -34,7 +34,7 @@ const DetailseactivateAccount = () => {
         <Card>
           <CardHeader>
             <HStack px="4" pt="3">
-              <ArrowLeft cursor='pointer' onClick={()=>router.back()} />
+              <ArrowLeft cursor="pointer" onClick={() => router.back()} />
               <Text fontSize="18px" fontWeight="600">
                 Deactivate Account
               </Text>
@@ -52,7 +52,7 @@ const DetailseactivateAccount = () => {
             {!showPinInput ? (
               <Box p="4">
                 <FormLabel fontSize="14px" fontWeight="500">
-                  Enter your registered mobile number{" "}
+                  Enter your registered mobile number
                 </FormLabel>
                 <InputGroup>
                   <InputLeftAddon>+91</InputLeftAddon>

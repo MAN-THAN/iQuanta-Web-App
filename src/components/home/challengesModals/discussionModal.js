@@ -99,7 +99,15 @@ const DiscussionModal = ({ isOpen, onClose }) => {
         <ModalOverlay />
         {!participantsShow ? (
           <ModalContent bg="white.900" color="#000" height="80vh" overflow="hidden">
-            <ModalBody>
+            <ModalBody
+              overflowY="scroll"
+              overflowX="hidden"
+              css={{ scrollbarWidth: "thin", scrollbarColor: "#888 #f5f5f5" }}
+              sx={{
+                "-webkit-overflow-scrolling": "touch",
+                scrollBehavior: "smooth",
+              }}
+            >
               <Flex alignItems="center" justifyContent="space-between">
                 <Text>New Discussion</Text>
                 <Menu isLazy>
