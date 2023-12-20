@@ -8,8 +8,22 @@ import { PersistGate } from "redux-persist/integration/react";
 import { persistor } from "@/store";
 import { ChakraProvider } from "@chakra-ui/provider";
 import { extendTheme } from "@chakra-ui/react";
+import { TbRuler2 } from "react-icons/tb";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 0, 
+      cacheTime: 900000, // 15 minutes before cache is emptied
+      refetchOnMount: true,
+      refetchOnReconnect: true,
+      refetchOnWindowFocus: true,
+      notifyOnChangeProps: "tracked",
+      // retry: false,
+      // onError: queryErrorHandler,
+    },
+  },
+});
 
 const theme = extendTheme({
   colors: {

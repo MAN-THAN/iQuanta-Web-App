@@ -81,7 +81,8 @@ const UserPrivacy = () => {
       // toast.success(" successful!", {
       //   position: toast.POSITION.TOP_RIGHT,
       // });
-      queryClient.invalidateQueries({ queryKey: ["getUserPrivacySettings"] });
+      // queryClient.invalidateQueries({ queryKey: ["getUserPrivacySettings"] });
+      queryClient.setQueryData(["getUserPrivacySettings", uid], res);
       console.log(res);
     },
     onSettled: (data, error, variables, context) => {},
