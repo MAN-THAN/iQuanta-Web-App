@@ -9,7 +9,7 @@ const RowButton = ({ fileInputRef, handleClick, handleChange, handleOptionButton
   return (
     <HStack alignItems="center" justifyContent="space-between" p="0" width="full">
       <UnorderedList cursor="pointer" listStyleType="none" gap="6" display="flex">
-        <ListItem onClick={handleClick} cursor="pointer" py="3" display="flex" gap="4">
+        <ListItem onClick={()=>{handleClick() ; handleButtonClick("imageAndVideo")}} cursor="pointer" py="3" display="flex" gap="4">
           <Image alt="img icon" src="/colorImage.svg" />
           <input id="fileInput1" type="file" ref={fileInputRef} style={{ display: "none" }} onChange={handleChange} />
         </ListItem>
@@ -22,7 +22,7 @@ const RowButton = ({ fileInputRef, handleClick, handleChange, handleOptionButton
         <ListItem cursor="pointer" py="3" display="flex" gap="4" onClick={() => handleButtonClick("meme")}>
           <Image alt="megaphone icon" src="/Brush.svg" />
         </ListItem>
-        <ListItem cursor="pointer" py="3" display="flex" gap="4">
+        <ListItem cursor="pointer" py="3" display="flex" gap="4" onClick={() => handleButtonClick("fileUpload")}>
           <Image alt="paperchip" src="/Paperclip.svg" />
         </ListItem>
       </UnorderedList>

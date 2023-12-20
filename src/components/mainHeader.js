@@ -61,7 +61,7 @@ const MainHeader = () => {
             <Box>
               <Bell size="24px" />
             </Box>
-            <Box boxSize="50px" sx={{display : "flex", justifyContent : "center", alignItems : "center"}}>
+            <Box boxSize="50px" sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
               <Image
                 rounded="full"
                 objectFit="cover"

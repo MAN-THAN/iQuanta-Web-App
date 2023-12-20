@@ -94,9 +94,9 @@ const PhoneAuth = () => {
             }}
           ></div>
         </Box>
-        <Box w={{ base: "100%", md: "60%" }}>
+        <Box  w={{ base: "100%", md: "60%" }}  position={{ sm: "absolute" ,lg:"unset"}}  bottom={{sm:"0"}}>
           <Container gap="6" mt={{ base: "40px", md: "0" }}>
-            <Stack gap="6">
+            <Stack gap="6" bg='#05050530' p='10' rounded='2xl'>
               <Box>
                 <Image alt="logo" src="/logowhite.png" />
               </Box>
@@ -105,8 +105,6 @@ const PhoneAuth = () => {
                   Sign up using your mobile number
                 </FormLabel>
                 <InputGroup alignItems="center">
-                  {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
-
                   <InputLeftAddon p="6" height="60px" bg="#252525" color="white" border="none" fontWeight="bold">
                     +91
                   </InputLeftAddon>
@@ -125,26 +123,6 @@ const PhoneAuth = () => {
                     onBlur={formik.handleBlur}
                     value={formik.values.phoneNum}
                   />
-
-                  {/* <PhoneInput
-                  dropdownStyle={{ color: "red", border: "1px solid" }}
-                  country={"in"}
-                  countryCodeEditable={false}
-                  id="phoneNum"
-                  name="phoneNum"
-                  size="lg"
-                  height="60px"
-                  type="number"
-                  bg="#252525"
-                  color="white"
-                  border="none"
-                  inputMode="numeric"
-                  placeholder="Enter your mobile number"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.phoneNum}
-                /> */}
-
                   <Button
                     sx={{
                       bg: "#252525 !important",
@@ -155,7 +133,7 @@ const PhoneAuth = () => {
                     ml="2"
                     color="white"
                     _hover={{ color: "#F84D43", bg: "white !important" }}
-                    onClick={formik.handleSubmit} // form validation part
+                    onClick={formik.handleSubmit}
                   >
                     <ChevronRight size="30px" />
                   </Button>

@@ -8,7 +8,17 @@ const ColumnButtons = ({ fileInputRef, handleClick, handleChange, selectedFiles,
   return (
     <Box alignItems="end">
       <UnorderedList listStyleType="none">
-        <ListItem onClick={handleClick} cursor="pointer" py="3" display="flex" gap="4" alignItems="center">
+        <ListItem
+          onClick={() => {
+            handleClick();
+            handleButtonClick("imageAndVideo");
+          }}
+          cursor="pointer"
+          py="3"
+          display="flex"
+          gap="4"
+          alignItems="center"
+        >
           <Image alt="img icon" src="/colorImage.svg" />
           <Text>Photo or Video</Text>
           <input id="fileInput2" type="file" ref={fileInputRef} style={{ display: "none" }} onChange={handleChange} />
@@ -43,7 +53,14 @@ const ColumnButtons = ({ fileInputRef, handleClick, handleChange, selectedFiles,
         >
           <Image alt="megaphone icon" src="/Brush.svg" /> <Text>Create Meme</Text>
         </ListItem>
-        <ListItem cursor="pointer" py="3" display="flex" gap="4" alignItems="center">
+        <ListItem
+          cursor="pointer"
+          py="3"
+          display="flex"
+          gap="4"
+          alignItems="center"
+          onClick={() => handleButtonClick("fileUpload")}
+        >
           <Image alt="paperchip" src="/Paperclip.svg" /> <Text>Upload Document</Text>
         </ListItem>
       </UnorderedList>

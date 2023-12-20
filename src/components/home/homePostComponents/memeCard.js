@@ -11,6 +11,7 @@ const MemeCard = () => {
 
   return (
     <>
+    
       <Box>{selectedType && <CreateMeme type={selectedType} />}</Box>
       <Heading as="h3" fontSize="16px" px="4" py="3">
         Templates you can choose from
@@ -18,15 +19,15 @@ const MemeCard = () => {
       <Box
         px="4"
         display="flex"
-        overflowY="hidden"
-        overflowX="scroll"
+        overflowX="hidden"
+        overflowY="scroll"
         css={{ scrollbarWidth: "thin", scrollbarColor: "#888 #f5f5f5" }}
         sx={{
           "-webkit-overflow-scrolling": "touch",
           scrollBehavior: "smooth",
         }}
       >
-        <Flex gap="6">
+        <Flex gap="6" >
           <Box
             border={`2px solid ${selectedType === "Type 1" ? "red" : "#16222C"}`}
             rounded="lg"

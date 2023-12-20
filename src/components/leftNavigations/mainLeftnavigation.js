@@ -17,7 +17,7 @@ import { useSelector } from "react-redux";
 const MainLeftnavigation = () => {
   const path = usePathname();
   const router = useRouter();
-  const {uid} = useSelector(state => state.userData)
+  const { uid } = useSelector((state) => state.userData);
 
   const Navs = [
     {
@@ -73,7 +73,7 @@ const MainLeftnavigation = () => {
 
   return (
     <Box bg="background.400">
-      <UnorderedList styleType="none" display={{ md: "none", lg: "block", sm: "none" }}>
+      <UnorderedList styleType="none" display={{ md: "none", sm: "none", lg: "block",}}>
         {Navs.map((data, index) => {
           return (
             <CustomLinkItem key={index} href={`${data.path}`}>

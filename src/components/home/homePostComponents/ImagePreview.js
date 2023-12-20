@@ -15,7 +15,7 @@ const ImagePreview = ({ selectedFiles, removeImage }) => {
             border="1px"
             borderColor="gray.200"
             borderRadius="md"
-            overflow="hidden"
+            overflow="scroll"
             boxShadow="base"
             mr="2"
             position="relative"

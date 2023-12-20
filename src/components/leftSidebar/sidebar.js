@@ -6,15 +6,7 @@ import { LuFileSpreadsheet } from "react-icons/lu";
 import { BiBookAlt, BiGroup, BiErrorCircle } from "react-icons/bi";
 import { MdOutlineLeaderboard } from "react-icons/md";
 import { TbBrandGoogleAnalytics } from "react-icons/tb";
-import {
-  Box,
-  Divider,
-  Flex,
-  HStack,
-  ListItem,
-  Text,
-  UnorderedList,
-} from "@chakra-ui/react";
+import { Box, Divider, Flex, HStack, ListItem, Text, UnorderedList } from "@chakra-ui/react";
 import { usePathname, useRouter } from "next/navigation";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
@@ -81,10 +73,7 @@ const Leftsidebar = () => {
   return (
     <>
       <Box>
-        <UnorderedList
-          styleType="none"
-          display={{ md: "none", lg: "block", sm: "none" }}
-        >
+        <UnorderedList styleType="none" display={{ md: "none", lg: "block", sm: "none" }}>
           {Navs.map((data, index) => {
             return (
               <ListItem

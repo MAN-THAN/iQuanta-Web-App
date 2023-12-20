@@ -28,6 +28,8 @@ import PollInputs from "../homePostComponents/pollInputs";
 import MemeCard from "../homePostComponents/memeCard";
 import DebateCard from "../homePostComponents/debateCard";
 import ParticipantsModal from "../homePostComponents/participantsModal";
+import FileUploadButton from "../homePostComponents/fileUploadButton";
+import ImageAndVideo from "../homePostComponents/imageAndVideo";
 
 const DiscussionModal = ({ isOpen, onClose }) => {
   const [isTyping, setIsTyping] = useState(false);
@@ -77,12 +79,16 @@ const DiscussionModal = ({ isOpen, onClose }) => {
 
   const renderSelectedComponent = () => {
     switch (selectedComponent) {
+      case "imageAndVideo":
+        return <ImagePreview selectedFiles={selectedFiles} removeImage={handleRemoveImage} />;
       case "meme":
         return <MemeCard />;
       case "debate":
         return <DebateCard handleParticipants={handleParticipants} />;
       case "poll":
         return <PollInputs />;
+      case "fileUpload":
+        return <FileUploadButton />;
       default:
         return null;
     }
@@ -92,16 +98,18 @@ const DiscussionModal = ({ isOpen, onClose }) => {
     <>
       <Modal
         isOpen={isOpen}
+        size='2xl'
         onClose={() => {
           onClose();
         }}
       >
         <ModalOverlay />
         {!participantsShow ? (
-          <ModalContent bg="white.900" color="#000" height="80vh" overflow="hidden">
+          <ModalContent bg="white.900" rounded='2xl' color="#000" height="80vh"  overflow="hidden">
             <ModalBody
               overflowY="scroll"
               overflowX="hidden"
+              height="30vh"
               css={{ scrollbarWidth: "thin", scrollbarColor: "#888 #f5f5f5" }}
               sx={{
                 "-webkit-overflow-scrolling": "touch",
@@ -169,9 +177,7 @@ const DiscussionModal = ({ isOpen, onClose }) => {
                 "-webkit-overflow-scrolling": "touch",
                 scrollBehavior: "smooth",
               }}
-            >
-              <ImagePreview selectedFiles={selectedFiles} removeImage={handleRemoveImage} />
-            </Box>
+            ></Box>
             <Divider />
             <ModalFooter flexDirection="column" alignItems="start">
               {isTyping ? (
@@ -223,7 +229,7 @@ const DiscussionModal = ({ isOpen, onClose }) => {
             </ModalFooter>
           </ModalContent>
         ) : (
-          <ModalContent bg="white.900" color="#000" height="80vh" overflow="hidden">
+          <ModalContent bg="white.900" rounded='2xl' color="#000" height="80vh" overflow="hidden">
             <ModalBody>
               <ParticipantsModal closeParticipants={closeParticipants} />
             </ModalBody>

@@ -44,7 +44,7 @@ const theme = extendTheme({
   },
   breakpoints: {
     base: "0em",
-    sm: "30em",
+    sm: "20em",
     md: "48em",
     lg: "62em",
     xl: "80em",

@@ -51,6 +51,7 @@ const ChallengesModal = ({ isOpen, onClose }) => {
   return (
     <>
       <Modal
+        size='lg'
         isOpen={isOpen}
         onClose={() => {
           onClose();
