@@ -65,7 +65,7 @@ const UserPrivacy = () => {
       toast.error(`${error.response.data.message}`, {
         position: toast.POSITION.TOP_RIGHT,
       }),
-    onSuccess: (res) => setState(res.data.data.privacy_settings),
+    onSuccess: (res) => setState(res.data.data.privacySettings),
   });
   console.log(state);
   const mutation = useMutation({

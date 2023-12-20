@@ -21,16 +21,16 @@ const GroupSection = () => {
   ];
   const [state, setState] = useState();
   const { _id: uid } = useSelector((state) => state.userData);
-  const { isLoading, data, isError, error, isPending, isSuccess } = useQuery({
-    queryKey: ["getGroups", uid],
-    queryFn: () => getGroups(uid),
-    onError: (error, variables, context) =>
-      toast.error(`${error?.response?.data.error.message}`, {
-        position: toast.POSITION.TOP_RIGHT,
-      }),
-    onSuccess: (res) => setState(res.data.data),
-  });
-  console.log(state);
+  // const { isLoading, data, isError, error, isPending, isSuccess } = useQuery({
+  //   queryKey: ["getGroups", uid],
+  //   queryFn: () => getGroups(uid),
+  //   onError: (error, variables, context) =>
+  //     toast.error(`${error?.response?.data.error.message}`, {
+  //       position: toast.POSITION.TOP_RIGHT,
+  //     }),
+  //   onSuccess: (res) => setState(res.data.data),
+  // });
+  // console.log(state);
 
   return (
     <>

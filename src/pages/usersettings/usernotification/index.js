@@ -43,7 +43,7 @@ const UserNotification = () => {
       }),
     onSuccess: (res) => {
       console.log(res);
-      setState(res?.data?.data?.notification_settings);
+      setState(res?.data?.data?.notificationSettings);
     },
   });
   console.log(state);
