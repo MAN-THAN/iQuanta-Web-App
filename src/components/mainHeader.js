@@ -25,7 +25,7 @@ const MainHeader = () => {
     queryKey: ["getUserDetailData", uid],
     queryFn: () => getProfileInfo(uid),
     onError: (error, variables, context) =>
-      toast.error(`${error?.response?.data.error.message}`, {
+      toast.error(`${error?.response?.data?.error?.message || "some error"}`, {
         position: toast.POSITION.TOP_RIGHT,
       }),
     onSuccess: (res) => setState(res.data.data.user_data),

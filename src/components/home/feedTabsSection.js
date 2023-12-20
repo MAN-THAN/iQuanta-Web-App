@@ -13,6 +13,11 @@ import ChallengeLeaderbordCard from "./challengesPostCard/challengeLeaderbordCar
 import { useState } from "react";
 import ChallengesModal from "./challengesModals/challengesModal";
 import DiscussionModal from "./challengesModals/discussionModal";
+import { useQuery, useInfiniteQuery } from "react-query";
+import { useSelector } from "react-redux";
+import { getAllPost } from "@/api/feed/userPost";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const FeedTabsSection = () => {
   const [challengesModal, setChallengesModal] = useState(false);
@@ -30,6 +35,19 @@ const FeedTabsSection = () => {
   const closeDiscussionModal = () => {
     setDiscussionModal(false);
   };
+  const [state, setState] = useState();
+  const { _id: uid } = useSelector((state) => state.userData);
+  const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } = useInfiniteQuery({
+    queryKey: ["getAllPosts", uid],
+    queryFn: ({ pageParam = 1 }) => getAllPost(pageParam),
+    getNextPageParam: (lastPage, pages) => lastPage.nextCursor,
+    onError: (error, variables, context) =>
+      toast.error(`${error?.response?.data?.error?.message || "Some error"}`, {
+        position: toast.POSITION.TOP_RIGHT,
+      }),
+    onSuccess: (res) => setState(res.pages[0]?.data.data.data),
+  });
+  console.log(state);
   return (
     <>
       <ChallengesModal isOpen={challengesModal} onClose={closeChallengesModal} />
@@ -67,11 +85,15 @@ const FeedTabsSection = () => {
           <TabPanels>
             <TabPanel padding="0">
               <PostFormSection openModal={discussionModalOpen} />
-              <TextFeedCard />
-              <ImageFeedCard />
-              <CardFeedCard />
-              <SuggestionSection />
-              <PollFeedCard />
+              {state?.map((item, ind) => {
+                if (item.postType === "photo") return <ImageFeedCard />;
+                else if (item.postType === "memes") return <CardFeedCard />;
+                else if (item.postType === "text") return <TextFeedCard />;
+                // else if (item.post_type === "video") return <ImageFeedCard />;
+                // else if (item.post_type === "video") return <ImageFeedCard />;
+                // else if (item.post_type === "video") return <SuggestionSection />;
+                // else if (item.post_type === "video") return <PollFeedCard />;
+              })}
             </TabPanel>
             <TabPanel padding="0">
               <ChallengeForm openModal={openModal} />
@@ -83,6 +105,7 @@ const FeedTabsSection = () => {
           </TabPanels>
         </Tabs>
       </Box>
+      <ToastContainer />
     </>
   );
 };

@@ -65,7 +65,7 @@ const UserPrivacy = () => {
       toast.error(`${error.response.data.message}`, {
         position: toast.POSITION.TOP_RIGHT,
       }),
-    onSuccess: (res) => setState(res.data.data.privacy_settings),
+    onSuccess: (res) => setState(res.data.data.privacySettings),
   });
   console.log(state);
   const mutation = useMutation({
@@ -81,7 +81,8 @@ const UserPrivacy = () => {
       // toast.success(" successful!", {
       //   position: toast.POSITION.TOP_RIGHT,
       // });
-      queryClient.invalidateQueries({ queryKey: ["getUserPrivacySettings"] });
+      // queryClient.invalidateQueries({ queryKey: ["getUserPrivacySettings"] });
+      queryClient.setQueryData(["getUserPrivacySettings", uid], res);
       console.log(res);
     },
     onSettled: (data, error, variables, context) => {},

@@ -1,9 +1,9 @@
 import request from "@/api/request";
 
-export const getAllPost = async () => {
+export const getAllPost = async (page, limit) => {
     try {
       const res = await request({
-        url: `/feed/v1/user/post/:page/:limit`,
+        url: `/feed/v1/user/post/${page}/${limit}`,
         headers: {
           "Content-Type": "application/json",
         },
