@@ -18,6 +18,8 @@ import {
   Image,
   Textarea,
   Divider,
+  UnorderedList,
+  VStack,
 } from "@chakra-ui/react";
 import { ChevronDown } from "lucide-react";
 import { useRef } from "react";
@@ -25,11 +27,10 @@ import RowButton from "../homePostComponents/rowButton";
 import ColumnButtons from "../homePostComponents/columnButtons";
 import ImagePreview from "../homePostComponents/ImagePreview";
 import PollInputs from "../homePostComponents/pollInputs";
-import MemeCard from "../homePostComponents/memeCard";
 import DebateCard from "../homePostComponents/debateCard";
 import ParticipantsModal from "../homePostComponents/participantsModal";
 import FileUploadButton from "../homePostComponents/fileUploadButton";
-import ImageAndVideo from "../homePostComponents/imageAndVideo";
+import CreateMemeModal from "../homePostComponents/createMemeModal";
 
 const DiscussionModal = ({ isOpen, onClose }) => {
   const [isTyping, setIsTyping] = useState(false);
@@ -38,9 +39,15 @@ const DiscussionModal = ({ isOpen, onClose }) => {
   const [selectedComponent, setSelectedComponent] = useState(null);
   const [pollOption, setPollOption] = useState(false);
   const [participantsShow, setParticipantsShow] = useState(false);
+  const [createMemeShow, setCreateMemeShow] = useState(false);
+  const [selectedType, setSelectedType] = useState(null);
 
   const handleTypingStart = () => {
     setIsTyping(true);
+  };
+
+  const handleButtonClick = (type) => {
+    setSelectedType(type);
   };
 
   const handleClick = () => {
@@ -67,6 +74,9 @@ const DiscussionModal = ({ isOpen, onClose }) => {
   const handleOptionButtonClick = (componentName) => {
     setPollOption(true);
     setSelectedComponent(componentName);
+    if (componentName === "meme") {
+      setCreateMemeShow(true);
+    }
   };
 
   const handleParticipants = () => {
@@ -81,8 +91,6 @@ const DiscussionModal = ({ isOpen, onClose }) => {
     switch (selectedComponent) {
       case "imageAndVideo":
         return <ImagePreview selectedFiles={selectedFiles} removeImage={handleRemoveImage} />;
-      case "meme":
-        return <MemeCard />;
       case "debate":
         return <DebateCard handleParticipants={handleParticipants} />;
       case "poll":
@@ -98,14 +106,25 @@ const DiscussionModal = ({ isOpen, onClose }) => {
     <>
       <Modal
         isOpen={isOpen}
-        size='2xl'
+        size="auto"
         onClose={() => {
           onClose();
         }}
       >
         <ModalOverlay />
-        {!participantsShow ? (
-          <ModalContent bg="white.900" rounded='2xl' color="#000" height="80vh"  overflow="hidden">
+        {selectedComponent == "meme" ? (
+          <CreateMemeModal
+            handleTypingStart={handleTypingStart}
+            selectedType={selectedType}
+            fileInputRef={fileInputRef}
+            handleClick={handleClick}
+            handleOptionButtonClick={handleOptionButtonClick}
+            handleChange={handleChange}
+            selectedFiles={selectedFiles}
+            handleButtonClick={handleButtonClick}
+          />
+        ) : !participantsShow ? (
+          <ModalContent maxW="xl" bg="white.900" rounded="2xl" color="#000" height="60vh">
             <ModalBody
               overflowY="scroll"
               overflowX="hidden"
@@ -165,7 +184,6 @@ const DiscussionModal = ({ isOpen, onClose }) => {
                 </Box>
               </Stack>
             </ModalBody>
-
             <Box>{renderSelectedComponent()}</Box>
             <Box
               padding="4"
@@ -180,41 +198,14 @@ const DiscussionModal = ({ isOpen, onClose }) => {
             ></Box>
             <Divider />
             <ModalFooter flexDirection="column" alignItems="start">
-              {isTyping ? (
-                <RowButton
-                  fileInputRef={fileInputRef}
-                  handleClick={handleClick}
-                  handleChange={handleChange}
-                  selectedFiles={selectedFiles}
-                  handleOptionButtonClick={handleOptionButtonClick}
-                />
-              ) : selectedFiles.length > 0 ? (
-                <>
-                  <RowButton
-                    fileInputRef={fileInputRef}
-                    handleClick={handleClick}
-                    handleChange={handleChange}
-                    selectedFiles={selectedFiles}
-                    handleOptionButtonClick={handleOptionButtonClick}
-                  />
-                </>
-              ) : pollOption ? (
-                <RowButton
-                  fileInputRef={fileInputRef}
-                  handleClick={handleClick}
-                  handleChange={handleChange}
-                  selectedFiles={selectedFiles}
-                  handleOptionButtonClick={handleOptionButtonClick}
-                />
-              ) : (
-                <ColumnButtons
-                  fileInputRef={fileInputRef}
-                  handleClick={handleClick}
-                  handleChange={handleChange}
-                  selectedFiles={selectedFiles}
-                  handleOptionButtonClick={handleOptionButtonClick}
-                />
-              )}
+              <RowButton
+                fileInputRef={fileInputRef}
+                handleClick={handleClick}
+                handleChange={handleChange}
+                selectedFiles={selectedFiles}
+                handleOptionButtonClick={handleOptionButtonClick}
+              />
+
               <Button
                 w="full"
                 sx={{
@@ -229,8 +220,16 @@ const DiscussionModal = ({ isOpen, onClose }) => {
             </ModalFooter>
           </ModalContent>
         ) : (
-          <ModalContent bg="white.900" rounded='2xl' color="#000" height="80vh" overflow="hidden">
-            <ModalBody>
+          <ModalContent maxW="xl" bg="white.900" rounded="2xl" color="#000" height="60vh">
+            <ModalBody
+              overflowY="scroll"
+              overflowX="hidden"
+              css={{ scrollbarWidth: "thin", scrollbarColor: "#888 #f5f5f5" }}
+              sx={{
+                "-webkit-overflow-scrolling": "touch",
+                scrollBehavior: "smooth",
+              }}
+            >
               <ParticipantsModal closeParticipants={closeParticipants} />
             </ModalBody>
             <Divider />

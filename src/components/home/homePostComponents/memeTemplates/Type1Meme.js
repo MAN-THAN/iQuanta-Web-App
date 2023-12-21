@@ -16,20 +16,14 @@ import ImgUpload from "@/components/common/imgUpload";
 
 const Type1Meme = ({ files, imagePreviewUrls, photoUpload }) => {
   return (
-    <Box>
-      <Card maxW="440px" height="240px" overflow="scroll" border="1px solid ">
-        <CardHeader pt='1' height="50px">
-          <Textarea placeholder="Enter text here" noOfLines="1" variant="unstyled" resize="none" />
-        </CardHeader>
-       
-       <Box bg="#5146D626" h="full">
-          <Center>
-            <ImgUpload width="420px" height="200px" onChange={photoUpload} src={imagePreviewUrls[0]} id={0} />
-          </Center>
-        </Box>
-     
-      </Card>
-    </Box>
+    <Card width="full" height="50vh" overflow="scroll" border="1px solid #D6D7D9" rounded="xl">
+      <CardHeader pt="1" height="100px">
+        <Textarea placeholder="Enter text here" variant="unstyled" resize="none" />
+      </CardHeader>
+      <Box display="flex" alignItems="center"  justifyContent="center" bg="#5146D626" h="full">
+        <ImgUpload width="545px" height='380px' onChange={photoUpload} src={imagePreviewUrls[0]} id={0} />
+      </Box>
+    </Card>
   );
 };
 

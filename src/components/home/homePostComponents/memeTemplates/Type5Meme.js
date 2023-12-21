@@ -18,15 +18,13 @@ import React from "react";
 
 const Type5Meme = ({ files, imagePreviewUrls, photoUpload }) => {
   return (
-    <Box>
-      <Card maxW="440px" height="238px" overflow="scroll" border="1px solid ">
-        <Box display="flex" h='full' alignItems="center" justifyContent="center" bg='#E5A15126'>
+      <Card width="full" height="50vh" overflow="scroll" border="1px solid #D6D7D9" rounded="xl">
+        <Box display="flex" h='full' alignItems="center" justifyContent="center" bg='#E551B326'>
           <Box>
             <Textarea placeholder="Enter text here" variant="unstyled" resize="none" />
           </Box>
         </Box>
       </Card>
-    </Box>
   );
 };
 

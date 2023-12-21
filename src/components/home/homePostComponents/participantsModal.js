@@ -32,14 +32,9 @@ const ParticipantsModal = ({ closeParticipants }) => {
           <Input pl="3.0rem" placeholder="Search" />
         </InputGroup>
         <UnorderedList listStyleType="none" overflowY="scroll">
-          {[...Array(4)].map((d, i) => (
-            <ListItem key={i} display="flex" justifyContent="space-between" pt="5">
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                }}
-              >
+          {[...Array(40)].map((d, i) => (
+            <ListItem key={i} display="flex" alignItems="center" justifyContent="space-between" pr="4" pt="5">
+              <Box display="flex" alignItems="center">
                 <Image
                   boxSize="2.5rem"
                   fit="cover"
@@ -61,7 +56,7 @@ const ParticipantsModal = ({ closeParticipants }) => {
                   </p>
                 </Box>
               </Box>
-              <Checkbox size="md" colorScheme="green" />
+              <Checkbox size="lg" colorScheme="green" />
             </ListItem>
           ))}
         </UnorderedList>

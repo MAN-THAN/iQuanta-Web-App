@@ -5,33 +5,39 @@ import React from "react";
 const ImagePreview = ({ selectedFiles, removeImage }) => {
   return (
     <>
-      <Flex>
+      <Flex overflowX="scroll"
+            css={{ scrollbarWidth: "thin", scrollbarColor: "#888 #f5f5f5" }}
+            sx={{
+              "-webkit-overflow-scrolling": "touch",
+              scrollBehavior: "smooth",
+            }}>
         {selectedFiles.map((file, index) => (
           <Box
             key={index}
             minW="200px"
-            maxW="400px"
             h="150px"
             border="1px"
             borderColor="gray.200"
             borderRadius="md"
-            overflow="scroll"
             boxShadow="base"
             mr="2"
+            rounded='lg'
             position="relative"
+            overflow='hidden'
           >
             <Box
               cursor="pointer"
               bg="gray.200"
               position="absolute"
               rounded="full"
+              p='1'
               right="1"
               top="2"
               onClick={() => removeImage(index)}
             >
               <X size="16px" />
             </Box>
-            <Image src={file} alt={`Card Image ${index + 1}`} boxSize="100%" objectFit="cover" />
+            <Image src={file} alt={`Card Image ${index + 1}`} boxSize="100%" fit="cover" />
           </Box>
         ))}
       </Flex>

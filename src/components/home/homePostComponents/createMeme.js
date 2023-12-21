@@ -48,9 +48,9 @@ const CreateMeme = ({ type }) => {
         return <Type2Meme files={files} imagePreviewUrls={imagePreviewUrls} photoUpload={photoUpload} />;
       case "Type 3":
         return <Type3Meme files={files} imagePreviewUrls={imagePreviewUrls} photoUpload={photoUpload} />;
-        case "Type 4":
-            return <Type4Meme files={files} imagePreviewUrls={imagePreviewUrls} photoUpload={photoUpload} />;
-            case "Type 5":
+      case "Type 4":
+        return <Type4Meme files={files} imagePreviewUrls={imagePreviewUrls} photoUpload={photoUpload} />;
+      case "Type 5":
         return <Type5Meme files={files} imagePreviewUrls={imagePreviewUrls} photoUpload={photoUpload} />;
       default:
         return null;
