@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 
-const Type5Meme = ({ files, imagePreviewUrls, photoUpload }) => {
+const Type5Meme = () => {
   return (
       <Card width="full" height="50vh" overflow="scroll" border="1px solid #D6D7D9" rounded="xl">
         <Box display="flex" h='full' alignItems="center" justifyContent="center" bg='#E551B326'>

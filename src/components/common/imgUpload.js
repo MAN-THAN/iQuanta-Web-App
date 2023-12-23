@@ -1,6 +1,7 @@
 import { Avatar, Box, Image, Stack, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
-import AvatarEditor from "react-avatar-editor";
+import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
+// import AvatarEditor from "react-avatar-editor";
 
 const ImgUpload = ({ onChange, src, id, width, height }) => {
   const [isImageSelected, setIsImageSelected] = useState(false);
@@ -22,18 +23,12 @@ const ImgUpload = ({ onChange, src, id, width, height }) => {
   return (
     <label htmlFor={`photo-upload-${id}`} className="custom-file-upload fas">
       {src ? (
-        <Box overflow="hidden" w={width} h={height} p="0">
-          {/* <Image width="100%" height="100%" fit="cover" htmlFor={`photo-upload-${id}`} src={src} alt="Uploaded" /> */}
-          <AvatarEditor
-            image={src}
-            width={350}
-            height={250}
-            border={0}
-            color={[255, 255, 255, 0.6]} // RGBA
-            scale={scale}
-            rotate={0}
-            onScaleChange={handleScale}
-          />
+        <Box p="0" fit="cover">
+          <TransformWrapper>
+            <TransformComponent>
+              <Image w="100%" h="100%" htmlFor={`photo-upload-${id}`} src={src} alt="Uploaded" />
+            </TransformComponent>
+          </TransformWrapper>
         </Box>
       ) : (
         <Stack align="center">

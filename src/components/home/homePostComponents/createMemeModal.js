@@ -42,7 +42,8 @@ const CreateMemeModal = ({
         padding: "0 !important",
       }}
     >
-      <ModalBody
+      <ModalBody 
+       pr='2'
         css={{ scrollbarWidth: "thin", scrollbarColor: "#888 #f5f5f5" }}
         sx={{
           "-webkit-overflow-scrolling": "touch",
@@ -50,7 +51,7 @@ const CreateMemeModal = ({
         }}
       >
         <Flex justifyContent="space-between">
-          <Stack flex="1">
+          <Stack flex="1" p='4'>
             <Flex alignItems="center" justifyContent="space-between">
               <Text>New Discussion</Text>
               <Menu isLazy>
@@ -117,7 +118,7 @@ const CreateMemeModal = ({
               </Button>
             </Flex>
           </Stack>
-          <Box maxW="300px" maxH="823px" bg="#F1F2F3" overflow="scroll">
+          <Box maxW="290px" maxH="823px" p='3' bg="#F1F2F3" overflow="scroll">
             <VStack p="4" gap="5" alignItems="start">
               <Text fontSize="14px" fontWeight="600">
                 Templates you can choose from

@@ -21,11 +21,11 @@ const Type3Meme = ({ files, imagePreviewUrls, photoUpload }) => {
     <Card width="full" height="50vh" overflow="scroll" border="1px solid #D6D7D9" rounded="xl">
       <Box display="flex" gap="2" p="0">
         <Box width="50%">
-          <Center objectFit="cover" bg="#5146D626" height="240px">
-            <ImgUpload width="210px" height="130px" onChange={photoUpload} src={imagePreviewUrls[0]} id={0} />
+          <Center bg="#5146D626" height="240px" overflow='hidden'>
+            <ImgUpload onChange={photoUpload} src={imagePreviewUrls[0]} id={0} />
           </Center>
-          <Center objectFit="cover" bg="#E5A15126" height="240px">
-            <ImgUpload width="210px" height="130px" onChange={photoUpload} src={imagePreviewUrls[0]} id={0} />
+          <Center  bg="#E5A15126" height="240px" overflow='hidden'>
+            <ImgUpload  onChange={photoUpload} src={imagePreviewUrls[1]} id={0} />
           </Center>
         </Box>
         <Center width="50%">
