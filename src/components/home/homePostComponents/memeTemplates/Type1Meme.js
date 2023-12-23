@@ -21,7 +21,7 @@ const Type1Meme = ({ files, imagePreviewUrls, photoUpload }) => {
         <Textarea placeholder="Enter text here" variant="unstyled" resize="none" />
       </CardHeader>
       <Box display="flex" alignItems="center"  justifyContent="center" bg="#5146D626" h="full">
-        <ImgUpload width="545px" height='380px' onChange={photoUpload} src={imagePreviewUrls[0]} id={0} />
+        <ImgUpload width="100%" height='auto' onChange={photoUpload} src={imagePreviewUrls[0]} id={0} />
       </Box>
     </Card>
   );

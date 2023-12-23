@@ -32,7 +32,16 @@ const CreateMemeModal = ({
   handleOptionButtonClick,
 }) => {
   return (
-    <ModalContent maxW="4xl" bg="white.900" minH="823px" rounded="2xl" color="#000">
+    <ModalContent
+      maxW="4xl"
+      bg="white.900"
+      minH="823px"
+      rounded="2xl"
+      color="#000"
+      sx={{
+        padding: "0 !important",
+      }}
+    >
       <ModalBody
         css={{ scrollbarWidth: "thin", scrollbarColor: "#888 #f5f5f5" }}
         sx={{
