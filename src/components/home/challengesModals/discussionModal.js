@@ -20,6 +20,8 @@ import {
   Divider,
   UnorderedList,
   VStack,
+  CloseButton,
+  ModalCloseButton,
 } from "@chakra-ui/react";
 import { ChevronDown } from "lucide-react";
 import { useRef } from "react";
@@ -31,6 +33,7 @@ import DebateCard from "../homePostComponents/debateCard";
 import ParticipantsModal from "../homePostComponents/participantsModal";
 import FileUploadButton from "../homePostComponents/fileUploadButton";
 import CreateMemeModal from "../homePostComponents/createMemeModal";
+import PostTypeMenu from "@/components/common/postTypeMenu";
 
 const DiscussionModal = ({ isOpen, onClose }) => {
   const [isTyping, setIsTyping] = useState(false);
@@ -124,7 +127,7 @@ const DiscussionModal = ({ isOpen, onClose }) => {
             handleButtonClick={handleButtonClick}
           />
         ) : !participantsShow ? (
-          <ModalContent maxW="xl" bg="white.900" rounded="2xl" color="#000" height="60vh">
+          <ModalContent maxW="xl" position="absolute" bg="white.900" rounded="2xl" color="#000" height="60vh">
             <ModalBody
               overflowY="scroll"
               overflowX="hidden"
@@ -136,8 +139,14 @@ const DiscussionModal = ({ isOpen, onClose }) => {
               }}
             >
               <Flex alignItems="center" justifyContent="space-between">
-                <Text>New Discussion</Text>
-                <Menu isLazy>
+                <ModalCloseButton position="absolute" left="2" top="2" />
+                <Text fontSize="16px" pl="6" fontWeight="600">
+                  New Discussion
+                </Text>
+                <Box>
+                  <PostTypeMenu />
+                </Box>
+                {/* <Menu isLazy>
                   <MenuButton border="1px solid #8D96A5" rounded="lg" p="1">
                     <Box display="flex" alignItems="center">
                       <Text fontSize="14px">Public</Text>
@@ -145,11 +154,11 @@ const DiscussionModal = ({ isOpen, onClose }) => {
                     </Box>
                   </MenuButton>
                   <MenuList>
-                    <MenuItem>Beginner</MenuItem>
-                    <MenuItem>Beginner</MenuItem>
-                    <MenuItem>Beginner</MenuItem>
+                    <MenuItem>Public</MenuItem>
+                    <MenuItem>Private</MenuItem>
+                    <MenuItem>Friends Only</MenuItem>
                   </MenuList>
-                </Menu>
+                </Menu> */}
               </Flex>
               <Stack direction="column" pt="4">
                 <HStack align="center">

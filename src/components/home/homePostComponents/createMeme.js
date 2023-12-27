@@ -57,7 +57,7 @@ const CreateMeme = ({ type }) => {
     }
   };
 
-  return <form className="p-4">{renderMemeContent()}</form>;
+  return (<div className="p-4" >{renderMemeContent()}</div>);
 };
 
 export default CreateMeme;

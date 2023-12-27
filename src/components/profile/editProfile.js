@@ -31,6 +31,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { updateProfileInfo } from "@/api/profile";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { commonValidationSchema } from "@/utilities/validationSchema";
 
 const EditProfile = () => {
   const [updateProfile, setUpdateProfile] = useState(true);
@@ -51,9 +52,9 @@ const EditProfile = () => {
       workEx: "",
       medicalCondition: "",
     },
-    validationSchema: Yup.object({}),
+    validationSchema: commonValidationSchema,
     onSubmit: (values) => {
-      console.log(values)
+      console.log(values);
       mutation.mutate(values);
     },
   });
@@ -186,29 +187,61 @@ const EditProfile = () => {
               My Details
             </Text>
             <FormControl display="flex" gap="1" flexWrap="wrap" mt="4">
-              <Box width="48%">
+              <Box py="3" pr="4" width="48%">
                 <FormLabel>Name</FormLabel>
-                <Input type="text" readOnly={updateProfile} value={state?.name} placeholder="Name" />
+                <Input
+                  type="text"
+                  id="name"
+                  readOnly={updateProfile}
+                  value={state?.name}
+                  placeholder="Name"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  // value={formik.values.name}
+                  name="name"
+                />
+                {!updateProfile && formik.touched.name && formik.errors.name && (
+                  <Text style={{ color: "red", marginTop: "8px", fontSize: "14px" }}>{formik.errors.name}</Text>
+                )}
               </Box>
-              <Box width="48%">
+              <Box py="3" pl="4" width="48%">
                 <FormLabel>Phone</FormLabel>
                 <InputGroup>
                   {/* eslint-disable-next-line */}
                   <InputLeftAddon children="+91" />
-                  <Input type="tel" readOnly={updateProfile} value={state?.phone} placeholder="Phone number" />
+                  <Input
+                    type="number"
+                    maxLength="10"
+                    readOnly={updateProfile}
+                    value={state?.phone}
+                    placeholder="Phone number"
+                    name="phone"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
                 </InputGroup>
+                {!updateProfile && formik.touched.phone && formik.errors.phone && (
+                  <Text style={{ color: "red", marginTop: "8px", fontSize: "14px" }}>{formik.errors.phone}</Text>
+                )}
               </Box>
-              <Box width="48%">
+              <Box py="3" pr="4" width="48%">
                 <FormLabel>Email Id</FormLabel>
-                <Input type="email" readOnly={updateProfile} value={state?.email} placeholder="Email" />
+                <Input
+                  type="email"
+                  readOnly={updateProfile}
+                  value={state?.email}
+                  placeholder="Email"
+                  name="email"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                {!updateProfile && formik.touched.email && formik.errors.email && (
+                  <Text style={{ color: "red", marginTop: "8px", fontSize: "14px" }}>{formik.errors.email}</Text>
+                )}
               </Box>
               <Box width="100%">
                 <FormLabel>Bio</FormLabel>
-                <Textarea
-                  placeholder="Here is a sample placeholder"
-                  readOnly={updateProfile}
-                  value="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ex esse laborum error, possimus culpa tenetur aliquam neque corrupti excepturi ratione expedita illum amet saepe tempore voluptas. Corporis animi veniam accusamus!"
-                />
+                <Textarea placeholder="Here is a sample placeholder" readOnly={updateProfile} value={state?.bio} />
               </Box>
             </FormControl>
             <Text
@@ -231,25 +264,83 @@ const EditProfile = () => {
               My Personal Information
             </Text>
             <FormControl display="flex" gap="1" flexWrap="wrap" mt="4">
-              <Box width="48%">
+              <Box py="3" pr="4" width="48%">
                 <FormLabel>Date of Birth</FormLabel>
-                <Input type="text" placeholder="DoB" value={state?.dob} readOnly={updateProfile} />
+                <Input
+                  type="date"
+                  placeholder="DoB"
+                  value={state?.dob}
+                  readOnly={updateProfile}
+                  id="dob"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  name="dob"
+                />
+                {!updateProfile && formik.touched.dob && formik.errors.dob && (
+                  <Text style={{ color: "red", marginTop: "8px", fontSize: "14px" }}>{formik.errors.dob}</Text>
+                )}
               </Box>
-              <Box width="48%">
+              <Box py="3" pl="4" width="48%">
                 <FormLabel>Gender</FormLabel>
-                <Input type="text" readOnly value={state?.gender} placeholder="Gender" />
+                <Input
+                  type="text"
+                  readOnly={updateProfile}
+                  value={state?.gender}
+                  placeholder="Gender"
+                  name="gender"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                {!updateProfile && formik.touched.gender && formik.errors.gender && (
+                  <Text style={{ color: "red", marginTop: "8px", fontSize: "14px" }}>{formik.errors.gender}</Text>
+                )}
               </Box>
-              <Box width="48%">
+              <Box py="3" pr="4" width="48%">
                 <FormLabel>Education</FormLabel>
-                <Input type="text" placeholder="Education" readOnly={updateProfile} value="BCA" />
+                <Input
+                  type="text"
+                  placeholder="Education"
+                  readOnly={updateProfile}
+                  value={state?.education}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  name="education"
+                />
+                {!updateProfile && formik.touched.education && formik.errors.education && (
+                  <Text style={{ color: "red", marginTop: "8px", fontSize: "14px" }}>{formik.errors.education}</Text>
+                )}
               </Box>
-              <Box width="48%">
+              <Box py="3" pl="4" width="48%">
                 <FormLabel>Work Experience</FormLabel>
-                <Input type="text" placeholder="Experience" readOnly={updateProfile} value="2 Year" />
+                <Input
+                  type="text"
+                  placeholder="Experience"
+                  readOnly={updateProfile}
+                  value={state?.workEx}
+                  name="workEx"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                {!updateProfile && formik.touched.workEx && formik.errors.workEx && (
+                  <Text style={{ color: "red", marginTop: "8px", fontSize: "14px" }}>{formik.errors.workEx}</Text>
+                )}
               </Box>
-              <Box width="48%">
+              <Box py="3" pr="4" width="48%">
                 <FormLabel>Medical Conditiom</FormLabel>
-                <Input type="text" placeholder="Medical Conditiom" readOnly={updateProfile} value="None" />
+                <Input
+                  type="text"
+                  placeholder="Medical Conditiom"
+                  readOnly={updateProfile}
+                  value={state?.medicalCondition}
+                  name="medicalCondition"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                {!updateProfile && formik.touched.medicalCondition && formik.errors.medicalCondition && (
+                  <Text style={{ color: "red", marginTop: "8px", fontSize: "14px" }}>
+                    {formik.errors.medicalCondition}
+                  </Text>
+                )}
               </Box>
             </FormControl>
           </CardBody>

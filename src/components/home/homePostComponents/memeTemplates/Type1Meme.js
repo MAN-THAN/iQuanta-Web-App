@@ -4,6 +4,7 @@ import ImgUpload from "@/components/common/imgUpload";
 
 const Type1Meme = ({ files, imagePreviewUrls, photoUpload }) => {
   return (
+    
     <Card width="full" height="50vh" overflow="scroll" border="1px solid #D6D7D9" rounded="xl">
       <CardHeader pt="1" height="100px">
         <Textarea placeholder="Enter text here" variant="unstyled" resize="none" />

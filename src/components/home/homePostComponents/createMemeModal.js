@@ -10,6 +10,7 @@ import {
   MenuItem,
   MenuList,
   ModalBody,
+  ModalCloseButton,
   ModalContent,
   Stack,
   Text,
@@ -17,9 +18,11 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { ChevronDown } from "lucide-react";
-import React from "react";
+import React, { useCallback, useRef } from "react";
 import CreateMeme from "./createMeme";
 import RowButton from "./rowButton";
+import PostTypeMenu from "@/components/common/postTypeMenu";
+import { toPng } from "html-to-image";
 
 const CreateMemeModal = ({
   handleTypingStart,
@@ -31,6 +34,26 @@ const CreateMemeModal = ({
   handleButtonClick,
   handleOptionButtonClick,
 }) => {
+  const ref = useRef(null);
+
+
+  const onButtonClick = useCallback(() => {
+    if (ref.current === null) {
+      return;
+    }
+
+    toPng(ref.current, { cacheBust: true })
+      .then((dataUrl) => {
+        const link = document.createElement("a");
+        link.download = "my-image-name.png";
+        link.href = dataUrl;
+        link.click();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [ref]);
+
   return (
     <ModalContent
       maxW="4xl"
@@ -38,35 +61,29 @@ const CreateMemeModal = ({
       minH="823px"
       rounded="2xl"
       color="#000"
+      position="relative"
       sx={{
         padding: "0 !important",
       }}
     >
-      <ModalBody 
-       pr='2'
+      <ModalBody
+        pr="2"
         css={{ scrollbarWidth: "thin", scrollbarColor: "#888 #f5f5f5" }}
         sx={{
           "-webkit-overflow-scrolling": "touch",
           scrollBehavior: "smooth",
         }}
       >
+        <ModalCloseButton position="absolute" left="2" top="2" />
         <Flex justifyContent="space-between">
-          <Stack flex="1" p='4'>
+          <Stack flex="1" p="4">
             <Flex alignItems="center" justifyContent="space-between">
-              <Text>New Discussion</Text>
-              <Menu isLazy>
-                <MenuButton border="1px solid #8D96A5" rounded="lg" p="1">
-                  <Box display="flex" alignItems="center">
-                    <Text fontSize="14px">Public</Text>
-                    <ChevronDown size="14px" />
-                  </Box>
-                </MenuButton>
-                <MenuList>
-                  <MenuItem>Beginner</MenuItem>
-                  <MenuItem>Beginner</MenuItem>
-                  <MenuItem>Beginner</MenuItem>
-                </MenuList>
-              </Menu>
+              <Text fontSize="16px" fontWeight="600">
+                New Discussion
+              </Text>
+              <Box>
+                <PostTypeMenu />
+              </Box>
             </Flex>
             <Stack direction="column" pt="4">
               <HStack align="center">
@@ -95,7 +112,11 @@ const CreateMemeModal = ({
                 />
               </Box>
 
-              {selectedType && <CreateMeme type={selectedType} />}
+              {selectedType && (
+                <div ref={ref}>
+                  <CreateMeme type={selectedType} />
+                </div>
+              )}
             </Stack>
             <Flex flexDirection="column" alignItems="flex-end" mt="auto">
               <RowButton
@@ -106,6 +127,7 @@ const CreateMemeModal = ({
                 handleOptionButtonClick={handleOptionButtonClick}
               />
               <Button
+                onClick={onButtonClick}
                 w="full"
                 sx={{
                   bg: "black !important",
@@ -118,7 +140,7 @@ const CreateMemeModal = ({
               </Button>
             </Flex>
           </Stack>
-          <Box maxW="290px" maxH="823px" p='3' bg="#F1F2F3" overflow="scroll">
+          <Box maxW="290px" maxH="823px" p="3" bg="#F1F2F3" overflow="scroll">
             <VStack p="4" gap="5" alignItems="start">
               <Text fontSize="14px" fontWeight="600">
                 Templates you can choose from
