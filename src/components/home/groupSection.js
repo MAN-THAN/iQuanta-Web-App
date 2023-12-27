@@ -21,7 +21,7 @@ const GroupSection = () => {
       </Flex>
       <Box display="flex" justifyContent="space-between">
         {[...Array(3)].map((data, i) => (
-          <div className="flex gap-4 overflow-scroll">
+          <div key={i} className="flex gap-4 overflow-scroll">
             <Box bg={randomColors(["#336792", "#E56951", "#339287"])} position="relative" rounded="xl" w="220px" h="180px" mt="4">
               <Box color='#FCB461'  position="absolute" left={3} top={4} fontSize='3xl' >
                 <BsStarFill />
