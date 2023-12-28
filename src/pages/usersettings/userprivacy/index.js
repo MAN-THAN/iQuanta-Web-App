@@ -101,9 +101,9 @@ const UserPrivacy = () => {
                   <Text>Private Account</Text>
                   <Box>
                     <Switch
-                      isChecked={state?.private_account}
-                      onChange={() => mutation.mutate({ type: "private_account", status: !state.private_account })}
-                      name="private_account"
+                      isChecked={state?.privateAccount}
+                      onChange={() => mutation.mutate({ type: "privateAccount", status: !state.privateAccount })}
+                      name="privateAccount"
                       size="md"
                       colorScheme="green"
                     />
@@ -167,9 +167,9 @@ const UserPrivacy = () => {
                   <Text>Activity Status</Text>
                   <Box>
                     <Switch
-                      isChecked={state?.activity_status}
-                      onChange={() => mutation.mutate({ type: "activity_status", status: !state.activity_status })}
-                      name="activity_status"
+                      isChecked={state?.activityStatus}
+                      onChange={() => mutation.mutate({ type: "activityStatus", status: !state.activityStatus })}
+                      name="activityStatus"
                       size="md"
                       colorScheme="green"
                     />

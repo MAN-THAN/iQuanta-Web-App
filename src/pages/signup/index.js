@@ -32,10 +32,14 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import * as Yup from "yup";
 import TeacherLayout from "@/components/layouts/teacherLayout";
 import OnBordingLayout from "@/components/layouts/onBordingLayout";
+import { useDispatch } from "react-redux";
+import { addUserData } from "@/store/slices/userSlice";
+import { AiOutlineConsoleSql } from "react-icons/ai";
 
 const PhoneAuth = () => {
   const router = useRouter();
   const { data: session } = useSession();
+  const dispatch = useDispatch();
   const mutation = useMutation({
     mutationFn: (phoneNum) => userAuthGen(phoneNum),
     onMutate: (variables) => {
@@ -45,10 +49,12 @@ const PhoneAuth = () => {
       toast.error(`${error?.response?.data.error.message}`, {
         position: toast.POSITION.TOP_RIGHT,
       }),
-    onSuccess: (data, variables, context) => {
+    onSuccess: (res, variables, context) => {
       // toast.success("OTP Sent !", {
       //   position: toast.POSITION.TOP_RIGHT,
       // });
+      console.log(res);
+      dispatch(addUserData({isExistingUser : res?.data?.data?.existingUser}))
       router.push({
         pathname: "/signup/submitotp",
         query: { phoneNum: formik.values.phoneNum },

@@ -30,7 +30,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useMutation } from "react-query";
 import * as Yup from "yup";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addUserData } from "@/store/slices/userSlice";
 import { userAuthGen } from "@/api/onboarding";
 import OnBordingLayout from "@/components/layouts/onBordingLayout";
@@ -41,6 +41,7 @@ const SubmitOtp = () => {
   const [resend, setResend] = useState(false);
   const [timerKey, setTimerKey] = useState(0);
   const dispatch = useDispatch();
+  const { isExistingUser } = useSelector((state) => state.userData);
   const mutation = useMutation({
     mutationFn: (otp) => userVerification(phoneNum, otp),
     onMutate: (variables) => {
@@ -56,9 +57,15 @@ const SubmitOtp = () => {
       });
       console.log(res);
       dispatch(addUserData(res.data.data.user));
-      router.push({
-        pathname: "/signup/user_info",
-      });
+      if (isExistingUser) {
+        router.push({
+          pathname: "/",
+        });
+      } else {
+        router.push({
+          pathname: "/signup/user_info",
+        });
+      }
     },
     onSettled: (data, error, variables, context) => {},
   });

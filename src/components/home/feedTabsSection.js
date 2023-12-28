@@ -18,23 +18,11 @@ import { useSelector } from "react-redux";
 import { getAllPost } from "@/api/feed/userPost";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useDisclosure } from "@chakra-ui/react";
 
 const FeedTabsSection = () => {
-  const [challengesModal, setChallengesModal] = useState(false);
-  const [discussionModal, setDiscussionModal] = useState(false);
-
-  const openModal = () => {
-    setChallengesModal(true);
-  };
-  const discussionModalOpen = () => {
-    setDiscussionModal(true);
-  };
-  const closeChallengesModal = () => {
-    setChallengesModal(false);
-  };
-  const closeDiscussionModal = () => {
-    setDiscussionModal(false);
-  };
+  const { isOpen: isOpenChallenge, onOpen: onOpenChallenge, onClose: onCloseChallenge } = useDisclosure();
+  const { isOpen: isOpenDiscussion, onOpen: onOpenDiscussion, onClose: onCloseDiscussion } = useDisclosure();
   const [state, setState] = useState();
   const { _id: uid } = useSelector((state) => state.userData);
   const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } = useInfiniteQuery({
@@ -50,8 +38,8 @@ const FeedTabsSection = () => {
   console.log(state);
   return (
     <>
-      <ChallengesModal isOpen={challengesModal} onClose={closeChallengesModal} />
-      <DiscussionModal isOpen={discussionModal} onClose={closeDiscussionModal} />
+      <ChallengesModal isOpen={isOpenChallenge} onClose={onCloseChallenge} />
+      <DiscussionModal isOpen={isOpenDiscussion} onClose={onCloseDiscussion} />
       <Box mt="6">
         <Tabs isFitted>
           <TabList>
@@ -84,7 +72,7 @@ const FeedTabsSection = () => {
           </TabList>
           <TabPanels>
             <TabPanel padding="0">
-              <PostFormSection openModal={discussionModalOpen} />
+              <PostFormSection openModal={onOpenDiscussion} />
               {state?.map((item, ind) => {
                 if (item.postType === "photo") return <ImageFeedCard />;
                 else if (item.postType === "memes") return <CardFeedCard />;
@@ -96,7 +84,7 @@ const FeedTabsSection = () => {
               })}
             </TabPanel>
             <TabPanel padding="0">
-              <ChallengeForm openModal={openModal} />
+              <ChallengeForm openModal={onOpenChallenge} />
               <ChallengeCard />
               <ChallengeLivecard />
               <SuggestionSection />
