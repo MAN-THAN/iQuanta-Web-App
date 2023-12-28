@@ -33,7 +33,7 @@ const FeedTabsSection = () => {
       toast.error(`${error?.response?.data?.error?.message || "Some error"}`, {
         position: toast.POSITION.TOP_RIGHT,
       }),
-    onSuccess: (res) => setState(res.pages[0]?.data.data.data),
+    onSuccess: (res) => setState(res.pages[0]?.data.data.allPostData),
   });
   console.log(state);
   return (

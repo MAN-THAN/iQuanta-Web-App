@@ -36,6 +36,9 @@ import CreateMemeModal from "../homePostComponents/createMemeModal";
 import PostTypeMenu from "@/components/common/postTypeMenu";
 import { createPost } from "@/api/feed/userPost";
 import { useMutation, useQueryClient } from "react-query";
+import { useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const DiscussionModal = ({ isOpen, onClose }) => {
   const [isTyping, setIsTyping] = useState(false);
@@ -48,6 +51,7 @@ const DiscussionModal = ({ isOpen, onClose }) => {
   const [createMemeShow, setCreateMemeShow] = useState(false);
   const [selectedType, setSelectedType] = useState(null);
   const queryClient = useQueryClient();
+  const { name } = useSelector((state) => state.userData);
 
   const handleTypingStart = () => {
     setIsTyping(true);
@@ -123,10 +127,12 @@ const DiscussionModal = ({ isOpen, onClose }) => {
       });
       console.log(res);
       queryClient.invalidateQueries("getAllPosts");
+      setText();
+      onClose();
     },
     onSettled: (data, error, variables, context) => {},
   });
-  console.log(text)
+  console.log(text);
 
   return (
     <>
@@ -194,7 +200,7 @@ const DiscussionModal = ({ isOpen, onClose }) => {
                   >
                     <Image boxSize="2.5rem" borderRadius="md" src="/man1.jpg" alt="user profile image" mr="12px" />
                     <Box>
-                      <p style={{ fontSize: "16px", color: "#171717" }}>Himanshu Rohila</p>
+                      <p style={{ fontSize: "16px", color: "#171717" }}>{name}</p>
                       <p style={{ fontSize: "12px", color: "#636363" }}>Grand Master</p>
                     </Box>
                   </Box>
@@ -248,7 +254,7 @@ const DiscussionModal = ({ isOpen, onClose }) => {
                   fontSize: "12px",
                 }}
                 variant="solid"
-                onClick={() => mutation.mutate({title : text, postType : "text"})}
+                onClick={() => mutation.mutate({ title: text, postType: "text" })}
               >
                 Post
               </Button>
