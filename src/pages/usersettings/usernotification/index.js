@@ -85,11 +85,11 @@ const UserNotification = () => {
                     <Text>Pause All Notifications</Text>
                     <Box>
                       <Switch
-                        isChecked={state?.pause_all}
-                        name="pause_all"
+                        isChecked={state?.pauseAll}
+                        name="pauseAll"
                         size="md"
                         colorScheme="green"
-                        onChange={() => mutation.mutate({ type: "pause_all", status: !state.pause_all })}
+                        onChange={() => mutation.mutate({ type: "pauseAll", status: !state.pauseAll })}
                       />
                     </Box>
                   </Flex>
@@ -145,12 +145,12 @@ const UserNotification = () => {
                     <Text>Group Notifications</Text>
                     <Box>
                       <Switch
-                        isChecked={state?.group_notifiacation}
-                        name="group_notifiacation"
+                        isChecked={state?.groupNotification}
+                        name="groupNotification"
                         size="md"
                         colorScheme="green"
                         onChange={() =>
-                          mutation.mutate({ type: "group_notifiacation", status: !state.group_notifiacation })
+                          mutation.mutate({ type: "groupNotification", status: !state.groupNotification })
                         }
                       />
                     </Box>

@@ -34,9 +34,15 @@ import ParticipantsModal from "../homePostComponents/participantsModal";
 import FileUploadButton from "../homePostComponents/fileUploadButton";
 import CreateMemeModal from "../homePostComponents/createMemeModal";
 import PostTypeMenu from "@/components/common/postTypeMenu";
+import { createPost } from "@/api/feed/userPost";
+import { useMutation, useQueryClient } from "react-query";
+import { useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const DiscussionModal = ({ isOpen, onClose }) => {
   const [isTyping, setIsTyping] = useState(false);
+  const [text, setText] = useState();
   const fileInputRef = useRef(null);
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [selectedComponent, setSelectedComponent] = useState(null);
@@ -44,6 +50,8 @@ const DiscussionModal = ({ isOpen, onClose }) => {
   const [participantsShow, setParticipantsShow] = useState(false);
   const [createMemeShow, setCreateMemeShow] = useState(false);
   const [selectedType, setSelectedType] = useState(null);
+  const queryClient = useQueryClient();
+  const { name } = useSelector((state) => state.userData);
 
   const handleTypingStart = () => {
     setIsTyping(true);
@@ -104,6 +112,27 @@ const DiscussionModal = ({ isOpen, onClose }) => {
         return null;
     }
   };
+  const mutation = useMutation({
+    mutationFn: (payload) => createPost(payload),
+    onMutate: (variables) => {
+      return console.log("mutation is happening");
+    },
+    onError: (error, variables, context) =>
+      toast.error(`${error?.response?.data.error.message}`, {
+        position: toast.POSITION.TOP_RIGHT,
+      }),
+    onSuccess: (res, variables, context) => {
+      toast.success("post created successfully!", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      console.log(res);
+      queryClient.invalidateQueries("getAllPosts");
+      setText();
+      onClose();
+    },
+    onSettled: (data, error, variables, context) => {},
+  });
+  console.log(text);
 
   return (
     <>
@@ -171,7 +200,7 @@ const DiscussionModal = ({ isOpen, onClose }) => {
                   >
                     <Image boxSize="2.5rem" borderRadius="md" src="/man1.jpg" alt="user profile image" mr="12px" />
                     <Box>
-                      <p style={{ fontSize: "16px", color: "#171717" }}>Himanshu Rohila</p>
+                      <p style={{ fontSize: "16px", color: "#171717" }}>{name}</p>
                       <p style={{ fontSize: "12px", color: "#636363" }}>Grand Master</p>
                     </Box>
                   </Box>
@@ -189,6 +218,8 @@ const DiscussionModal = ({ isOpen, onClose }) => {
                         setIsTyping(false);
                       }
                     }}
+                    onChange={(e) => setText(e.target.value)}
+                    value={text}
                   />
                 </Box>
               </Stack>
@@ -223,6 +254,7 @@ const DiscussionModal = ({ isOpen, onClose }) => {
                   fontSize: "12px",
                 }}
                 variant="solid"
+                onClick={() => mutation.mutate({ title: text, postType: "text" })}
               >
                 Post
               </Button>
