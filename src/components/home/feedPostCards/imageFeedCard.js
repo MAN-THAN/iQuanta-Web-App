@@ -4,8 +4,18 @@ import React from "react";
 import LikeEmojiGroup from "@/components/common/likeEmojiGroup";
 import CommentSlider from "@/components/postCards/commentSlider/commentSlider";
 import { MdPlayArrow } from "react-icons/md";
+import moment from "moment";
 
-const ImageFeedCard = () => {
+const ImageFeedCard = ({ name, uid, title, reactionCount, commentCount, createdAt }) => {
+  const getTime = () => {
+    const endDate = moment(createdAt);
+    const duration = moment.duration(endDate.diff(moment(Date.now())));
+    const hours = duration.asHours();
+    console.log(hours, "hours");
+    console.log(duration, "duration");
+    return Math.trunc(Math.abs(hours));
+  };
+  getTime();
   return (
     <Box bg="#fff" mt="4">
       <HStack align="center" justifyContent="space-between" padding={["3", null, "4"]}>
@@ -27,10 +37,10 @@ const ImageFeedCard = () => {
           </Box>
           <Box ml="2">
             <Box display="flex" alignItems="center">
-              <p style={{ fontSize: "14px", color: "#171717", fontWeight: "600" }}>Hardik Beniwal</p> <MdPlayArrow />
+              <p style={{ fontSize: "14px", color: "#171717", fontWeight: "600" }}>{name}</p> <MdPlayArrow />
               <p style={{ fontSize: "14px", color: "#171717", fontWeight: "400" }}>Posted in CAT 2021</p>
             </Box>
-            <p style={{ fontSize: "14px", color: "#636363" }}>2h ago</p>
+            <p style={{ fontSize: "14px", color: "#636363" }}>{getTime()} h ago</p>
           </Box>
         </Box>
         <Box display="flex" alignItems="center" gap="4">
@@ -39,11 +49,7 @@ const ImageFeedCard = () => {
       </HStack>
       <Stack padding={["3", null, "4"]}>
         <Text fontSize="14px" lineHeight="24px">
-          <p>
-            There are two writing tasks you'll have to conquer on the GRE to get the score you deserve: the argument
-            essay and the issue essay. We won't be going over the broad view in this article, but instead will
-            concentrate on some of the finer details. Both essays are graded holistically.
-          </p>
+          <p>{title}</p>
         </Text>
         <Image alt="video" src="/videoImg.png" />
         <HStack align="center" fontWeight="400" fontSize="14px" padding="4">
@@ -57,11 +63,11 @@ const ImageFeedCard = () => {
                 paddingLeft: "5px",
               }}
             >
-              423
+              {reactionCount}
             </span>
           </Box>
           <Box pl="5">
-            <span style={{ fontSize: "14px", fontWeight: "600", color: "#455564" }}>13</span>
+            <span style={{ fontSize: "14px", fontWeight: "600", color: "#455564" }}>{commentCount}</span>
             <span
               style={{
                 fontSize: "14px",

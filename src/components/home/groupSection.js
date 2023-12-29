@@ -21,16 +21,16 @@ const GroupSection = () => {
   ];
   const [state, setState] = useState();
   const { _id: uid } = useSelector((state) => state.userData);
-  // const { isLoading, data, isError, error, isPending, isSuccess } = useQuery({
-  //   queryKey: ["getGroups", uid],
-  //   queryFn: () => getGroups(uid),
-  //   onError: (error, variables, context) =>
-  //     toast.error(`${error?.response?.data.error.message}`, {
-  //       position: toast.POSITION.TOP_RIGHT,
-  //     }),
-  //   onSuccess: (res) => setState(res.data.data),
-  // });
-  // console.log(state);
+  const { isLoading, data, isError, error, isPending, isSuccess } = useQuery({
+    queryKey: ["getGroups", uid],
+    queryFn: () => getGroups(uid),
+    onError: (error, variables, context) =>
+      toast.error(`${error?.response?.data.error.message}`, {
+        position: toast.POSITION.TOP_RIGHT,
+      }),
+    onSuccess: (res) => setState(res.data.data.group),
+  });
+  console.log(state);
 
   return (
     <>
@@ -68,7 +68,7 @@ const GroupSection = () => {
                 {item?.iconText}
               </Text>
               <Box color="#FCB461" position="absolute" left={3} top={4} fontSize="3xl">
-                {item?.group_type === "Premium" ? <BsStarFill /> : <></>}
+                {item?.groupType === "Premium" ? <BsStarFill /> : <></>}
               </Box>
               <div className="absolute  right-5 top-3 text-2xl text-white">
                 <ChevronRight />
@@ -78,7 +78,7 @@ const GroupSection = () => {
                   {item?.title}
                   <br />
                 </p>
-                <p className="text-xs">{item?.group_type}</p>
+                <p className="text-xs">{item?.groupType}</p>
               </div>
             </Box>
           </div>
