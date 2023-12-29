@@ -1,6 +1,4 @@
 import { Box, HStack, Menu, MenuButton, useMediaQuery, Flex } from "@chakra-ui/react";
-// import Notification from "./notification"
-// import ChatMsgSection from "./chatSection/chatMsgSection"
 import { Image } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { AlignJustify, Bell } from "lucide-react";

@@ -54,43 +54,9 @@ const UpcomingSection = () => {
           </Box>
         </HStack>
       </Flex>
-      {/* <Swiper
-        spaceBetween={10}
-        breakpoints={{
-          640: {
-            slidesPerView: 1,
-            spaceBetween: 20,
-          },
-          768: {
-            slidesPerView: 1.8,
-            spaceBetween: 40,
-          },
-          1024: {
-            slidesPerView: 1.8,
-            spaceBetween: 50,
-          },
-        }}
-        modules={[Navigation]}
-        className="mySwiper"
-        ref={swiperRef}
-      >
-        <SwiperSlide>
-          <UpComeingCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CoursesAddCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <UpComeingCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <UpComeingCard />
-        </SwiperSlide>
-      </Swiper> */}
       <Swiper
         slidesPerView={1}
         spaceBetween={10}
-       
         breakpoints={{
           "@0.00": {
             slidesPerView: 1,
@@ -109,8 +75,9 @@ const UpcomingSection = () => {
             spaceBetween: 50,
           },
         }}
-        modules={[Pagination]}
+        modules={[Navigation]}
         className="mySwiper"
+        ref={swiperRef}
       >
         <SwiperSlide>
           <UpComeingCard />
