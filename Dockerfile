@@ -10,7 +10,7 @@ RUN npm install
 RUN npm run build
 # Installing PM2 globally
 RUN npm install -g pm2
-## Application Port Number
+## Application Port Number 3000
 EXPOSE 3000
 # Start the application
 CMD ["pm2-runtime", "start", "npm", "--", "start"]
