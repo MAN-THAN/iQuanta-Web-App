@@ -1,9 +1,7 @@
 import React, { useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-// import './styles.css';
-import { Navigation } from "swiper/modules";
+import "swiper/swiper-bundle.css"; // Import the Swiper styles
+import { Navigation, Pagination } from "swiper/modules";
 import UpComeingCard from "../feature/upComeingCard";
 import { Box, Flex, HStack, Heading } from "@chakra-ui/layout";
 import { CalendarDays, ChevronLeft, ChevronRight } from "lucide-react";
@@ -24,7 +22,7 @@ const UpcomingSection = () => {
       }),
     onSuccess: (res) => setState(res.data.data.event),
   });
-  console.log(state);
+
   const swiperRef = useRef(null);
 
   const handlePrev = () => {
@@ -56,7 +54,26 @@ const UpcomingSection = () => {
           </Box>
         </HStack>
       </Flex>
-      <Swiper modules={[Navigation]} slidesPerView={1.8} spaceBetween={30} className="mySwiper" ref={swiperRef}>
+      {/* <Swiper
+        spaceBetween={10}
+        breakpoints={{
+          640: {
+            slidesPerView: 1,
+            spaceBetween: 20,
+          },
+          768: {
+            slidesPerView: 1.8,
+            spaceBetween: 40,
+          },
+          1024: {
+            slidesPerView: 1.8,
+            spaceBetween: 50,
+          },
+        }}
+        modules={[Navigation]}
+        className="mySwiper"
+        ref={swiperRef}
+      >
         <SwiperSlide>
           <UpComeingCard />
         </SwiperSlide>
@@ -65,6 +82,77 @@ const UpcomingSection = () => {
         </SwiperSlide>
         <SwiperSlide>
           <UpComeingCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <UpComeingCard />
+        </SwiperSlide>
+      </Swiper> */}
+      <Swiper
+        slidesPerView={1}
+        spaceBetween={10}
+       
+        breakpoints={{
+          "@0.00": {
+            slidesPerView: 1,
+            spaceBetween: 10,
+          },
+          "@0.75": {
+            slidesPerView: 1.8,
+            spaceBetween: 20,
+          },
+          "@1.00": {
+            slidesPerView: 1.4,
+            spaceBetween: 40,
+          },
+          "@1.50": {
+            slidesPerView: 1.8,
+            spaceBetween: 50,
+          },
+        }}
+        modules={[Pagination]}
+        className="mySwiper"
+      >
+        <SwiperSlide>
+          <UpComeingCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <CoursesAddCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <UpComeingCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <CoursesAddCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <UpComeingCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <CoursesAddCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <UpComeingCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <CoursesAddCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <UpComeingCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <CoursesAddCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <UpComeingCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <CoursesAddCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <UpComeingCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <CoursesAddCard />
         </SwiperSlide>
       </Swiper>
     </div>

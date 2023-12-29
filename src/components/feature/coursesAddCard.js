@@ -7,6 +7,7 @@ const CoursesAddCard = () => {
     <>
       <Card
         maxW="sm"
+        minW="xs"
         bg="#5146D6"
         h="230px"
         color="white.900"
@@ -24,8 +25,8 @@ const CoursesAddCard = () => {
             height: "220px",
             width: "220px",
             position: "absolute",
-            top: "-14vh",
-            right: "-8vh",
+            top: "-18vh",
+            right: "-12vh",
             borderRadius: "100%",
             background: "#76CBC1",
           }}
@@ -35,7 +36,7 @@ const CoursesAddCard = () => {
         <Text fontSize="lg" fontWeight="500">
           Get access to premium <br /> content & ace your exams.
         </Text>
-        <Text fontSize="sm" pt="4" pb="5" width="300px" color="#FFFFFFBF">
+        <Text fontSize="sm" pt="4" pb="5" width="270px" color="#FFFFFFBF">
           Join our online courses, gain access to our exclusive community, learning and practice material.
         </Text>
         <Button
