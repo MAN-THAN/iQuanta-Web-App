@@ -11,9 +11,6 @@ pipeline {
         DOCKER_SHORT_ID= ''
     }
     stages {
-        when {
-            branch 'dev'
-        }
         stage('Checkout') {
             steps {
                 script {
@@ -25,10 +22,9 @@ pipeline {
         stage('WebApplication') {
         stages {
             stage('Build and Push Docker Image') {
-//            when {
-                // Trigger the stage only if changes happen in the specified subfolder
-//                changeset "auth-service/**"
-//           }
+                when {
+                    branch 'dev'
+                }
             steps {
                 script {
                     sh "whoami"
