@@ -74,10 +74,58 @@ const FeedTabsSection = () => {
             <TabPanel padding="0">
               <PostFormSection openModal={onOpenDiscussion} />
               {state?.map((item, ind) => {
-                if (item.postType === "photo") return <ImageFeedCard />;
-                else if (item.postType === "memes") return <CardFeedCard />;
-                else if (item.postType === "text") return <TextFeedCard />;
-                // else if (item.post_type === "video") return <ImageFeedCard />;
+                if (item.postType === "photo")
+                  return (
+                    <ImageFeedCard
+                      name={item?.createdBy?.name}
+                      uid={item?.createdBy?._id}
+                      title={item?.postTypeId?.title}
+                      reactionCount={item?.reactionCount}
+                      commentCount={item?.commentCount}
+                      createdAt={item?.postTypeId?.createdAt}
+
+                    />
+                  );
+                else if (item.postType === "memes")
+                  return (
+                    <CardFeedCard
+                      name={item?.createdBy?.name}
+                      uid={item?.createdBy?._id}
+                      title={item?.postTypeId?.title}
+                      reactionCount={item?.reactionCount}
+                      commentCount={item?.commentCount}
+                    />
+                  );
+                else if (item.postType === "text")
+                  return (
+                    <TextFeedCard
+                      name={item?.createdBy?.name}
+                      uid={item?.createdBy?._id}
+                      title={item?.postTypeId?.title}
+                      reactionCount={item?.reactionCount}
+                      commentCount={item?.commentCount}
+                    />
+                  );
+                else if (item.postType === "poll")
+                  return (
+                    <PollFeedCard
+                      name={item?.createdBy?.name}
+                      uid={item?.createdBy?._id}
+                      title={item?.postTypeId?.title}
+                      reactionCount={item?.reactionCount}
+                      commentCount={item?.commentCount}
+                    />
+                  );
+                else if (item.postType === "video")
+                  return (
+                    <ImageFeedCard
+                      name={item?.createdBy?.name}
+                      uid={item?.createdBy?._id}
+                      title={item?.postTypeId?.title}
+                      reactionCount={item?.reactionCount}
+                      commentCount={item?.commentCount}
+                    />
+                  );
                 // else if (item.post_type === "video") return <ImageFeedCard />;
                 // else if (item.post_type === "video") return <SuggestionSection />;
                 // else if (item.post_type === "video") return <PollFeedCard />;

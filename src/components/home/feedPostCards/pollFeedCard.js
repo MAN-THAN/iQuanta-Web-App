@@ -5,7 +5,7 @@ import LikeEmojiGroup from "@/components/common/likeEmojiGroup";
 import AvatarGroups from "@/components/common/avatarGroups";
 import { MdPlayArrow } from "react-icons/md";
 
-const PollFeedCard = () => {
+const PollFeedCard = ({ name, uid, title, reactionCount, commentCount }) => {
   return (
     <>
       <Box bg="white.900" w="full" mx="auto" mt="4">
@@ -28,7 +28,7 @@ const PollFeedCard = () => {
             </Box>
             <Box ml="2">
               <Box display="flex" alignItems="center">
-                <p style={{ fontSize: "14px", color: "#171717", fontWeight: "600" }}>Hardik Beniwal</p> <MdPlayArrow />
+                <p style={{ fontSize: "14px", color: "#171717", fontWeight: "600" }}>{name}</p> <MdPlayArrow />
                 <p style={{ fontSize: "14px", color: "#171717", fontWeight: "400" }}>Posted in CAT 2021</p>
               </Box>
               <p style={{ fontSize: "14px", color: "#636363" }}>2h ago</p>
@@ -39,7 +39,7 @@ const PollFeedCard = () => {
           </Box>
         </HStack>
         <Text p="5" fontSize="md" fontWeight="semibold">
-          Which exam are you folks applying for?
+          {title}
         </Text>
         <div className=" p-5 poll">
           <div className="flex justify-between mb-1">
@@ -80,11 +80,11 @@ const PollFeedCard = () => {
                   paddingLeft: "5px",
                 }}
               >
-                423
+               {reactionCount}
               </span>
             </Box>
             <Box pl="5">
-              <span style={{ fontSize: "14px", fontWeight: "600", color: "#455564" }}>13</span>
+              <span style={{ fontSize: "14px", fontWeight: "600", color: "#455564" }}>{commentCount}</span>
               <span
                 style={{
                   fontSize: "14px",
