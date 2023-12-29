@@ -11,6 +11,9 @@ pipeline {
         DOCKER_SHORT_ID= ''
     }
     stages {
+        when {
+            branch 'dev'
+        }
         stage('Checkout') {
             steps {
                 script {

@@ -1,5 +1,5 @@
 
-## iverse-student frontend web application
+## iverse-student frontend web application dev build
 FROM node:18-alpine
 # Working Directory
 WORKDIR /usr/src/app
