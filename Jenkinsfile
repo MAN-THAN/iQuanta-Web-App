@@ -12,6 +12,9 @@ pipeline {
     }
     stages {
         stage('Checkout') {
+            when {
+                branch 'dev'
+            }
             steps {
                 script {
                     // Checkout the GitHub repository with the current branch
@@ -47,6 +50,9 @@ pipeline {
             }
             }
         stage('Update iverse-gitops repo') {
+            when {
+                branch 'dev'
+            }
             steps {
                 script {
                     // Checkout the GitHub repository with the current branch    
