@@ -39,6 +39,7 @@ const EditProfile = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const queryClient = useQueryClient();
+  const [state, setState] = useState();
   const {
     _id: uid,
     name,
@@ -52,20 +53,21 @@ const EditProfile = () => {
     medicalCondition,
     profilePic,
     location,
-    exams
+    exams,
   } = useSelector((state) => state.userData);
 
   const formik = useFormik({
+    enableReinitialize: true,
     initialValues: {
-      name: name || "",
-      phone: phone || "",
-      email: email || "",
-      bio: bio || "",
-      dob: dob || "",
-      gender: gender || "",
-      education: education || "",
-      workEx: workEx || "",
-      medicalCondition: medicalCondition || "",
+      name: state?.name || "",
+      phone: state?.phone || "",
+      email: state?.email || "",
+      bio: state?.bio || "",
+      dob: state?.dob || "",
+      gender: state?.gender || "",
+      education: state?.education || "",
+      workEx: state?.workEx || "",
+      medicalCondition: state?.medicalCondition || "",
     },
     validationSchema: commonValidationSchema,
     onSubmit: (values) => {
@@ -82,6 +84,7 @@ const EditProfile = () => {
         position: toast.POSITION.TOP_RIGHT,
       }),
     onSuccess: (res) => {
+      setState(res?.data?.data?.user_data);
       dispatch(addUserData(res?.data?.data?.user_data));
     },
   });
@@ -162,7 +165,7 @@ const EditProfile = () => {
                     objectFit="contain"
                     width="100%"
                     height="100%"
-                    src={profilePic ? profilePic : "/noImage.svg"}
+                    src={state?.profilePic ? state?.profilePic : "/noImage.svg"}
                     alt="Profile Image"
                   />
                 </Box>
@@ -171,18 +174,18 @@ const EditProfile = () => {
             <FullProfileView isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
             <Box mt="16">
               <Text fontSize="2xl" textAlign="center" fontWeight="600" color="heading.900">
-                {name}
+                {state?.name}
               </Text>
               <Flex align="center" justify="center" fontSize="md" color="text.700">
-                <span>{gender},23 years</span>
+                <span>{state?.gender},23 years</span>
                 <span>
                   <BsDot />
                 </span>
-                <span>{location}</span>
+                <span>{state?.location}</span>
               </Flex>
             </Box>
             <Flex align="center" justify="center" gap={3} pt="4">
-              {exams?.map((item, ind) => {
+              {state?.exams?.map((item, ind) => {
                 return (
                   <Badge key={ind} px="4" py="2" rounded="2xl" color="text.900" colorScheme="green">
                     {item}
@@ -191,7 +194,7 @@ const EditProfile = () => {
               })}
             </Flex>
             <Box fontSize="md" pt="5">
-              <p>{bio}</p>
+              <p>{state?.bio}</p>
             </Box>
           </CardBody>
         </Card>
