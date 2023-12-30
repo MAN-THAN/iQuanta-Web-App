@@ -42,15 +42,15 @@ const EditProfile = () => {
   const { _id: uid } = useSelector((state) => state.userData);
   const formik = useFormik({
     initialValues: {
-      name: "",
-      phone: "",
-      email: "",
-      bio: "",
-      dob: "",
-      gender: "",
-      education: "",
-      workEx: "",
-      medicalCondition: "",
+      name: state?.name || "",
+      phone: state?.phone || "",
+      email: state?.email || "",
+      bio: state?.bio || "",
+      dob: state?.dob || "",
+      gender: state?.gender || "",
+      education: state?.education || "",
+      workEx: state?.workEx || "",
+      medicalCondition: state?.medicalCondition || "",
     },
     validationSchema: commonValidationSchema,
     onSubmit: (values) => {
@@ -58,6 +58,7 @@ const EditProfile = () => {
       mutation.mutate(values);
     },
   });
+
   const { isLoading, data, isError, error, isPending, isSuccess } = useQuery({
     queryKey: ["getUserDetailData", uid],
     queryFn: () => getProfileInfo(uid),
@@ -193,7 +194,7 @@ const EditProfile = () => {
                   type="text"
                   id="name"
                   readOnly={updateProfile}
-                  value={state?.name}
+                  value={formik.values.name}
                   placeholder="Name"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -213,7 +214,7 @@ const EditProfile = () => {
                     type="number"
                     maxLength="10"
                     readOnly={updateProfile}
-                    value={state?.phone}
+                    value={formik.values.phone}
                     placeholder="Phone number"
                     name="phone"
                     onChange={formik.handleChange}
@@ -229,7 +230,7 @@ const EditProfile = () => {
                 <Input
                   type="email"
                   readOnly={updateProfile}
-                  value={state?.email}
+                  value={formik.values.email}
                   placeholder="Email"
                   name="email"
                   onChange={formik.handleChange}
@@ -269,7 +270,7 @@ const EditProfile = () => {
                 <Input
                   type="date"
                   placeholder="DoB"
-                  value={state?.dob}
+                  value={formik.values.dob}
                   readOnly={updateProfile}
                   id="dob"
                   onChange={formik.handleChange}
@@ -285,7 +286,7 @@ const EditProfile = () => {
                 <Input
                   type="text"
                   readOnly={updateProfile}
-                  value={state?.gender}
+                  value={formik.values.gender}
                   placeholder="Gender"
                   name="gender"
                   onChange={formik.handleChange}
@@ -301,7 +302,7 @@ const EditProfile = () => {
                   type="text"
                   placeholder="Education"
                   readOnly={updateProfile}
-                  value={state?.education}
+                  value={formik.values.education}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   name="education"
@@ -316,7 +317,7 @@ const EditProfile = () => {
                   type="text"
                   placeholder="Experience"
                   readOnly={updateProfile}
-                  value={state?.workEx}
+                  value={formik.values.workEx}
                   name="workEx"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -331,7 +332,7 @@ const EditProfile = () => {
                   type="text"
                   placeholder="Medical Conditiom"
                   readOnly={updateProfile}
-                  value={state?.medicalCondition}
+                  value={formik.values.medicalCondition}
                   name="medicalCondition"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
