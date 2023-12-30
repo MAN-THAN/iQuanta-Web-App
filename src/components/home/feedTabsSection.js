@@ -23,6 +23,7 @@ import { useDisclosure } from "@chakra-ui/react";
 const FeedTabsSection = () => {
   const { isOpen: isOpenChallenge, onOpen: onOpenChallenge, onClose: onCloseChallenge } = useDisclosure();
   const { isOpen: isOpenDiscussion, onOpen: onOpenDiscussion, onClose: onCloseDiscussion } = useDisclosure();
+  const [clickPhoto, setClickPhoto] = useState(false);
   const [state, setState] = useState();
   const { _id: uid } = useSelector((state) => state.userData);
   const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } = useInfiniteQuery({
@@ -39,7 +40,7 @@ const FeedTabsSection = () => {
   return (
     <>
       <ChallengesModal isOpen={isOpenChallenge} onClose={onCloseChallenge} />
-      <DiscussionModal isOpen={isOpenDiscussion} onClose={onCloseDiscussion} />
+      <DiscussionModal isOpen={isOpenDiscussion} onClose={onCloseDiscussion} clickPhoto={clickPhoto} />
       <Box mt={{ base: "6", md: "12" }}>
         <Tabs isFitted>
           <TabList>
@@ -72,7 +73,7 @@ const FeedTabsSection = () => {
           </TabList>
           <TabPanels>
             <TabPanel padding="0">
-              <PostFormSection openModal={onOpenDiscussion} />
+              <PostFormSection openModal={onOpenDiscussion} setClickPhoto={setClickPhoto} />
               {state?.map((item, ind) => {
                 if (item.postType === "photo")
                   return (

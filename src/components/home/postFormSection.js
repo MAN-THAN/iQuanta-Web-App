@@ -2,7 +2,7 @@ import { Box, Divider, Flex, HStack, Image, Text } from "@chakra-ui/react";
 import { BiDoughnutChart } from "react-icons/bi";
 import { CiImageOn } from "react-icons/ci";
 
-const PostFormSection = ({ openModal }) => {
+const PostFormSection = ({ openModal, setClickPhoto }) => {
   return (
     <Box bg="#fff" p="4">
       <Flex alignItems="center">
@@ -17,7 +17,10 @@ const PostFormSection = ({ openModal }) => {
             mr="2"
           />
         </Box>
-        <Box width="full" onClick={openModal}>
+        <Box width="full" onClick={() => {
+          openModal();
+          setClickPhoto(false);
+        }}>
           <Text cursor={"pointer"} ml="4">
             Create a new post
           </Text>
@@ -35,7 +38,10 @@ const PostFormSection = ({ openModal }) => {
           >
             <div
               className="flex items-center justify-center gap-2 text-sm font-semibold"
-              onClick={() => openModal("withImg")}
+              onClick={() => {
+                openModal();
+                setClickPhoto(true);
+              }}
             >
               <Image alt="megaphon icon" boxSize={{ sm: "18px" }} src="/ImageIcons.svg" />
               <Text fontSize={{ sm: "12px" }}>Photos/Videos</Text>

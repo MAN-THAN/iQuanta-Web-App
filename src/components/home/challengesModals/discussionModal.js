@@ -40,7 +40,7 @@ import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const DiscussionModal = ({ isOpen, onClose }) => {
+const DiscussionModal = ({ isOpen, onClose, clickPhoto}) => {
   const [isTyping, setIsTyping] = useState(false);
   const [text, setText] = useState();
   const fileInputRef = useRef(null);
@@ -53,8 +53,6 @@ const DiscussionModal = ({ isOpen, onClose }) => {
   const queryClient = useQueryClient();
   const { name } = useSelector((state) => state.userData);
   console.log(selectedFiles);
-  const ref= useRef(12);
-  console.log(isOpen)
 
   const handleTypingStart = () => {
     setIsTyping(true);
@@ -248,7 +246,7 @@ const DiscussionModal = ({ isOpen, onClose }) => {
                 handleChange={handleChange}
                 selectedFiles={selectedFiles}
                 handleOptionButtonClick={handleOptionButtonClick}
-                reference={ref}
+                clickPhoto={clickPhoto}
               />
 
               <Button
