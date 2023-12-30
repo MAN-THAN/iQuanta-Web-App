@@ -17,7 +17,7 @@ import { ChevronDown, MessageCircle, SearchIcon } from "lucide-react";
 const HomeChatModal = () => {
   return (
     <Accordion
-      width="20%"
+      display={["none", null, "block"]}
       zIndex="99"
       sx={{ position: "fixed", bottom: "1", right: "9" }}
       defaultIndex={[0]}

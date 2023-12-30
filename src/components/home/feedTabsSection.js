@@ -40,7 +40,7 @@ const FeedTabsSection = () => {
     <>
       <ChallengesModal isOpen={isOpenChallenge} onClose={onCloseChallenge} />
       <DiscussionModal isOpen={isOpenDiscussion} onClose={onCloseDiscussion} />
-      <Box mt="6">
+      <Box mt={{ base: "6", md: "12" }}>
         <Tabs isFitted>
           <TabList>
             <Tab
@@ -48,25 +48,25 @@ const FeedTabsSection = () => {
               bg="#fff"
               _selected={{ color: "#000", borderBottom: "2px solid black" }}
               color="#8D96A5"
-              fontSize="16px"
+              fontSize={{ base: "16px", md: "20px" }}
               fontWeight="600"
             >
-              <HStack py="3">
+              <HStack py={{ base: "3", md: "4" }}>
                 <MessagesSquare />
-                <Text>Discussion</Text>
+                <Text fontSize={{ base: "12px", md: "16px" }}>Discussion</Text>
               </HStack>
             </Tab>
             <Tab
-              bg="#fff"
               roundedTopRight="2xl"
+              bg="#fff"
               _selected={{ color: "#000", borderBottom: "2px solid black" }}
               color="#8D96A5"
-              fontSize="16px"
+              fontSize={{ base: "16px", md: "20px" }}
               fontWeight="600"
             >
-              <HStack py="3">
-                <ShieldCheck />
-                <Text>Challenges</Text>
+              <HStack py={{ base: "0", md: "4" }}>
+                <ShieldCheck fontSize={{ base: "12px", md: "16px" }} />
+                <Text fontSize={{ base: "12px", md: "16px" }}>Challenges</Text>
               </HStack>
             </Tab>
           </TabList>

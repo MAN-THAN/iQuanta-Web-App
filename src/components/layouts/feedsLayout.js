@@ -9,7 +9,7 @@ import UserRightSiderbar from "../rightSidebars/userRightSiderbar";
 
 const FeedsLayout = ({ children }) => {
   return (
-    <div style={{ marginLeft: "10%", marginRight: "10%" }}>
+    <Box marginLeft={{ sm: "0", lg: "10%" }} marginRight={{ sm: "0", lg: "10%" }}>
       <MainHeader />
       <div className="flex pt-8">
         <Box>
@@ -18,11 +18,11 @@ const FeedsLayout = ({ children }) => {
         <Box overflow="hidden" flex="1" pl="6%" pr="6%">
           {children}
         </Box>
-        <Box>
+        <Box display={{ md: "block", sm: "none" }}>
           <HomeRightSidebar />
         </Box>
       </div>
-    </div>
+    </Box>
   );
 };
 

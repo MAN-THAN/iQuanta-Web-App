@@ -1,5 +1,5 @@
 import { Box, Divider, Flex, HStack, Image, Stack, Tag, Text } from "@chakra-ui/react";
-import { Dot, MessageCircle, MoreVertical, Share2, ThumbsUp } from "lucide-react";
+import { Dot, MessageCircle, MoreHorizontal, MoreVertical, Share2, ThumbsUp } from "lucide-react";
 import React from "react";
 import LikeEmojiGroup from "@/components/common/likeEmojiGroup";
 import CommentSlider from "@/components/postCards/commentSlider/commentSlider";
@@ -43,7 +43,7 @@ const ImageFeedCard = ({ name, uid, title, reactionCount, commentCount, createdA
           </Box>
         </Box>
         <Box display="flex" alignItems="center" gap="4">
-          <MoreVertical size="24px" />
+          <MoreHorizontal size="24px" />
         </Box>
       </HStack>
       <Stack padding={["3", null, "4"]}>
@@ -96,13 +96,13 @@ const ImageFeedCard = ({ name, uid, title, reactionCount, commentCount, createdA
         <Divider />
         <Flex align="center" justify="space-between" p="3">
           <HStack>
-            <ThumbsUp /> <span>Like</span>
+            <ThumbsUp fontSize={{ sm: "14px" }} /> <Text fontSize={{ sm: "14px", md: "16px" }}>Like</Text>
           </HStack>
           <HStack>
-            <MessageCircle /> <span>Comment</span>
+            <MessageCircle fontSize={{ sm: "14px" }} /> <Text fontSize={{ sm: "14px", md: "16px" }}>Comment</Text>
           </HStack>
           <HStack>
-            <Share2 /> <span>Share</span>
+            <Share2 fontSize={{ sm: "14px" }} /> <Text fontSize={{ sm: "14px", md: "16px" }}>Share</Text>
           </HStack>
         </Flex>
         <Divider />

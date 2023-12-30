@@ -18,7 +18,9 @@ const PostFormSection = ({ openModal }) => {
           />
         </Box>
         <Box width="full" onClick={openModal}>
-          <Text cursor={"pointer"} ml="4">Create a new post</Text>
+          <Text cursor={"pointer"} ml="4">
+            Create a new post
+          </Text>
         </Box>
       </Flex>
       <Divider pt="4" />
@@ -31,9 +33,12 @@ const PostFormSection = ({ openModal }) => {
               borderRight: "1px solid #D9D9D4",
             }}
           >
-            <div className="flex items-center justify-center gap-2 text-sm font-semibold" onClick={() => openModal("withImg")}>
-              <CiImageOn size="26px" fontWeight="800" />
-              <span>Photos/Videos</span>
+            <div
+              className="flex items-center justify-center gap-2 text-sm font-semibold"
+              onClick={() => openModal("withImg")}
+            >
+              <Image alt="megaphon icon" boxSize={{ sm: "18px" }} src="/ImageIcons.svg" />
+              <Text fontSize={{ sm: "12px" }}>Photos/Videos</Text>
             </div>
           </button>
           <input
@@ -50,14 +55,14 @@ const PostFormSection = ({ openModal }) => {
           }}
         >
           <div className="flex items-center justify-center gap-2 text-sm font-semibold">
-            <BiDoughnutChart size="26px" />
-            <span> Poll</span>
+            <Image alt="megaphon icon" boxSize={{ sm: "18px" }} src="/PollBlack.svg" />
+            <Text fontSize={{ sm: "12px" }}>Poll</Text>
           </div>
         </button>
         <button className="hover:text-blue-500  w-full">
           <div className="flex items-center justify-center gap-2 text-sm font-semibold">
-            <Image alt="megaphon icon" src="/megaphone.svg" />
-            <span> Debate</span>
+            <Image alt="megaphon icon" boxSize={{ sm: "18px" }} src="/megaphone.svg" />
+            <Text fontSize={{ sm: "12px" }}>Debate</Text>
           </div>
         </button>
       </Flex>

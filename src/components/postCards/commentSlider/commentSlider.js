@@ -1,16 +1,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Scrollbar } from "swiper/modules";
 import "swiper/css";
-import {
-  Box,
-  Card,
-  Divider,
-  HStack,
-  Image,
-  Stack,
-  Tag,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Card, Divider, HStack, Image, Stack, Tag, Text } from "@chakra-ui/react";
 import { Dot, MoreVertical } from "lucide-react";
 import EmojiGroup from "@/components/common/avatarGroups";
 import LikeEmojiGroup from "@/components/common/likeEmojiGroup";
@@ -19,20 +10,33 @@ const CommentSlider = () => {
   return (
     <Box width="auto">
       <Swiper
-        pagination={{ dynamicBullets: true }}
-        modules={[Navigation, Pagination, Scrollbar]}
-        spaceBetween={15}
-        slidesPerView={1.5}
-        navigation={false}
+        slidesPerView={1}
+        spaceBetween={10}
+        breakpoints={{
+          "@0.00": {
+            slidesPerView: 1,
+            spaceBetween: 10,
+          },
+          "@0.75": {
+            slidesPerView: 1.8,
+            spaceBetween: 20,
+          },
+          "@1.00": {
+            slidesPerView: 1.4,
+            spaceBetween: 40,
+          },
+          "@1.50": {
+            slidesPerView: 1.8,
+            spaceBetween: 50,
+          },
+        }}
+        modules={[Navigation]}
+        className="mySwiper"
       >
         {[...Array(4)].map((d, i) => (
           <SwiperSlide key={i}>
-            <Card bg="#F1F2F6" minW="250px" rounded="2xl">
-              <HStack
-                align="center"
-                justifyContent="space-between"
-                padding={["3", null, "4"]}
-              >
+            <Card bg="#F1F2F6" minW="280px" rounded="2xl">
+              <HStack align="center" justifyContent="space-between" padding={["3", null, "4"]}>
                 <Box
                   sx={{
                     display: "flex",
@@ -40,7 +44,7 @@ const CommentSlider = () => {
                     width: ["auto", null, "280px"],
                   }}
                 >
-                  <Box boxSize="38px">
+                  <Box boxSize={["28px", null, "38px"]}>
                     <Image
                       objectFit="cover"
                       width="100%"
@@ -53,82 +57,75 @@ const CommentSlider = () => {
                   <Box ml="2">
                     <p
                       style={{
-                        fontSize: "14px",
+                        fontSize: ["12px", null, "14px"],
                         color: "#171717",
                         fontWeight: "600",
                       }}
                     >
                       Hardik Beniwal
                     </p>
-                    <p style={{ fontSize: "12px", color: "#636363" }}>2h ago</p>
+                    <p style={{ fontSize: ["10px", null, "12px"], color: "#636363" }}>2h ago</p>
                   </Box>
                 </Box>
               </HStack>
               <Text
-                fontSize="14px"
+                fontSize={["12px", null, "14px"]}
                 fontWeight="500"
                 color="#16222C"
-                p="3"
-                lineHeight="24px"
+                p={["2", null, "3"]}
+                lineHeight={["20px", null, "24px"]}
               >
-                Yes, you can! But you need to be in 99.5%iler. I was also in
-                such a situation earlier this year. If I had known this, than I
-                wouldn’t have..... read more
+                Yes, you can! But you need to be in 99.5%iler. I was also in such a situation earlier this year. If I
+                had known this, than I wouldn’t have... read more
               </Text>
-              <HStack align="center" w="auto" padding={["3", null, "4"]}>
+              <HStack align="center" padding={["3", null, "3"]}>
                 <Text
                   style={{
-                    fontSize: "12px",
+                    fontSize: ["10px", null, "12px"],
                     fontWeight: "600",
                     color: "#455564",
                   }}
                 >
                   Like
                 </Text>
-                <Dot color="#8D96A5" />
-                <Box
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="space-between"
-                >
+                <Divider border="0.2" orientation="vertical" />
+                <Box display="flex" alignItems="center" justifyContent="space-between">
                   <LikeEmojiGroup />
-                  <span
+                  <Text
                     style={{
-                      fontSize: "12px",
+                      fontSize: ["10px", null, "12px"],
                       fontWeight: "600",
                       color: "#455564",
                     }}
                   >
                     12
-                  </span>
+                  </Text>
                 </Box>
-                <Stack direction="row" h="12px">
-                  <Divider border="0.2" orientation="vertical" />
-                </Stack>
-                <Text fontSize="12px" color="#455564">
+                <Divider border="0.2" orientation="vertical" />
+                <Text fontSize={{ sm: "14px", md: "16px" }} color="#455564">
                   Reply
                 </Text>
-                <Dot color="#8D96A5" />
-                <Box>
+                <Divider border="0.2" orientation="vertical" />
+                <Box display="flex" alignItems="end">
                   <span
                     style={{
-                      fontSize: "12px",
+                      fontSize: ["10px", null, "12px"],
                       fontWeight: "600",
                       color: "#455564",
                     }}
                   >
                     13
                   </span>
-                  <span
+                  <Text
+                    fontSize={{ sm: "14px", md: "16px" }}
                     style={{
-                      fontSize: "12px",
                       fontWeight: "500",
                       color: "#8D96A5",
-                      paddingLeft: "5px",
+                      paddingLeft: ["2px", null, "5px"],
                     }}
                   >
                     comments
-                  </span>
+                  </Text>
                 </Box>
               </HStack>
             </Card>
