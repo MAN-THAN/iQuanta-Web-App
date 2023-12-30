@@ -21,10 +21,10 @@ import { PenSquare, Settings } from "lucide-react";
 import { BsDot } from "react-icons/bs";
 import { useRouter } from "next/navigation";
 import FullProfileView from "./fullProfileView";
-import { useQuery, useMutation } from "react-query";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 import { getProfileInfo } from "@/api/profile";
 import { useDispatch, useSelector } from "react-redux";
-import { addUserDetailedData } from "@/store/slices/userSlice";
+import { addUserData, addUserDetailedData } from "@/store/slices/userSlice";
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -38,19 +38,34 @@ const EditProfile = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const dispatch = useDispatch();
   const router = useRouter();
-  const [state, setState] = useState();
-  const { _id: uid } = useSelector((state) => state.userData);
+  const queryClient = useQueryClient();
+  const {
+    _id: uid,
+    name,
+    phone,
+    email,
+    bio,
+    dob,
+    gender,
+    education,
+    workEx,
+    medicalCondition,
+    profilePic,
+    location,
+    exams
+  } = useSelector((state) => state.userData);
+
   const formik = useFormik({
     initialValues: {
-      name: "",
-      phone: "",
-      email: "",
-      bio: "",
-      dob: "",
-      gender: "",
-      education: "",
-      workEx: "",
-      medicalCondition: "",
+      name: name || "",
+      phone: phone || "",
+      email: email || "",
+      bio: bio || "",
+      dob: dob || "",
+      gender: gender || "",
+      education: education || "",
+      workEx: workEx || "",
+      medicalCondition: medicalCondition || "",
     },
     validationSchema: commonValidationSchema,
     onSubmit: (values) => {
@@ -58,6 +73,7 @@ const EditProfile = () => {
       mutation.mutate(values);
     },
   });
+
   const { isLoading, data, isError, error, isPending, isSuccess } = useQuery({
     queryKey: ["getUserDetailData", uid],
     queryFn: () => getProfileInfo(uid),
@@ -65,9 +81,10 @@ const EditProfile = () => {
       toast.error(`${error?.response?.data.error.message}`, {
         position: toast.POSITION.TOP_RIGHT,
       }),
-    onSuccess: (res) => setState(res.data.data.user_data),
+    onSuccess: (res) => {
+      dispatch(addUserData(res?.data?.data?.user_data));
+    },
   });
-  console.log(state);
   const mutation = useMutation({
     mutationFn: (payload) => updateProfileInfo(uid, payload),
     onMutate: (variables) => {
@@ -83,6 +100,7 @@ const EditProfile = () => {
       });
       setUpdateProfile(true);
       console.log(res);
+      queryClient.invalidateQueries("getUserDetailData");
     },
     onSettled: (data, error, variables, context) => {},
   });
@@ -144,7 +162,7 @@ const EditProfile = () => {
                     objectFit="contain"
                     width="100%"
                     height="100%"
-                    src={state?.profile_pic ? state.profile_pic : "/noImage.svg"}
+                    src={profilePic ? profilePic : "/noImage.svg"}
                     alt="Profile Image"
                   />
                 </Box>
@@ -153,18 +171,18 @@ const EditProfile = () => {
             <FullProfileView isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
             <Box mt="16">
               <Text fontSize="2xl" textAlign="center" fontWeight="600" color="heading.900">
-                {state?.name}
+                {name}
               </Text>
               <Flex align="center" justify="center" fontSize="md" color="text.700">
-                <span>{state?.gender},23 years</span>
+                <span>{gender},23 years</span>
                 <span>
                   <BsDot />
                 </span>
-                <span>Mumbai, Maharashtra </span>
+                <span>{location}</span>
               </Flex>
             </Box>
             <Flex align="center" justify="center" gap={3} pt="4">
-              {state?.exams?.map((item, ind) => {
+              {exams?.map((item, ind) => {
                 return (
                   <Badge key={ind} px="4" py="2" rounded="2xl" color="text.900" colorScheme="green">
                     {item}
@@ -173,11 +191,7 @@ const EditProfile = () => {
               })}
             </Flex>
             <Box fontSize="md" pt="5">
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ex esse laborum error, possimus culpa tenetur
-                aliquam neque corrupti excepturi ratione expedita illum amet saepe tempore voluptas. Corporis animi
-                veniam accusamus!
-              </p>
+              <p>{bio}</p>
             </Box>
           </CardBody>
         </Card>
@@ -193,7 +207,7 @@ const EditProfile = () => {
                   type="text"
                   id="name"
                   readOnly={updateProfile}
-                  value={state?.name}
+                  value={formik.values.name}
                   placeholder="Name"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -213,7 +227,7 @@ const EditProfile = () => {
                     type="number"
                     maxLength="10"
                     readOnly={updateProfile}
-                    value={state?.phone}
+                    value={formik.values.phone}
                     placeholder="Phone number"
                     name="phone"
                     onChange={formik.handleChange}
@@ -229,7 +243,7 @@ const EditProfile = () => {
                 <Input
                   type="email"
                   readOnly={updateProfile}
-                  value={state?.email}
+                  value={formik.values.email}
                   placeholder="Email"
                   name="email"
                   onChange={formik.handleChange}
@@ -241,7 +255,13 @@ const EditProfile = () => {
               </Box>
               <Box width="100%">
                 <FormLabel>Bio</FormLabel>
-                <Textarea placeholder="Here is a sample placeholder" readOnly={updateProfile} value={state?.bio} />
+                <Textarea
+                  name="bio"
+                  onChange={formik.handleChange}
+                  placeholder="Here is a sample placeholder"
+                  readOnly={updateProfile}
+                  value={formik.values.bio}
+                />
               </Box>
             </FormControl>
             <Text
@@ -269,7 +289,7 @@ const EditProfile = () => {
                 <Input
                   type="date"
                   placeholder="DoB"
-                  value={state?.dob}
+                  value={formik.values.dob}
                   readOnly={updateProfile}
                   id="dob"
                   onChange={formik.handleChange}
@@ -285,7 +305,7 @@ const EditProfile = () => {
                 <Input
                   type="text"
                   readOnly={updateProfile}
-                  value={state?.gender}
+                  value={formik.values.gender}
                   placeholder="Gender"
                   name="gender"
                   onChange={formik.handleChange}
@@ -301,7 +321,7 @@ const EditProfile = () => {
                   type="text"
                   placeholder="Education"
                   readOnly={updateProfile}
-                  value={state?.education}
+                  value={formik.values.education}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   name="education"
@@ -316,7 +336,7 @@ const EditProfile = () => {
                   type="text"
                   placeholder="Experience"
                   readOnly={updateProfile}
-                  value={state?.workEx}
+                  value={formik.values.workEx}
                   name="workEx"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -331,7 +351,7 @@ const EditProfile = () => {
                   type="text"
                   placeholder="Medical Conditiom"
                   readOnly={updateProfile}
-                  value={state?.medicalCondition}
+                  value={formik.values.medicalCondition}
                   name="medicalCondition"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}

@@ -9,6 +9,8 @@ import CoursesAddCard from "../feature/coursesAddCard";
 import { getUpcomingEvents } from "@/api/events";
 import { useQuery } from "react-query";
 import { useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const UpcomingSection = () => {
   const [state, setState] = useState();
