@@ -1,11 +1,21 @@
 import { Box, HStack, Image, ListItem, UnorderedList } from "@chakra-ui/react";
 import { MoreHorizontal } from "lucide-react";
-import React from "react";
+import React, { useEffect } from "react";
 
-const RowButton = ({ fileInputRef, handleClick, handleChange, handleOptionButtonClick, selectedFiles }) => {
+const RowButton = ({ fileInputRef, handleClick, handleChange, handleOptionButtonClick, selectedFiles, reference}) => {
   const handleButtonClick = (componentName) => {
     handleOptionButtonClick(componentName );
   };
+  console.log(reference.current);
+  useEffect(() => {
+    let clickEvent = new MouseEvent("click", {
+      "view": window,
+      "bubbles": true,
+      "cancelable": false
+  });
+    const element = reference.current;
+    element.dispatchEvent(clickEvent)
+  }, [])
   return (
     <HStack alignItems="center" justifyContent="space-between" p="0" width="full">
       <UnorderedList cursor="pointer" listStyleType="none" gap="6" display="flex">
@@ -18,6 +28,7 @@ const RowButton = ({ fileInputRef, handleClick, handleChange, handleOptionButton
           py="3"
           display="flex"
           gap="4"
+          ref={reference}
         >
           <Image alt="img icon" src="/colorImage.svg" />
           <input id="fileInput1" type="file" ref={fileInputRef} style={{ display: "none" }} onChange={handleChange} />

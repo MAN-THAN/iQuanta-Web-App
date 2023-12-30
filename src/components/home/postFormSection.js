@@ -18,7 +18,7 @@ const PostFormSection = ({ openModal }) => {
           />
         </Box>
         <Box width="full" onClick={openModal}>
-          <Text ml="4">Create a new post</Text>
+          <Text cursor={"pointer"} ml="4">Create a new post</Text>
         </Box>
       </Flex>
       <Divider pt="4" />
@@ -31,7 +31,7 @@ const PostFormSection = ({ openModal }) => {
               borderRight: "1px solid #D9D9D4",
             }}
           >
-            <div className="flex items-center justify-center gap-2 text-sm font-semibold">
+            <div className="flex items-center justify-center gap-2 text-sm font-semibold" onClick={() => openModal("withImg")}>
               <CiImageOn size="26px" fontWeight="800" />
               <span>Photos/Videos</span>
             </div>

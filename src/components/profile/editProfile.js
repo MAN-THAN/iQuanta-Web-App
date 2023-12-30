@@ -141,7 +141,7 @@ const EditProfile = () => {
                 <Box boxSize="130px" rounded="full">
                   <Image
                     rounded="full"
-                    objectFit="cover"
+                    objectFit="contain"
                     width="100%"
                     height="100%"
                     src={state?.profile_pic ? state.profile_pic : "/noImage.svg"}

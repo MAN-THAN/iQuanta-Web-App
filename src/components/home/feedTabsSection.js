@@ -83,7 +83,7 @@ const FeedTabsSection = () => {
                       reactionCount={item?.reactionCount}
                       commentCount={item?.commentCount}
                       createdAt={item?.postTypeId?.createdAt}
-
+                      media={item?.postTypeId?.media}
                     />
                   );
                 else if (item.postType === "memes")

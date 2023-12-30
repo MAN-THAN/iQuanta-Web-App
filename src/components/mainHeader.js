@@ -65,9 +65,8 @@ const MainHeader = () => {
               <Image
                 rounded="full"
                 objectFit="cover"
-                width="80%"
-                height="80%"
-                src={state?.profile_pic ? state.profile_pic : "/noImage.svg"}
+                width="28px"
+                src={state?.profilePic ? state.profilePic : "/noImage.svg"}
                 alt="Profile Image"
               />
             </Box>

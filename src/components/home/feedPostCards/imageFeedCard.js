@@ -6,16 +6,15 @@ import CommentSlider from "@/components/postCards/commentSlider/commentSlider";
 import { MdPlayArrow } from "react-icons/md";
 import moment from "moment";
 
-const ImageFeedCard = ({ name, uid, title, reactionCount, commentCount, createdAt }) => {
+const ImageFeedCard = ({ name, uid, title, reactionCount, commentCount, createdAt, media }) => {
   const getTime = () => {
     const endDate = moment(createdAt);
     const duration = moment.duration(endDate.diff(moment(Date.now())));
     const hours = duration.asHours();
-    console.log(hours, "hours");
-    console.log(duration, "duration");
+    // console.log(hours, "hours");
+    // console.log(duration, "duration");
     return Math.trunc(Math.abs(hours));
   };
-  getTime();
   return (
     <Box bg="#fff" mt="4">
       <HStack align="center" justifyContent="space-between" padding={["3", null, "4"]}>
@@ -51,7 +50,7 @@ const ImageFeedCard = ({ name, uid, title, reactionCount, commentCount, createdA
         <Text fontSize="14px" lineHeight="24px">
           <p>{title}</p>
         </Text>
-        <Image alt="video" src="/videoImg.png" />
+        <Image alt="video" src={media?.[0]} />
         <HStack align="center" fontWeight="400" fontSize="14px" padding="4">
           <Box display="flex" alignItems="center">
             <LikeEmojiGroup />

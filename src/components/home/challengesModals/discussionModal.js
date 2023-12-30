@@ -52,6 +52,9 @@ const DiscussionModal = ({ isOpen, onClose }) => {
   const [selectedType, setSelectedType] = useState(null);
   const queryClient = useQueryClient();
   const { name } = useSelector((state) => state.userData);
+  console.log(selectedFiles);
+  const ref= useRef(12);
+  console.log(isOpen)
 
   const handleTypingStart = () => {
     setIsTyping(true);
@@ -128,6 +131,7 @@ const DiscussionModal = ({ isOpen, onClose }) => {
       console.log(res);
       queryClient.invalidateQueries("getAllPosts");
       setText();
+      setSelectedFiles([]);
       onClose();
     },
     onSettled: (data, error, variables, context) => {},
@@ -244,6 +248,7 @@ const DiscussionModal = ({ isOpen, onClose }) => {
                 handleChange={handleChange}
                 selectedFiles={selectedFiles}
                 handleOptionButtonClick={handleOptionButtonClick}
+                reference={ref}
               />
 
               <Button
@@ -254,7 +259,13 @@ const DiscussionModal = ({ isOpen, onClose }) => {
                   fontSize: "12px",
                 }}
                 variant="solid"
-                onClick={() => mutation.mutate({ title: text, postType: "text" })}
+                onClick={() =>
+                  mutation.mutate({
+                    title: text,
+                    postType: selectedFiles?.length > 0 ? "photo" : "text",
+                    file: selectedFiles,
+                  })
+                }
               >
                 Post
               </Button>
