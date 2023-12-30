@@ -38,7 +38,7 @@ const UserNotification = () => {
       return setState(queryClient.getQueryData(["getUserNotifSettings", uid]));
     },
     onError: (error, variables, context) =>
-      toast.error(`${error?.response?.data.error.message}`, {
+      toast.error(`${error?.response?.data.error?.message}`, {
         position: toast.POSITION.TOP_RIGHT,
       }),
     onSuccess: (res) => {

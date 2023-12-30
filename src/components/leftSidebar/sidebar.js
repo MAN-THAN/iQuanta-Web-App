@@ -57,7 +57,7 @@ const Leftsidebar = () => {
     {
       icon: <BiGroup className="text-xl" />,
       nav: "Groups",
-      path: "",
+      path: "/groups",
     },
     {
       icon: <TbBrandGoogleAnalytics className="text-xl" />,
