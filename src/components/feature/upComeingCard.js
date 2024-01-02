@@ -1,44 +1,16 @@
 import React from "react";
-import {
-  Card,
-  Box,
-  Stack,
-  Heading,
-  Text,
-  Button,
-  HStack,
-  Flex,
-} from "@chakra-ui/react";
+import { Card, Box, Stack, Heading, Text, Button, HStack, Flex } from "@chakra-ui/react";
 import { CalendarDays, ChevronRight, Dot, Scale } from "lucide-react";
 import { useRouter, usePathname } from "next/navigation";
 
-const UpComeingCard = ({ style, id }) => {
+const UpComeingCard = ({ style, id ,width }) => {
   const router = useRouter();
   const path = usePathname();
   return (
     <Box mb="4">
-      {path === "/learn/classList" ? (
-        ""
-      ) : path === "/" ? (
-        ""
-      ) : (
-        <Flex align="center" justify="space-between" pb="4">
-          <HStack>
-            <Box>
-              <CalendarDays />
-            </Box>
-            <Heading fontSize="18px" fontWeight="500">
-              Calender
-            </Heading>
-          </HStack>
-          <Box>
-            <ChevronRight />
-          </Box>
-        </Flex>
-      )}
       <Card
         maxW="sm"
-        minW='xs'
+        minW="xs"
         bg="#5146D6"
         h="auto"
         rounded="xl"
@@ -57,15 +29,7 @@ const UpComeingCard = ({ style, id }) => {
             </Text>
           </Flex>
         </Box>
-        <Flex
-          zIndex="9"
-          align="center"
-          justify="space-between"
-          bg="#000000B8"
-          rounded="lg"
-          m="2"
-          padding="2"
-        >
+        <Flex zIndex="9" align="center" justify="space-between" bg="#000000B8" rounded="lg" m="2" padding="2">
           <Stack align="self-start">
             <Text fontSize="16px" color="#fff">
               Logical Reasoning

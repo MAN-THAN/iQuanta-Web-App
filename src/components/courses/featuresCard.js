@@ -6,7 +6,7 @@ const FeaturesCard = ({ data, onButtonClick }) => {
     const router = useRouter();
 
     return (
-        <Card rounded='2xl' width={{ base: '100%', md: "48%" }} bg={randomColors(['#336792', '#E56C51', '#5146D6', '#339287'])}>
+        <Card rounded='2xl' width={{ base: '100%', md: "48%" }} bg={randomColors([ '#E56C51', '#5146D6', '#339287'])}>
             <CardBody>
                 <Image
                     src={data.img}

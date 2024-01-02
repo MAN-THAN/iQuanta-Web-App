@@ -1,7 +1,40 @@
-import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
-import React from "react";
+import { Box, GridItem, Tab, TabList, TabPanel, TabPanels, Tabs, useDisclosure } from "@chakra-ui/react";
+import { MessagesSquare, ShieldCheck } from "lucide-react";
+import PostFormSection from "../home/postFormSection";
+import TextFeedCard from "../home/feedPostCards/textFeedCard";
+import ImageFeedCard from "../home/feedPostCards/imageFeedCard";
+import CardFeedCard from "../home/feedPostCards/cardFeedCard";
+import PollFeedCard from "../home/feedPostCards/pollFeedCard";
+import { useState } from "react";
+import { useQuery, useInfiniteQuery } from "react-query";
+import { useSelector } from "react-redux";
+import { getAllPost } from "@/api/feed/userPost";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import FeaturesCard from "../courses/featuresCard";
+import { featursCard } from "@/utilities/comanData";
+import UpComeingCard from "../feature/upComeingCard";
+import DiscussionModal from "../home/challengesModals/discussionModal";
+import ExamTab from "./examTab";
 
 const GroupTabList = () => {
+  const { isOpen: isOpenChallenge, onOpen: onOpenChallenge, onClose: onCloseChallenge } = useDisclosure();
+  const { isOpen: isOpenDiscussion, onOpen: onOpenDiscussion, onClose: onCloseDiscussion } = useDisclosure();
+  const [clickPhoto, setClickPhoto] = useState(false);
+  const [state, setState] = useState();
+  const { _id: uid } = useSelector((state) => state.userData);
+  const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } = useInfiniteQuery({
+    queryKey: ["getAllPosts", uid],
+    queryFn: ({ pageParam = 1 }) => getAllPost(pageParam),
+    getNextPageParam: (lastPage, pages) => lastPage.nextCursor,
+    onError: (error, variables, context) =>
+      toast.error(`${error?.response?.data?.error?.message || "Some error"}`, {
+        position: toast.POSITION.TOP_RIGHT,
+      }),
+    onSuccess: (res) => setState(res.pages[0]?.data.data.allPostData),
+  });
+  console.log(state);
+
   const tabs = [
     {
       tabName: "Discussions",
@@ -36,36 +69,135 @@ const GroupTabList = () => {
   ];
 
   return (
-    <Tabs variant="soft-rounded">
-      <TabList gap="4" pt="5">
-        {tabs.map((da, i) => (
-          <Tab
-            key={i}
-            fontSize="14px"
-            width="fit-content"
-            whiteSpace="nowrap"
-            bg="black.700"
-            color="#fff"
-            _selected={{
-              color: "#333",
-              bg: "#fff",
-            }}
-            border="1px solid"
-            px="3"
-          >
-            {da.tabName}
-          </Tab>
-        ))}
-      </TabList>
-      <TabPanels>
-        <TabPanel>
-          <p>one!</p>
-        </TabPanel>
-        <TabPanel>
-          <p>two!</p>
-        </TabPanel>
-      </TabPanels>
-    </Tabs>
+    <>
+      <DiscussionModal isOpen={isOpenDiscussion} onClose={onCloseDiscussion} clickPhoto={clickPhoto} />
+      <Tabs variant="soft-rounded">
+        <TabList gap="4" pt="5" overflow="scroll">
+          {tabs.map((da, i) => (
+            <Tab
+              key={i}
+              fontSize="14px"
+              width="fit-content"
+              whiteSpace="nowrap"
+              bg="black.700"
+              color="#fff"
+              _selected={{
+                color: "#333",
+                bg: "#fff",
+              }}
+              border="1px solid"
+              px="3"
+            >
+              {da.tabName}
+            </Tab>
+          ))}
+        </TabList>
+        <TabPanels>
+          <TabPanel padding="0">
+            <PostFormSection openModal={onOpenDiscussion} setClickPhoto={setClickPhoto} />
+            {state?.map((item, ind) => {
+              if (item.postType === "photo")
+                return (
+                  <ImageFeedCard
+                    name={item?.createdBy?.name}
+                    uid={item?.createdBy?._id}
+                    title={item?.postTypeId?.title}
+                    reactionCount={item?.reactionCount}
+                    commentCount={item?.commentCount}
+                    createdAt={item?.postTypeId?.createdAt}
+                    media={item?.postTypeId?.media}
+                  />
+                );
+              else if (item.postType === "memes")
+                return (
+                  <CardFeedCard
+                    name={item?.createdBy?.name}
+                    uid={item?.createdBy?._id}
+                    title={item?.postTypeId?.title}
+                    reactionCount={item?.reactionCount}
+                    commentCount={item?.commentCount}
+                  />
+                );
+              else if (item.postType === "text")
+                return (
+                  <TextFeedCard
+                    name={item?.createdBy?.name}
+                    uid={item?.createdBy?._id}
+                    title={item?.postTypeId?.title}
+                    reactionCount={item?.reactionCount}
+                    commentCount={item?.commentCount}
+                  />
+                );
+              else if (item.postType === "poll")
+                return (
+                  <PollFeedCard
+                    name={item?.createdBy?.name}
+                    uid={item?.createdBy?._id}
+                    title={item?.postTypeId?.title}
+                    reactionCount={item?.reactionCount}
+                    commentCount={item?.commentCount}
+                  />
+                );
+              else if (item.postType === "video")
+                return (
+                  <ImageFeedCard
+                    name={item?.createdBy?.name}
+                    uid={item?.createdBy?._id}
+                    title={item?.postTypeId?.title}
+                    reactionCount={item?.reactionCount}
+                    commentCount={item?.commentCount}
+                  />
+                );
+              // else if (item.post_type === "video") return <ImageFeedCard />;
+              // else if (item.post_type === "video") return <SuggestionSection />;
+              // else if (item.post_type === "video") return <PollFeedCard />;
+            })}
+          </TabPanel>
+          <TabPanel>
+            <p>two!</p>
+          </TabPanel>
+          <TabPanel>
+            <ExamTab/>
+          </TabPanel>
+          <TabPanel>
+            <Box display="flex" flexWrap="wrap" gap="5">
+              {featursCard.map((data, index) => (
+                <FeaturesCard
+                  data={data}
+                  key={index}
+                  onButtonClick={() => handleCardButtonClick(`/courses/${index}`)}
+                />
+              ))}
+            </Box>
+          </TabPanel>
+          <TabPanel>
+            <p>four!</p>
+          </TabPanel>
+          <TabPanel>
+            <p>five!</p>
+          </TabPanel>
+          <TabPanel>
+            {[...Array(4)].map((e, i) => (
+              <Box width="100%">
+                <UpComeingCard width={"100%"} id={i} />
+              </Box>
+            ))}
+          </TabPanel>
+          <TabPanel>
+            <p>seven!</p>
+          </TabPanel>
+          <TabPanel>
+            <p>eight!</p>
+          </TabPanel>
+          <TabPanel>
+            <p>nine!</p>
+          </TabPanel>
+          <TabPanel>
+            <p>ten!</p>
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
+    </>
   );
 };
 
