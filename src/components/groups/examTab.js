@@ -1,8 +1,13 @@
-import { Box, Flex, HStack, Image, Stack, Text } from "@chakra-ui/react";
-import { ArrowRight, Dot } from "lucide-react";
+import { randomColors } from "@/utilities/commonFunctions";
+import { Box, HStack, Image, Text } from "@chakra-ui/react";
+import { ArrowRight } from "lucide-react";
 import React from "react";
+import FeaturedCoursesCraousel from "./groupExams/featuredCoursesCraousel";
+import ImportantNewsCraousel from "./groupExams/importantNewsCraousel";
+import { useRouter } from "next/navigation";
 
 const ExamTab = () => {
+  const router = useRouter();
   return (
     <>
       <Text py="2">
@@ -19,6 +24,7 @@ const ExamTab = () => {
           mt="4"
           rounded="2xl"
           minW="300px"
+          onClick={() => router.push("/groups/1/eligibilityAndFees")}
         >
           <HStack align="center">
             <Box width="32px" height="32px" bg="#5146D6" p="2" rounded="lg">
@@ -41,6 +47,7 @@ const ExamTab = () => {
           mt="4"
           rounded="2xl"
           minW="300px"
+          onClick={() => router.push("")}
         >
           <HStack align="center">
             <Box width="32px" height="32px" bg="#5146D6" p="2" rounded="lg">
@@ -63,6 +70,7 @@ const ExamTab = () => {
           mt="4"
           rounded="2xl"
           minW="300px"
+          onClick={() => router.push("")}
         >
           <HStack align="center">
             <Box width="32px" height="32px" bg="#5146D6" p="2" rounded="lg">
@@ -85,6 +93,7 @@ const ExamTab = () => {
           mt="4"
           rounded="2xl"
           minW="300px"
+          onClick={() => router.push("")}
         >
           <HStack align="center">
             <Box width="32px" height="32px" bg="#5146D6" p="2" rounded="lg">
@@ -99,6 +108,8 @@ const ExamTab = () => {
           </Box>
         </Box>
       </Box>
+      <FeaturedCoursesCraousel />
+      <ImportantNewsCraousel />
     </>
   );
 };

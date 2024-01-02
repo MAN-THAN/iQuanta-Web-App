@@ -1,4 +1,3 @@
-import React from "react";
 import { Card, Box, Stack, Heading, Text, Button, HStack, Flex } from "@chakra-ui/react";
 import { CalendarDays, ChevronRight, Dot, Scale } from "lucide-react";
 import { useRouter, usePathname } from "next/navigation";
@@ -9,7 +8,7 @@ const UpComeingCard = ({ style, id ,width }) => {
   return (
     <Box mb="4">
       <Card
-        maxW="sm"
+        // maxW="sm"
         minW="xs"
         bg="#5146D6"
         h="auto"

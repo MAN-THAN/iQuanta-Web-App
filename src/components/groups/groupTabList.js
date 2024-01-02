@@ -16,6 +16,9 @@ import { featursCard } from "@/utilities/comanData";
 import UpComeingCard from "../feature/upComeingCard";
 import DiscussionModal from "../home/challengesModals/discussionModal";
 import ExamTab from "./examTab";
+import PracticeQAs from "./practiceQAs";
+import MockTests from "./mockTests";
+import FilesTab from "./filesTab";
 
 const GroupTabList = () => {
   const { isOpen: isOpenChallenge, onOpen: onOpenChallenge, onClose: onCloseChallenge } = useDisclosure();
@@ -157,7 +160,7 @@ const GroupTabList = () => {
             <p>two!</p>
           </TabPanel>
           <TabPanel>
-            <ExamTab/>
+            <ExamTab />
           </TabPanel>
           <TabPanel>
             <Box display="flex" flexWrap="wrap" gap="5">
@@ -171,20 +174,20 @@ const GroupTabList = () => {
             </Box>
           </TabPanel>
           <TabPanel>
-            <p>four!</p>
+            <PracticeQAs />
           </TabPanel>
           <TabPanel>
-            <p>five!</p>
+            <MockTests/>
           </TabPanel>
           <TabPanel>
             {[...Array(4)].map((e, i) => (
               <Box width="100%">
-                <UpComeingCard width={"100%"} id={i} />
+                <UpComeingCard id={i} />
               </Box>
             ))}
           </TabPanel>
           <TabPanel>
-            <p>seven!</p>
+            <FilesTab/>
           </TabPanel>
           <TabPanel>
             <p>eight!</p>
