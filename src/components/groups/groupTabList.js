@@ -98,7 +98,7 @@ const GroupTabList = () => {
         <TabPanels>
           <TabPanel padding="0">
             <PostFormSection openModal={onOpenDiscussion} setClickPhoto={setClickPhoto} />
-            {state?.map((item, ind) => {
+           {state?.map((item, ind) => {
               if (item.postType === "photo")
                 return (
                   <ImageFeedCard
@@ -181,7 +181,7 @@ const GroupTabList = () => {
           </TabPanel>
           <TabPanel>
             {[...Array(4)].map((e, i) => (
-              <Box width="100%">
+              <Box key={i} width="100%">
                 <UpComeingCard id={i} />
               </Box>
             ))}

@@ -24,19 +24,7 @@ const FeedTabsSection = () => {
   const { isOpen: isOpenChallenge, onOpen: onOpenChallenge, onClose: onCloseChallenge } = useDisclosure();
   const { isOpen: isOpenDiscussion, onOpen: onOpenDiscussion, onClose: onCloseDiscussion } = useDisclosure();
   const [clickPhoto, setClickPhoto] = useState(false);
-  const [state, setState] = useState();
-  const { _id: uid } = useSelector((state) => state.userData);
-  const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } = useInfiniteQuery({
-    queryKey: ["getAllPosts", uid],
-    queryFn: ({ pageParam = 1 }) => getAllPost(pageParam),
-    getNextPageParam: (lastPage, pages) => lastPage.nextCursor,
-    onError: (error, variables, context) =>
-      toast.error(`${error?.response?.data?.error?.message || "Some error"}`, {
-        position: toast.POSITION.TOP_RIGHT,
-      }),
-    onSuccess: (res) => setState(res.pages[0]?.data.data.allPostData),
-  });
-  console.log(state);
+  
   return (
     <>
       <ChallengesModal isOpen={isOpenChallenge} onClose={onCloseChallenge} />
@@ -74,63 +62,6 @@ const FeedTabsSection = () => {
           <TabPanels>
             <TabPanel padding="0">
               <PostFormSection openModal={onOpenDiscussion} setClickPhoto={setClickPhoto} />
-              {state?.map((item, ind) => {
-                if (item.postType === "photo")
-                  return (
-                    <ImageFeedCard
-                      name={item?.createdBy?.name}
-                      uid={item?.createdBy?._id}
-                      title={item?.postTypeId?.title}
-                      reactionCount={item?.reactionCount}
-                      commentCount={item?.commentCount}
-                      createdAt={item?.postTypeId?.createdAt}
-                      media={item?.postTypeId?.media}
-                    />
-                  );
-                else if (item.postType === "memes")
-                  return (
-                    <CardFeedCard
-                      name={item?.createdBy?.name}
-                      uid={item?.createdBy?._id}
-                      title={item?.postTypeId?.title}
-                      reactionCount={item?.reactionCount}
-                      commentCount={item?.commentCount}
-                    />
-                  );
-                else if (item.postType === "text")
-                  return (
-                    <TextFeedCard
-                      name={item?.createdBy?.name}
-                      uid={item?.createdBy?._id}
-                      title={item?.postTypeId?.title}
-                      reactionCount={item?.reactionCount}
-                      commentCount={item?.commentCount}
-                    />
-                  );
-                else if (item.postType === "poll")
-                  return (
-                    <PollFeedCard
-                      name={item?.createdBy?.name}
-                      uid={item?.createdBy?._id}
-                      title={item?.postTypeId?.title}
-                      reactionCount={item?.reactionCount}
-                      commentCount={item?.commentCount}
-                    />
-                  );
-                else if (item.postType === "video")
-                  return (
-                    <ImageFeedCard
-                      name={item?.createdBy?.name}
-                      uid={item?.createdBy?._id}
-                      title={item?.postTypeId?.title}
-                      reactionCount={item?.reactionCount}
-                      commentCount={item?.commentCount}
-                    />
-                  );
-                // else if (item.post_type === "video") return <ImageFeedCard />;
-                // else if (item.post_type === "video") return <SuggestionSection />;
-                // else if (item.post_type === "video") return <PollFeedCard />;
-              })}
             </TabPanel>
             <TabPanel padding="0">
               <ChallengeForm openModal={onOpenChallenge} />

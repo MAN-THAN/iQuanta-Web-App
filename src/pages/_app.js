@@ -13,7 +13,7 @@ import { TbRuler2 } from "react-icons/tb";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 0, 
+      staleTime: 0,
       cacheTime: 900000, // 15 minutes before cache is emptied
       refetchOnMount: true,
       refetchOnReconnect: true,
@@ -51,6 +51,21 @@ const theme = extendTheme({
     button: {
       900: "#171717",
     },
+    dynamic: {
+      bg: {
+        light: "#FFFFFF",
+        dark: "#171717",
+        primary: "#5146D6",
+        secondary: "#F4F3FE",
+      },
+      text: {
+        light: "#2C2C2C",
+        dark: "#FFFFFF",
+        primary: "#455564",
+        secondary: "#636363",
+        accent: "#FF5733",
+      },
+    },
   },
   fontSize: {
     sm: "16px",
@@ -65,10 +80,10 @@ const theme = extendTheme({
     "2xl": "96em",
   },
   styles: {
-    global: {
-      "--custom-border-radius": "8px",
-      "--custom-box-shadow": "0 2px 4px rgba(0, 0, 0, 0.1)",
-    },
+    global: ({ colorMode }) => ({
+      "--bg-color": theme.colors.dynamic.bg[colorMode],
+      "--text-color": theme.colors.dynamic.text[colorMode],
+    }),
   },
 });
 

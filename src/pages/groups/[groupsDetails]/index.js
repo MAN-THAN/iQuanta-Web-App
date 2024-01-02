@@ -14,15 +14,15 @@ const GroupsDetails = () => {
         <Box height="fit-content" position="relative">
           <Image width="100%" src="/groupshead.png" />
           <div className="absolute bg-[#000000d7] w-[100%] bottom-0">
-            <Text color="#fff" p="2" px="5" fontSize="14px">
+            <Text color="#fff" p="2" px="5" fontSize={{ base: "12px", md: "14px" }}>
               Group by iQuanta
             </Text>
           </div>
         </Box>
         <Card>
           <CardBody>
-            <Flex align="center" justifyContent="space-between">
-              <Text fontSize="24px" fontWeight="600">
+            <Flex direction={{ base: "row", md: "row" }} align="center" justifyContent="space-between">
+              <Text fontSize={{ base: "18px", md: "24px" }} fontWeight="600">
                 CAT - 2021
               </Text>
               <HStack align="center" gap="4">
@@ -40,17 +40,17 @@ const GroupsDetails = () => {
                 <MoreVertical />
               </HStack>
             </Flex>
-            <HStack alignItems="center">
+            <HStack alignItems="center" mt={{ base: "4", md: "6" }}>
               <Image src="/Lock.svg" />
-              <Text color="#FFA53B" fontSize="16px" fontWeight="500">
+              <Text color="#FFA53B" fontSize={{ base: "14px", md: "16px" }} fontWeight="500">
                 Premium Group
               </Text>
-              <Dot color="#636363" size="24px" />
-              <Text color="#636363" fontSize="16px" fontWeight="500">
+              <Dot color="#636363" transform={{ base: "scale(1.5)", md: "scale(2)" }} />
+              <Text color="#636363" fontSize={{ base: "14px", md: "16px" }} fontWeight="500">
                 23k Members
               </Text>
             </HStack>
-            <Box pt="6">
+            <Box mt={{ base: "4", md: "6" }}>
               <AvatarGroups />
             </Box>
           </CardBody>

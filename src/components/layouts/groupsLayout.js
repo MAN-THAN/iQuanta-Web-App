@@ -1,25 +1,27 @@
-import { Box, Flex, } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import React from "react";
 import MainHeader from "../mainHeader";
 import MainLeftnavigation from "@/components/leftNavigations/mainLeftnavigation";
 import UserRightSiderbar from "@/components/rightSidebars/userRightSiderbar";
 import LearnRightSidebar from "../rightSidebars/learnRightSidebar";
+import HomeRightSidebar from "../rightSidebars/homeRightSidebar";
 
 const GroupsLayout = ({ children }) => {
-
   return (
-      <div style={{ marginLeft: "10%", marginRight: "10%" }}>
-        <MainHeader />
-        <div className="flex pt-8">
-          <Box>
-            <MainLeftnavigation />
-          </Box>
-          <Box overflow="hidden" flex="1" pl="6%" pr="4%">
-            {children}
-          </Box>
-          <LearnRightSidebar />
-        </div>
+    <Box marginLeft={{ sm: "0", lg: "10%" }} marginRight={{ sm: "0", lg: "10%" }}>
+      <MainHeader />
+      <div className="flex pt-8">
+        <Box>
+          <MainLeftnavigation />
+        </Box>
+        <Box overflow="hidden" flex="1" px={{base:"2%" ,md:"6%"}}>
+          {children}
+        </Box>
+        <Box display={{ md: "block", sm: "none" }}>
+          <HomeRightSidebar />
+        </Box>
       </div>
+    </Box>
   );
 };
 

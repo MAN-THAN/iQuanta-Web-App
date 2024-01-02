@@ -14,7 +14,7 @@ const FeaturedCoursesCraousel = () => {
       </Flex>
       <Box display="flex" gap="4" overflow="scroll">
         {[...Array(4)].map((e, i) => (
-          <Card
+          <Card key={i}
             rounded="2xl"
             width={{ base: "100%", md: "48%" }}
             minW="311px"
