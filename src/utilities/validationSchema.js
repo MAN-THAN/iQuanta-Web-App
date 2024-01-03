@@ -15,9 +15,10 @@ export const commonValidationSchema = Yup.object({
     .required("*Phone number is required"),
   gender: Yup.string().required("*Please select your gender"),
   dob: Yup.string().required("*Date of Birth is required"),
-  education: Yup.string().required("*Education is required"),
+  graduationStream: Yup.string().required("*Education is required"),
   workEx: Yup.string().required("*Work Experience is required"),
   medicalCondition: Yup.string().required("*Medical Condition is required"),
+  address: Yup.string()
 
   // Add more common fields as needed
 });

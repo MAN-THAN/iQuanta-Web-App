@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Box, Input, Button, Text, Flex, FormControl, FormLabel, Switch } from "@chakra-ui/react";
 import { Plus, X } from "lucide-react";
 
-const PollInputs = () => {
-  const [inputFields, setInputFields] = useState([{ id: 1, value: "" }]);
+const PollInputs = ({inputFields, setInputFields}) => {
+  // const [inputFields, setInputFields] = useState([{ id: 1, value: "" }]);
 
   const handleAddField = () => {
     if (inputFields.length < 5) {

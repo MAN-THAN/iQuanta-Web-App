@@ -40,21 +40,7 @@ const EditProfile = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const [state, setState] = useState();
-  const {
-    _id: uid,
-    name,
-    phone,
-    email,
-    bio,
-    dob,
-    gender,
-    education,
-    workEx,
-    medicalCondition,
-    profilePic,
-    location,
-    exams,
-  } = useSelector((state) => state.userData);
+  const { _id: uid } = useSelector((state) => state.userData);
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -65,9 +51,10 @@ const EditProfile = () => {
       bio: state?.bio || "",
       dob: state?.dob || "",
       gender: state?.gender || "",
-      education: state?.education || "",
-      workEx: state?.workEx || "",
+      graduationStream: state?.graduationStream || "",
+      workExperience: state?.workExperience || "",
       medicalCondition: state?.medicalCondition || "",
+      address: state?.address || "",
     },
     validationSchema: commonValidationSchema,
     onSubmit: (values) => {
@@ -324,13 +311,13 @@ const EditProfile = () => {
                   type="text"
                   placeholder="Education"
                   readOnly={updateProfile}
-                  value={formik.values.education}
+                  value={formik.values.graduationStream}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  name="education"
+                  name="graduationStream"
                 />
-                {!updateProfile && formik.touched.education && formik.errors.education && (
-                  <Text style={{ color: "red", marginTop: "8px", fontSize: "14px" }}>{formik.errors.education}</Text>
+                {!updateProfile && formik.touched.graduationStream && formik.errors.graduationStream && (
+                  <Text style={{ color: "red", marginTop: "8px", fontSize: "14px" }}>{formik.errors.graduationStream}</Text>
                 )}
               </Box>
               <Box py="3" pl="4" width="48%">
@@ -339,17 +326,19 @@ const EditProfile = () => {
                   type="text"
                   placeholder="Experience"
                   readOnly={updateProfile}
-                  value={formik.values.workEx}
-                  name="workEx"
+                  value={formik.values.workExperience}
+                  name="workExperience"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                {!updateProfile && formik.touched.workEx && formik.errors.workEx && (
-                  <Text style={{ color: "red", marginTop: "8px", fontSize: "14px" }}>{formik.errors.workEx}</Text>
+                {!updateProfile && formik.touched.workExperience && formik.errors.workExperience && (
+                  <Text style={{ color: "red", marginTop: "8px", fontSize: "14px" }}>
+                    {formik.errors.workExperience}
+                  </Text>
                 )}
               </Box>
               <Box py="3" pr="4" width="48%">
-                <FormLabel>Medical Conditiom</FormLabel>
+                <FormLabel>Medical Condition</FormLabel>
                 <Input
                   type="text"
                   placeholder="Medical Conditiom"
@@ -363,6 +352,21 @@ const EditProfile = () => {
                   <Text style={{ color: "red", marginTop: "8px", fontSize: "14px" }}>
                     {formik.errors.medicalCondition}
                   </Text>
+                )}
+              </Box>
+              <Box py="3" pr="4" width="48%">
+                <FormLabel>Address</FormLabel>
+                <Input
+                  type="text"
+                  placeholder="Your address"
+                  readOnly={updateProfile}
+                  value={formik.values.address}
+                  name="address"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                {!updateProfile && formik.touched.address && formik.errors.address && (
+                  <Text style={{ color: "red", marginTop: "8px", fontSize: "14px" }}>{formik.errors.address}</Text>
                 )}
               </Box>
             </FormControl>
