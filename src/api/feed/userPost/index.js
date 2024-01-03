@@ -31,3 +31,18 @@ export const createPost = async (payload) => {
     throw err;
   }
 };
+
+export const getDebateParticipants = async (uid) => {
+  try {
+    const res = await request({
+      url: `/feed/v1/user/post/debate/participants/${uid}`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return res;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};

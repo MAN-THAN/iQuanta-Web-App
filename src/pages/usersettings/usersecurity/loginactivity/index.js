@@ -6,6 +6,8 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { useQuery } from "react-query";
 import { getLoginActivity, deleteLoginActivity } from "@/api/security/loginActivity";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const LoginActivity = () => {
   const router = useRouter();
@@ -22,59 +24,61 @@ const LoginActivity = () => {
   });
   console.log(data);
   return (
-    <UserSettingLayout>
-    <Box>
-      <Card>
-        <CardHeader>
-          <HStack>
-            <Box onClick={() => router.back()}>
-              {" "}
-              <ArrowLeft />
-            </Box>
-            <Text fontSize="18px" fontWeight="600">
-              My Login Activity
-            </Text>
-          </HStack>
-        </CardHeader>
-        <CardBody>
-          <Stack>
-            <Text>Where You're Logged In</Text>
-            {state?.map((item, ind) => (
-              <>
-                <HStack key={ind} align="center" justify="space-between">
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Box>
-                      <MapPin />
-                    </Box>
-                    <Box pl="4">
-                      <p style={{ fontSize: "18px", color: "#171717" }}>{item.location}</p>
-                      <p
-                        style={{
-                          fontSize: "14px",
-                          color: "#24B670",
+    <>
+      <UserSettingLayout>
+        <Box>
+          <Card>
+            <CardHeader>
+              <HStack>
+                <Box onClick={() => router.back()}>
+                  {" "}
+                  <ArrowLeft />
+                </Box>
+                <Text fontSize="18px" fontWeight="600">
+                  My Login Activity
+                </Text>
+              </HStack>
+            </CardHeader>
+            <CardBody>
+              <Stack>
+                <Text>Where You're Logged In</Text>
+                {state?.map((item, ind) => (
+                  <>
+                    <HStack key={ind} align="center" justify="space-between">
+                      <Box
+                        sx={{
                           display: "flex",
+                          alignItems: "center",
                         }}
                       >
-                        {item?.status || "Active"} <Dot />
-                        <span style={{ color: "#455564" }}>{item.deviceInfo}</span>
-                      </p>
-                    </Box>
-                  </Box>
-                </HStack>
-              </>
-            ))}
-          </Stack>
-        </CardBody>
-      </Card>
-    </Box>
-    </UserSettingLayout>
+                        <Box>
+                          <MapPin />
+                        </Box>
+                        <Box pl="4">
+                          <p style={{ fontSize: "18px", color: "#171717" }}>{item.location}</p>
+                          <p
+                            style={{
+                              fontSize: "14px",
+                              color: "#24B670",
+                              display: "flex",
+                            }}
+                          >
+                            {item?.status || "Active"} <Dot />
+                            <span style={{ color: "#455564" }}>{item.deviceInfo}</span>
+                          </p>
+                        </Box>
+                      </Box>
+                    </HStack>
+                  </>
+                ))}
+              </Stack>
+            </CardBody>
+          </Card>
+        </Box>
+      </UserSettingLayout>
+      <ToastContainer />
+    </>
   );
 };
-
 
 export default LoginActivity;

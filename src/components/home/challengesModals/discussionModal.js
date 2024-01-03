@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   Button,
   Modal,
@@ -40,7 +40,7 @@ import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const DiscussionModal = ({ isOpen, onClose, clickPhoto}) => {
+const DiscussionModal = ({ isOpen, onClose, clickPhoto }) => {
   const [isTyping, setIsTyping] = useState(false);
   const [text, setText] = useState();
   const fileInputRef = useRef(null);
@@ -49,14 +49,17 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto}) => {
   const [pollOption, setPollOption] = useState(false);
   const [participantsShow, setParticipantsShow] = useState(false);
   const [createMemeShow, setCreateMemeShow] = useState(false);
+  const [options, setOptions] = useState([{ id: 1, value: "" }]);
   const [selectedType, setSelectedType] = useState(null);
+  const [participants, setParticipants] = useState([]);
   const queryClient = useQueryClient();
   const { name } = useSelector((state) => state.userData);
-  console.log(selectedFiles);
+  console.log(selectedComponent);
 
-  const handleTypingStart = () => {
+  const handleTypingStart = useCallback(() => {
     setIsTyping(true);
-  };
+  }, []);
+  console.log(selectedType);
 
   const handleButtonClick = (type) => {
     setSelectedType(type);
@@ -101,12 +104,12 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto}) => {
 
   const renderSelectedComponent = () => {
     switch (selectedComponent) {
-      case "imageAndVideo":
+      case "photo":
         return <ImagePreview selectedFiles={selectedFiles} removeImage={handleRemoveImage} />;
       case "debate":
         return <DebateCard handleParticipants={handleParticipants} />;
       case "poll":
-        return <PollInputs />;
+        return <PollInputs inputFields={options} setInputFields={setOptions} />;
       case "fileUpload":
         return <FileUploadButton />;
       default:
@@ -130,6 +133,8 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto}) => {
       queryClient.invalidateQueries("getAllPosts");
       setText();
       setSelectedFiles([]);
+      setOptions([]);
+      setSelectedComponent(null);
       onClose();
     },
     onSettled: (data, error, variables, context) => {},
@@ -142,6 +147,7 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto}) => {
         isOpen={isOpen}
         size="auto"
         onClose={() => {
+          setSelectedComponent(null);
           onClose();
         }}
       >
@@ -260,8 +266,10 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto}) => {
                 onClick={() =>
                   mutation.mutate({
                     title: text,
-                    postType: selectedFiles?.length > 0 ? "photo" : "text",
+                    postType: selectedComponent,
                     file: selectedFiles,
+                    options: options,
+                    participants:participants
                   })
                 }
               >
@@ -280,7 +288,11 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto}) => {
                 scrollBehavior: "smooth",
               }}
             >
-              <ParticipantsModal closeParticipants={closeParticipants} />
+              <ParticipantsModal
+                closeParticipants={closeParticipants}
+                participants={participants}
+                setParticipants={setParticipants}
+              />
             </ModalBody>
             <Divider />
             <ModalFooter flexDirection="column" alignItems="start">

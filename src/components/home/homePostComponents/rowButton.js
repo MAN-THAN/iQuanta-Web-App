@@ -1,6 +1,7 @@
 import { Box, HStack, Image, ListItem, UnorderedList } from "@chakra-ui/react";
 import { MoreHorizontal } from "lucide-react";
 import React, { useEffect, useRef } from "react";
+import { memo } from "react";
 
 const RowButton = ({ fileInputRef, handleClick, handleChange, handleOptionButtonClick, selectedFiles, clickPhoto }) => {
   const imageRef = useRef();
@@ -16,6 +17,7 @@ const RowButton = ({ fileInputRef, handleClick, handleChange, handleOptionButton
       });
       const element = imageRef.current;
       element.dispatchEvent(clickEvent);
+      clickEvent.stopPropagation();
     }
   }, []);
   return (
@@ -24,7 +26,7 @@ const RowButton = ({ fileInputRef, handleClick, handleChange, handleOptionButton
         <ListItem
           onClick={() => {
             handleClick();
-            handleButtonClick("imageAndVideo");
+            handleButtonClick("photo");
           }}
           cursor="pointer"
           py="3"
