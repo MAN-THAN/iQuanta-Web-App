@@ -35,4 +35,9 @@ export function randomColors(colors) {
   return colors[lastIndex];
 };
 
-
+export const hoverEffect = {
+  background: "linear-gradient(to right, #5146D6 50%, #F1F2F6 50%)",
+  backgroundSize: "200% 100%",
+  backgroundPosition: "right bottom",
+  transition: "background-position 0.5s ease-out, color 0.5s ease-out",
+};

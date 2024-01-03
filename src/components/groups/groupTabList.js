@@ -19,8 +19,11 @@ import ExamTab from "./examTab";
 import PracticeQAs from "./practiceQAs";
 import MockTests from "./mockTests";
 import FilesTab from "./filesTab";
+import { useRouter } from "next/navigation";
+import ImageSwiper from "../home/feedPostCards/imageSwiper";
 
 const GroupTabList = () => {
+  const router = useRouter();
   const { isOpen: isOpenChallenge, onOpen: onOpenChallenge, onClose: onCloseChallenge } = useDisclosure();
   const { isOpen: isOpenDiscussion, onOpen: onOpenDiscussion, onClose: onCloseDiscussion } = useDisclosure();
   const [clickPhoto, setClickPhoto] = useState(false);
@@ -98,7 +101,7 @@ const GroupTabList = () => {
         <TabPanels>
           <TabPanel padding="0">
             <PostFormSection openModal={onOpenDiscussion} setClickPhoto={setClickPhoto} />
-           {state?.map((item, ind) => {
+            {state?.map((item, ind) => {
               if (item.postType === "photo")
                 return (
                   <ImageFeedCard
@@ -165,11 +168,7 @@ const GroupTabList = () => {
           <TabPanel>
             <Box display="flex" flexWrap="wrap" gap="5">
               {featursCard.map((data, index) => (
-                <FeaturesCard
-                  data={data}
-                  key={index}
-                  onButtonClick={() => handleCardButtonClick(`/courses/${index}`)}
-                />
+                <FeaturesCard data={data} key={index} onButtonClick={() => router.push(`/courses/${index}`)} />
               ))}
             </Box>
           </TabPanel>
@@ -177,7 +176,7 @@ const GroupTabList = () => {
             <PracticeQAs />
           </TabPanel>
           <TabPanel>
-            <MockTests/>
+            <MockTests />
           </TabPanel>
           <TabPanel>
             {[...Array(4)].map((e, i) => (
@@ -187,10 +186,10 @@ const GroupTabList = () => {
             ))}
           </TabPanel>
           <TabPanel>
-            <FilesTab/>
+            <FilesTab />
           </TabPanel>
           <TabPanel>
-            <p>eight!</p>
+            <ImageSwiper/>
           </TabPanel>
           <TabPanel>
             <p>nine!</p>

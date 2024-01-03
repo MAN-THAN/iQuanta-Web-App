@@ -10,8 +10,7 @@ const UserRightSiderbar = () => {
   return (
     <>
       <Stack>
-        {path == "/learn/examDetails/subTopics/0" ? <DiscussionCard /> : <FeatureCardSide />}
-        {path == "/learn/examDetails/0" ? <NewsListCard /> : ""}
+       <FeatureCardSide />
       </Stack>
     </>
   );

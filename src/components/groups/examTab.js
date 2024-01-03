@@ -1,10 +1,10 @@
 import { randomColors } from "@/utilities/commonFunctions";
 import { Box, HStack, Image, Text } from "@chakra-ui/react";
 import { ArrowRight } from "lucide-react";
-import React from "react";
 import FeaturedCoursesCraousel from "./groupExams/featuredCoursesCraousel";
 import ImportantNewsCraousel from "./groupExams/importantNewsCraousel";
 import { useRouter } from "next/navigation";
+import { hoverEffect } from "@/utilities/commonFunctions";
 
 const ExamTab = () => {
   const router = useRouter();
@@ -24,7 +24,13 @@ const ExamTab = () => {
           mt="4"
           rounded="2xl"
           minW="300px"
-          onClick={() => router.push("/groups/1/eligibilityAndFees")}
+          sx={{
+            ...hoverEffect,
+            "&:hover": {
+              backgroundPosition: "left bottom",
+              color: "white.900",
+            },
+          }}
         >
           <HStack align="center">
             <Box width="32px" height="32px" bg="#5146D6" p="2" rounded="lg">
@@ -47,7 +53,14 @@ const ExamTab = () => {
           mt="4"
           rounded="2xl"
           minW="300px"
-          onClick={() => router.push("")}
+          cursor="pointer"
+          sx={{
+            ...hoverEffect,
+            "&:hover": {
+              backgroundPosition: "left bottom",
+              color: "white.900",
+            },
+          }}
         >
           <HStack align="center">
             <Box width="32px" height="32px" bg="#5146D6" p="2" rounded="lg">
@@ -70,7 +83,14 @@ const ExamTab = () => {
           mt="4"
           rounded="2xl"
           minW="300px"
-          onClick={() => router.push("")}
+          cursor="pointer"
+          sx={{
+            ...hoverEffect,
+            "&:hover": {
+              backgroundPosition: "left bottom",
+              color: "white.900",
+            },
+          }}
         >
           <HStack align="center">
             <Box width="32px" height="32px" bg="#5146D6" p="2" rounded="lg">
@@ -93,7 +113,14 @@ const ExamTab = () => {
           mt="4"
           rounded="2xl"
           minW="300px"
-          onClick={() => router.push("")}
+          cursor="pointer"
+          sx={{
+            ...hoverEffect,
+            "&:hover": {
+              backgroundPosition: "left bottom",
+              color: "white.900",
+            },
+          }}
         >
           <HStack align="center">
             <Box width="32px" height="32px" bg="#5146D6" p="2" rounded="lg">

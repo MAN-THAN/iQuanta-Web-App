@@ -2,7 +2,7 @@ import { Box, Button, HStack, Image, Stack, Text } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { Table } from "antd";
 import CoursesStory from "@/components/courses/coursesStory";
-import { Bookmark, Save } from "lucide-react";
+import { ArrowLeft, Bookmark, Save } from "lucide-react";
 import LearnLayout from "@/components/layouts/learnLayout";
 
 const CoursesData = () => {
@@ -48,6 +48,9 @@ const CoursesData = () => {
     <LearnLayout>
       <div style={{ backgroundColor: "#fff" }}>
         <Box p="6" bg="#000" roundedTop="2xl">
+          <Box onClick={() => router.back()} color="white.900" py="4" cursor="pointer">
+            <ArrowLeft />
+          </Box>
           <HStack>
             <Image alt="exam image" src="/exam.png" />
             <Text color="#fff">CAT Full Course 2021</Text>

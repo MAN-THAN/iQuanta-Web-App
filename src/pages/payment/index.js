@@ -25,11 +25,12 @@ import {
 import { useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import RootLayout from "@/components/layouts/layout";
+import FeedsLayout from "@/components/layouts/feedsLayout";
 
 const PaymentPage = () => {
   const router = useRouter();
   return (
-    <RootLayout>
+    <FeedsLayout>
       <Box bg="#fff" rounded="2xl">
         <HStack p="6">
           <Box onClick={() => router.back()}>
@@ -228,7 +229,7 @@ const PaymentPage = () => {
           </TabPanels>
         </Tabs>
       </Box>
-    </RootLayout>
+    </FeedsLayout>
   );
 };
 
