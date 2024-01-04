@@ -67,13 +67,11 @@ const ImageSwiper = ({ name, uid, title, reactionCount, commentCount, createdAt,
         </Text>
         <Carousel>
           {sliderIMg.map((da, i) => (
-            <Box position="relative" key={i} width="100%" height="100%">
+            <Box position="relative" key={i} width="100%" height="40vh">
               <Image width="100%" height="100%" objectFit="cover" src={da.img} alt={`Image ${i + 1}`} />
-              <Box position="absolute" top="2" right="2">
-                <Text color="white">
-                  {i + 1}/{sliderIMg.length}
-                </Text>
-              </Box>
+              <Text color="white" position="absolute" top="2" right="2">
+                {i + 1}/{sliderIMg.length}
+              </Text>
             </Box>
           ))}
         </Carousel>

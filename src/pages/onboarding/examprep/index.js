@@ -30,7 +30,7 @@ import { getExams } from "@/api/onboarding";
 import { useSelector } from "react-redux";
 import OnBordingLayout from "@/components/layouts/onBordingLayout";
 
-const ExamPreChosse = () => {
+const ExamPrep = () => {
   const router = useRouter();
   const [exams, setExams] = useState();
   const [searchTerm, setSearchTerm] = useState();
@@ -75,7 +75,7 @@ const ExamPreChosse = () => {
         position: toast.POSITION.TOP_RIGHT,
       }),
     onSuccess: (data, variables, context) => {
-      router.push("/signup/user_info/more-about");
+      router.push("/onboarding/interest");
     },
     onSettled: (data, error, variables, context) => {},
   });
@@ -225,4 +225,4 @@ const ExamPreChosse = () => {
   );
 };
 
-export default ExamPreChosse;
+export default ExamPrep;

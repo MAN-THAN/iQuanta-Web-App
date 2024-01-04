@@ -35,7 +35,7 @@ import { addUserData } from "@/store/slices/userSlice";
 import { userAuthGen } from "@/api/onboarding";
 import OnBordingLayout from "@/components/layouts/onBordingLayout";
 
-const SubmitOtp = () => {
+const Otp = () => {
   const router = useRouter();
   const { phoneNum } = router?.query;
   const [resend, setResend] = useState(false);
@@ -63,7 +63,7 @@ const SubmitOtp = () => {
         });
       } else {
         router.push({
-          pathname: "/signup/user_info",
+          pathname: "/onboarding",
         });
       }
     },
@@ -211,4 +211,4 @@ const SubmitOtp = () => {
   );
 };
 
-export default SubmitOtp;
+export default Otp;

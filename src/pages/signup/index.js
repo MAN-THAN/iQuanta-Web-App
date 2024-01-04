@@ -56,7 +56,7 @@ const PhoneAuth = () => {
       console.log(res);
       dispatch(addUserData({isExistingUser : res?.data?.data?.existingUser}))
       router.push({
-        pathname: "/signup/submitotp",
+        pathname: "/signup/otp",
         query: { phoneNum: formik.values.phoneNum },
       });
     },

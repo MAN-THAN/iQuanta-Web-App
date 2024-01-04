@@ -28,7 +28,7 @@ import { ToastContainer } from "react-toastify";
 import { useSelector } from "react-redux";
 import OnBordingLayout from "@/components/layouts/onBordingLayout";
 
-const MoreAbout = () => {
+const Interest = () => {
   const router = useRouter();
   const { isLoading, data, isError, error } = useQuery("getInterest", getInterests);
   const [interests, setInterests] = useState();
@@ -212,4 +212,4 @@ const MoreAbout = () => {
   );
 };
 
-export default MoreAbout;
+export default Interest;

@@ -22,7 +22,7 @@ import * as Yup from "yup";
 import { useSelector } from "react-redux";
 import OnBordingLayout from "@/components/layouts/onBordingLayout";
 
-const UserInfo = () => {
+const Onboarding = () => {
   const router = useRouter();
   const { _id: uid } = useSelector((state) => state.userData);
   // Form validation
@@ -69,7 +69,7 @@ const UserInfo = () => {
       }),
     onSuccess: (data, variables, context) => {
       router.push({
-        pathname: "/signup/user_info/exam-pre",
+        pathname: "/onboarding/examprep",
         // query: { phoneNum: formik.values.phoneNum },
       });
     },
@@ -271,4 +271,4 @@ const UserInfo = () => {
 };
 
 
-export default UserInfo;
+export default Onboarding;
