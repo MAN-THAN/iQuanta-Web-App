@@ -15,7 +15,7 @@ export const getAllPost = async (page, limit) => {
   }
 };
 
-export const createPost = async (payload) => {
+export const createPost = async (payload, uid) => {
   try {
     const res = await request({
       url: `/feed/v1/user/post`,
@@ -23,6 +23,7 @@ export const createPost = async (payload) => {
       data: payload,
       headers: {
         "Content-Type": "application/json",
+        uid:uid
       },
     });
     return res;

@@ -53,7 +53,7 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto }) => {
   const [selectedType, setSelectedType] = useState(null);
   const [participants, setParticipants] = useState([]);
   const queryClient = useQueryClient();
-  const { name } = useSelector((state) => state.userData);
+  const { name, _id: uid } = useSelector((state) => state.userData);
   console.log(selectedComponent);
 
   const handleTypingStart = useCallback(() => {
@@ -111,13 +111,13 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto }) => {
       case "poll":
         return <PollInputs inputFields={options} setInputFields={setOptions} />;
       case "fileUpload":
-        return <FileUploadButton />;
+        return <FileUploadButton selectedFiles={selectedFiles} removeImage={handleRemoveImage} />;
       default:
         return null;
     }
   };
   const mutation = useMutation({
-    mutationFn: (payload) => createPost(payload),
+    mutationFn: (payload) => createPost(payload, uid),
     onMutate: (variables) => {
       return console.log("mutation is happening");
     },
@@ -162,6 +162,7 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto }) => {
             handleChange={handleChange}
             selectedFiles={selectedFiles}
             handleButtonClick={handleButtonClick}
+            onClose={onClose}
           />
         ) : !participantsShow ? (
           <ModalContent maxW="xl" position="absolute" bg="white.900" rounded="2xl" color="#000" height="60vh">
@@ -254,7 +255,6 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto }) => {
                 handleOptionButtonClick={handleOptionButtonClick}
                 clickPhoto={clickPhoto}
               />
-
               <Button
                 w="full"
                 sx={{
@@ -266,7 +266,7 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto }) => {
                 onClick={() =>
                   mutation.mutate({
                     title: text,
-                    postType: selectedComponent,
+                    postType: selectedComponent === "fileUpload" ? "photo" : selectedComponent,
                     file: selectedFiles,
                     options: options,
                     participants: participants,

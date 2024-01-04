@@ -2,29 +2,29 @@ import { Avatar, Box, Flex, HStack, ListItem, Text, UnorderedList } from "@chakr
 import { Paperclip, X } from "lucide-react";
 import React, { useRef, useState } from "react";
 
-const FileUploadButton = () => {
+const FileUploadButton = ({selectedFiles, removeImage}) => {
   const fileInputRef = useRef(null);
-  const [selectedFiles, setSelectedFiles] = useState([]);
-  const [uploadProgress, setUploadProgress] = useState(0);
+  // const [selectedFiles, setSelectedFiles] = useState([]);
+  // const [uploadProgress, setUploadProgress] = useState(0);
 
   const handleButtonClick = () => {
     fileInputRef.current.click();
   };
 
-  const handleFileChange = (e) => {
-    const files = e.target.files;
-    const fileArray = Array.from(files).map((file) => ({
-      name: file.name,
-      file,
-    }));
-    setSelectedFiles(fileArray);
-  };
+  // const handleFileChange = (e) => {
+  //   const files = e.target.files;
+  //   const fileArray = Array.from(files).map((file) => ({
+  //     name: file.name,
+  //     file,
+  //   }));
+  //   setSelectedFiles(fileArray);
+  // };
 
-  const handleRemoveFile = (index) => {
-    const updatedFiles = [...selectedFiles];
-    updatedFiles.splice(index, 1);
-    setSelectedFiles(updatedFiles);
-  };
+  // const handleRemoveFile = (index) => {
+  //   const updatedFiles = [...selectedFiles];
+  //   updatedFiles.splice(index, 1);
+  //   setSelectedFiles(updatedFiles);
+  // };
 
 
   return (
@@ -33,20 +33,20 @@ const FileUploadButton = () => {
         ref={fileInputRef}
         type="file"
         style={{ display: "none" }}
-        onChange={handleFileChange}
+        onClick={handleButtonClick}
         multiple
         accept=".pdf, .doc, .docx"
       />
-      {selectedFiles.length > 0 && (
+      {selectedFiles?.length > 0 && (
         <div>
           <UnorderedList pr='4' >
-            {selectedFiles.map((file, index) => (
+            {selectedFiles?.map((file, index) => (
               <ListItem rounded='2xl' key={index} bg="#F1F2F6" display="flex" justifyContent="space-between" alignItems='center' p='3'>
                 <HStack>
                   <Paperclip />
                   <Text>{file.name}</Text>
                 </HStack>
-                <Box onClick={() => handleRemoveFile(index)}>
+                <Box onClick={() => removeImage(index)}>
                   <X />
                 </Box>
               </ListItem>
