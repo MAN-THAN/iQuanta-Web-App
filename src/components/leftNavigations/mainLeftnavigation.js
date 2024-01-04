@@ -14,7 +14,7 @@ import SubTopicLeftBar from "../leftSidebar/subTopicLeftBar";
 import CustomLinkItem from "../common/customLinkItem";
 import { useSelector } from "react-redux";
 
-const MainLeftnavigation = () => {
+const MainLeftNavigation = () => {
   const path = usePathname();
   const router = useRouter();
   const { uid } = useSelector((state) => state.userData);
@@ -98,4 +98,4 @@ const MainLeftnavigation = () => {
   );
 };
 
-export default MainLeftnavigation;
+export default MainLeftNavigation;

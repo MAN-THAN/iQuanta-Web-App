@@ -4,9 +4,8 @@ import PracticeQuestionsSwiper from "@/components/practices/practiceQuestionsSwi
 import VideoComponent from "@/components/common/videoComponent";
 import SubTopicLayout from "@/components/layouts/subTopicLayout";
 
-const SunTopicDetails = () => {
+const SubTopicDetails = () => {
   return (
-    <SubTopicLayout>
       <Box bg="#fff" p="6" rounded="2xl">
         <Flex alignItems="center" justifyContent="space-between">
           <Box display="flex" alignItems="center" gap="3">
@@ -66,8 +65,7 @@ const SunTopicDetails = () => {
           <PracticeQuestionsSwiper />
         </Box>
       </Box>
-    </SubTopicLayout>
   );
 };
 
-export default SunTopicDetails;
+export default SubTopicDetails;

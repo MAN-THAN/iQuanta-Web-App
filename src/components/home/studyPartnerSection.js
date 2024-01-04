@@ -3,7 +3,7 @@ import { Box, Text } from "@chakra-ui/react";
 import { Plus } from "lucide-react";
 import React from "react";
 
-const Pagination = () => {
+const StudyPartnerSection = () => {
   return (
     <Box overflowY="hidden" overflow="scroll">
       <Box className="mt-5 flex gap-2 text-xs font-semibold" width="78vh">
@@ -64,4 +64,4 @@ const Pagination = () => {
   );
 };
 
-export default Pagination;
+export default StudyPartnerSection;

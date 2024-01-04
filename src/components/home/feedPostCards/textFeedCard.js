@@ -92,10 +92,10 @@ const TextFeedCard = ({ classId, name, uid, title, reactionCount, commentCount }
           <HStack>
             <ThumbsUp /> <span>Like</span>
           </HStack>
-          <HStack onClick={() => router.push(`/learn/classList/${classId}/6`)}>
+          <HStack onClick={() => router.push(`/learn/class/${classId}/6`)}>
             <MessageCircle /> <span>Comment</span>
           </HStack>
-          <HStack onClick={() => router.push(`/learn/classList/${classId}/6`)}>
+          <HStack onClick={() => router.push(`/learn/class/${classId}/6`)}>
             <Share2 /> <span>Share</span>
           </HStack>
         </Flex>

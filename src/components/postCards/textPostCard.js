@@ -122,7 +122,7 @@ const TextPostCard = ({ classId }) => {
           <HStack>
             <ThumbsUp /> <span>Like</span>
           </HStack>
-          <HStack onClick={() => router.push(`/learn/classList/${classId}/6`)}>
+          <HStack onClick={() => router.push(`/learn/class/${classId}/6`)}>
             <MessageCircle /> <span>Comment</span>
           </HStack>
         </Flex>

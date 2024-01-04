@@ -1,4 +1,3 @@
-'use client'
 import LiveClassTimer from "@/components/learnAndClass/liveClassTimer";
 import { useParams, useRouter } from "next/navigation";
 import ImagePostCard from "@/components/postCards/imagePostCard";

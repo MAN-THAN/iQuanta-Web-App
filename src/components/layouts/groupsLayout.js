@@ -1,7 +1,7 @@
 import { Box, Flex } from "@chakra-ui/react";
 import React from "react";
 import MainHeader from "../mainHeader";
-import MainLeftnavigation from "@/components/leftNavigations/mainLeftnavigation";
+import MainLeftNavigation from "@/components/leftNavigations/mainLeftNavigation";
 import UserRightSiderbar from "@/components/rightSidebars/userRightSiderbar";
 import LearnRightSidebar from "../rightSidebars/learnRightSidebar";
 import HomeRightSidebar from "../rightSidebars/homeRightSidebar";
@@ -12,7 +12,7 @@ const GroupsLayout = ({ children }) => {
       <MainHeader />
       <div className="flex pt-8">
         <Box>
-          <MainLeftnavigation />
+          <MainLeftNavigation />
         </Box>
         <Box overflow="hidden" flex="1" px={{base:"2%" ,md:"6%"}}>
           {children}

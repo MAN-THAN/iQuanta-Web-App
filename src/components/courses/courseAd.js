@@ -2,7 +2,7 @@ import { Box, Button,  Text } from "@chakra-ui/react";
 import { Dot } from "lucide-react";
 import React from "react";
 
-const CoursesAdd = () => {
+const CoursesAd = () => {
   return (
     <Box bg="#5160E5" p="6" rounded="2xl" color="#fff">
       <Text fontSize="24px" fontWeight="600">
@@ -54,4 +54,4 @@ const CoursesAdd = () => {
   );
 };
 
-export default CoursesAdd;
+export default CoursesAd;

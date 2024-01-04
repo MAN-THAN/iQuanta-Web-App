@@ -8,7 +8,6 @@ const ExamDetailsId = () => {
   const router = useRouter();
   return (
     <>
-      <LearnLayout>
           <Box bg="#000" color="#fff" p="6" roundedTop="2xl">
             <ArrowLeft size="24px" onClick={() => router.back()} cursor="pointer" />
             <HStack align="center" pt="4" gap="5">
@@ -111,7 +110,6 @@ const ExamDetailsId = () => {
               </Button>
             </Stack>
           </VStack>
-      </LearnLayout>
     </>
   );
 };

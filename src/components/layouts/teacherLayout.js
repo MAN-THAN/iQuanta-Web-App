@@ -1,7 +1,7 @@
 import React from "react";
 import { Box } from "@chakra-ui/react";
 import MainHeader from "../mainHeader";
-import MainLeftnavigation from "@/components/leftNavigations/mainLeftnavigation";
+import MainLeftNavigation from "@/components/leftNavigations/mainLeftNavigation";
 import UserRightSiderbar from "@/components/rightSidebars/userRightSiderbar";
 import TeacherRightSidebar from "../rightSidebars/teacherRightSidebar";
 
@@ -12,7 +12,7 @@ const TeacherLayout = ({ children }) => {
         <MainHeader />
         <div className="flex pt-8">
           <Box>
-            <MainLeftnavigation />
+            <MainLeftNavigation />
           </Box>
           <Box overflow="hidden" flex="1" pl="6%" pr="4%">
             {children}

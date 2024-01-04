@@ -1,18 +1,18 @@
 import HomeChatModal from "@/components/chatSection/homeChatModal";
 import FeedTabsSection from "@/components/home/feedTabsSection";
 import GroupSection from "@/components/home/groupSection";
-import Pagination from "@/components/home/pageinationSection";
-import UpcomingSection from "@/components/home/upcomingSection";
+import EventSection from "@/components/home/eventSection";
 import HomeLayout from "@/components/layouts/feedsLayout";
 import GetLocationAndDeviceInfo from "@/components/geoLocation&deviceInfo";
+import StudyPartnerSection from "@/components/home/studyPartnerSection";
 
 const Home = () => {
   return (
     <HomeLayout>
       <GetLocationAndDeviceInfo />
-      <UpcomingSection />
+      <EventSection />
       <GroupSection />
-      <Pagination />
+      <StudyPartnerSection />
       <FeedTabsSection />
       <HomeChatModal />
     </HomeLayout>

@@ -8,7 +8,7 @@ import LearnLayout from "@/components/layouts/learnLayout";
 const ClassList = () => {
   const router = useRouter();
   return (
-    <LearnLayout>
+    <>
       <Box bg="#ffffff" rounded="2xl">
         <HStack p="4">
           <Box cursor="pointer" onClick={() => router.back()}>
@@ -50,7 +50,7 @@ const ClassList = () => {
           </TabPanels>
         </Tabs>
       </Box>
-    </LearnLayout>
+    </>
   );
 };
 

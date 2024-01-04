@@ -1,7 +1,7 @@
 import { Box, Flex, HStack, Text } from "@chakra-ui/react";
 import { ChevronLeft } from "lucide-react";
 import { ChevronRight } from "lucide-react";
-import NoteCard from "../learnAndClass/noteCard";
+import NoteCard from "../learn/noteCard";
 import { featursCard } from "@/utilities/comanData";
 
 const PreparationTips = () => {

@@ -13,7 +13,7 @@ const YourExam = () => {
       <Box>
         <HStack pt="6" pb="3" gap="3" maxW="800px" overflowX="scroll">
           {featursCard.map((data, index) => (
-            <Box key={index} onClick={() => router.push("/learn/examDetails")}>
+            <Box key={index} onClick={() => router.push("/learn/exams")}>
               <CourseCards data={data} />
             </Box>
           ))}

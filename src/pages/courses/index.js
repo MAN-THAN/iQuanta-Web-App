@@ -1,5 +1,5 @@
 import React from "react";
-import CoursesAdd from "@/components/courses/courseAdd";
+import CoursesAdd from "@/components/courses/courseAd";
 import YourCourses from "@/components/courses/yourCourses";
 import OurOnlineCourse from "@/components/courses/ourOnlineCourse";
 import RootLayout from "@/components/layouts/layout";

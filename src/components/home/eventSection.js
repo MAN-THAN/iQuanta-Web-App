@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const UpcomingSection = () => {
+const EventSection = () => {
   const [state, setState] = useState();
   const { _id: uid } = useSelector((state) => state.userData);
   const { isLoading, data, isError, error, isPending, isSuccess } = useQuery({
@@ -128,4 +128,4 @@ const UpcomingSection = () => {
   );
 };
 
-export default UpcomingSection;
+export default EventSection;

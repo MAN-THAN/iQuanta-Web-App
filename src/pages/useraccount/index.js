@@ -7,7 +7,6 @@ const UserAccount = () => {
   return (
     <UserAccountLayout>
       <EditProfile />
-      {/* <UserAccountSidebar/> */}
     </UserAccountLayout>
 
   );

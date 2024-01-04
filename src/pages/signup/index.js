@@ -54,7 +54,7 @@ const PhoneAuth = () => {
       //   position: toast.POSITION.TOP_RIGHT,
       // });
       console.log(res);
-      dispatch(addUserData({isExistingUser : res?.data?.data?.existingUser}))
+      dispatch(addUserData({ isExistingUser: res?.data?.data?.existingUser }));
       router.push({
         pathname: "/signup/otp",
         query: { phoneNum: formik.values.phoneNum },
@@ -100,9 +100,9 @@ const PhoneAuth = () => {
             }}
           ></div>
         </Box>
-        <Box  w={{ base: "100%", md: "60%" }}  position={{ sm: "absolute" ,lg:"unset"}}  bottom={{sm:"0"}}>
+        <Box w={{ base: "100%", md: "60%" }} position={{ sm: "absolute", lg: "unset" }} bottom={{ sm: "0" }}>
           <Container gap="6" mt={{ base: "40px", md: "0" }}>
-            <Stack gap="6" bg='#05050530' p='10' rounded='2xl'>
+            <Stack gap="6" bg="#05050530" p="10" rounded="2xl">
               <Box>
                 <Image alt="logo" src="/logowhite.png" />
               </Box>

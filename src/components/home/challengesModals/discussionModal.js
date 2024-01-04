@@ -269,7 +269,7 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto }) => {
                     postType: selectedComponent,
                     file: selectedFiles,
                     options: options,
-                    participants:participants
+                    participants: participants,
                   })
                 }
               >

@@ -2,7 +2,7 @@ import { Card, Box, Stack, Heading, Text, Button, HStack, Flex } from "@chakra-u
 import { CalendarDays, ChevronRight, Dot, Scale } from "lucide-react";
 import { useRouter, usePathname } from "next/navigation";
 
-const UpComeingCard = ({ style, id ,width }) => {
+const UpComeingCard = ({ style, id, width }) => {
   const router = useRouter();
   const path = usePathname();
   return (
@@ -50,7 +50,7 @@ const UpComeingCard = ({ style, id ,width }) => {
               </Button>
             ) : (
               <Button
-                onClick={() => router.push(`/learn/classList/${id}`)}
+                onClick={() => router.push(`/learn/class/${id}`)}
                 variant="solid"
                 color="#fff"
                 backgroundColor="#9696965C"

@@ -4,7 +4,7 @@ import { Box, Flex, extendTheme } from "@chakra-ui/react";
 import MainHeader from "../mainHeader";
 import UserRightSiderbar from "../rightSidebars/userRightSiderbar";
 import { ChakraProvider } from "@chakra-ui/provider";
-import MainLeftnavigation from "../leftNavigations/mainLeftnavigation";
+import MainLeftNavigation from "../leftNavigations/mainLeftNavigation";
 
 const ActiveMenuLink = ({ children, href }) => {
   const pathname = usePathname();
@@ -25,7 +25,7 @@ const CourseLayout = ({ children }) => {
       <MainHeader />
       <div className="flex pt-8">
         <Box>
-          <MainLeftnavigation />
+          <MainLeftNavigation />
         </Box>
         <Box overflow="hidden" flex="1" pl="6%" pr="4%">
           {children}

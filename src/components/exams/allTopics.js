@@ -74,8 +74,9 @@ const AllTopics = () => {
           p="3"
           mt="4"
           rounded="2xl"
+          cursor='pointer'
           onClick={() => {
-            router.push("/learn/examDetails/subTopics");
+            router.push("/learn/exams/subTopics");
           }}
         >
           <Box width="50px" height="50px" bg="#51D3E5" p="2" rounded="xl">

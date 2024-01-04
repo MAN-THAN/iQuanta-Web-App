@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, HStack, Image, Stack, Text } from "@chakra-ui/react";
 import { ArrowLeft } from "lucide-react";
-import MyNotes from "@/components/learnAndClass/myNotes";
+import MyNotes from "@/components/learn/myNotes";
 import { useRouter } from "next/navigation";
 import LearnLayout from "@/components/layouts/learnLayout";
 
@@ -9,7 +9,7 @@ const SubTopics = () => {
   const router = useRouter();
   return (
     <>
-      <LearnLayout>
+      
         <Box bg="#fff" p="6" rounded="2xl">
           <HStack>
             <ArrowLeft />
@@ -39,7 +39,7 @@ const SubTopics = () => {
                   B
                 </Text>
               </Box>
-              <Stack pl="3" onClick={() => router.push(`/learn/examDetails/subTopics/0`)} cursor="pointer">
+              <Stack pl="3" onClick={() => router.push(`/learn/exams/subTopics/0`)} cursor="pointer">
                 <Text fontSize="16px" fontWeight="500" p="0">
                   Vocabulary - Basic
                   <Text fontSize="12px" color="#666666">
@@ -123,7 +123,7 @@ const SubTopics = () => {
           </Stack>
         </Box>
         <MyNotes />
-      </LearnLayout>
+    
     </>
   );
 };
