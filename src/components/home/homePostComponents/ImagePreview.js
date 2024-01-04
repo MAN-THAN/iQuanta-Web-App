@@ -1,8 +1,10 @@
 import { Box, Flex, HStack, Image } from "@chakra-ui/react";
 import { X } from "lucide-react";
 import React from "react";
+import VideoPlayer from "@/components/common/videoPlayer";
 
 const ImagePreview = ({ selectedFiles, removeImage }) => {
+  console.log(selectedFiles)
   return (
     <>
       <Flex overflowX="scroll"
@@ -37,7 +39,8 @@ const ImagePreview = ({ selectedFiles, removeImage }) => {
             >
               <X size="16px" />
             </Box>
-            <Image src={file} alt={`Card Image ${index + 1}`} boxSize="100%" fit="cover" />
+            {/* <Image src={file} alt={`Card Image ${index + 1}`} boxSize="100%" fit="cover" /> */}
+            <VideoPlayer videoUrl={file}/>
           </Box>
         ))}
       </Flex>

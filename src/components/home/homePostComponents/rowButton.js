@@ -46,7 +46,17 @@ const RowButton = ({ fileInputRef, handleClick, handleChange, handleOptionButton
         <ListItem cursor="pointer" py="3" display="flex" gap="4" onClick={() => handleButtonClick("meme")}>
           <Image alt="megaphone icon" src="/Brush.svg" />
         </ListItem>
-        <ListItem cursor="pointer" py="3" display="flex" gap="4" onClick={() => handleButtonClick("fileUpload")}>
+        <ListItem
+          cursor="pointer"
+          py="3"
+          display="flex"
+          gap="4"
+          onChange={handleChange}
+          onClick={() => {
+            handleClick();
+            handleButtonClick("fileUpload");
+          }}
+        >
           <Image alt="paperchip" src="/Paperclip.svg" />
         </ListItem>
       </UnorderedList>

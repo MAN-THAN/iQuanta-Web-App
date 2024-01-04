@@ -18,11 +18,16 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { ChevronDown } from "lucide-react";
-import React, { useCallback, useRef } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import CreateMeme from "./createMeme";
 import RowButton from "./rowButton";
 import PostTypeMenu from "@/components/common/postTypeMenu";
 import { toPng } from "html-to-image";
+import { useMutation, useQueryClient } from "react-query";
+import { createPost } from "@/api/feed/userPost";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useSelector } from "react-redux";
 
 const CreateMemeModal = ({
   handleTypingStart,
@@ -33,15 +38,41 @@ const CreateMemeModal = ({
   handleChange,
   handleButtonClick,
   handleOptionButtonClick,
+  onClose
 }) => {
   const ref = useRef(null);
-
-
+  const [text, setText] = useState();
+  const { name, _id: uid } = useSelector((state) => state.userData);
+  const mutation = useMutation({
+    mutationFn: (payload) => createPost(payload, uid),
+    onMutate: (variables) => {
+      return console.log("mutation is happening");
+    },
+    onError: (error, variables, context) =>
+      toast.error(`${error?.response?.data.error?.message}`, {
+        position: toast.POSITION.TOP_RIGHT,
+      }),
+    onSuccess: (res, variables, context) => {
+      toast.success("post created successfully!", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      console.log(res);
+      queryClient.invalidateQueries("getAllPosts");
+      setText();
+      onClose();
+      // setSelectedFiles([]);
+      // setOptions([]);
+      // setSelectedComponent(null);
+      // onClose();
+    },
+    onSettled: (data, error, variables, context) => {},
+  });
+  console.log(text);
+  const queryClient = useQueryClient();
   const onButtonClick = useCallback(() => {
     if (ref.current === null) {
       return;
     }
-
     toPng(ref.current, { cacheBust: true })
       .then((dataUrl) => {
         const link = document.createElement("a");
@@ -96,7 +127,7 @@ const CreateMemeModal = ({
                 >
                   <Image boxSize="2.5rem" borderRadius="md" src="/man1.jpg" alt="user profile image" mr="12px" />
                   <Box>
-                    <p style={{ fontSize: "16px", color: "#171717" }}>Himanshu Rohila</p>
+                    <p style={{ fontSize: "16px", color: "#171717" }}>{name}</p>
                     <p style={{ fontSize: "12px", color: "#636363" }}>Grand Master</p>
                   </Box>
                 </Box>
@@ -127,7 +158,13 @@ const CreateMemeModal = ({
                 handleOptionButtonClick={handleOptionButtonClick}
               />
               <Button
-                onClick={onButtonClick}
+                onClick={() =>
+                  mutation.mutate({
+                    title: text,
+                    postType: "memes",
+                    file: [],
+                  })
+                }
                 w="full"
                 sx={{
                   bg: "black !important",
