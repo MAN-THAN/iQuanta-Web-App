@@ -16,7 +16,7 @@ export const commonValidationSchema = Yup.object({
   gender: Yup.string().required("*Please select your gender"),
   dob: Yup.string().required("*Date of Birth is required"),
   graduationStream: Yup.string().required("*Education is required"),
-  workEx: Yup.string().required("*Work Experience is required"),
+  workExperience: Yup.string().required("*Work Experience is required"),
   medicalCondition: Yup.string().required("*Medical Condition is required"),
   address: Yup.string()
 
