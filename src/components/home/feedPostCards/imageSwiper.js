@@ -32,7 +32,7 @@ const ImageSwiper = ({ name, uid, title, reactionCount, commentCount, createdAt,
 
   return (
     <Box bg="#fff" mt="4">
-      <HStack align="center" justifyContent="space-between" padding={["3", null, "4"]}>
+      <HStack align="center" justifyContent="space-between" paddingY={["3", null, "4"]}>
         <Box
           sx={{
             display: "flex",

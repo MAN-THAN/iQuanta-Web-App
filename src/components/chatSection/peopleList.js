@@ -19,7 +19,6 @@ import {
   Text,
   UnorderedList,
 } from "@chakra-ui/react";
-import { DownOutlined } from "@ant-design/icons";
 import { Button, Dropdown, Space } from "antd";
 import {
   ArrowLeft,

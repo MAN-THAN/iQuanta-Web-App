@@ -21,6 +21,12 @@ import MockTests from "./mockTests";
 import FilesTab from "./filesTab";
 import { useRouter } from "next/navigation";
 import ImageSwiper from "../home/feedPostCards/imageSwiper";
+import ChallengeForm from "../home/challengesPostCard/challengeForm";
+import ChallengesModal from "../home/challengesModals/challengesModal";
+import ChallengeCard from "../home/challengesPostCard/challengeCard";
+import ChallengeLivecard from "../home/challengesPostCard/challengeLivecard";
+import SuggestionSection from "../home/suggestionSection";
+import ChallengeLeaderbordCard from "../home/challengesPostCard/challengeLeaderbordCard";
 
 const GroupTabList = () => {
   const router = useRouter();
@@ -76,6 +82,7 @@ const GroupTabList = () => {
 
   return (
     <>
+      <ChallengesModal isOpen={isOpenChallenge} onClose={onCloseChallenge} />
       <DiscussionModal isOpen={isOpenDiscussion} onClose={onCloseDiscussion} clickPhoto={clickPhoto} />
       <Tabs variant="soft-rounded">
         <TabList gap="4" pt="5" overflow="scroll">
@@ -160,7 +167,11 @@ const GroupTabList = () => {
             })}
           </TabPanel>
           <TabPanel>
-            <p>two!</p>
+            <ChallengeForm openModal={onOpenChallenge} />
+            <ChallengeCard />
+            <ChallengeLivecard />
+            <SuggestionSection />
+            <ChallengeLeaderbordCard />
           </TabPanel>
           <TabPanel>
             <ExamTab />
@@ -189,7 +200,7 @@ const GroupTabList = () => {
             <FilesTab />
           </TabPanel>
           <TabPanel>
-            <ImageSwiper/>
+            <ImageSwiper />
           </TabPanel>
           <TabPanel>
             <p>nine!</p>

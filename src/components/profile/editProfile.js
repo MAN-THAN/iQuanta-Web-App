@@ -317,7 +317,9 @@ const EditProfile = () => {
                   name="graduationStream"
                 />
                 {!updateProfile && formik.touched.graduationStream && formik.errors.graduationStream && (
-                  <Text style={{ color: "red", marginTop: "8px", fontSize: "14px" }}>{formik.errors.graduationStream}</Text>
+                  <Text style={{ color: "red", marginTop: "8px", fontSize: "14px" }}>
+                    {formik.errors.graduationStream}
+                  </Text>
                 )}
               </Box>
               <Box py="3" pl="4" width="48%">

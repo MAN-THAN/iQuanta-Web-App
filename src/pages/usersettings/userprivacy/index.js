@@ -40,15 +40,14 @@ const UserPrivacy = () => {
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-  };
+  };     
 
   const handleOpenBlocked = () => {
     setIsOpen(true);
   };
-
   const handleCloseBlocked = () => {
     setIsOpen(false);
-  };
+  }; 
 
   const handleChangeValue = (value) => {
     setSelectedValue(value);
