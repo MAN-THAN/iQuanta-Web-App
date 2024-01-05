@@ -6,7 +6,7 @@ import { Dot, MoreVertical } from "lucide-react";
 import EmojiGroup from "@/components/common/avatarGroups";
 import LikeEmojiGroup from "@/components/common/likeEmojiGroup";
 
-const CommentSlider = () => {
+const CommentSlider = ({comments}) => {
   return (
     <Box width="auto">
       <Swiper
@@ -33,7 +33,7 @@ const CommentSlider = () => {
         modules={[Navigation]}
         className="mySwiper"
       >
-        {[...Array(4)].map((d, i) => (
+        {comments?.map((d, i) => (
           <SwiperSlide key={i}>
             <Card bg="#F1F2F6" minW="280px" rounded="2xl">
               <HStack align="center" justifyContent="space-between" padding={["3", null, "4"]}>

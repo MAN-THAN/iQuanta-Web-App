@@ -45,7 +45,7 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto }) => {
   const [text, setText] = useState();
   const fileInputRef = useRef(null);
   const [selectedFiles, setSelectedFiles] = useState([]);
-  const [selectedComponent, setSelectedComponent] = useState(null);
+  const [selectedComponent, setSelectedComponent] = useState("text");
   const [pollOption, setPollOption] = useState(false);
   const [participantsShow, setParticipantsShow] = useState(false);
   const [createMemeShow, setCreateMemeShow] = useState(false);

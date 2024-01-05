@@ -1,9 +1,9 @@
 import { Box, Flex, extendTheme } from "@chakra-ui/react";
 import React from "react";
 import MainHeader from "../mainHeader";
-import MainLeftNavigation from "@/components/leftNavigations/mainLeftNavigation";
 import UserRightSiderbar from "@/components/rightSidebars/userRightSiderbar";
 import UserAccountSidebar from "../leftSidebar/userAccountSidebar";
+import MainLeftNavigation from "../leftNavigations/mainLeftnavigation";
 import { ChakraProvider } from "@chakra-ui/provider";
 
 const UserAccountLayout = ({ children }) => {
