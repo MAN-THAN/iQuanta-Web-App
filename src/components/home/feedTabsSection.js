@@ -8,6 +8,7 @@ import CardFeedCard from "./feedPostCards/cardFeedCard";
 import PollFeedCard from "./feedPostCards/pollFeedCard";
 import ChallengeCard from "./challengesPostCard/challengeCard";
 import ChallengeForm from "./challengesPostCard/challengeForm";
+import VideoFeedCard from "./feedPostCards/videoFeedCard";
 import ChallengeLivecard from "./challengesPostCard/challengeLivecard";
 import ChallengeLeaderbordCard from "./challengesPostCard/challengeLeaderbordCard";
 import { useState } from "react";
@@ -41,6 +42,7 @@ const FeedTabsSection = () => {
     <>
       <ChallengesModal isOpen={isOpenChallenge} onClose={onCloseChallenge} />
       <DiscussionModal isOpen={isOpenDiscussion} onClose={onCloseDiscussion} clickPhoto={clickPhoto} />
+      {/* user post list */}
       <Box mt={{ base: "6", md: "12" }}>
         <Tabs isFitted>
           <TabList>
@@ -74,12 +76,28 @@ const FeedTabsSection = () => {
           <TabPanels>
             <TabPanel padding="0">
               <PostFormSection openModal={onOpenDiscussion} setClickPhoto={setClickPhoto} />
+              {/* different type of post to select */}
               {state?.map((item, ind) => {
                 if (item.postType === "photo")
                   return (
                     <ImageFeedCard
-                      name={item?.createdBy?.name}
-                      uid={item?.createdBy?._id}
+                      name={item?.postTypeId?.createdBy?.name}
+                      profilePic={item?.postTypeId?.createdBy?.profilePic}
+                      uid={item?.postTypeId?.createdBy?._id}
+                      title={item?.postTypeId?.title}
+                      reactionCount={item?.reactionCount}
+                      commentCount={item?.commentCount}
+                      createdAt={item?.postTypeId?.createdAt}
+                      media={item?.postTypeId?.media}
+                      comments={item?.comments}
+                    />
+                  );
+                else if (item.postType === "video")
+                  return (
+                    <VideoFeedCard
+                      name={item?.postTypeId?.createdBy?.name}
+                      profilePic={item?.postTypeId?.createdBy?.profilePic}
+                      uid={item?.postTypeId?.createdBy?._id}
                       title={item?.postTypeId?.title}
                       reactionCount={item?.reactionCount}
                       commentCount={item?.commentCount}
@@ -90,46 +108,44 @@ const FeedTabsSection = () => {
                 else if (item.postType === "memes")
                   return (
                     <CardFeedCard
-                      name={item?.createdBy?.name}
-                      uid={item?.createdBy?._id}
+                      name={item?.postTypeId?.createdBy?.name}
+                      profilePic={item?.postTypeId?.createdBy?.profilePic}
+                      uid={item?.postTypeId?.createdBy?._id}
                       title={item?.postTypeId?.title}
                       reactionCount={item?.reactionCount}
                       commentCount={item?.commentCount}
+                      createdAt={item?.postTypeId?.createdAt}
+                      media={item?.postTypeId?.media}
                     />
                   );
                 else if (item.postType === "text")
                   return (
                     <TextFeedCard
-                      name={item?.createdBy?.name}
-                      uid={item?.createdBy?._id}
+                      name={item?.postTypeId?.createdBy?.name}
+                      profilePic={item?.postTypeId?.createdBy?.profilePic}
+                      uid={item?.postTypeId?.createdBy?._id}
                       title={item?.postTypeId?.title}
                       reactionCount={item?.reactionCount}
                       commentCount={item?.commentCount}
+                      createdAt={item?.postTypeId?.createdAt}
+                      media={item?.postTypeId?.media}
                     />
                   );
                 else if (item.postType === "poll")
                   return (
                     <PollFeedCard
-                      name={item?.createdBy?.name}
-                      uid={item?.createdBy?._id}
+                      name={item?.postTypeId?.createdBy?.name}
+                      profilePic={item?.postTypeId?.createdBy?.profilePic}
+                      uid={item?.postTypeId?.createdBy?._id}
                       title={item?.postTypeId?.title}
                       reactionCount={item?.reactionCount}
                       commentCount={item?.commentCount}
+                      createdAt={item?.postTypeId?.createdAt}
+                      media={item?.postTypeId?.media}
                     />
                   );
-                else if (item.postType === "video")
-                  return (
-                    <ImageFeedCard
-                      name={item?.createdBy?.name}
-                      uid={item?.createdBy?._id}
-                      title={item?.postTypeId?.title}
-                      reactionCount={item?.reactionCount}
-                      commentCount={item?.commentCount}
-                    />
-                  );
-                // else if (item.post_type === "video") return <ImageFeedCard />;
+
                 // else if (item.post_type === "video") return <SuggestionSection />;
-                // else if (item.post_type === "video") return <PollFeedCard />;
               })}
             </TabPanel>
             <TabPanel padding="0">

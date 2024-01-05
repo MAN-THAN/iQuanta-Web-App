@@ -5,7 +5,7 @@ import { extendTheme } from "@chakra-ui/react";
 import { ChakraProvider } from "@chakra-ui/react";
 import HomeRightSidebar from "../rightSidebars/homeRightSidebar";
 import UserRightSiderbar from "../rightSidebars/userRightSiderbar";
-import MainLeftNavigation from "../leftNavigations/mainLeftNavigation";
+import MainLeftNavigation from "../leftNavigations/mainLeftnavigation";
 
 const HomeLayout = ({ children }) => {
   return (

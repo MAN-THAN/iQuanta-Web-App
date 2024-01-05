@@ -38,7 +38,7 @@ const CreateMemeModal = ({
   handleChange,
   handleButtonClick,
   handleOptionButtonClick,
-  onClose
+  onClose,
 }) => {
   const ref = useRef(null);
   const [text, setText] = useState();
@@ -69,21 +69,28 @@ const CreateMemeModal = ({
   });
   console.log(text);
   const queryClient = useQueryClient();
-  const onButtonClick = useCallback(() => {
+  const handleMemes = () => {
     if (ref.current === null) {
       return;
     }
     toPng(ref.current, { cacheBust: true })
       .then((dataUrl) => {
-        const link = document.createElement("a");
-        link.download = "my-image-name.png";
-        link.href = dataUrl;
-        link.click();
+        console.log(dataUrl);
+
+        // const link = document.createElement("a");
+        // link.download = "my-image-name.png";
+        // link.href = dataUrl;
+        // link.click();
+        mutation.mutate({
+          title: text,
+          postType: "memes",
+          file: dataUrl
+        });
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [ref]);
+  };
 
   return (
     <ModalContent
@@ -158,13 +165,7 @@ const CreateMemeModal = ({
                 handleOptionButtonClick={handleOptionButtonClick}
               />
               <Button
-                onClick={() =>
-                  mutation.mutate({
-                    title: text,
-                    postType: "memes",
-                    file: [],
-                  })
-                }
+                onClick={() => handleMemes()}
                 w="full"
                 sx={{
                   bg: "black !important",
