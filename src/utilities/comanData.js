@@ -4,7 +4,7 @@ export const featursCard = [
   {
     id: 1,
     name: "CAT Full Course",
-    img: "/Featurecard.png",
+    img: "/Featurecard2.png",
   },
   {
     id: 2,
@@ -82,3 +82,11 @@ export const messages = [
     type: "image",
   },
 ];
+
+
+export const examTabDatas =[
+  { name: "eligibility", isOpen: false, status: "false", color: "#5146D6" },
+  { name: "examDates", isOpen: false, status: "false", color: "#5146D6" },
+  { name: "preparationTips", isOpen: false, status: "false", color: "#5146D6" },
+  { name: "scoringSyllabus", isOpen: false, status: "false", color: "#5146D6" },
+]

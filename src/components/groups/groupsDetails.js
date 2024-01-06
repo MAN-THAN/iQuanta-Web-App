@@ -51,58 +51,58 @@ const GroupsDetails = () => {
             </Text>
           </div>
         </Box>
-        <Card>
-          <CardBody>
-            <Flex direction={{ base: "row", md: "row" }} align="center" justifyContent="space-between">
-              <Text fontSize={{ base: "18px", md: "24px" }} fontWeight="600">
-                CAT - 2021
-              </Text>
-              <HStack alignItems="center" gap="4">
-                <Button
-                  variant="solid"
-                  color="#fff"
-                  backgroundColor="#000"
-                  _hover={{ color: "#000", backgroundColor: "#fff", border: "1px solid #000" }}
-                  onClick={onOpenInvite}
-                >
-                  Invite Now
-                </Button>
 
-                <Box onClick={() => router.push("/groups/1/info")} cursor="pointer">
-                  <Image alt="info" src="/Info.svg" />
+        <Box p='4' bg='white.900'>
+          <Flex direction={{ base: "row", md: "row" }} align="center" justifyContent="space-between">
+            <Text fontSize={{ base: "18px", md: "24px" }} fontWeight="600">
+              CAT - 2021
+            </Text>
+            <HStack alignItems="center" gap="4">
+              <Button
+                variant="solid"
+                color="#fff"
+                backgroundColor="#000"
+                _hover={{ color: "#000", backgroundColor: "#fff", border: "1px solid #000" }}
+                onClick={onOpenInvite}
+              >
+                Invite Now
+              </Button>
+
+              <Box onClick={() => router.push("/groups/1/info")} cursor="pointer">
+                <Image alt="info" src="/Info.svg" />
+              </Box>
+
+              <Dropdown
+                placement="up"
+                menu={{
+                  items,
+                }}
+                trigger={["click"]}
+              >
+                <Box>
+                  <Space>
+                    <MoreVertical />
+                  </Space>
                 </Box>
-
-                <Dropdown
-                  placement="up"
-                  menu={{
-                    items,
-                  }}
-                  trigger={["click"]}
-                >
-                  <Box>
-                    <Space>
-                      <MoreVertical />
-                    </Space>
-                  </Box>
-                </Dropdown>
-              </HStack>
-            </Flex>
-            <HStack alignItems="center" mt={{ base: "4", md: "6" }}>
-              <Image src="/Lock.svg" />
-              <Text color="#FFA53B" fontSize={{ base: "14px", md: "16px" }} fontWeight="500">
-                Premium Group
-              </Text>
-              <Dot color="#636363" transform={{ base: "scale(1.5)", md: "scale(2)" }} />
-              <Text color="#636363" fontSize={{ base: "14px", md: "16px" }} fontWeight="500">
-                23k Members
-              </Text>
+              </Dropdown>
             </HStack>
-            <Box mt={{ base: "4", md: "6" }} onClick={onOpenMember}>
-              <AvatarGroups />
-            </Box>
-          </CardBody>
-        </Card>
-        <Box overflowX="auto" px="4" bg="white.900">
+          </Flex>
+          <HStack alignItems="center" mt={{ base: "4", md: "6" }}>
+            <Image src="/Lock.svg" />
+            <Text color="#FFA53B" fontSize={{ base: "14px", md: "16px" }} fontWeight="500">
+              Premium Group
+            </Text>
+            <Dot color="#636363" transform={{ base: "scale(1.5)", md: "scale(2)" }} />
+            <Text color="#636363" fontSize={{ base: "14px", md: "16px" }} fontWeight="500">
+              23k Members
+            </Text>
+          </HStack>
+          <Box mt={{ base: "4", md: "6" }} onClick={onOpenMember}>
+            <AvatarGroups />
+          </Box>
+        </Box>
+
+        <Box>
           <GroupTabList />
         </Box>
       </Box>

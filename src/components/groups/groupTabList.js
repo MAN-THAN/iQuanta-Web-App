@@ -85,7 +85,7 @@ const GroupTabList = () => {
       <ChallengesModal isOpen={isOpenChallenge} onClose={onCloseChallenge} />
       <DiscussionModal isOpen={isOpenDiscussion} onClose={onCloseDiscussion} clickPhoto={clickPhoto} />
       <Tabs variant="soft-rounded">
-        <TabList gap="4" pt="5" overflow="scroll">
+        <TabList gap="4" py="4" px="4" overflow="scroll" bg="white.900">
           {tabs.map((da, i) => (
             <Tab
               key={i}
@@ -166,40 +166,48 @@ const GroupTabList = () => {
               // else if (item.post_type === "video") return <PollFeedCard />;
             })}
           </TabPanel>
-          <TabPanel>
+          <TabPanel padding="0">
             <ChallengeForm openModal={onOpenChallenge} />
             <ChallengeCard />
             <ChallengeLivecard />
             <SuggestionSection />
             <ChallengeLeaderbordCard />
           </TabPanel>
-          <TabPanel>
+          <TabPanel padding="0">
             <ExamTab />
           </TabPanel>
-          <TabPanel>
-            <Box display="flex" flexWrap="wrap" gap="5">
+          <TabPanel padding="0">
+            <Box
+              display="flex"
+              flexWrap="wrap"
+              alignItems="center"
+              px="4"
+              gap="3"
+              justifyContent="space-between"
+              bg="white.900"
+            >
               {featursCard.map((data, index) => (
                 <FeaturesCard data={data} key={index} onButtonClick={() => router.push(`/courses/${index}`)} />
               ))}
             </Box>
           </TabPanel>
-          <TabPanel>
+          <TabPanel padding="0">
             <PracticeQAs />
           </TabPanel>
-          <TabPanel>
+          <TabPanel padding="0">
             <MockTests />
           </TabPanel>
-          <TabPanel>
+          <TabPanel padding="3" bg='white.900' mt='1'>
             {[...Array(4)].map((e, i) => (
               <Box key={i} width="100%">
                 <UpComeingCard id={i} />
               </Box>
             ))}
           </TabPanel>
-          <TabPanel>
+          <TabPanel padding='0'>
             <FilesTab />
           </TabPanel>
-          <TabPanel>
+          <TabPanel padding='0'>
             <ImageSwiper />
           </TabPanel>
           <TabPanel>

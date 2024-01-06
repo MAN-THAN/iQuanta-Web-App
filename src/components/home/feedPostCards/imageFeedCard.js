@@ -16,7 +16,7 @@ const ImageFeedCard = ({ name, uid, title, reactionCount, commentCount, createdA
     return Math.trunc(Math.abs(hours));
   };
   return (
-    <Box bg="#fff" mt="4">
+    <Box bg="#fff" mt='1'>
       <HStack align="center" justifyContent="space-between" padding={["3", null, "4"]}>
         <Box
           sx={{

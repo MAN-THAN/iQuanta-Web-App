@@ -16,7 +16,7 @@ const PollFeedCard = ({ name, uid, title, reactionCount, commentCount, createdAt
   };
   return (
     <>
-      <Box bg="white.900" w="full" mx="auto" mt="4">
+      <Box bg="white.900" w="full" mx="auto" mt="1">
         <HStack align="center" justifyContent="space-between" padding={["3", null, "4"]}>
           <Box
             sx={{

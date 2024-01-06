@@ -1,15 +1,11 @@
-import { randomColors } from "@/utilities/commonFunctions";
 import { Box, Flex, HStack, Image, Stack, Text } from "@chakra-ui/react";
-import { ArrowRight, Dot } from "lucide-react";
-import React from "react";
-import FeaturedCoursesCraousel from "./groupExams/featuredCoursesCraousel";
-import ImportantNewsCraousel from "./groupExams/importantNewsCraousel";
+import { Dot } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 const PracticeQAs = () => {
   const router = useRouter();
   return (
-    <>
+    <Box bg="white.900" p="4" mt="1">
       <Text pt="3" fontWeight="500" fontSize="18px">
         Continue Practice
       </Text>
@@ -120,7 +116,7 @@ const PracticeQAs = () => {
           </HStack>
         </Stack>
       </Box>
-    </>
+    </Box>
   );
 };
 

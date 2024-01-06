@@ -7,9 +7,9 @@ const MockTests = ({ data, onButtonClick }) => {
   const router = useRouter();
 
   return (
-    <>
+    <Box bg="white.900" p="4" mt="1">
       {[...Array(4)].map((e, i) => (
-        <Card key={i} bg={randomColors(["#336792", "#E56C51", "#339287", "#643392"])} rounded="xl" mt="6">
+        <Card key={i} bg={randomColors(["#336792", "#E56C51", "#339287", "#643392"])} rounded="xl" mt="4">
           <CardBody>
             <Box maxH={{ base: "130px", md: "200px" }} w="100%" objectFit="cover" overflow="hidden" rounded="2xl">
               <Image
@@ -70,7 +70,7 @@ const MockTests = ({ data, onButtonClick }) => {
           </Flex>
         </Card>
       ))}
-    </>
+    </Box>
   );
 };
 
