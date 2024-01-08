@@ -22,7 +22,7 @@ export const createPost = async (payload, uid) => {
       type: "POST",
       data: payload,
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
         uid:uid
       },
     });
