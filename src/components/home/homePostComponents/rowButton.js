@@ -35,7 +35,7 @@ const RowButton = ({ fileInputRef, handleClick, handleChange, handleOptionButton
           ref={imageRef}
         >
           <Image alt="img icon" src="/colorImage.svg" />
-          <input id="fileInput1" type="file" ref={fileInputRef} style={{ display: "none" }} onChange={handleChange} />
+          <input id="fileInput1" type="file" multiple ref={fileInputRef} style={{ display: "none" }} onChange={handleChange} />
         </ListItem>
         <ListItem cursor="pointer" py="3" display="flex" gap="4" onClick={() => handleButtonClick("poll")}>
           <Image alt="poll icon" src="/Poll.svg" />

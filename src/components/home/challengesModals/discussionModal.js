@@ -52,10 +52,10 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto }) => {
   const [options, setOptions] = useState([{ id: 1, value: "" }]);
   const [selectedType, setSelectedType] = useState(null);
   const [participants, setParticipants] = useState([]);
+  const [tempFiles,setTempFiles]=useState([]);
   const queryClient = useQueryClient();
   const { name, _id: uid } = useSelector((state) => state.userData);
-  console.log(selectedFiles);
-
+  
   const handleTypingStart = useCallback(() => {
     setIsTyping(true);
   }, []);
@@ -71,16 +71,33 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto }) => {
 
   const handleChange = async (event) => {
     const files = event.target.files;
+  setTempFiles(files);
+  let fileList = Object.keys(files).map(item=>{
+    return URL.createObjectURL(files[item]);
+    })
+  setSelectedFiles(fileList);
+    
+  };
 
+  const handleCreatePost=async(event)=>{
     const formData = new FormData();
 
       // Append each file to the FormData object
-      for (let i = 0; i < files.length; i++) {
-        formData.append(`file${i}`, files[i]);
+      for (let i = 0; i < tempFiles.length; i++) {
+        formData.append('file', tempFiles[i]);
       }
-      setSelectedFiles([formData]);
-  };
-
+      
+      let data = { 
+         postType: selectedComponent === "fileUpload" ? "photo" : selectedComponent,
+         //options: options,
+         title:text,
+         post: selectedFiles[0].name 
+        };
+      formData.append('postType',selectedComponent === "fileUpload" ? "photo" : selectedComponent);
+      formData.append("title", text);
+      
+    mutation.mutate(formData);
+  }
   const handleRemoveImage = (index) => {
     setSelectedFiles((prevFiles) => {
       const newFiles = [...prevFiles];
@@ -109,6 +126,7 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto }) => {
     switch (selectedComponent) {
       case "photo":
         return <ImagePreview selectedFiles={selectedFiles} removeImage={handleRemoveImage} />;
+        return null;
       case "debate":
         return <DebateCard handleParticipants={handleParticipants} />;
       case "poll":
@@ -266,15 +284,7 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto }) => {
                   fontSize: "12px",
                 }}
                 variant="solid"
-                onClick={() =>
-                  mutation.mutate({
-                    title: text,
-                    postType: selectedComponent === "fileUpload" ? "photo" : selectedComponent,
-                    file: selectedFiles,
-                    options: options,
-                    participants: participants,
-                  })
-                }
+                onClick={handleCreatePost}
               >
                 Post
               </Button>

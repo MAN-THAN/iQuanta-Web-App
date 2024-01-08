@@ -4,6 +4,7 @@ import PostFormSection from "./postFormSection";
 import SuggestionSection from "./suggestionSection";
 import TextFeedCard from "./feedPostCards/textFeedCard";
 import ImageFeedCard from "./feedPostCards/imageFeedCard";
+import ImageSwiper from "./feedPostCards/imageSwiper";
 import CardFeedCard from "./feedPostCards/cardFeedCard";
 import PollFeedCard from "./feedPostCards/pollFeedCard";
 import ChallengeCard from "./challengesPostCard/challengeCard";
@@ -79,7 +80,9 @@ const FeedTabsSection = () => {
               {/* different type of post to select */}
               {state?.map((item, ind) => {
                 if (item.postType === "photo")
-                  return (
+                 {
+                if(item.postTypeId?.media?.length==1)
+                return (
                     <ImageFeedCard
                       name={item?.postTypeId?.createdBy?.name}
                       profilePic={item?.postTypeId?.createdBy?.profilePic}
@@ -92,6 +95,23 @@ const FeedTabsSection = () => {
                       comments={item?.comments}
                     />
                   );
+                else{
+                  return (
+                    <ImageSwiper
+                      name={item?.postTypeId?.createdBy?.name}
+                      profilePic={item?.postTypeId?.createdBy?.profilePic}
+                      uid={item?.postTypeId?.createdBy?._id}
+                      title={item?.postTypeId?.title}
+                      reactionCount={item?.reactionCount}
+                      commentCount={item?.commentCount}
+                      createdAt={item?.postTypeId?.createdAt}
+                      media={item?.postTypeId?.media}
+                      comments={item?.comments}
+                    />
+                  );
+                }
+                }
+                
                 else if (item.postType === "video")
                   return (
                     <VideoFeedCard

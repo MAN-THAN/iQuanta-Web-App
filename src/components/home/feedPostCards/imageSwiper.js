@@ -3,12 +3,13 @@ import { Dot, MessageCircle, MoreHorizontal, MoreVertical, Share2, ThumbsUp } fr
 import React from "react";
 import LikeEmojiGroup from "@/components/common/likeEmojiGroup";
 import CommentSlider from "@/components/postCards/commentSlider/commentSlider";
+import VideoPlayer from "@/components/common/videoPlayer";
 import { MdPlayArrow } from "react-icons/md";
 import moment from "moment";
 import { Carousel } from "antd";
 import { array } from "prop-types";
 
-const ImageSwiper = ({ name, uid, title, reactionCount, commentCount, createdAt, media }) => {
+const ImageSwiper = ({ name, uid, profilePic, title, reactionCount, commentCount, createdAt, media }) => {
   const getTime = () => {
     const endDate = moment(createdAt);
     const duration = moment.duration(endDate.diff(moment(Date.now())));
@@ -45,13 +46,14 @@ const ImageSwiper = ({ name, uid, title, reactionCount, commentCount, createdAt,
               width="100%"
               height="100%"
               className="rounded-md"
-              src="/static/images/Profile.jpeg"
+              //src="/static/images/Profile.jpeg"
+              src={profilePic}
               alt="Profile Image"
             />
           </Box>
           <Box ml="2">
             <Box display="flex" alignItems="center">
-              <p style={{ fontSize: "14px", color: "#171717", fontWeight: "600" }}>Himanshu Rohila</p> <MdPlayArrow />
+              <p style={{ fontSize: "14px", color: "#171717", fontWeight: "600" }}>{name}</p> <MdPlayArrow />
               <p style={{ fontSize: "14px", color: "#171717", fontWeight: "400" }}>Posted in CAT 2021</p>
             </Box>
             <p style={{ fontSize: "14px", color: "#636363" }}>{getTime()} h ago</p>
@@ -66,14 +68,29 @@ const ImageSwiper = ({ name, uid, title, reactionCount, commentCount, createdAt,
           <p>Hey World</p>
         </Text>
         <Carousel>
-          {sliderIMg.map((da, i) => (
+          {/* {sliderIMg.map((da, i) => (
             <Box position="relative" key={i} width="100%" height="40vh">
               <Image width="100%" height="100%" objectFit="cover" src={da.img} alt={`Image ${i + 1}`} />
               <Text color="white" position="absolute" top="2" right="2">
                 {i + 1}/{sliderIMg.length}
               </Text>
             </Box>
-          ))}
+          ))} */}
+          {media?.map((image,i)=>{
+            <Box position="relative" key={i} width="100%" height="40vh">
+            {/* <Image width="100%" height="100%" objectFit="cover" src={image} alt={`Image ${i + 1}`} /> */}
+            {image.substring(image.lastIndexOf(".")) == (".png"||".jpg"||".jpeg")&&
+            <Image width="100%" height="100%" objectFit="cover" src={image} alt={`Card Image ${i + 1}`}  />}
+            {/* {image.substring(image.lastIndexOf(".")) == (".mp4"||".mpg"||".mpeg"||".mkv"||".wmv"||".mov"||".flv")&&
+            
+            <VideoPlayer width="100%" height="100%" objectFit="cover" videoUrl={image}/>
+            } */}
+            {/* {console.log(image.substring(image.lastIndexOf("."))==(".mp4"||".mpg"||".mpeg"||".mkv"||".wmv"||".mov"||".flv"),"858")} */}
+            <Text color="white" position="absolute" top="2" right="2">
+              {/* {i + 1}/{sliderIMg.length} */}
+            </Text>
+          </Box>
+          })}
         </Carousel>
         <HStack align="center" fontWeight="400" fontSize="14px" padding="4">
           <Box display="flex" alignItems="center">

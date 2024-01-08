@@ -4,7 +4,7 @@ import React from "react";
 import VideoPlayer from "@/components/common/videoPlayer";
 
 const ImagePreview = ({ selectedFiles, removeImage }) => {
-  console.log(selectedFiles)
+console.log("seslectedFiles:",selectedFiles);
   return (
     <>
       <Flex overflowX="scroll"
@@ -39,8 +39,9 @@ const ImagePreview = ({ selectedFiles, removeImage }) => {
             >
               <X size="16px" />
             </Box>
-            {/* <Image src={file} alt={`Card Image ${index + 1}`} boxSize="100%" fit="cover" /> */}
-            <VideoPlayer videoUrl={file}/>
+            {file['.type'] == (".png"||".jpg"||".jpeg")&&
+            <Image src={file} alt={`Card Image ${index + 1}`} boxSize="100%" fit="cover" />}
+            {file['.type']==(".mp4"||".mpg"||".mpeg"||".mkv"||".wmv"||".mov"||".flv")&&<VideoPlayer videoUrl={file}/>}
           </Box>
         ))}
       </Flex>
