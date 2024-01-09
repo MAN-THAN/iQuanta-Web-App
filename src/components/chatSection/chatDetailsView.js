@@ -1,21 +1,8 @@
 import React, { useState } from "react";
 import ChatLayout from "@/components/layouts/chatLayout";
 import { chats, messages } from "@/utilities/comanData";
-import {
-  Box,
-  Divider,
-  HStack,
-  Input,
-  InputGroup,
-  InputRightElement,
-  Button,
-  Stack
-} from "@chakra-ui/react";
-import {
-  Camera,
-  Mic,
-  Upload,
-} from "lucide-react";
+import { Box, Divider, HStack, Input, InputGroup, InputRightElement, Button, Stack } from "@chakra-ui/react";
+import { Camera, Mic, Upload } from "lucide-react";
 import ChatHeader from "@/components/chatSection/chatHeader";
 import MsgChatSection from "@/components/chatSection/msgChatSection";
 import PeopleList from "./peopleList";
@@ -44,11 +31,7 @@ const ChatDetailsView = () => {
     {
       key: "1",
       label: (
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://www.antgroup.com"
-        >
+        <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
           1st menu item
         </a>
       ),
@@ -56,11 +39,7 @@ const ChatDetailsView = () => {
     {
       key: "2",
       label: (
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://www.aliyun.com"
-        >
+        <a target="_blank" rel="noopener noreferrer" href="https://www.aliyun.com">
           2nd menu item
         </a>
       ),
@@ -68,11 +47,7 @@ const ChatDetailsView = () => {
     {
       key: "3",
       label: (
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://www.luohanacademy.com"
-        >
+        <a target="_blank" rel="noopener noreferrer" href="https://www.luohanacademy.com">
           3rd menu item
         </a>
       ),
@@ -82,7 +57,7 @@ const ChatDetailsView = () => {
   return (
     <>
       <Box>
-        <HStack alignItems="start" gap="6" justifyContent="space-between" >
+        <HStack alignItems="start" gap="6" justifyContent="space-between">
           {/* <Box bg="white.900" w="30%" h="80vh" rounded="lg">
             <Flex
               alignItems="center"
@@ -182,19 +157,10 @@ const ChatDetailsView = () => {
                 >
                   <MsgChatSection messages={messages} />
                 </Box>
-                <Box
-                  display="flex"
-                  flexDirection="row"
-                  gap="6"
-                  pr={4}
-                >
+                <Box display="flex" flexDirection="row" gap="6" pr={4}>
                   <InputGroup pl="4">
                     <Input type="tel" pr="6.3rem" placeholder="Type here..." />
-                    <InputRightElement
-                      width="100px"
-                      alignItems="center"
-                      justifyContent="space-around"
-                    >
+                    <InputRightElement width="100px" alignItems="center" justifyContent="space-around">
                       <Camera />
                       <Upload />
                       <Mic />
@@ -204,7 +170,7 @@ const ChatDetailsView = () => {
                     size="md"
                     bg="black.900"
                     sx={{
-                      color: "#fff", 
+                      color: "#fff",
                       margin: "0 auto",
                       fontSize: "12px",
                     }}

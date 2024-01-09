@@ -1,4 +1,3 @@
-'use client'
 import { useState } from "react";
 import { Modal, Space } from "antd";
 import { Box, Button, HStack, Image, ListItem, UnorderedList } from "@chakra-ui/react";

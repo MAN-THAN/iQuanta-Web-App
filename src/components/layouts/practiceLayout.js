@@ -1,13 +1,10 @@
-import React from "react";
 import { Box } from "@chakra-ui/react";
 import MainHeader from "../mainHeader";
 import { extendTheme } from "@chakra-ui/react";
 import { ChakraProvider } from "@chakra-ui/react";
 import HomeRightSidebar from "../rightSidebars/homeRightSidebar";
 import MainLeftNavigation from "../leftNavigations/mainLeftNavigation";
-
-
-const HomeLayout = ({ children }) => {
+const PracticeLayout = ({children}) => {
   return (
     <Box marginLeft={{ sm: "0", lg: "10%" }} marginRight={{ sm: "0", lg: "10%" }}>
       <MainHeader />
@@ -26,4 +23,4 @@ const HomeLayout = ({ children }) => {
   );
 };
 
-export default HomeLayout;
+export default PracticeLayout;

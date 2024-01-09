@@ -32,8 +32,8 @@ const ImageSwiper = ({ name, uid, profilePic, title, reactionCount, commentCount
   ];
 
   return (
-    <Box bg="#fff" mt="4">
-      <HStack align="center" justifyContent="space-between" padding={["3", null, "4"]}>
+    <Box bg="#fff" mt="1" p="4">
+      <HStack align="center" justifyContent="space-between" paddingY={["3", null, "4"]}>
         <Box
           sx={{
             display: "flex",
