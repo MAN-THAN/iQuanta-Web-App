@@ -25,7 +25,7 @@ const PracticeSubTopic = () => {
           Sub-topics
         </Text>
         <Stack>
-          {[...Array(4)].map((da,i) => (
+          {[...Array(4)].map((da, i) => (
             <HStack align="center" bg="#F1F2F6" p="3" mt="4" rounded="2xl" onClick={onOpen}>
               <Box
                 width="50px"
