@@ -76,7 +76,6 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto }) => {
     return URL.createObjectURL(files[item]);
     })
   setSelectedFiles(fileList);
-    
   };
 
   const handleCreatePost=async(event)=>{

@@ -42,7 +42,9 @@ const EditProfile = () => {
   const [state, setState] = useState();
   const { _id: uid } = useSelector((state) => state.userData);
   const inputRef = useRef();
-
+  const [profilePic, setProfilePic] = useState();
+  const [tempFiles, setTempFiles] = useState([]);
+  console.log(profilePic);
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -108,6 +110,14 @@ const EditProfile = () => {
     let ageDiff = Date.now() - userCurrentDob.getTime();
     return String(Math.floor(ageDiff / (1000 * 60 * 60 * 24 * 365)));
   };
+  const changeProfilePic = (e) => {
+    const files = e.target.files;
+    setTempFiles(files);
+    let fileList = Object.keys(files).map(item=>{
+      return URL.createObjectURL(files[item]);
+      })
+    setProfilePic(fileList);
+  }
 
   return (
     <>
@@ -180,7 +190,9 @@ const EditProfile = () => {
                     type="file"
                     ref={inputRef}
                     style={{ display: "none" }}
-                    // onChange={handleChange}
+                    onChange={(e) => {
+                      changeProfilePic(e);
+                    }}
                   />
                 </Box>
               </Box>
