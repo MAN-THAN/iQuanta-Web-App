@@ -8,7 +8,7 @@ import PollFeedCard from "../home/feedPostCards/pollFeedCard";
 import { useState } from "react";
 import { useQuery, useInfiniteQuery } from "react-query";
 import { useSelector } from "react-redux";
-import { getAllPost } from "@/api/feed/userPost";
+import { getGroupPosts } from "@/api/feed/groups/index";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import FeaturesCard from "../courses/featuresCard";
@@ -30,8 +30,8 @@ const GroupTabList = () => {
   const [state, setState] = useState();
   const { _id: uid } = useSelector((state) => state.userData);
   const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } = useInfiniteQuery({
-    queryKey: ["getAllPosts", uid],
-    queryFn: ({ pageParam = 1 }) => getAllPost(pageParam),
+    queryKey: ["getGroupPosts", uid,],
+    queryFn: ({ pageParam = 1 }) => getGroupPosts(pageParam),
     getNextPageParam: (lastPage, pages) => lastPage.nextCursor,
     onError: (error, variables, context) =>
       toast.error(`${error?.response?.data?.error?.message || "Some error"}`, {
