@@ -71,39 +71,14 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto }) => {
 
   const handleChange = async (event) => {
     const files = event.target.files;
-  
-    if (files.length > 0) {
-      try {
-        const base64Strings = await Promise.all(
-          Array.from(files).map((file) => {
-            return new Promise((resolve, reject) => {
-              const reader = new FileReader();
-  
-              reader.onload = () => {
-                const base64String = reader.result.split(',')[1];
-                resolve(base64String);
-              };
-  
-              reader.onerror = (error) => {
-                reject(error);
-              };
-  
-              reader.readAsDataURL(file);
-            });
-          })
-        );
-  
-        // Now, base64Strings is an array of Base64-encoded strings
-        console.log(base64Strings);
-        setSelectedFiles((prev) => [...prev, ...base64Strings])
-  
-        // If you need to set state with the base64Strings, you can do so here
-        // For example, assuming you have a state function called setBase64Strings:
-        // setBase64Strings(base64Strings);
-      } catch (error) {
-        console.error('Error converting files to Base64', error);
+
+    const formData = new FormData();
+
+      // Append each file to the FormData object
+      for (let i = 0; i < files.length; i++) {
+        formData.append(`file${i}`, files[i]);
       }
-    }
+      setSelectedFiles([formData]);
   };
 
   const handleRemoveImage = (index) => {

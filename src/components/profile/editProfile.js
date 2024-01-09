@@ -25,7 +25,7 @@ import { useQuery, useMutation, useQueryClient } from "react-query";
 import { getProfileInfo } from "@/api/profile";
 import { useDispatch, useSelector } from "react-redux";
 import { addUserData, addUserDetailedData } from "@/store/slices/userSlice";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { updateProfileInfo } from "@/api/profile";
@@ -41,6 +41,7 @@ const EditProfile = () => {
   const queryClient = useQueryClient();
   const [state, setState] = useState();
   const { _id: uid } = useSelector((state) => state.userData);
+  const inputRef = useRef();
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -94,6 +95,19 @@ const EditProfile = () => {
     },
     onSettled: (data, error, variables, context) => {},
   });
+  const handleProfilePic = () => {
+    if (!updateProfile) {
+      inputRef.current.click();
+    } else {
+      onOpen();
+    }
+  };
+  const getAge = () => {
+    let userCurrentDob = new Date(state?.dob);
+    console.log(userCurrentDob.getTime());
+    let ageDiff = Date.now() - userCurrentDob.getTime();
+    return String(Math.floor(ageDiff / (1000 * 60 * 60 * 24 * 365)));
+  };
 
   return (
     <>
@@ -138,7 +152,7 @@ const EditProfile = () => {
                 </HStack>
               </Box>
               <Box
-                onClick={onOpen}
+                onClick={handleProfilePic}
                 position="absolute"
                 left="50%"
                 transform="translateX(-50%)"
@@ -146,14 +160,27 @@ const EditProfile = () => {
                 bg="#fff"
                 rounded="full"
               >
-                <Box boxSize="130px" rounded="full">
+                <Box boxSize="130px" rounded="full" cursor={"pointer"}>
                   <Image
                     rounded="full"
                     objectFit="contain"
                     width="100%"
                     height="100%"
-                    src={state?.profilePic ? state?.profilePic : "/noImage.svg"}
+                    src={
+                      !updateProfile
+                        ? "edit-profile-vector-icon.jpg"
+                        : state?.profilePic
+                        ? state?.profilePic
+                        : "/noImage.svg"
+                    }
                     alt="Profile Image"
+                  />
+                  <input
+                    id="fileInput1"
+                    type="file"
+                    ref={inputRef}
+                    style={{ display: "none" }}
+                    // onChange={handleChange}
                   />
                 </Box>
               </Box>
@@ -164,7 +191,9 @@ const EditProfile = () => {
                 {state?.name}
               </Text>
               <Flex align="center" justify="center" fontSize="md" color="text.700">
-                <span>{state?.gender},23 years</span>
+                <span>
+                  {state?.gender},{getAge() + " years"}
+                </span>
                 <span>
                   <BsDot />
                 </span>

@@ -1,9 +1,9 @@
 import React from "react";
 import { Box } from "@chakra-ui/react";
 import MainHeader from "../mainHeader";
-import MainLeftNavigation from "@/components/leftNavigations/mainLeftNavigation";
 import UserRightSiderbar from "@/components/rightSidebars/userRightSiderbar";
 import TeacherRightSidebar from "../rightSidebars/teacherRightSidebar";
+import MainLeftNavigation from "../leftNavigations/mainLeftnavigation";
 
 const TeacherLayout = ({ children }) => {
   

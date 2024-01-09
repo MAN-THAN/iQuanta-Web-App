@@ -82,7 +82,7 @@ export const getFaq = async (uid) => {
 export const userLogOut = async (uid) => {
   try {
     const res = await request({
-      url: `/auth/v1/creds/logout/${uid}`,
+      url: `/auth/v1/creds/logout`,
       type: "POST",
       headers: {
         "Content-Type": "application/json",

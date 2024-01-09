@@ -1,9 +1,12 @@
 import request from "@/api/request";
 
-export const getAllPost = async (page, limit) => {
+//deactivate account APIs
+export const sendOTP = async (payload) => {
   try {
     const res = await request({
-      url: `/feed/v1/user/post/all/details/${page}/${limit}`,
+      url: `/auth/v1/creds/verify/sendOTP`,
+      type: "POST",
+      data: payload,
       headers: {
         "Content-Type": "application/json",
       },
@@ -15,15 +18,14 @@ export const getAllPost = async (page, limit) => {
   }
 };
 
-export const createPost = async (payload, uid) => {
+export const verifyOTP = async (payload) => {
   try {
     const res = await request({
-      url: `/feed/v1/user/post`,
+      url: `/auth/v1/creds/verify/verifyOTP`,
       type: "POST",
       data: payload,
       headers: {
-        "Content-Type": "multipart/form-data",
-        uid:uid
+        "Content-Type": "application/json",
       },
     });
     return res;
@@ -33,10 +35,12 @@ export const createPost = async (payload, uid) => {
   }
 };
 
-export const getDebateParticipants = async (uid) => {
+export const deactivateAccount = async (uid, payload) => {
   try {
     const res = await request({
-      url: `/feed/v1/user/post/debate/participants/${uid}`,
+      url: `/auth/v1/profile/settings/basic/${uid}`,
+      type: "PATCH",
+      data: payload,
       headers: {
         "Content-Type": "application/json",
       },
