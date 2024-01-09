@@ -4,9 +4,10 @@ import React from "react";
 import VideoPlayer from "@/components/common/videoPlayer";
 
 const ImagePreview = ({ selectedFiles, removeImage }) => {
-console.log("seslectedFiles:",selectedFiles);
+
   return (
     <>
+     
       <Flex overflowX="scroll"
             css={{ scrollbarWidth: "thin", scrollbarColor: "#888 #f5f5f5" }}
             sx={{
@@ -14,6 +15,7 @@ console.log("seslectedFiles:",selectedFiles);
               scrollBehavior: "smooth",
             }}>
         {selectedFiles.map((file, index) => (
+         
           <Box
             key={index}
             minW="200px"
@@ -39,9 +41,11 @@ console.log("seslectedFiles:",selectedFiles);
             >
               <X size="16px" />
             </Box>
-            {file['.type'] == (".png"||".jpg"||".jpeg")&&
-            <Image src={file} alt={`Card Image ${index + 1}`} boxSize="100%" fit="cover" />}
-            {file['.type']==(".mp4"||".mpg"||".mpeg"||".mkv"||".wmv"||".mov"||".flv")&&<VideoPlayer videoUrl={file}/>}
+            {/* {console.log("selectedFiles:",file['.type'])}
+            {file['.type'] == (".png"||".jpg"||".jpeg")&& */}
+            <Image src={file} alt={`Card Image ${index + 1}`} boxSize="100%" fit="cover" />
+            
+            {/* }{file['.type']==(".mp4"||".mpg"||".mpeg"||".mkv"||".wmv"||".mov"||".flv")&&<VideoPlayer videoUrl={file}/>} */}
           </Box>
         ))}
       </Flex>

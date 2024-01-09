@@ -95,7 +95,7 @@ const FeedTabsSection = () => {
                       comments={item?.comments}
                     />
                   );
-                else{
+                else if(item.postTypeId?.media?.length>1){
                   return (
                     <ImageSwiper
                       name={item?.postTypeId?.createdBy?.name}
@@ -109,6 +109,9 @@ const FeedTabsSection = () => {
                       comments={item?.comments}
                     />
                   );
+                }
+                else{
+                  return null
                 }
                 }
                 

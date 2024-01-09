@@ -70,12 +70,12 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto }) => {
   };
 
   const handleChange = async (event) => {
-    const files = event.target.files;
-  setTempFiles(files);
+  const files = event.target.files;
+  setTempFiles([...tempFiles,...files]);
   let fileList = Object.keys(files).map(item=>{
     return URL.createObjectURL(files[item]);
     })
-  setSelectedFiles(fileList);
+  setSelectedFiles([...selectedFiles,...fileList]);
     
   };
 
