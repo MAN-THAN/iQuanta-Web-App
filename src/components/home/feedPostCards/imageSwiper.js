@@ -10,6 +10,7 @@ import { Carousel } from "antd";
 import { array } from "prop-types";
 
 const ImageSwiper = ({ name, uid, profilePic, title, reactionCount, commentCount, createdAt, media }) => {
+  //console.log(name, uid, profilePic, title, reactionCount, commentCount, createdAt, media,'13');
   const getTime = () => {
     const endDate = moment(createdAt);
     const duration = moment.duration(endDate.diff(moment(Date.now())));
@@ -65,7 +66,7 @@ const ImageSwiper = ({ name, uid, profilePic, title, reactionCount, commentCount
       </HStack>
       <Stack>
         <Text fontSize="14px" lineHeight="24px">
-          <p>Hey World</p>
+          <p>{title}</p>
         </Text>
         <Carousel>
           {/* {sliderIMg.map((da, i) => (
@@ -77,11 +78,12 @@ const ImageSwiper = ({ name, uid, profilePic, title, reactionCount, commentCount
             </Box>
           ))} */}
           {media?.map((image,i)=>{
-            <Box position="relative" key={i} width="100%" height="40vh">
+           return <Box position="relative" key={i} width="100%" height="40vh">
             {/* <Image width="100%" height="100%" objectFit="cover" src={image} alt={`Image ${i + 1}`} /> */}
-            {image.substring(image.lastIndexOf(".")) == (".png"||".jpg"||".jpeg")&&
-            <Image width="100%" height="100%" objectFit="cover" src={image} alt={`Card Image ${i + 1}`}  />}
-            {/* {image.substring(image.lastIndexOf(".")) == (".mp4"||".mpg"||".mpeg"||".mkv"||".wmv"||".mov"||".flv")&&
+            {/* {image.substring(image.lastIndexOf(".")) == (".png"||".jpg"||".jpeg")&& */}
+           <Image width="100%" height="100%" objectFit="cover" src={image} alt={`Card Image ${i + 1}`}  />
+
+            {/* }{image.substring(image.lastIndexOf(".")) == (".mp4"||".mpg"||".mpeg"||".mkv"||".wmv"||".mov"||".flv")&&
             
             <VideoPlayer width="100%" height="100%" objectFit="cover" videoUrl={image}/>
             } */}
