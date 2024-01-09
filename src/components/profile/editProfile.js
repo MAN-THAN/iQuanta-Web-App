@@ -32,6 +32,7 @@ import { updateProfileInfo } from "@/api/profile";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { commonValidationSchema } from "@/utilities/validationSchema";
+import { updateProfilePic } from "@/api/profile";
 
 const EditProfile = () => {
   const [updateProfile, setUpdateProfile] = useState(true);
@@ -42,9 +43,9 @@ const EditProfile = () => {
   const [state, setState] = useState();
   const { _id: uid } = useSelector((state) => state.userData);
   const inputRef = useRef();
+  const [tempFiles, setTempFiles] = useState();
   const [profilePic, setProfilePic] = useState();
-  const [tempFiles, setTempFiles] = useState([]);
-  console.log(profilePic);
+
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -63,6 +64,12 @@ const EditProfile = () => {
     onSubmit: (values) => {
       console.log(values);
       mutation.mutate(values);
+      if(profilePic){
+        const formData = new FormData();
+        formData.append("type", "profilePic");
+        formData.append("thumbnail", tempFiles[0]);
+        mutationProfile.mutate(formData);
+      }
     },
   });
 
@@ -97,6 +104,25 @@ const EditProfile = () => {
     },
     onSettled: (data, error, variables, context) => {},
   });
+  const mutationProfile = useMutation({
+    mutationFn: (payload) => updateProfilePic(uid, payload),
+    onMutate: (variables) => {
+      return console.log("mutation is happening");
+    },
+    onError: (error, variables, context) =>
+      toast.error(`${error?.response?.data.error?.message}`, {
+        position: toast.POSITION.TOP_RIGHT,
+      }),
+    onSuccess: (res, variables, context) => {
+      toast.success("Changes successful!", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      setUpdateProfile(true);
+      console.log(res);
+      queryClient.invalidateQueries("getUserDetailData");
+    },
+    onSettled: (data, error, variables, context) => {},
+  });
   const handleProfilePic = () => {
     if (!updateProfile) {
       inputRef.current.click();
@@ -110,14 +136,16 @@ const EditProfile = () => {
     let ageDiff = Date.now() - userCurrentDob.getTime();
     return String(Math.floor(ageDiff / (1000 * 60 * 60 * 24 * 365)));
   };
-  const changeProfilePic = (e) => {
-    const files = e.target.files;
+  const handleProfileChange = async (event) => {
+    const files = event.target.files;
     setTempFiles(files);
-    let fileList = Object.keys(files).map(item=>{
+    let fileList = Object.keys(files).map((item) => {
       return URL.createObjectURL(files[item]);
-      })
-    setProfilePic(fileList);
-  }
+    });
+    setProfilePic(fileList[0]);
+  };
+  console.log(profilePic, "profilePic");
+  console.log(tempFiles, "TEMPfILES");
 
   return (
     <>
@@ -178,7 +206,9 @@ const EditProfile = () => {
                     height="100%"
                     src={
                       !updateProfile
-                        ? "edit-profile-vector-icon.jpg"
+                        ? profilePic
+                          ? profilePic
+                          : "edit-profile-vector-icon.jpg"
                         : state?.profilePic
                         ? state?.profilePic
                         : "/noImage.svg"
@@ -190,9 +220,7 @@ const EditProfile = () => {
                     type="file"
                     ref={inputRef}
                     style={{ display: "none" }}
-                    onChange={(e) => {
-                      changeProfilePic(e);
-                    }}
+                    onChange={handleProfileChange}
                   />
                 </Box>
               </Box>
