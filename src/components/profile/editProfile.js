@@ -64,7 +64,7 @@ const EditProfile = () => {
     onSubmit: (values) => {
       console.log(values);
       mutation.mutate(values);
-      if(profilePic){
+      if (profilePic) {
         const formData = new FormData();
         formData.append("type", "profilePic");
         formData.append("thumbnail", tempFiles[0]);
@@ -232,12 +232,12 @@ const EditProfile = () => {
               </Text>
               <Flex align="center" justify="center" fontSize="md" color="text.700">
                 <span>
-                  {state?.gender},{getAge() + " years"}
+                  {state?.gender?.charAt(0).toUpperCase() + state?.gender?.slice(1)},{" "+ getAge() + " years"}
                 </span>
                 <span>
                   <BsDot />
                 </span>
-                <span>{state?.location}</span>
+                <span>{state?.address?.[0]}</span>
               </Flex>
             </Box>
             <Flex align="center" justify="center" gap={3} pt="4">

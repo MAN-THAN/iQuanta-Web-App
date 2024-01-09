@@ -2,8 +2,10 @@ import { useState } from "react";
 import { Modal, Space } from "antd";
 import { Radio, RadioGroup, Stack } from "@chakra-ui/react";
 import { ArrowLeft } from "lucide-react";
-const ControlPost = ({ isOpen, onClose, setValue, value, modalType }) => {
+const ControlPost = ({ isOpen, onClose, setValue, modalType, state }) => {
   console.log(modalType);
+  console.log(state?.[modalType]);
+  console.log(state)
   return (
     <>
       <Modal
@@ -14,12 +16,12 @@ const ControlPost = ({ isOpen, onClose, setValue, value, modalType }) => {
             </span>
             {(() => {
               if (modalType === "comments") {
-                return <span style={{ fontSize: "18px", fontWeight: "600" }}>Control who can comment on your post</span>;
-              }
-              else if (modalType === "mentions") {
+                return (
+                  <span style={{ fontSize: "18px", fontWeight: "600" }}>Control who can comment on your post</span>
+                );
+              } else if (modalType === "mentions") {
                 return <span style={{ fontSize: "18px", fontWeight: "600" }}>Control who can mention you</span>;
-              }
-              else if (modalType === "invites") {
+              } else if (modalType === "invites") {
                 return <span style={{ fontSize: "18px", fontWeight: "600" }}>Control who can invite you</span>;
               }
             })()}
@@ -34,11 +36,12 @@ const ControlPost = ({ isOpen, onClose, setValue, value, modalType }) => {
         footer={null}
         width="400px"
       >
-        <RadioGroup onChange={setValue} value={value} py="5">
+        <RadioGroup onChange={setValue} value={state?.[modalType]} py="5">
           <Stack direction="column">
-            <Radio value="Everyone">Everyone</Radio>
-            <Radio value="Followers">My Followers</Radio>
-            <Radio value="My Study Partners">My Study Partners</Radio>
+            <Radio value="everyone">Everyone</Radio>
+            <Radio value="followers">My Followers</Radio>
+            <Radio value="studyPartner">My Study Partners</Radio>
+            <Radio value="friends">My Friends</Radio>
           </Stack>
         </RadioGroup>
       </Modal>

@@ -28,7 +28,7 @@ import {
             <CardBody>
               <UnorderedList spacing="3" listStyleType="none" fontSize="14px" fontWeight="500" color="#455564" pt="0">
                 <CustomLinkItem href="/usersettings/usersecurity/resetpassword">
-                  <ListItem key="1">
+                  {/* <ListItem key="1">
                     <Flex align="center" justify="space-between">
                       <Text>Reset Password</Text>
                       <Box>
@@ -37,7 +37,7 @@ import {
                       </Box>
                     </Flex>
                     <Divider pt="4" />
-                  </ListItem>
+                  </ListItem> */}
                 </CustomLinkItem>
                 <CustomLinkItem href="/usersettings/usersecurity/loginactivity">
                   <ListItem>
@@ -50,7 +50,7 @@ import {
                     <Divider pt="4" />
                   </ListItem>
                 </CustomLinkItem>
-                <ListItem>
+                {/* <ListItem>
                   <Flex align="center" justify="space-between">
                     <Text>Two Factor Authentication</Text>
                     <Box>
@@ -59,7 +59,7 @@ import {
                     </Box>
                   </Flex>
                   <Divider pt="4" />
-                </ListItem>
+                </ListItem> */}
               </UnorderedList>
             </CardBody>
             <CardHeader>
