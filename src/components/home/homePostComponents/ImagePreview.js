@@ -1,10 +1,10 @@
 import { Box, Flex, HStack, Image } from "@chakra-ui/react";
 import { X } from "lucide-react";
-import React from "react";
+import React, { useEffect } from "react";
 import VideoPlayer from "@/components/common/videoPlayer";
 
-const ImagePreview = ({ selectedFiles, removeImage }) => {
-
+const ImagePreview = ({ selectedFilesBlob,selectedFiles, removeImage }) => {
+// useEffect(()=>{},[sele])
   return (
     <>
      
@@ -14,7 +14,7 @@ const ImagePreview = ({ selectedFiles, removeImage }) => {
               "-webkit-overflow-scrolling": "touch",
               scrollBehavior: "smooth",
             }}>
-        {selectedFiles.map((file, index) => (
+        {selectedFilesBlob.map((file, index) => (
          
           <Box
             key={index}
@@ -36,16 +36,23 @@ const ImagePreview = ({ selectedFiles, removeImage }) => {
               rounded="full"
               p='1'
               right="1"
+              zIndex='9999'
               top="2"
               onClick={() => removeImage(index)}
             >
-              <X size="16px" />
-            </Box>
-            {/* {console.log("selectedFiles:",file['.type'])}
-            {file['.type'] == (".png"||".jpg"||".jpeg")&& */}
-            <Image src={file} alt={`Card Image ${index + 1}`} boxSize="100%" fit="cover" />
+             
+              <X  size="16px" />
+
             
-            {/* }{file['.type']==(".mp4"||".mpg"||".mpeg"||".mkv"||".wmv"||".mov"||".flv")&&<VideoPlayer videoUrl={file}/>} */}
+            </Box>
+            {console.log('filetype',selectedFiles[index].type.includes('video'))}
+            {selectedFiles[index].type.includes('image')&& 
+            <Image src={file} alt={`Card Image ${index + 1}`} boxSize="100%" fit="cover" />
+            }
+            {selectedFiles[index].type.includes('video')&& 
+            <VideoPlayer videoUrl={file} alt={`Card Image ${index + 1}`} boxSize="100%" fit="cover" />
+            }
+            
           </Box>
         ))}
       </Flex>

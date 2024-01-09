@@ -59,8 +59,7 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto }) => {
   const handleTypingStart = useCallback(() => {
     setIsTyping(true);
   }, []);
-  console.log(selectedType);
-
+  
   const handleButtonClick = (type) => {
     setSelectedType(type);
   };
@@ -71,8 +70,10 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto }) => {
 
   const handleChange = async (event) => {
   const files = event.target.files;
+  
   setTempFiles([...tempFiles,...files]);
   let fileList = Object.keys(files).map(item=>{
+    
     return URL.createObjectURL(files[item]);
     })
   setSelectedFiles([...selectedFiles,...fileList]);
@@ -84,16 +85,22 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto }) => {
 
       // Append each file to the FormData object
       for (let i = 0; i < tempFiles.length; i++) {
+        if(tempFiles[i].type.includes('video')){
+          setSelectedType('video');
+          console.log('90 video selected');
+        }
         formData.append('file', tempFiles[i]);
       }
       
       let data = { 
-         postType: selectedComponent === "fileUpload" ? "photo" : selectedComponent,
+         //postType: selectedComponent === "fileUpload" ? selectedType : selectedComponent,
+         postType:selectedType,
          //options: options,
          title:text,
-         post: selectedFiles[0].name 
+         post: tempFiles[0].name 
         };
-      formData.append('postType',selectedComponent === "fileUpload" ? "photo" : selectedComponent);
+        
+      formData.append('postType',selectedType);
       formData.append("title", text);
       
     mutation.mutate(formData);
@@ -104,6 +111,11 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto }) => {
       newFiles.splice(index, 1);
       return newFiles;
     });
+    setTempFiles((prevFiles)=>{
+      const newFiles = [...prevFiles];
+      newFiles.splice(index, 1);
+      return newFiles;
+    })
   };
 
   const handleOptionButtonClick = (componentName) => {
@@ -125,8 +137,9 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto }) => {
   const renderSelectedComponent = () => {
     switch (selectedComponent) {
       case "photo":
-        return <ImagePreview selectedFiles={selectedFiles} removeImage={handleRemoveImage} />;
-        return null;
+        
+        return <ImagePreview selectedFilesBlob={selectedFiles} selectedFiles={tempFiles} removeImage={handleRemoveImage} />;
+        
       case "debate":
         return <DebateCard handleParticipants={handleParticipants} />;
       case "poll":
@@ -160,7 +173,7 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto }) => {
     },
     onSettled: (data, error, variables, context) => {},
   });
-  console.log(text);
+  
 
   return (
     <>

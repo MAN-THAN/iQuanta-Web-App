@@ -10,7 +10,7 @@ import { Carousel } from "antd";
 import { array } from "prop-types";
 
 const ImageSwiper = ({ name, uid, profilePic, title, reactionCount, commentCount, createdAt, media }) => {
-  console.log(name, uid, profilePic, title, reactionCount, commentCount, createdAt, media,'13');
+  //console.log(name, uid, profilePic, title, reactionCount, commentCount, createdAt, media,'13');
   const getTime = () => {
     const endDate = moment(createdAt);
     const duration = moment.duration(endDate.diff(moment(Date.now())));
