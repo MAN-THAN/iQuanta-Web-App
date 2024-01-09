@@ -1,6 +1,6 @@
 import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Flex, HStack, Stack, Text } from "@chakra-ui/react";
 import { ArrowLeft, CaseSensitive, ChevronRightIcon, ClipboardList } from "lucide-react";
-import PracticeQuestionsSwiper from "@/components/practices/practiceQuestionsSwiper";
+import PracticeQuestionsSwiper from "@/components/practice/practiceQuestionsSwiper";
 import VideoComponent from "@/components/common/videoComponent";
 import SubTopicLayout from "@/components/layouts/subTopicLayout";
 

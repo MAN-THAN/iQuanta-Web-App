@@ -23,7 +23,7 @@ const AllTopics = () => {
   const group = getRootProps();
   return (
     <Box>
-      <Text fontSize="18px" fontWeight="500" p="4">
+      <Text fontSize="18px" fontWeight="500" py="4">
         All Topic
       </Text>
       <Flex align="center" justify="space-between">
