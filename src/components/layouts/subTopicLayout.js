@@ -7,22 +7,20 @@ import SubTopicLeftBar from "../leftSidebar/subTopicLeftBar";
 const SubTopicLayout = ({ children }) => {
   return (
     <>
-      <div style={{ marginLeft: "10%", marginRight: "10%" }}>
+      <Box marginLeft={{ sm: "0", lg: "10%" }} marginRight={{ sm: "0", lg: "10%" }}>
         <MainHeader />
         <div className="flex pt-8">
-          <SubTopicLeftBar />
-          <Box
-            bg="#ffffff"
-            overflow="hidden"
-            flex="1"
-            pl={{ md: "4%", lg: "4%", sm: "5%" }}
-            pr="4%"
-          >
+          <Box>
+            <SubTopicLeftBar />
+          </Box>
+          <Box overflow="hidden" flex="1" pl="6%" pr="6%">
             {children}
           </Box>
-          <UserRightSiderbar />
+          <Box display={{ md: "block", sm: "none" }}>
+            <UserRightSiderbar />
+          </Box>
         </div>
-      </div>
+      </Box>
     </>
   );
 };
