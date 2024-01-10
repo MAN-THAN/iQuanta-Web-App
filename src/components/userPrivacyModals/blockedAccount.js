@@ -2,9 +2,23 @@ import { useState } from "react";
 import { Modal, Space } from "antd";
 import { Box, Button, HStack, Image, ListItem, UnorderedList } from "@chakra-ui/react";
 import { ArrowLeft, Dot } from "lucide-react";
-const BlockedAccount = ({ isOpen, onClose }) => {
-  const [value, setValue] = useState('1')
+import { useQuery, useQueryClient } from "react-query";
+import { getBlockList } from "@/api/profile/profileSettings";
+import { useSelector } from "react-redux";
 
+const BlockedAccount = ({ isOpen, onClose }) => {
+  const [state, setState] = useState();
+  const { _id: uid } = useSelector((state) => state.userData);
+  const queryClient = useQueryClient();
+  const { isLoading, data, isError, error, isPending, isSuccess } = useQuery({
+    queryKey: ["getBlockList", uid],
+    queryFn: () => getBlockList(uid),
+    onError: (error, variables, context) =>
+      toast.error(`${error.response.data.message}`, {
+        position: toast.POSITION.TOP_RIGHT,
+      }),
+    onSuccess: (res) => setState(res.data.data.privacySettings),
+  });
   return (
     <>
       <Modal

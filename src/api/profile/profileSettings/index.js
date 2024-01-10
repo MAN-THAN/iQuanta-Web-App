@@ -94,3 +94,50 @@ export const userLogOut = async (uid) => {
     throw err;
   }
 };
+// get Block List
+export const getBlockList = async (uid) => {
+  try {
+    const res = await request({
+      url: `/auth/v1/profile/settings/basic/list/blockList/${uid}`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return res;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};
+// update block status
+export const updateBlockStatus = async (uid, status) => {
+  try {
+    const res = await request({
+      url: `/auth/v1/profile/settings/basic/block/${uid}/${status}`,
+      type:'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return res;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};
+// remove block user
+export const removeBlockedUser = async (uid, friendId) => {
+  try {
+    const res = await request({
+      url: `/auth/v1/profile/settings/basic/removeBlockUser/${uid}/${friendId}`,
+      type:'PATCH',
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return res;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};
