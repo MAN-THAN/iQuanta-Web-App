@@ -8,8 +8,7 @@ import LearnLayout from "@/components/layouts/learnLayout";
 const SubTopics = () => {
   const router = useRouter();
   return (
-    <>
-      
+    <> 
         <Box bg="#fff" p="6" rounded="2xl">
           <HStack>
             <ArrowLeft />

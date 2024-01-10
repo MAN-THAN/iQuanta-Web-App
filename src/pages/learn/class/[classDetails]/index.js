@@ -1,4 +1,4 @@
-import LiveClassTimer from "@/components/learnAndClass/liveClassTimer";
+import LiveClassTimer from "@/components/learn/class/liveClassTimer";
 import { useParams, useRouter } from "next/navigation";
 import ImagePostCard from "@/components/postCards/imagePostCard";
 import TextCardPostCard from "@/components/postCards/textCardPostCard";
@@ -9,7 +9,7 @@ import RootLayout from "@/components/layouts/layout";
 import LearnLayout from "@/components/layouts/learnLayout";
 
 const ClassDetails = () => {
-  const classDuration = 1800;
+  const classDuration = 100;
   const router = useRouter();
 //   const { classDetails } = useParams();
 //   const [_id, route] = classDetails;

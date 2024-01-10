@@ -4,7 +4,7 @@ export const featursCard = [
   {
     id: 1,
     name: "CAT Full Course",
-    img: "/Featurecard.png",
+    img: "/Featurecard2.png",
   },
   {
     id: 2,
@@ -27,6 +27,30 @@ export const featursCard = [
     img: "/Featurecard3.png",
   },
 ];
+
+ export const examCard = [
+  {
+    id: 1,
+    name: "CAT Full Course",
+    point:"1 course active"
+  },
+  {
+    id: 2,
+    name: "Foreign Stud..",
+    point:"1 test series available"
+  },
+  {
+    id: 3,
+    name: "Engineering",
+    point:"2 courses available"
+  },
+  {
+    id: 4,
+    name: "Engineering",
+    point:"1 course active"
+  },
+ ]
+
 
 export const chats = [
   {
@@ -82,3 +106,11 @@ export const messages = [
     type: "image",
   },
 ];
+
+
+export const examTabDatas =[
+  { name: "eligibility", isOpen: false, status: "false", color: "#5146D6" },
+  { name: "examDates", isOpen: false, status: "false", color: "#5146D6" },
+  { name: "preparationTips", isOpen: false, status: "false", color: "#5146D6" },
+  { name: "scoringSyllabus", isOpen: false, status: "false", color: "#5146D6" },
+]

@@ -63,7 +63,7 @@ function LiveClassTimer() {
             <HStack gap='10' align='center'>
                 <Box width='600px' pl='6'>
                     <Progress
-                        percent={(timeElapsed / 60) * 1}
+                        percent={(timeElapsed / 60) * 2}
                         size="default"
                         format={() => (
                             <span style={timerTextStyles}>{formattedTimeElapsed}</span>

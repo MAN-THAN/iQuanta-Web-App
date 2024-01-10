@@ -1,12 +1,12 @@
-import ExamDetailsId from '@/components/exams/examDetailsId'
-import React from 'react'
+import ExamDetailsId from "@/components/exams/examDetailsId";
+import LearnLayout from "@/components/layouts/learnLayout";
 
 const index = () => {
   return (
     <LearnLayout>
-      <ExamDetailsId/>
+      <ExamDetailsId />
     </LearnLayout>
-  )
-}
+  );
+};
 
-export default index
+export default index;

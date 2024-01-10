@@ -33,7 +33,7 @@ const MainLeftNavigation = () => {
     {
       icon: <AiOutlineAim className="text-xl" />,
       nav: "Practice",
-      path: "",
+      path: "/practice",
     },
     {
       icon: <HiMiniPencilSquare className="text-xl" />,

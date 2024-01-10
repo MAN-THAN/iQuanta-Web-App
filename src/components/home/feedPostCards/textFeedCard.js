@@ -17,7 +17,7 @@ const TextFeedCard = ({ classId, name, uid, title, reactionCount, commentCount, 
   };
 
   return (
-    <Box bg="#fff" mt="4">
+    <Box bg="#fff" mt="1">
       <HStack align="center" justifyContent="space-between" padding={["3", null, "4"]}>
         <Box
           sx={{

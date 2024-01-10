@@ -51,8 +51,9 @@ const VideoFeedCard = ({ name, uid, title, reactionCount, commentCount, createdA
         <Text fontSize="14px" lineHeight="24px">
           <p>{title}</p>
         </Text>
-        {/* <Image alt="video" src={media?.[0]} /> */}
-        <VideoPlayer videoUrl={media?.[0]} />
+       <Box>
+          <VideoPlayer videoUrl={media[0]} />
+        </Box>
         <HStack align="center" fontWeight="400" fontSize="14px" padding="4">
           <Box display="flex" alignItems="center">
             <LikeEmojiGroup />

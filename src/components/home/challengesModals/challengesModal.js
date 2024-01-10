@@ -28,7 +28,7 @@ import {
 import { ChevronDown, ChevronRight, Minus, Plus, SearchIcon } from "lucide-react";
 import topicsData from "@/utilities/topicsDummy";
 
-const ChallengesModal = ({ isOpen, onClose }) => {
+const ChallengesModal = ({ isOpen, onClose,triggeredFrom }) => {
   const [showTopicList, setShowTopicList] = useState(false);
   const [selectedTopic, setSelectedTopic] = useState(null);
   const [showSubTopicList, setShowSubTopicList] = useState(false);

@@ -18,13 +18,30 @@ export const getProfileInfo = async (uid) => {
 //update user profile details
 export const updateProfileInfo = async (uid, payload) => {
   try {
-    console.log(payload)
+    console.log(payload);
     const res = await request({
       url: `/auth/v1/profile/settings/basic/${uid}`,
       type: "PATCH",
       data: payload,
       headers: {
         "Content-Type": "application/json",
+      },
+    });
+    return res;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};
+//update user profile pics
+export const updateProfilePic = async (uid, payload) => {
+  try {
+    const res = await request({
+      url: `/auth/v1/profile/settings/basic/thumbnail/${uid}`,
+      type: "PATCH",
+      data: payload,
+      headers: {
+        "Content-Type": "multipart/form-data",
       },
     });
     return res;

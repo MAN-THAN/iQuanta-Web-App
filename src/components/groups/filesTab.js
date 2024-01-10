@@ -33,7 +33,7 @@ const FilesTab = () => {
   const sortedMonths = Object.keys(groupedPdfs).sort((a, b) => new Date(b) - new Date(a));
 
   return (
-    <Box>
+    <Box bg='white.900' p='4'>
       <Flex fontSize="18px" fontWeight="500" alignItems="center" justifyContent="space-between">
         <Text py="4">All Files</Text>
         <Box>

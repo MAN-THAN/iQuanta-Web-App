@@ -4,7 +4,7 @@ import { Dot, MessageCircle, MoreVertical, Share2, ThumbsUp } from "lucide-react
 import LikeEmojiGroup from "@/components/common/likeEmojiGroup";
 import AvatarGroups from "@/components/common/avatarGroups";
 import { MdPlayArrow } from "react-icons/md";
-
+import moment from "moment";
 const PollFeedCard = ({ name, uid, title, reactionCount, commentCount, createdAt, media }) => {
   const getTime = () => {
     const endDate = moment(createdAt);
@@ -16,7 +16,7 @@ const PollFeedCard = ({ name, uid, title, reactionCount, commentCount, createdAt
   };
   return (
     <>
-      <Box bg="white.900" w="full" mx="auto" mt="4">
+      <Box bg="white.900" w="full" mx="auto" mt="1">
         <HStack align="center" justifyContent="space-between" padding={["3", null, "4"]}>
           <Box
             sx={{
