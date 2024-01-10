@@ -22,6 +22,10 @@ export const createGroupPost = async(payload,uid)=>{
       }
   }
 
+export const editGroupPost=async(postId,uid)=>{
+
+  } 
+
 export const getGroupPosts = async(page,limit,uid,groupId)=>{
     try {
       const res = await request({
@@ -37,4 +41,28 @@ export const getGroupPosts = async(page,limit,uid,groupId)=>{
       throw err;
     }
   }
+ 
+export const getGroupPostDetail=async(postId,uid)=>{
+
+  }
+
+export const groupPostReact=async(postId,uid)=>{
+
+  }
+
+export const groupPostSave=async(postId,uid)=>{
+
+  }
+
+export const groupPostFollow=async(postId,uid)=>{
+
+  }
+
+export const groupPostReport=async(postId,uid)=>{
+
+  }
+  
+  
+
+  
 
