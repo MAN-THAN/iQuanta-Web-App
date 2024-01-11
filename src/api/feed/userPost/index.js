@@ -2,6 +2,7 @@ import request from "@/api/request";
 
 export const getAllPost = async (page, limit) => {
   try {
+    console.log("page,limit",page,limit);
     const res = await request({
       url: `/feed/v1/user/post/all/details/${page}/${limit}`,
       headers: {

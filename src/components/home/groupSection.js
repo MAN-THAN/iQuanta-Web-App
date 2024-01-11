@@ -2,6 +2,7 @@ import { randomColors } from "@/utilities/commonFunctions";
 import { Box, Card, Flex, HStack, Heading, Text } from "@chakra-ui/react";
 import { ChevronRight, Star } from "lucide-react";
 import React from "react";
+import {useRouter} from 'next/router';
 import { BsStarFill } from "react-icons/bs";
 import { useState } from "react";
 import { useSelector } from "react-redux";
@@ -12,13 +13,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const GroupSection = () => {
   const cardColors = ["bg-teal-600", "bg-blue-500", "bg-purple-500"];
-  const groups = [
-    { tittle: "CAT-2021", iconText: "c&" },
-    { tittle: "Banking", iconText: "a$" },
-    { tittle: "IIT Aspirants", iconText: "x&" },
-    { tittle: "IIT Aspirants", iconText: "x&" },
-    { tittle: "IIT Aspirants", iconText: "x&" },
-  ];
+  const router = useRouter()
   const [state, setState] = useState();
   const { _id: uid } = useSelector((state) => state.userData);
   const { isLoading, data, isError, error, isPending, isSuccess } = useQuery({
@@ -30,7 +25,9 @@ const GroupSection = () => {
       }),
     onSuccess: (res) => setState(res.data.data.group),
   });
-  console.log(state);
+  const handleGroupDetail=(group)=>{
+    router.push(`/groups/${group._id}`);
+  }
 
   return (
     <>
@@ -45,7 +42,7 @@ const GroupSection = () => {
           <ChevronRight />
         </HStack>
       </Flex>
-      <Box display="flex" justifyContent="space-between" overflow="scroll" gap="4">
+      <Box display="flex" justifyContent="space-between" overflow="scroll" gap="4" >
         {state?.map((item, ind) => (
           <div key={ind} className="flex">
             <Box
@@ -55,6 +52,7 @@ const GroupSection = () => {
               w="220px"
               h="180px"
               mt="4"
+              onClick={()=>handleGroupDetail(item)}
             >
               <Text
                 position="absolute"
