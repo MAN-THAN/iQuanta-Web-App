@@ -7,7 +7,7 @@ const PollInputs = ({inputFields, setInputFields}) => {
 
   const handleAddField = () => {
     if (inputFields.length < 5) {
-      const newInputFields = [...inputFields, { id: inputFields.length + 1, value: "" }];
+      const newInputFields = [...inputFields, { title : "", votes : 0, id : Date.now() }];
       setInputFields(newInputFields);
     } else {
       console.log("Maximum number of fields reached (5)");
@@ -19,8 +19,8 @@ const PollInputs = ({inputFields, setInputFields}) => {
     setInputFields(updatedInputFields);
   };
 
-  const handleChange = (id, value) => {
-    const updatedInputFields = inputFields.map((field) => (field.id === id ? { ...field, value } : field));
+  const handleChange = (id, title) => {
+    const updatedInputFields = inputFields.map((field) => (field.id === id ? { ...field, title } : field));
     setInputFields(updatedInputFields);
   };
 
@@ -29,7 +29,7 @@ const PollInputs = ({inputFields, setInputFields}) => {
       <Box px="4">
         {inputFields.map((field) => (
           <Box key={field.id} display="flex" alignItems="center" pb="2">
-            <Input placeholder="Option " value={field.value} onChange={(e) => handleChange(field.id, e.target.value)} />
+            <Input placeholder="Option " value={field.title} onChange={(e) => handleChange(field.id, e.target.value)} />
             {inputFields.length > 1 && <X onClick={() => handleRemoveField(field.id)} style={{ cursor: "pointer" }} />}
           </Box>
         ))}

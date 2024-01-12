@@ -11,17 +11,16 @@ import Type5Meme from "./memeTemplates/Type5Meme";
 const CreateMeme = ({ type }) => {
   const [files, setFiles] = useState([null, null]);
   const [imagePreviewUrls, setImagePreviewUrls] = useState([]);
-
+  console.log(files, "files");
+  console.log(imagePreviewUrls, "imagePreviewuR")
   const photoUpload = (e, id) => {
     e.preventDefault();
     const uploadedFile = e.target.files[0];
-
     if (uploadedFile) {
       const reader = new FileReader();
       reader.onloadend = () => {
         const updatedFiles = [...files];
         updatedFiles[id] = uploadedFile;
-
         const updatedUrls = [...imagePreviewUrls];
         updatedUrls[id] = reader.result;
 

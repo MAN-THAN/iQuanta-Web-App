@@ -50,7 +50,7 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto ,triggeredFrom,groupId}) 
   const [pollOption, setPollOption] = useState(false);
   const [participantsShow, setParticipantsShow] = useState(false);
   const [createMemeShow, setCreateMemeShow] = useState(false);
-  const [options, setOptions] = useState([{ id: 1, value: "" }]);
+  const [options, setOptions] = useState([]);
   const [selectedType, setSelectedType] = useState(null);
   const [participants, setParticipants] = useState([]);
   const [tempFiles,setTempFiles]=useState([]);
@@ -80,7 +80,7 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto ,triggeredFrom,groupId}) 
   setSelectedFiles([...selectedFiles,...fileList]);
     
   };
-
+console.log(options, "options")
   const handleCreatePost=async(event)=>{
     const formData = new FormData();
 
@@ -92,7 +92,7 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto ,triggeredFrom,groupId}) 
         }
         formData.append('file', tempFiles[i]);
       }
-      console.log("95$$$$$$",selectedComponent,text);
+      console.log("95$$$$$$",selectedComponent,text, "options-->",options);
       // let data = { 
       //    //postType: selectedComponent === "fileUpload" ? selectedType : selectedComponent,
       //    postType:selectedType,
@@ -106,6 +106,7 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto ,triggeredFrom,groupId}) 
         console.log("group106",groupId,triggeredFrom);
       formData.append('groupId', groupId);
       }
+      formData.append("options", options)
       mutation.mutate(formData);
   }
 
