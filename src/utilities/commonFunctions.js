@@ -1,5 +1,6 @@
 import React from 'react'
-
+import DOMPurify from 'dompurify';
+import ReactHtmlParser from 'react-html-parser';
 
 export const dateFormatting = (date) => {
   const dateObject = new Date(date);
@@ -41,3 +42,15 @@ export const hoverEffect = {
   backgroundPosition: "right bottom",
   transition: "background-position 0.5s ease-out, color 0.5s ease-out",
 };
+
+
+
+
+export function HTMLConverter({children}) {
+  const sanitizedHtml = DOMPurify.sanitize(children);
+  return (
+    <>
+      {ReactHtmlParser(sanitizedHtml)}
+    </>
+  );
+}

@@ -1,16 +1,30 @@
 import { Box, HStack, Stack, Text, useDisclosure } from "@chakra-ui/react";
 import BackButton from "../common/backButton";
 import DifficultyModal from "../common/difficultyModal";
+import LockedModal from "../common/lockedModal";
+import { Lock, LockKeyhole } from "lucide-react";
 
 const PracticeSubTopic = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const handleSelectDifficulty = (difficulty) => {
-    console.log("Selected Difficulty:", difficulty);
-  };
+  const { isOpen: isOpenLevels, onOpen: onOpenLevels, onClose: onCloseLevels } = useDisclosure();
+  const { isOpen: isOpenLocked, onOpen: onOpenLocked, onClose: onCloseLocked } = useDisclosure();
+
+  const suntopicDetails = [
+    {
+      tittle: "Vocabulary - Basic",
+      des: "Build vocabulary to improve your ability to read, comprehend and respond",
+      status: "unlocked",
+    },
+    {
+      tittle: "Grammar - Basic",
+      des: "Build vocabulary to improve your ability to read, comprehend and respond",
+      status: "locked",
+    },
+  ];
 
   return (
     <>
-      <DifficultyModal onSelectDifficulty={handleSelectDifficulty} isOpen={isOpen} onClose={onClose} />
+      <DifficultyModal isOpen={isOpenLevels} onClose={onCloseLevels} />
+      <LockedModal isOpen={isOpenLocked} onClose={onCloseLocked} />
       <Box bg="#fff" p="6" rounded="2xl">
         <HStack gap="6">
           <BackButton />
@@ -25,8 +39,8 @@ const PracticeSubTopic = () => {
           Sub-topics
         </Text>
         <Stack>
-          {[...Array(4)].map((da, i) => (
-            <HStack align="center" bg="#F1F2F6" p="3" mt="4" rounded="2xl" onClick={onOpen}>
+          {suntopicDetails.map((da, i) => (
+            <HStack key={i} align="center" bg="#F1F2F6" p="3" mt="4" rounded="2xl">
               <Box
                 width="50px"
                 height="50px"
@@ -41,12 +55,12 @@ const PracticeSubTopic = () => {
                   B
                 </Text>
               </Box>
-              <Stack pl="3" onClick={() => router.push(`/learn/exams/subTopics/0`)} cursor="pointer">
-                <Text fontSize="16px" fontWeight="500" p="0">
-                  Vocabulary - Basic
-                  <Text fontSize="12px" color="#666666">
-                    Build vocabulary to improve your ability to read, comprehend and respond
-                  </Text>
+              <Stack pl="3" onClick={da.status !== "unlocked" ? onOpenLocked : onOpenLevels} cursor="pointer">
+                <Text fontSize="16px" fontWeight="500" p="0" display="flex" alignItems='center' gap='4'>
+                  {da.tittle} {da.status === "locked" ? <LockKeyhole size='16px'/> : ""}
+                </Text>
+                <Text fontSize="12px" color="#666666">
+                  {da.des}
                 </Text>
               </Stack>
             </HStack>
