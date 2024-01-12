@@ -19,6 +19,7 @@ import {
 } from "@chakra-ui/react";
 import { HTMLConverter } from "@/utilities/commonFunctions";
 import CommonStepper from "./commonStepper";
+import QuizModal from "../quiz/quizModal";
 
 const steps = [
   { title: "First", description: "Contact Info" },
@@ -149,6 +150,8 @@ const Quiz = () => {
   const [showResult, setShowResult] = useState(false);
   const [incorrectAnswer, setIncorrectAnswer] = useState(false);
 
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const handleOptionClick = (selectedOption) => {
     const updatedAnswers = [...userAnswers];
     updatedAnswers[currentQuestion] = selectedOption;
@@ -160,7 +163,6 @@ const Quiz = () => {
     } else {
       setIncorrectAnswer(true);
     }
-
     setUserAnswers(updatedAnswers);
   };
 
@@ -169,6 +171,7 @@ const Quiz = () => {
       setCurrentQuestion(currentQuestion + 1);
     } else {
       setShowResult(true);
+      onOpen();
     }
   };
 
@@ -196,8 +199,7 @@ const Quiz = () => {
 
   return (
     <>
-      {showResult ? (
-        <Box bg="white.900" h="auto">
+        {/* <Box bg="white.900" h="auto">
           <Box bg="#000" rounded="2xl" h="40vh">
             <VStack p="4" spacing="4" color="white.900">
               <Image boxSize="100px" rounded="xl" fit="cover" src="/static/images/profile.jpeg" />
@@ -231,8 +233,16 @@ const Quiz = () => {
               <Text>dfghjkl,</Text>
             </GridItem>
           </Grid>
-          {/* <Box display="flex" >
-            <Box bg="#5146D6" position='relative' maxW="100px" display="flex" alignItems="center" justifyContent="center" className="">
+          <Box display="flex">
+            <Box
+              bg="#5146D6"
+              position="relative"
+              maxW="100px"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              className=""
+            >
               <Text fontSize="14px" color="white.900">
                 Total XP : 230
               </Text>
@@ -245,16 +255,16 @@ const Quiz = () => {
               display="flex"
               alignItems="center"
               justifyContent="center"
-              position='absolute'
-              left='0'
+              position="absolute"
+              left="0"
             >
               <Text fontSize="14px" color="white.900">
                 +30
               </Text>
             </Box>
-          </Box> */}
-        </Box>
-      ) : (
+          </Box>
+        </Box> */}
+        <QuizModal isOpen={isOpen} onClose={onClose} />
         <Box bg="#fff" rounded="2xl">
           <Flex align="center" px="6" py="3" justify="space-between">
             <HStack>
@@ -366,7 +376,7 @@ const Quiz = () => {
             </Button>
           </VStack>
         </Box>
-      )}
+    
     </>
   );
 };
