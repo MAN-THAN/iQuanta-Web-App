@@ -3,12 +3,13 @@ import { MessagesSquare, ShieldCheck } from "lucide-react";
 import PostFormSection from "../home/postFormSection";
 import TextFeedCard from "../home/feedPostCards/textFeedCard";
 import ImageFeedCard from "../home/feedPostCards/imageFeedCard";
+import VideoFeedCard from "../home/feedPostCards/videoFeedCard";
 import CardFeedCard from "../home/feedPostCards/cardFeedCard";
 import PollFeedCard from "../home/feedPostCards/pollFeedCard";
 import { useState } from "react";
 import { useQuery, useInfiniteQuery } from "react-query";
 import { useSelector } from "react-redux";
-import { getGroupPosts } from "@/api/feed/groups/index";
+import { getGroupPosts } from "@/api/feed/groups/post";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import FeaturesCard from "../courses/featuresCard";
@@ -28,7 +29,8 @@ import ChallengeLivecard from "../home/challengesPostCard/challengeLivecard";
 import SuggestionSection from "../home/suggestionSection";
 import ChallengeLeaderbordCard from "../home/challengesPostCard/challengeLeaderbordCard";
 
-const GroupTabList = () => {
+const GroupTabList = ({groupId}) => {
+  console.log("32groupID",groupId);
   const router = useRouter();
   const { isOpen: isOpenChallenge, onOpen: onOpenChallenge, onClose: onCloseChallenge } = useDisclosure();
   const { isOpen: isOpenDiscussion, onOpen: onOpenDiscussion, onClose: onCloseDiscussion } = useDisclosure();
@@ -36,8 +38,8 @@ const GroupTabList = () => {
   const [state, setState] = useState();
   const { _id: uid } = useSelector((state) => state.userData);
   const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } = useInfiniteQuery({
-    queryKey: ["getGroupPosts", uid,],
-    queryFn: ({ pageParam = 1 }) => getGroupPosts(pageParam),
+    queryKey: ["getGroupPosts", uid,groupId],
+    queryFn: ({ pageParam = 1,limit=10 }) => getGroupPosts(pageParam,limit,uid,groupId),
     getNextPageParam: (lastPage, pages) => lastPage.nextCursor,
     onError: (error, variables, context) =>
       toast.error(`${error?.response?.data?.error?.message || "Some error"}`, {
@@ -45,7 +47,7 @@ const GroupTabList = () => {
       }),
     onSuccess: (res) => setState(res.pages[0]?.data.data.allPostData),
   });
-  console.log(state);
+  console.log("49",state);
 
   const tabs = [
     {
@@ -82,8 +84,8 @@ const GroupTabList = () => {
 
   return (
     <>
-      <ChallengesModal isOpen={isOpenChallenge} onClose={onCloseChallenge} />
-      <DiscussionModal isOpen={isOpenDiscussion} onClose={onCloseDiscussion} clickPhoto={clickPhoto} />
+      <ChallengesModal isOpen={isOpenChallenge} onClose={onCloseChallenge} triggeredFrom="group" groupId={groupId}/>
+      <DiscussionModal isOpen={isOpenDiscussion} onClose={onCloseDiscussion} clickPhoto={clickPhoto} triggeredFrom="group" groupId={groupId}/>
       <Tabs variant="soft-rounded">
         <TabList gap="4" py="4" px="4" overflow="scroll" bg="white.900">
           {tabs.map((da, i) => (
@@ -121,6 +123,16 @@ const GroupTabList = () => {
                     media={item?.postTypeId?.media}
                   />
                 );
+                else if (item.postType==="video")
+                return (
+                <VideoFeedCard
+                  name={item?.createdBy?.name}
+                  uid={item?.createdBy?._id}
+                  title={item?.postTypeId?.title}
+                  reactionCount={item?.reactionCount}
+                  commentCount={item?.commentCount}
+                  createdAt={item?.postTypeId?.createdAt}
+                  media={item?.postTypeId?.media}/>);
               else if (item.postType === "memes")
                 return (
                   <CardFeedCard
@@ -151,16 +163,7 @@ const GroupTabList = () => {
                     commentCount={item?.commentCount}
                   />
                 );
-              else if (item.postType === "video")
-                return (
-                  <ImageFeedCard
-                    name={item?.createdBy?.name}
-                    uid={item?.createdBy?._id}
-                    title={item?.postTypeId?.title}
-                    reactionCount={item?.reactionCount}
-                    commentCount={item?.commentCount}
-                  />
-                );
+              
               // else if (item.post_type === "video") return <ImageFeedCard />;
               // else if (item.post_type === "video") return <SuggestionSection />;
               // else if (item.post_type === "video") return <PollFeedCard />;
