@@ -3,7 +3,7 @@ import request from "@/api/request";
 
 
 
-export const createGroupPost = async(payload,uid)=>{
+export const createGroupPost = async(payload,contentType,uid)=>{
     try {
         
         const res = await request({
@@ -11,7 +11,7 @@ export const createGroupPost = async(payload,uid)=>{
           type: "POST",
           data: payload,
           headers: {
-            "Content-Type": "multipart/form-data",
+            "Content-Type": contentType=='json'?"application/json":"multipart/form-data",
             uid:uid
           },
         });
@@ -155,6 +155,24 @@ export const groupPostReport=async(postId,uid)=>{
         throw err;
       }
   }
+
+export const groupMarkPoll=async(postId,uid,option)=>{
+  try {
+        
+    const res = await request({
+      url: `/feed/v1/group/post/${postId}/${option}/${uid}`,
+      type: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        uid:uid
+      },
+    });
+    return res;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
   
   
 

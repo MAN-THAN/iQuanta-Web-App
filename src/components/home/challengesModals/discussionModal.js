@@ -50,9 +50,10 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto ,triggeredFrom,groupId}) 
   const [pollOption, setPollOption] = useState(false);
   const [participantsShow, setParticipantsShow] = useState(false);
   const [createMemeShow, setCreateMemeShow] = useState(false);
-  const [options, setOptions] = useState([{ id: 1, value: "" }]);
+  const [options, setOptions] = useState([{ id: 1, title: "" }]);
   const [selectedType, setSelectedType] = useState(null);
   const [participants, setParticipants] = useState([]);
+  const [privacyType,setPrivacyType] = useState('public');
   const [tempFiles,setTempFiles]=useState([]);
   const queryClient = useQueryClient();
   const { name, _id: uid } = useSelector((state) => state.userData);
@@ -81,10 +82,25 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto ,triggeredFrom,groupId}) 
     
   };
 
-  const handleCreatePost=async(event)=>{
-    const formData = new FormData();
-
-      // Append each file to the FormData object
+  const handleCreatePost=async()=>{
+    
+    if(selectedComponent=='poll'){
+      let pollData ={title:text,privacyType:privacyType,options:options,postType:"poll"};
+       if(triggeredFrom=="group"){
+        pollData.groupId = groupId;
+       }
+       mutation.mutate(pollData,'json');
+    }
+    if(selectedComponent=='debate'){
+      let debateData ={title:text,privacyType:privacyType,participants:participants,postType:"debate"};
+      if(triggeredFrom=="group"){
+        debateData.groupId = groupId;
+       }
+       mutation.mutate(debateData,'json');
+    }
+    if(selectedComponent=='photo'){
+     const formData = new FormData();
+   // Append each file to the FormData object
       for (let i = 0; i < tempFiles.length; i++) {
         if(tempFiles[i].type.includes('video'))
         {
@@ -92,23 +108,23 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto ,triggeredFrom,groupId}) 
         }
         formData.append('file', tempFiles[i]);
       }
-      console.log("95$$$$$$",selectedComponent,text);
-      // let data = { 
-      //    //postType: selectedComponent === "fileUpload" ? selectedType : selectedComponent,
-      //    postType:selectedType,
-      //    //options: options,
-      //    title:text,
-      //    post: tempFiles[0].name 
-      //   };
+      
       formData.append('postType',selectedComponent);
       formData.append('title', text);
+      formData.append('privacyType',privacyType);
       if(triggeredFrom=="group"){
-        console.log("group106",groupId,triggeredFrom);
-      formData.append('groupId', groupId);
+       formData.append('groupId', groupId);
       }
-      mutation.mutate(formData);
-  }
+      mutation.mutate(formData,'form');
+    }
+    if(selectedComponent=='video'){
 
+    }
+    if(selectedComponent=='fileUpload'){
+
+    }
+
+  }
   
   const handleRemoveImage = (index) => {
     setSelectedFiles((prevFiles) => {
@@ -156,7 +172,7 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto ,triggeredFrom,groupId}) 
     }
   };
   const mutation = useMutation({
-    mutationFn: (payload) => triggeredFrom=="user"?createPost(payload, uid):createGroupPost(payload,uid),
+    mutationFn: (payload,contentType) => triggeredFrom=="user"?createPost(payload,contentType, uid):createGroupPost(payload,contentType,uid),
     onMutate: (variables) => {
       return console.log("mutation is happening");
     },
@@ -168,7 +184,6 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto ,triggeredFrom,groupId}) 
       toast.success("post created successfully!", {
         position: toast.POSITION.TOP_RIGHT,
       });
-      console.log(res);
       queryClient.invalidateQueries("getAllPosts");
       setText();
       setSelectedFiles([]);
@@ -221,7 +236,7 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto ,triggeredFrom,groupId}) 
                   New Discussion
                 </Text>
                 <Box>
-                  <PostTypeMenu />
+                  <PostTypeMenu setPrivacyType={(value)=>setPrivacyType(value)} currentValue={privacyType}/>
                 </Box>
                 {/* <Menu isLazy>
                   <MenuButton border="1px solid #8D96A5" rounded="lg" p="1">
