@@ -4,7 +4,7 @@ import { Dot, MessageCircle, MoreVertical, Share2, ThumbsUp } from "lucide-react
 import LikeEmojiGroup from "@/components/common/likeEmojiGroup";
 import AvatarGroups from "@/components/common/avatarGroups";
 import { MdPlayArrow } from "react-icons/md";
-
+import moment from "moment";
 const PollFeedCard = ({ name, uid, title, reactionCount, commentCount, createdAt, media }) => {
   const getTime = () => {
     const endDate = moment(createdAt);

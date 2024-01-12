@@ -41,8 +41,8 @@ const FeedTabsSection = () => {
   console.log(state);
   return (
     <>
-      <ChallengesModal isOpen={isOpenChallenge} onClose={onCloseChallenge} />
-      <DiscussionModal isOpen={isOpenDiscussion} onClose={onCloseDiscussion} clickPhoto={clickPhoto} />
+      <ChallengesModal isOpen={isOpenChallenge} onClose={onCloseChallenge} triggeredFrom="user" />
+      <DiscussionModal isOpen={isOpenDiscussion} onClose={onCloseDiscussion} clickPhoto={clickPhoto} triggeredFrom="user"/>
       {/* user post list */}
       <Box mt={{ base: "6", md: "12" }}>
         <Tabs isFitted>

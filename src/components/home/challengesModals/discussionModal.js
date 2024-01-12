@@ -35,12 +35,13 @@ import FileUploadButton from "../homePostComponents/fileUploadButton";
 import CreateMemeModal from "../homePostComponents/createMemeModal";
 import PostTypeMenu from "@/components/common/postTypeMenu";
 import { createPost } from "@/api/feed/userPost";
+import { createGroupPost } from "@/api/feed/groups/post";
 import { useMutation, useQueryClient } from "react-query";
 import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const DiscussionModal = ({ isOpen, onClose, clickPhoto }) => {
+const DiscussionModal = ({ isOpen, onClose, clickPhoto ,triggeredFrom,groupId}) => {
   const [isTyping, setIsTyping] = useState(false);
   const [text, setText] = useState();
   const fileInputRef = useRef(null);
@@ -85,26 +86,30 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto }) => {
 
       // Append each file to the FormData object
       for (let i = 0; i < tempFiles.length; i++) {
-        if(tempFiles[i].type.includes('video')){
-          setSelectedType('video');
-          console.log('90 video selected');
+        if(tempFiles[i].type.includes('video'))
+        {
+          setSelectedComponent('video');
         }
         formData.append('file', tempFiles[i]);
       }
-      
-      let data = { 
-         //postType: selectedComponent === "fileUpload" ? selectedType : selectedComponent,
-         postType:selectedType,
-         //options: options,
-         title:text,
-         post: tempFiles[0].name 
-        };
-        
-      formData.append('postType',selectedType);
-      formData.append("title", text);
-      
-    mutation.mutate(formData);
+      console.log("95$$$$$$",selectedComponent,text);
+      // let data = { 
+      //    //postType: selectedComponent === "fileUpload" ? selectedType : selectedComponent,
+      //    postType:selectedType,
+      //    //options: options,
+      //    title:text,
+      //    post: tempFiles[0].name 
+      //   };
+      formData.append('postType',selectedComponent);
+      formData.append('title', text);
+      if(triggeredFrom=="group"){
+        console.log("group106",groupId,triggeredFrom);
+      formData.append('groupId', groupId);
+      }
+      mutation.mutate(formData);
   }
+
+  
   const handleRemoveImage = (index) => {
     setSelectedFiles((prevFiles) => {
       const newFiles = [...prevFiles];
@@ -137,9 +142,9 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto }) => {
   const renderSelectedComponent = () => {
     switch (selectedComponent) {
       case "photo":
-        
-        return <ImagePreview selectedFilesBlob={selectedFiles} selectedFiles={tempFiles} removeImage={handleRemoveImage} />;
-        
+      return <ImagePreview selectedFilesBlob={selectedFiles} selectedFiles={tempFiles} removeImage={handleRemoveImage} />;
+      case "video":
+      return <ImagePreview selectedFilesBlob={selectedFiles} selectedFiles={tempFiles} removeImage={handleRemoveImage} />;
       case "debate":
         return <DebateCard handleParticipants={handleParticipants} />;
       case "poll":
@@ -151,7 +156,7 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto }) => {
     }
   };
   const mutation = useMutation({
-    mutationFn: (payload) => createPost(payload, uid),
+    mutationFn: (payload) => triggeredFrom=="user"?createPost(payload, uid):createGroupPost(payload,uid),
     onMutate: (variables) => {
       return console.log("mutation is happening");
     },
