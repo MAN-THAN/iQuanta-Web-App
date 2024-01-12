@@ -77,33 +77,19 @@ return (
             <Text fontSize={{ base: "18px", md: "24px" }} fontWeight="600">
              {state?.title}
             </Text>
-            <HStack alignItems="center" gap="4">
+            <HStack align="center" gap="4">
               <Button
                 variant="solid"
                 color="#fff"
                 backgroundColor="#000"
                 _hover={{ color: "#000", backgroundColor: "#fff", border: "1px solid #000" }}
-                onClick={onOpenInvite}
               >
                 Invite Now
               </Button>
               <Box onClick={() => router.push(`/groups/${groupId}/info`)} cursor="pointer">
                 <Image alt="info" src="/Info.svg" />
               </Box>
-
-              <Dropdown
-                placement="up"
-                menu={{
-                  items,
-                }}
-                trigger={["click"]}
-              >
-                <Box>
-                  <Space>
-                    <MoreVertical />
-                  </Space>
-                </Box>
-              </Dropdown>
+              <MoreVertical />
             </HStack>
           </Flex>
           <HStack alignItems="center" mt={{ base: "4", md: "6" }}>
@@ -116,7 +102,7 @@ return (
               {state?.members?.length} Members
             </Text>
           </HStack>
-          <Box mt={{ base: "4", md: "6" }} onClick={onOpenMember}>
+          <Box mt={{ base: "4", md: "6" }}>
             <AvatarGroups />
           </Box>
         </Box>
