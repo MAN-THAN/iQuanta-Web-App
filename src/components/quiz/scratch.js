@@ -1,8 +1,11 @@
 import { Box, Center, Image } from "@chakra-ui/react";
-import React, { useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 
 const Scratch = () => {
   const [prizeValue, setPrizeValue] = useState("$10");
+  const [isScratchEnabled, setScratchEnabled] = useState(true);
+
+  const hiddenImageRef = useRef();
 
   useLayoutEffect(() => {
     const canvasElement = document.getElementById("scratch");
@@ -60,16 +63,18 @@ const Scratch = () => {
     checkIfTouchDevice();
 
     canvasElement.addEventListener(eventTypes[deviceType].down, (event) => {
-      isDragging = true;
-      getMouseCoordinates(event);
-      scratch(mouseX, mouseY);
+      if (isScratchEnabled) {
+        isDragging = true;
+        getMouseCoordinates(event);
+        scratch(mouseX, mouseY);
+      }
     });
 
     canvasElement.addEventListener(eventTypes[deviceType].move, (event) => {
       if (!checkIfTouchDevice()) {
         event.preventDefault();
       }
-      if (isDragging) {
+      if (isDragging && isScratchEnabled) {
         getMouseCoordinates(event);
         scratch(mouseX, mouseY);
       }
@@ -100,15 +105,20 @@ const Scratch = () => {
     };
     canvasContext.clearRect(0, 0, canvasElement.width, canvasElement.height);
     initializeCanvas();
-  }, []);
+  }, [isScratchEnabled]);
+
+  const handleToggleScratch = () => {
+    setScratchEnabled((prevEnabled) => !prevEnabled);
+  };
 
   return (
     <div className="container">
       <div className="base">
         <h4>You Won</h4>
         <h3>{prizeValue}</h3>
+        <button onClick={handleToggleScratch}>{isScratchEnabled ? "Disable Scratch" : "Enable Scratch"}</button>
       </div>
-      <Center style={{}}>
+      <Center style={{ position: "relative" }}>
         <canvas
           id="scratch"
           width="200"
@@ -118,7 +128,13 @@ const Scratch = () => {
           }}
         />
         <Box boxSize="60px" position="absolute">
-          <Image src="/LockedWhite.svg" alt="Hidden Image" style={{ width: "100%", height: "100%" }} />
+          <Image
+            display={!isScratchEnabled ? "block" : "none"}
+            ref={hiddenImageRef}
+            src="/LockedWhite.svg"
+            alt="Hidden Image"
+            style={{ width: "100%", height: "100%" }}
+          />
         </Box>
       </Center>
     </div>
