@@ -2,10 +2,11 @@ import { Avatar, AvatarGroup } from "@chakra-ui/react";
 import React from "react";
 
 const AvatarGroups = ({ size , data }) => {
+  console.log("data",data);
   return (
-    <AvatarGroup size={size} max={3}>
+    <AvatarGroup size='sm' max={3}>
       {data?.map(user=>{
-        <Avatar name={user.name} src={user.profilePic} />
+      return  <Avatar name={user.name} src={user.profilePic} />
       })}
       
       {/* <Avatar name={dat} src="https://bit.ly/sage-adebayo" />

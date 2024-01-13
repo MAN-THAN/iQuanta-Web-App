@@ -91,7 +91,7 @@ console.log("uid",uid);
                   <div className=" p-5 poll">
                     <div className="flex justify-between mb-1">
                      <span className="text-base font-semibold text-gray-600 ">{option.title}{option.uid.length}</span>
-                      <AvatarGroups data={option.uid} size={3} />
+                      <AvatarGroups data={option?.uid} size={3} />
                     </div>
                     <Progress value={Number(option.votes) * 10} />
                   </div>
