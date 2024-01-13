@@ -9,10 +9,10 @@ import moment from "moment";
 import { useMutation, useQueryClient } from "react-query";
 import { groupMarkPoll } from "@/api/feed/groups/post";
 const PollFeedCard = ({ name, uid, profilePic, title, options, reactionCount, commentCount, createdAt, media ,triggeredFrom,postId  }) => {
-
+console.log("uid",uid);
   const [value, setValue] = React.useState();
   const mutation = useMutation({
-    mutationFn: (payload) => triggeredFrom=="group"?groupMarkPoll(payload.postId,payload.option,payload.uid):groupMarkPollgroupMarkPoll(payload.postId,payload.option,payload.uid),
+    mutationFn: (payload) => triggeredFrom=="group"?groupMarkPoll(payload.postId,payload.option,payload.uid):groupMarkPoll(payload.postId,payload.option,payload.uid),
     onMutate: (variables) => {
       return console.log("mutation is happening");
     },
@@ -21,7 +21,7 @@ const PollFeedCard = ({ name, uid, profilePic, title, options, reactionCount, co
         position: toast.POSITION.TOP_RIGHT,
       }),
     onSuccess: (res, variables, context) => {
-      toast.success("Poll Save Successfully", {
+      toast.success("Poll Save Successfull", {
         position: toast.POSITION.TOP_RIGHT,
       });
       queryClient.invalidateQueries("getAllPosts");
@@ -36,7 +36,7 @@ const PollFeedCard = ({ name, uid, profilePic, title, options, reactionCount, co
   const handlePollClick=(poll)=>{
    
    setValue(poll);
-   mutation.mutate({postId:postId,optionId:options[value]?._id,uid:uid});
+   mutation.mutate({postId:postId,option:options[value]?._id,uid:uid});
    //add api call to mark a poll
   }
   const getTime = () => {
@@ -90,8 +90,8 @@ const PollFeedCard = ({ name, uid, profilePic, title, options, reactionCount, co
                 <Radio  value={index}>
                   <div className=" p-5 poll">
                     <div className="flex justify-between mb-1">
-                     <span className="text-base font-semibold text-gray-600 ">{option.title}</span>
-                      {option.uid.length>0&&<AvatarGroups data={option.uid} size={3} />}
+                     <span className="text-base font-semibold text-gray-600 ">{option.title}{option.uid.length}</span>
+                      <AvatarGroups data={option.uid} size={3} />
                     </div>
                     <Progress value={Number(option.votes) * 10} />
                   </div>
