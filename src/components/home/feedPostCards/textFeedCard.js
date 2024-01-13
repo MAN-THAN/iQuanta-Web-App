@@ -40,7 +40,7 @@ const TextFeedCard = ({ classId, name, uid, title, reactionCount, commentCount, 
               <p style={{ fontSize: "14px", color: "#171717", fontWeight: "600" }}>{name}</p> <MdPlayArrow />{" "}
               {/* <p style={{ fontSize: "14px", color: "#171717", fontWeight: "400" }}>Posted in CAT 2021</p> */}
             </Box>
-            <p style={{ fontSize: "14px", color: "#636363" }}>2h ago</p>
+            <p style={{ fontSize: "14px", color: "#636363" }}>{getTime(createdAt)} h ago</p>
           </Box>
         </Box>
         <Box display="flex" alignItems="center" gap="4">

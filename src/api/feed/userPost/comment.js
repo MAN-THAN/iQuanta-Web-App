@@ -22,3 +22,6 @@ export const userCommentReactToComment=async(postId,uid)=>{
 export const userPostCommentReport=async(postId,uid)=>{
 
 }
+export const userPostComment = () => {
+    
+}

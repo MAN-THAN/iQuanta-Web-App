@@ -55,7 +55,7 @@ const ImageSwiper = ({ name, uid, profilePic, title, reactionCount, commentCount
           <Box ml="2">
             <Box display="flex" alignItems="center">
               <p style={{ fontSize: "14px", color: "#171717", fontWeight: "600" }}>{name}</p> <MdPlayArrow />
-              <p style={{ fontSize: "14px", color: "#171717", fontWeight: "400" }}>Posted in CAT 2021</p>
+              {/* <p style={{ fontSize: "14px", color: "#171717", fontWeight: "400" }}>Posted in CAT 2021</p> */}
             </Box>
             <p style={{ fontSize: "14px", color: "#636363" }}>{getTime()} h ago</p>
           </Box>
@@ -105,7 +105,7 @@ const ImageSwiper = ({ name, uid, profilePic, title, reactionCount, commentCount
                 paddingLeft: "5px",
               }}
             >
-              24
+              {commentCount}
             </span>
           </Box>
           <Box pl="5">

@@ -6,7 +6,7 @@ import CommentSlider from "@/components/postCards/commentSlider/commentSlider";
 import { MdPlayArrow } from "react-icons/md";
 import moment from "moment";
 
-const ImageFeedCard = ({ name, uid, title, reactionCount, commentCount, createdAt, media, comments, profilePic}) => {
+const ImageFeedCard = ({ name, uid, title, reactionCount, commentCount, createdAt, media, comments, profilePic, followingCount}) => {
   const getTime = () => {
     const endDate = moment(createdAt);
     const duration = moment.duration(endDate.diff(moment(Date.now())));
@@ -80,7 +80,7 @@ const ImageFeedCard = ({ name, uid, title, reactionCount, commentCount, createdA
           </Box>
           <Dot color="#8D96A5" />
           <Box>
-            <span style={{ fontSize: "14px", fontWeight: "600", color: "#455564" }}>53</span>
+            <span style={{ fontSize: "14px", fontWeight: "600", color: "#455564" }}>{followingCount}</span>
             <span
               style={{
                 fontSize: "14px",

@@ -8,7 +8,7 @@ import { Progress } from '@chakra-ui/react';
 import moment from "moment";
 import { useMutation, useQueryClient } from "react-query";
 import { groupMarkPoll } from "@/api/feed/groups/post";
-const PollFeedCard = ({ name, uid, profilePic, title, options, reactionCount, commentCount, createdAt, media ,triggeredFrom,postId  }) => {
+const PollFeedCard = ({ name, uid, profilePic, title, options, reactionCount, commentCount, createdAt, media ,triggeredFrom,postId, followingCount  }) => {
 
   const [value, setValue] = React.useState();
   const mutation = useMutation({
@@ -130,7 +130,7 @@ const PollFeedCard = ({ name, uid, profilePic, title, options, reactionCount, co
             </Box>
             <Dot color="#8D96A5" />
             <Box>
-              <span style={{ fontSize: "14px", fontWeight: "600", color: "#455564" }}>53</span>
+              <span style={{ fontSize: "14px", fontWeight: "600", color: "#455564" }}>{followingCount}</span>
               <span
                 style={{
                   fontSize: "14px",
