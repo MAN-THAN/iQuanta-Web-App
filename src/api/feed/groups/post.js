@@ -156,7 +156,7 @@ export const groupPostReport=async(postId,uid)=>{
       }
   }
 
-export const groupMarkPoll=async(postId,uid,option)=>{
+export const groupMarkPoll=async(postId,option,uid)=>{
   try {
         
     const res = await request({
