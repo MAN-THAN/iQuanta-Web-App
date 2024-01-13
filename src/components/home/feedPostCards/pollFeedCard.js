@@ -34,9 +34,8 @@ const PollFeedCard = ({ name, uid, profilePic, title, options, reactionCount, co
     onSettled: (data, error, variables, context) => {},
   });
   const handlePollClick=(poll)=>{
-   alert("Poll");
+   
    setValue(poll);
-   console.log(options[value]?._id,39);
    mutation.mutate({postId:postId,optionId:options[value]?._id,uid:uid});
    //add api call to mark a poll
   }
