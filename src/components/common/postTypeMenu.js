@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { Box, Menu, MenuButton, MenuList, MenuItem, Text } from "@chakra-ui/react";
 import { ChevronDown } from "lucide-react";
 
-const PostTypeMenu = () => {
-  const [selectedItem, setSelectedItem] = useState("Public");
+const PostTypeMenu = ({currentValue,setPrivacyType}) => {
+  const [selectedItem, setSelectedItem] = useState(currentValue);
 
   const handleSelect = (item) => {
     setSelectedItem(item);
+    setPrivacyType(item);
   };
 
   return (
@@ -18,9 +19,9 @@ const PostTypeMenu = () => {
         </Box>
       </MenuButton>
       <MenuList minWidth="100px" fontSize='14px'>
-        <MenuItem onClick={() => handleSelect("Public")}>Public</MenuItem>
-        <MenuItem onClick={() => handleSelect("Private")}>Private</MenuItem>
-        <MenuItem onClick={() => handleSelect("Friends Only")}>Friends Only</MenuItem>
+        <MenuItem onClick={() => handleSelect("public")}>Public</MenuItem>
+        <MenuItem onClick={() => handleSelect("private")}>Private</MenuItem>
+        <MenuItem onClick={() => handleSelect("friends")}>Friends Only</MenuItem>
       </MenuList>
     </Menu>
   );

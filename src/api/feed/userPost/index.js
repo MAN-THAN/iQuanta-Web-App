@@ -16,14 +16,14 @@ export const getAllPost = async (page, limit) => {
   }
 };
 
-export const createPost = async (payload, uid) => {
+export const createPost = async (payload,contentType, uid) => {
   try {
     const res = await request({
       url: `/feed/v1/user/post`,
       type: "POST",
       data: payload,
       headers: {
-        "Content-Type": "multipart/form-data",
+        "Content-Type": contentType=='json'?"application/json":"multipart/form-data",
         uid:uid
       },
     });

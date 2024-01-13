@@ -6,7 +6,7 @@ import { Dot, MoreVertical } from "lucide-react";
 import EmojiGroup from "@/components/common/avatarGroups";
 import LikeEmojiGroup from "@/components/common/likeEmojiGroup";
 
-const CommentSlider = ({comments}) => {
+const CommentSlider = ({ comments }) => {
   return (
     <Box width="auto">
       <Swiper
@@ -33,8 +33,8 @@ const CommentSlider = ({comments}) => {
         modules={[Navigation]}
         className="mySwiper"
       >
-        {comments?.map((d, i) => (
-          <SwiperSlide key={i}>
+        {comments?.map((item, ind) => (
+          <SwiperSlide key={ind}>
             <Card bg="#F1F2F6" minW="280px" rounded="2xl">
               <HStack align="center" justifyContent="space-between" padding={["3", null, "4"]}>
                 <Box
@@ -62,7 +62,7 @@ const CommentSlider = ({comments}) => {
                         fontWeight: "600",
                       }}
                     >
-                      Hardik Beniwal
+                      {item?.name}{" "}
                     </p>
                     <p style={{ fontSize: ["10px", null, "12px"], color: "#636363" }}>2h ago</p>
                   </Box>
@@ -75,8 +75,7 @@ const CommentSlider = ({comments}) => {
                 p={["2", null, "3"]}
                 lineHeight={["20px", null, "24px"]}
               >
-                Yes, you can! But you need to be in 99.5%iler. I was also in such a situation earlier this year. If I
-                had known this, than I wouldn’t have... read more
+                {item?.comment}  {"...read more"}
               </Text>
               <HStack align="center" padding={["3", null, "3"]}>
                 <Text
@@ -98,7 +97,7 @@ const CommentSlider = ({comments}) => {
                       color: "#455564",
                     }}
                   >
-                    12
+                    {item?.reactionCount}
                   </Text>
                 </Box>
                 <Divider border="0.2" orientation="vertical" />
