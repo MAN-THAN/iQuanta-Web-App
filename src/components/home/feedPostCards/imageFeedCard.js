@@ -30,7 +30,7 @@ const ImageFeedCard = ({ name, uid, title, reactionCount, commentCount, createdA
               width="100%"
               height="100%"
               className="rounded-md"
-              src="/static/images/Profile.jpeg"
+              src={profilePic}
               alt="Profile Image"
             />
           </Box>

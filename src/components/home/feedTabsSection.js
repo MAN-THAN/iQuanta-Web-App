@@ -17,6 +17,7 @@ import ChallengesModal from "./challengesModals/challengesModal";
 import DiscussionModal from "./challengesModals/discussionModal";
 import { useQuery, useInfiniteQuery } from "react-query";
 import { useSelector } from "react-redux";
+import { getAllChallenges} from "@/api/feed/challenges";
 import { getAllPost } from "@/api/feed/userPost";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -27,10 +28,11 @@ const FeedTabsSection = () => {
   const { isOpen: isOpenDiscussion, onOpen: onOpenDiscussion, onClose: onCloseDiscussion } = useDisclosure();
   const [clickPhoto, setClickPhoto] = useState(false);
   const [state, setState] = useState();
+  const [challengesList, setChallengesList] = useState([]);
   const { _id: uid } = useSelector((state) => state.userData);
   const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } = useInfiniteQuery({
     queryKey: ["getAllPosts", uid],
-    queryFn: ({ pageParam = 1 }) => getAllPost(pageParam),
+    queryFn: ({ pageParam = 1, limit=10 }) => getAllPost(pageParam, limit),
     getNextPageParam: (lastPage, pages) => lastPage.nextCursor,
     onError: (error, variables, context) =>
       toast.error(`${error?.response?.data?.error?.message || "Some error"}`, {
@@ -38,11 +40,29 @@ const FeedTabsSection = () => {
       }),
     onSuccess: (res) => setState(res.pages[0]?.data.data.allPostData),
   });
-  console.log(state);
+  console.log(state, "userpostList");
+
+  // challenges intg
+  const query = useInfiniteQuery({
+    queryKey: ["getAllChallenges", uid],
+    queryFn: ({ pageParam = 1, limit = 10 }) => getAllChallenges(pageParam, limit),
+    getNextPageParam: (lastPage, pages) => lastPage.nextCursor,
+    onError: (error, variables, context) =>
+      toast.error(`${error?.response?.data?.error?.message || "Some error"}`, {
+        position: toast.POSITION.TOP_RIGHT,
+      }),
+    onSuccess: (res) => setChallengesList(res.pages[0]?.data.data.challenge.data),
+  });
+  console.log(challengesList, "challengesList");
   return (
     <>
       <ChallengesModal isOpen={isOpenChallenge} onClose={onCloseChallenge} triggeredFrom="user" />
-      <DiscussionModal isOpen={isOpenDiscussion} onClose={onCloseDiscussion} clickPhoto={clickPhoto} triggeredFrom="user"/>
+      <DiscussionModal
+        isOpen={isOpenDiscussion}
+        onClose={onCloseDiscussion}
+        clickPhoto={clickPhoto}
+        triggeredFrom="user"
+      />
       {/* user post list */}
       <Box mt={{ base: "6", md: "12" }}>
         <Tabs isFitted>
@@ -79,43 +99,39 @@ const FeedTabsSection = () => {
               <PostFormSection openModal={onOpenDiscussion} setClickPhoto={setClickPhoto} />
               {/* different type of post to select */}
               {state?.map((item, ind) => {
-                if (item.postType === "photo")
-                 {
-                if(item.postTypeId?.media?.length==1)
-                return (
-                    <ImageFeedCard
-                      name={item?.postTypeId?.createdBy?.name}
-                      profilePic={item?.postTypeId?.createdBy?.profilePic}
-                      uid={item?.postTypeId?.createdBy?._id}
-                      title={item?.postTypeId?.title}
-                      reactionCount={item?.reactionCount}
-                      commentCount={item?.commentCount}
-                      createdAt={item?.postTypeId?.createdAt}
-                      media={item?.postTypeId?.media}
-                      comments={item?.comments}
-                    />
-                  );
-                else if(item.postTypeId?.media?.length>1){
-                  return (
-                    <ImageSwiper
-                      name={item?.postTypeId?.createdBy?.name}
-                      profilePic={item?.postTypeId?.createdBy?.profilePic}
-                      uid={item?.postTypeId?.createdBy?._id}
-                      title={item?.postTypeId?.title}
-                      reactionCount={item?.reactionCount}
-                      commentCount={item?.commentCount}
-                      createdAt={item?.postTypeId?.createdAt}
-                      media={item?.postTypeId?.media}
-                      comments={item?.comments}
-                    />
-                  );
-                }
-                else{
-                  return null
-                }
-                }
-                
-                else if (item.postType === "video")
+                if (item.postType === "photo") {
+                  if (item.postTypeId?.media?.length == 1)
+                    return (
+                      <ImageFeedCard
+                        name={item?.postTypeId?.createdBy?.name}
+                        profilePic={item?.postTypeId?.createdBy?.profilePic}
+                        uid={item?.postTypeId?.createdBy?._id}
+                        title={item?.postTypeId?.title}
+                        reactionCount={item?.reactionCount}
+                        commentCount={item?.commentCount}
+                        createdAt={item?.postTypeId?.createdAt}
+                        media={item?.postTypeId?.media}
+                        comments={item?.comments}
+                      />
+                    );
+                  else if (item.postTypeId?.media?.length > 1) {
+                    return (
+                      <ImageSwiper
+                        name={item?.postTypeId?.createdBy?.name}
+                        profilePic={item?.postTypeId?.createdBy?.profilePic}
+                        uid={item?.postTypeId?.createdBy?._id}
+                        title={item?.postTypeId?.title}
+                        reactionCount={item?.reactionCount}
+                        commentCount={item?.commentCount}
+                        createdAt={item?.postTypeId?.createdAt}
+                        media={item?.postTypeId?.media}
+                        comments={item?.comments}
+                      />
+                    );
+                  } else {
+                    return null;
+                  }
+                } else if (item.postType === "video")
                   return (
                     <VideoFeedCard
                       name={item?.postTypeId?.createdBy?.name}
@@ -173,8 +189,22 @@ const FeedTabsSection = () => {
             </TabPanel>
             <TabPanel padding="0">
               <ChallengeForm openModal={onOpenChallenge} />
-              <ChallengeCard />
-              <ChallengeLivecard />
+              {challengesList?.map((challenge, ind) => {
+                if (challenge.status === "created") {
+                  return (
+                    <Box key={ind}>
+                      <ChallengeCard challengeData={challenge} />
+                    </Box>
+                  );
+                } else if (challenge.status === "live") {
+                  return (
+                    <Box key={ind}>
+                      <ChallengeLivecard challengeData={challenge} />
+                    </Box>
+                  );
+                }
+              })}
+              {/* <ChallengeLivecard /> */}
               <SuggestionSection />
               <ChallengeLeaderbordCard />
             </TabPanel>

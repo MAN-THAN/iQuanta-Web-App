@@ -5,8 +5,17 @@ import { Box, Card, Divider, HStack, Image, Stack, Tag, Text } from "@chakra-ui/
 import { Dot, MoreVertical } from "lucide-react";
 import EmojiGroup from "@/components/common/avatarGroups";
 import LikeEmojiGroup from "@/components/common/likeEmojiGroup";
+import moment from "moment";
 
 const CommentSlider = ({ comments }) => {
+  const getTime = (createdAt) => {
+    const endDate = moment(createdAt);
+    const duration = moment.duration(endDate.diff(moment(Date.now())));
+    const hours = duration.asHours();
+    // console.log(hours, "hours");
+    // console.log(duration, "duration");
+    return Math.trunc(Math.abs(hours));
+  };
   return (
     <Box width="auto">
       <Swiper
@@ -50,7 +59,7 @@ const CommentSlider = ({ comments }) => {
                       width="100%"
                       height="100%"
                       className="rounded-md"
-                      src="/static/images/Profile.jpeg"
+                      src={item?.uid?.profilePic}
                       alt="Profile Image"
                     />
                   </Box>
@@ -62,9 +71,9 @@ const CommentSlider = ({ comments }) => {
                         fontWeight: "600",
                       }}
                     >
-                      {item?.name}{" "}
+                      {item?.uid?.name}{" "}
                     </p>
-                    <p style={{ fontSize: ["10px", null, "12px"], color: "#636363" }}>2h ago</p>
+                    <p style={{ fontSize: ["10px", null, "12px"], color: "#636363" }}>{getTime(item?.createdAt)}h ago</p>
                   </Box>
                 </Box>
               </HStack>
