@@ -19,7 +19,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
-const ParticipantsModal = ({ closeParticipants, participants, setParticipants }) => {
+const ParticipantsModal = ({ closeParticipants, participants, setParticipants , triggeredFrom }) => {
   const { _id: uid } = useSelector((state) => state.userData);
   const [state, setState] = useState();
   const { isLoading, data, isError, error, isPending, isSuccess } = useQuery({

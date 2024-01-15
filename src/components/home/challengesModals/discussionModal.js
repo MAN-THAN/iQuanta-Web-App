@@ -338,6 +338,7 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto ,triggeredFrom,groupId}) 
                 closeParticipants={closeParticipants}
                 participants={participants}
                 setParticipants={setParticipants}
+                triggeredFrom={triggeredFrom}
               />
             </ModalBody>
             <Divider />
