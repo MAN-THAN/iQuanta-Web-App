@@ -19,6 +19,7 @@
     "dompurify": "^3.0.8",
     "formik": "^2.4.5",
     "framer-motion": "^10.16.4",
+    "gsap": "^3.12.4",
     "html-to-image": "^1.11.11",
     "image-conversion": "^2.1.1",
     "lucide": "^0.292.0",
