@@ -37,7 +37,7 @@ const GroupTabList = () => {
   const [clickPhoto, setClickPhoto] = useState(false);
   const [state, setState] = useState();
   const { _id: uid } = useSelector((state) => state.userData);
-  const { _id: groupId } = useSelector((state) => state.userData);
+  const { _id: groupId } = useSelector((state) => state.groupData);
   const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } = useInfiniteQuery({
     queryKey: ["getGroupPosts", uid,groupId],
     queryFn: ({ pageParam = 1,limit=10 }) => getGroupPosts(pageParam,limit,uid,groupId),

@@ -11,6 +11,7 @@ import {useQuery} from 'react-query';
 import { getGroupDetail } from "@/api/feed/groups";
 import { useState } from "react";
 import { useSelector,useDispatch } from "react-redux";
+import { useParams } from 'next/navigation';
 import { addGroupData } from "@/store/slices/groupSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -41,11 +42,14 @@ const GroupsDetails = () => {
     },
   ];
   const router = useRouter();
+  const params = useParams();
+  
+  const groupId = params?.groupsDetails;
   const { isOpen: isOpenInvite, onOpen: onOpenInvite, onClose: onCloseInvite } = useDisclosure();
   const { isOpen: isOpenMember, onOpen: onOpenMember, onClose: onCloseMember } = useDisclosure();
   const [state, setState] = useState({});
   const { _id: uid } = useSelector((state) => state.userData);
-  const { _id:groupId } = useSelector((state) => state.groupData);
+  
   const dispatch = useDispatch();
   const { isLoading, data, isError, error, isPending, isSuccess }   =  useQuery({
     queryKey: ["getGroupDetail", uid,groupId],

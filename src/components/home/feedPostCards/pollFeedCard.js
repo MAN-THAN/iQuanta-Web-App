@@ -1,18 +1,43 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Divider, Flex, HStack, Image, RadioGroup, Radio, Stack, Text, VStack } from "@chakra-ui/react";
 import { Dot, MessageCircle, MoreVertical, Share2, ThumbsUp } from "lucide-react";
 import LikeEmojiGroup from "@/components/common/likeEmojiGroup";
 import AvatarGroups from "@/components/common/avatarGroups";
 import { MdPlayArrow } from "react-icons/md";
-import { Progress } from '@chakra-ui/react';
+import { Progress } from "@chakra-ui/react";
 import moment from "moment";
 import { useMutation, useQueryClient } from "react-query";
 import { groupMarkPoll } from "@/api/feed/groups/post";
-const PollFeedCard = ({ name, uid, profilePic, title, options, reactionCount, commentCount, createdAt, media ,triggeredFrom,postId  }) => {
-console.log("uid",uid);
+import { randomColors } from "@/utilities/commonFunctions";
+const PollFeedCard = ({
+  name,
+  uid,
+  profilePic,
+  title,
+  options,
+  reactionCount,
+  commentCount,
+  createdAt,
+  media,
+  triggeredFrom,
+  postId,
+}) => {
+
   const [value, setValue] = React.useState();
+  useEffect(() => {
+    for (var i = 0; i < options?.length; i++) {
+      let uidIndex = options[i].uid.findIndex(it => it._id == uid);
+      if (uidIndex > -1) {
+        setValue(i);
+        break;
+      }
+    }
+  }, [])
   const mutation = useMutation({
-    mutationFn: (payload) => triggeredFrom=="group"?groupMarkPoll(payload.postId,payload.option,payload.uid):groupMarkPoll(payload.postId,payload.option,payload.uid),
+    mutationFn: (payload) =>
+      triggeredFrom == "group"
+        ? groupMarkPoll(payload.postId, payload.option, payload.uid)
+        : groupMarkPoll(payload.postId, payload.option, payload.uid),
     onMutate: (variables) => {
       return console.log("mutation is happening");
     },
@@ -31,23 +56,20 @@ console.log("uid",uid);
       setSelectedComponent(null);
       onClose();
     },
-    onSettled: (data, error, variables, context) => {},
+    onSettled: (data, error, variables, context) => { },
   });
-  const handlePollClick=(poll)=>{
-   
-   setValue(poll);
-   mutation.mutate({postId:postId,option:options[value]?._id,uid:uid});
-   //add api call to mark a poll
-  }
+  const handlePollClick = (poll) => {
+    setValue(poll);
+    mutation.mutate({ postId: postId, option: options[value]?._id, uid: uid });
+    //add api call to mark a poll
+  };
   const getTime = () => {
     const endDate = moment(createdAt);
     const duration = moment.duration(endDate.diff(moment(Date.now())));
     const hours = duration.asHours();
-    // console.log(hours, "hours");
-    // console.log(duration, "duration");
     return Math.trunc(Math.abs(hours));
   };
-  
+
   return (
     <>
       <Box bg="white.900" w="full" mx="auto" mt="1">
@@ -83,22 +105,29 @@ console.log("uid",uid);
         <Text p="5" fontSize="md" fontWeight="semibold">
           {title}
         </Text>
-        <RadioGroup onChange={(value)=>handlePollClick(value)} value={value}>
-          <VStack>
+        <RadioGroup onChange={(value) => handlePollClick(value)} value={value} width="100%">
+          <Stack>
             {options?.map((option, index) => {
               return (
-                <Radio  value={index}>
-                  <div className=" p-5 poll">
-                    <div className="flex justify-between mb-1">
-                     <span className="text-base font-semibold text-gray-600 ">{option.title}{option.uid.length}</span>
-                      <AvatarGroups data={option?.uid} size={3} />
-                    </div>
-                    <Progress value={Number(option.votes) * 10} />
-                  </div>
-                </Radio>
-              )
+                <>
+                  <Flex justifyContent="space-between" alignItems="center" px="6" pb="2" pt="4">
+                    <Radio size="lg" name="1" colorScheme="red" value={index} _active={{ bg: "red" }}>
+                      <Text>{option.title}</Text>
+                    </Radio>
+                    <AvatarGroups data={option.uid} size={3} />
+                  </Flex>
+                  <Box px="6">
+                    <Progress
+                      w="100%"
+                      colorScheme={randomColors(["green", "red", "yellow"])}
+                      rounded="full"
+                      value={Number(option.votes) * 10}
+                    />
+                  </Box>
+                </>
+              );
             })}
-          </VStack>
+          </Stack>
         </RadioGroup>
         <div className="flex gap-5 items-center ml-5 pb-3" style={{ display: "flex", flexDirection: "row" }}>
           <HStack align="center" fontWeight="400" fontSize="14px" padding="4">
@@ -163,3 +192,4 @@ console.log("uid",uid);
 };
 
 export default PollFeedCard;
+
