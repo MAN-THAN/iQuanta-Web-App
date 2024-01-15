@@ -32,7 +32,7 @@ const ChallengesModal = ({ isOpen, onClose,triggeredFrom }) => {
   const [showTopicList, setShowTopicList] = useState(false);
   const [selectedTopic, setSelectedTopic] = useState(null);
   const [showSubTopicList, setShowSubTopicList] = useState(false);
-
+  
   const openSecondModal = () => {
     setShowTopicList(true);
   };

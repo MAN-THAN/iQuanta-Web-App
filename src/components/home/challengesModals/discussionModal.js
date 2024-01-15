@@ -41,7 +41,7 @@ import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const DiscussionModal = ({ isOpen, onClose, clickPhoto ,triggeredFrom,groupId}) => {
+const DiscussionModal = ({ isOpen, onClose, clickPhoto ,triggeredFrom}) => {
   const [isTyping, setIsTyping] = useState(false);
   const [text, setText] = useState();
   const fileInputRef = useRef(null);
@@ -57,7 +57,7 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto ,triggeredFrom,groupId}) 
   const [tempFiles,setTempFiles]=useState([]);
   const queryClient = useQueryClient();
   const { name, _id: uid } = useSelector((state) => state.userData);
-  
+  const { _id: groupId } = useSelector((state) => state.groupData);
   const handleTypingStart = useCallback(() => {
     setIsTyping(true);
   }, []);

@@ -41,12 +41,11 @@ const GroupsDetails = () => {
     },
   ];
   const router = useRouter();
-  const { groupsDetails } = router.query;
-  const groupId = groupsDetails;
   const { isOpen: isOpenInvite, onOpen: onOpenInvite, onClose: onCloseInvite } = useDisclosure();
   const { isOpen: isOpenMember, onOpen: onOpenMember, onClose: onCloseMember } = useDisclosure();
   const [state, setState] = useState({});
   const { _id: uid } = useSelector((state) => state.userData);
+  const { _id:groupId } = useSelector((state) => state.groupData);
   const dispatch = useDispatch();
   const { isLoading, data, isError, error, isPending, isSuccess }   =  useQuery({
     queryKey: ["getGroupDetail", uid,groupId],
@@ -112,7 +111,7 @@ return (
         </Box>
 
         <Box>
-          <GroupTabList groupId={groupId} />
+          <GroupTabList />
         </Box>
       </Box>
     </>
