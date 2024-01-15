@@ -38,6 +38,7 @@ const EventSection = () => {
       swiperRef.current.swiper.slideNext();
     }
   };
+  console.log(state)
 
   return (
     <div className="swiper-container">
