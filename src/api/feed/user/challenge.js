@@ -1,10 +1,11 @@
 import request from "@/api/request";
 
 //get ALL challenges
-export const getAllChallenges = async (page, limit) => {
+export const getAllChallenges = async (uid,page, limit) => {
     try {
+        console.log("66a",uid,page,limit);
       const res = await request({
-        url: `/feed/v1/user/challenge/list/${page}/${limit}`,
+        url: `/feed/v1/user/challenge/list/${uid}/${page}/${limit}`,
         headers: {
           "Content-Type": "application/json",
         },

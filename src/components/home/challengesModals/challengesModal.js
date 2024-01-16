@@ -29,8 +29,8 @@ import {
 import { ChevronDown, ChevronRight, Minus, Plus, SearchIcon } from "lucide-react";
 import topicsData from "@/utilities/topicsDummy";
 import { useQuery } from "react-query";
-import { getAllTopics } from "@/api/feed/challenges";
-import { getSubtopics } from "@/api/feed/challenges";
+import { getAllTopics } from "@/api/feed/user/challenge";
+import { getSubtopics } from "@/api/feed/user/challenge";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 

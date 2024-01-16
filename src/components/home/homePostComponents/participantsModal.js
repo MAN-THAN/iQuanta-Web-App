@@ -13,7 +13,7 @@ import {
 import { SearchIcon, X } from "lucide-react";
 import React from "react";
 import { useQuery } from "react-query";
-import { getDebateParticipants } from "@/api/feed/userPost";
+import { getDebateParticipants } from "@/api/feed/user";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";

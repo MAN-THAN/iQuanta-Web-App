@@ -34,7 +34,7 @@ import ParticipantsModal from "../homePostComponents/participantsModal";
 import FileUploadButton from "../homePostComponents/fileUploadButton";
 import CreateMemeModal from "../homePostComponents/createMemeModal";
 import PostTypeMenu from "@/components/common/postTypeMenu";
-import { createPost } from "@/api/feed/userPost";
+import { createPost } from "@/api/feed/user";
 import { createGroupPost } from "@/api/feed/groups/post";
 import { useMutation, useQueryClient } from "react-query";
 import { useSelector } from "react-redux";
@@ -122,6 +122,13 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto ,triggeredFrom}) => {
     }
     if(selectedComponent=='fileUpload'){
 
+    }
+    if(selectedComponent=='memes'){
+      let pollData ={title:text,privacyType:privacyType,options:options,postType:"memes"};
+       if(triggeredFrom=="group"){
+        pollData.groupId = groupId;
+       }
+       mutation.mutate(pollData,'json');
     }
 
   }

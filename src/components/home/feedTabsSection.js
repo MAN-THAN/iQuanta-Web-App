@@ -7,18 +7,15 @@ import ImageFeedCard from "./feedPostCards/imageFeedCard";
 import ImageSwiper from "./feedPostCards/imageSwiper";
 import CardFeedCard from "./feedPostCards/cardFeedCard";
 import PollFeedCard from "./feedPostCards/pollFeedCard";
-import ChallengeCard from "./challengesPostCard/challengeCard";
 import ChallengeForm from "./challengesPostCard/challengeForm";
+import ChallengeList from "./challenge/challengeList";
 import VideoFeedCard from "./feedPostCards/videoFeedCard";
-import ChallengeLivecard from "./challengesPostCard/challengeLivecard";
-import ChallengeLeaderbordCard from "./challengesPostCard/challengeLeaderbordCard";
 import { useState } from "react";
 import ChallengesModal from "./challengesModals/challengesModal";
 import DiscussionModal from "./challengesModals/discussionModal";
 import { useQuery, useInfiniteQuery } from "react-query";
 import { useSelector } from "react-redux";
-import { getAllChallenges } from "@/api/feed/challenges";
-import { getAllPost } from "@/api/feed/userPost";
+import { getAllPost } from "@/api/feed/user";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDisclosure } from "@chakra-ui/react";
@@ -28,8 +25,9 @@ const FeedTabsSection = () => {
   const { isOpen: isOpenDiscussion, onOpen: onOpenDiscussion, onClose: onCloseDiscussion } = useDisclosure();
   const [clickPhoto, setClickPhoto] = useState(false);
   const [state, setState] = useState();
-  const [challengesList, setChallengesList] = useState([]);
-  const { _id: uid } = useSelector((state) => state.userData);
+  const [challengeTab, setChallengeTab] = useState(false);
+  const { _id: uid } = useSelector((state) => state?.userData);
+  console.log("uid", uid);
   const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } = useInfiniteQuery({
     queryKey: ["getAllPosts", uid],
     queryFn: ({ pageParam = 1, limit = 10 }) => getAllPost(pageParam, limit),
@@ -40,20 +38,9 @@ const FeedTabsSection = () => {
       }),
     onSuccess: (res) => setState(res.pages[0]?.data.data.allPostData),
   });
-  console.log(state, "userpostList");
 
-  // challenges intg
-  const query = useInfiniteQuery({
-    queryKey: ["getAllChallenges", uid],
-    queryFn: ({ pageParam = 1, limit = 10 }) => getAllChallenges(pageParam, limit),
-    getNextPageParam: (lastPage, pages) => lastPage.nextCursor,
-    onError: (error, variables, context) =>
-      toast.error(`${error?.response?.data?.error?.message || "Some error"}`, {
-        position: toast.POSITION.TOP_RIGHT,
-      }),
-    onSuccess: (res) => setChallengesList(res.pages[0]?.data.data.challenge.data),
-  });
-  console.log(challengesList, "challengesList");
+
+
   return (
     <>
       <ChallengesModal isOpen={isOpenChallenge} onClose={onCloseChallenge} triggeredFrom="user" />
@@ -87,6 +74,7 @@ const FeedTabsSection = () => {
               color="#8D96A5"
               fontSize={{ base: "16px", md: "20px" }}
               fontWeight="600"
+              onClick={() => setChallengeTab(true)}
             >
               <HStack py={{ base: "0", md: "4" }}>
                 <ShieldCheck fontSize={{ base: "12px", md: "16px" }} />
@@ -189,25 +177,9 @@ const FeedTabsSection = () => {
               })}
             </TabPanel>
             <TabPanel padding="0">
-              <ChallengeForm openModal={onOpenChallenge} />
-              {challengesList?.map((challenge, ind) => {
-                if (challenge.status === "created") {
-                  return (
-                    <Box key={ind}>
-                      <ChallengeCard challengeData={challenge} />
-                    </Box>
-                  );
-                } else if (challenge.status === "live") {
-                  return (
-                    <Box key={ind}>
-                      <ChallengeLivecard challengeData={challenge} />
-                    </Box>
-                  );
-                }
-              })}
-              {/* <ChallengeLivecard /> */}
-              <SuggestionSection />
-              <ChallengeLeaderbordCard />
+              {challengeTab &&
+                <><ChallengeForm openModal={onOpenChallenge} />
+                  <ChallengeList /></>}
             </TabPanel>
           </TabPanels>
         </Tabs>
