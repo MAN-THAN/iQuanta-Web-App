@@ -17,7 +17,7 @@ import ChallengesModal from "./challengesModals/challengesModal";
 import DiscussionModal from "./challengesModals/discussionModal";
 import { useQuery, useInfiniteQuery } from "react-query";
 import { useSelector } from "react-redux";
-import { getAllChallenges} from "@/api/feed/challenges";
+import { getAllChallenges } from "@/api/feed/challenges";
 import { getAllPost } from "@/api/feed/userPost";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -32,7 +32,7 @@ const FeedTabsSection = () => {
   const { _id: uid } = useSelector((state) => state.userData);
   const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } = useInfiniteQuery({
     queryKey: ["getAllPosts", uid],
-    queryFn: ({ pageParam = 1, limit=10 }) => getAllPost(pageParam, limit),
+    queryFn: ({ pageParam = 1, limit = 10 }) => getAllPost(pageParam, limit),
     getNextPageParam: (lastPage, pages) => lastPage.nextCursor,
     onError: (error, variables, context) =>
       toast.error(`${error?.response?.data?.error?.message || "Some error"}`, {
@@ -97,6 +97,7 @@ const FeedTabsSection = () => {
           <TabPanels>
             <TabPanel padding="0">
               <PostFormSection openModal={onOpenDiscussion} setClickPhoto={setClickPhoto} />
+              <SuggestionSection />
               {/* different type of post to select */}
               {state?.map((item, ind) => {
                 if (item.postType === "photo") {

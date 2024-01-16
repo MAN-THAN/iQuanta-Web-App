@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Divider, Flex, HStack, Image, RadioGroup, Radio, Stack, Text, VStack } from "@chakra-ui/react";
 import { Dot, MessageCircle, MoreVertical, Share2, ThumbsUp } from "lucide-react";
 import LikeEmojiGroup from "@/components/common/likeEmojiGroup";
@@ -23,8 +23,17 @@ const PollFeedCard = ({
   postId,
   followingCount,
 }) => {
-  console.log("uid", uid);
+
   const [value, setValue] = React.useState();
+  useEffect(() => {
+    for (var i = 0; i < options?.length; i++) {
+      let uidIndex = options[i].uid.findIndex(it => it._id == uid);
+      if (uidIndex > -1) {
+        setValue(i);
+        break;
+      }
+    }
+  }, [])
   const mutation = useMutation({
     mutationFn: (payload) =>
       triggeredFrom == "group"
@@ -48,7 +57,7 @@ const PollFeedCard = ({
       setSelectedComponent(null);
       onClose();
     },
-    onSettled: (data, error, variables, context) => {},
+    onSettled: (data, error, variables, context) => { },
   });
   const handlePollClick = (poll) => {
     setValue(poll);
@@ -59,8 +68,6 @@ const PollFeedCard = ({
     const endDate = moment(createdAt);
     const duration = moment.duration(endDate.diff(moment(Date.now())));
     const hours = duration.asHours();
-    // console.log(hours, "hours");
-    // console.log(duration, "duration");
     return Math.trunc(Math.abs(hours));
   };
 
@@ -187,17 +194,3 @@ const PollFeedCard = ({
 
 export default PollFeedCard;
 
-{
-  /* <Radio value={index} width='100%' >
-                  <Box width="100%" className="p-5 poll">
-                    <HStack justifyContent="space-between" width='100%'>
-                      <span className="text-base font-semibold text-gray-600 ">
-                        {option.title}
-                        {option.uid.length}
-                      </span>
-                      <AvatarGroups data={option.uid} size={3} />
-                    </HStack>
-                    <Progress w="100%" value={Number(option.votes) * 10} />
-                  </Box>
-                </Radio> */
-}

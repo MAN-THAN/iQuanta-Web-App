@@ -43,6 +43,7 @@ const ChallengesModal = ({ isOpen, onClose,triggeredFrom }) => {
   const [difficulty, setDifficulty] = useState();
   const [text, setText] = useState();
   console.log(topicsData)
+  
   const openSecondModal = () => {
     setShowTopicList(true);
   };

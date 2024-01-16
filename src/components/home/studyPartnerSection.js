@@ -2,7 +2,7 @@ import { Image } from "@chakra-ui/image";
 import { Box, Text } from "@chakra-ui/react";
 import { Plus } from "lucide-react";
 import React from "react";
-import { getStudyPartnerList } from "@/api/feed/studyPartner";
+import { getExistingStudyPartnerList } from "@/api/feed/studyPartner";
 import { useQuery } from "react-query";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
@@ -13,13 +13,13 @@ const StudyPartnerSection = () => {
   const [state, setState] = useState();
   const { _id: uid } = useSelector((state) => state.userData);
   const { isLoading, data, isError, error, isPending, isSuccess } = useQuery({
-    queryKey: ["getStudyPartnerList", uid],
-    queryFn: () => getStudyPartnerList(uid),
+    queryKey: ["getExistingStudyPartnerList", uid],
+    queryFn: () => getExistingStudyPartnerList(uid),
     onError: (error, variables, context) =>
       toast.error(`${error?.response?.data?.error?.message || "some error"}`, {
         position: toast.POSITION.TOP_RIGHT,
       }),
-    // onSuccess: (res) => setState(res.data.data.user_data),
+    onSuccess: (res) => setState(res?.data?.data?.partnerList),
   });
   console.log(state);
   return (
@@ -50,7 +50,7 @@ const StudyPartnerSection = () => {
           <Text fontSize="sm"> Find Study Partner</Text>
         </Box>
 
-        <div className="rounded-md">
+        {/* <div className="rounded-md">
           <Image alt="img" className="rounded-md" src="/man3.jpg" />
         </div>
         <div className="rounded-md">
@@ -64,19 +64,30 @@ const StudyPartnerSection = () => {
         </div>
         <div className="rounded-md">
           <Image alt="img" className="rounded-md" src="/man1.jpg" />
-        </div>
-        <Box
-          textAlign="center"
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          border="1px solid #757575"
-          rounded="md"
-          w="30%"
-        >
-          <Plus />
-          <Text fontSize="sm">10</Text>
-        </Box>
+        </div> */}
+        {state?.map((item, ind) => (
+          <div key={ind} className="rounded-md">
+            <Image cursor={'pointer'} width={"5em"} alt="img" className="rounded-md" src={item?.profilePic} />
+          </div>
+        ))}
+        {(() => {
+          if (state?.length > 10) {
+            return (
+              <Box
+                textAlign="center"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                border="1px solid #757575"
+                rounded="md"
+                w="30%"
+              >
+                <Text cursor={'pointer'} fontSize="sm">{state?.slice(10)?.length}</Text>;
+                <Plus />
+              </Box>
+            );
+          }
+        })()}
       </Box>
     </Box>
   );
