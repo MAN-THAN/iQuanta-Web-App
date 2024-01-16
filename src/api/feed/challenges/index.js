@@ -36,7 +36,7 @@ export const getAllChallenges = async (page, limit) => {
   export const getAllTopics = async (entityId) => {
     try {
       const res = await request({
-        url: `/exams/v1/practice/qa/list/${entityId}`,
+        url: `/exams/v1/topic/list/${entityId}`,
         headers: {
           "Content-Type": "application/json",
         },
@@ -51,7 +51,7 @@ export const getAllChallenges = async (page, limit) => {
     export const getSubtopics = async (topicId) => {
         try {
           const res = await request({
-            url: `/exams/v1/practice/qa/list/${topicId}`,
+            url: `/exams/v1/subtopic/list/${topicId}`,
             headers: {
               "Content-Type": "application/json",
             },
