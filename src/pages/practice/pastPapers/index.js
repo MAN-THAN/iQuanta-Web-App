@@ -1,15 +1,13 @@
-import PracticeLayout from "@/components/layouts/practiceLayout";
-import PracticePastPapers from "@/components/practice/parcticePastPapers";
-import PracticeQa from "@/components/practice/practiceQa";
-import { Box } from "@chakra-ui/react";
-import React from "react";
+import MockTestQuizLayout from "@/components/layouts/mockTestQuizLayout";
+import Template1 from "@/components/practice/pastPapers/template1";
 
 const PastPapers = () => {
   return (
-    <PracticeLayout>
-      <PracticePastPapers/>
-    </PracticeLayout>
+    <MockTestQuizLayout>
+      <Template1 />
+    </MockTestQuizLayout>
   );
 };
 
 export default PastPapers;
+         

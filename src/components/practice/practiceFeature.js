@@ -16,12 +16,15 @@ const PracticeFeature = () => {
       description: "Solve questions with a real world time pressure of your enterence exam.",
       icon: "/Filled (1).svg",
       color: "#5146D6",
+      path:"/practice/timeQuiz"
     },
     {
       tittle: "Past Papers",
       description: "A vast repository of past papers that will prepare you for your exams.",
       icon: "/Filled (2).svg",
       color: "#5146D6",
+      path:"/practice/pastPapers"
+
     },
     {
       tittle: "Accelareader",

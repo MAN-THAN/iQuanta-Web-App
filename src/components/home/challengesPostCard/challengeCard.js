@@ -22,10 +22,11 @@ import CommentSlider from "@/components/postCards/commentSlider/commentSlider";
 import { useRouter } from "next/navigation";
 import { MdPlayArrow } from "react-icons/md";
 import AvatarGroups from "@/components/common/avatarGroups";
+import moment from "moment";
 
 const ChallengeCard = ({ classId, challengeData }) => {
   const router = useRouter();
-  const { title, timePerQuestion, totalQuestions, createdAt, difficultyLevel } = challengeData;
+  const { title, timePerQuestion, totalQuestions, createdAt, difficultyLevel } = challengeData || {};
   const getTime = () => {
     const endDate = moment(createdAt);
     const duration = moment.duration(endDate.diff(moment(Date.now())));

@@ -9,7 +9,7 @@ const PracticeRightSidebar = () => {
 
   return (
     <>
-      <Stack maxW="300px">
+      <Stack maxW="250px">
         <Flex alignItems="center" justifyContent="space-between" pb="3">
           <Box display="flex" gap="2">
             <CalendarDays />
@@ -39,7 +39,7 @@ const PracticeRightSidebar = () => {
           </Button>
         </Box>
         <Box>
-            
+
         </Box>
       </Stack>
     </>
