@@ -1,9 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import MainHeader from "../mainHeader";
-import { extendTheme } from "@chakra-ui/react";
-import { ChakraProvider } from "@chakra-ui/react";
-import HomeRightSidebar from "../rightSidebars/homeRightSidebar";
 import MainLeftNavigation from "../leftNavigations/mainLeftNavigation";
+import PracticeRightSidebar from "../rightSidebars/practiceRightSidebar";
 const PracticeLayout = ({children}) => {
   return (
     <Box marginLeft={{ sm: "0", lg: "10%" }} marginRight={{ sm: "0", lg: "10%" }}>
@@ -16,7 +14,7 @@ const PracticeLayout = ({children}) => {
           {children}
         </Box>
         <Box display={{ md: "block", sm: "none" }}>
-          <HomeRightSidebar />
+          <PracticeRightSidebar />
         </Box>
       </div>
     </Box>

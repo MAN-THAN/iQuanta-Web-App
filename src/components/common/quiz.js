@@ -20,6 +20,7 @@ import {
 import { HTMLConverter } from "@/utilities/commonFunctions";
 import CommonStepper from "./commonStepper";
 import QuizModal from "../quiz/quizModal";
+import WrongResult from "../quiz/wrongResult";
 
 const steps = [
   { title: "First", description: "Contact Info" },
@@ -150,6 +151,7 @@ const Quiz = () => {
   const [showResult, setShowResult] = useState(false);
   const [incorrectAnswer, setIncorrectAnswer] = useState(false);
 
+  const { isOpen:isOpenWrongResult, onOpen:onOpenWrongResult, onClose:onCloseWrongResult } = useDisclosure();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleOptionClick = (selectedOption) => {
@@ -171,7 +173,8 @@ const Quiz = () => {
       setCurrentQuestion(currentQuestion + 1);
     } else {
       setShowResult(true);
-      onOpen();
+      // onOpen();
+      onOpenWrongResult();
     }
   };
 
@@ -265,6 +268,7 @@ const Quiz = () => {
           </Box>
         </Box> */}
         <QuizModal isOpen={isOpen} onClose={onClose} />
+        <WrongResult isOpen={isOpenWrongResult} onClose={onCloseWrongResult}/>
         <Box bg="#fff" rounded="2xl">
           <Flex align="center" px="6" py="3" justify="space-between">
             <HStack>

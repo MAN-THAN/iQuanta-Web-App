@@ -12,12 +12,6 @@ const PracticeFeature = () => {
       path: "/practice/qa",
     },
     {
-      tittle: "Accelareader",
-      description: "Practise speed reading and save precious time during your exam.",
-      icon: "/Hourglass.svg",
-      color: "#5146D6",
-    },
-    {
       tittle: "Timed Quiz",
       description: "Solve questions with a real world time pressure of your enterence exam.",
       icon: "/Filled (1).svg",
@@ -30,13 +24,21 @@ const PracticeFeature = () => {
       color: "#5146D6",
     },
     {
+      tittle: "Accelareader",
+      description: "Practise speed reading and save precious time during your exam.",
+      icon: "/Hourglass.svg",
+      color: "#5146D6",
+    },
+    
+    
+    {
       tittle: "Assignments",
       description: "Practise speed reading and save precious time during your exam.",
       icon: "/LockedWhite.svg",
       color: "#FFA53B",
     },
     {
-      tittle: "Accelareader",
+      tittle: "Doubt Solving",
       description: "Practise speed reading and save precious time during your exam.",
       icon: "/Filled (4).svg",
       color: "#5146D6",
