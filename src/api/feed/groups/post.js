@@ -174,6 +174,21 @@ export const groupMarkPoll=async(postId,option,uid)=>{
   }
 }
   
+export const getGroupDebateParticipants=async(groupId,uid)=>{
+  try {
+    const res = await request({
+      url: `feed/v1/group/members/detail/${groupId}`,
+      headers: {
+        "Content-Type": "application/json",
+         uid:uid
+      },
+    });
+    return res;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
   
 
   
