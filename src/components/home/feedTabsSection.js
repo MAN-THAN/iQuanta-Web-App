@@ -43,17 +43,17 @@ const FeedTabsSection = () => {
   console.log(state, "userpostList");
 
   // challenges intg
-  // const query = useInfiniteQuery({
-  //   queryKey: ["getAllChallenges", uid],
-  //   queryFn: ({ pageParam = 1, limit = 10 }) => getAllChallenges(pageParam, limit),
-  //   getNextPageParam: (lastPage, pages) => lastPage.nextCursor,
-  //   onError: (error, variables, context) =>
-  //     toast.error(`${error?.response?.data?.error?.message || "Some error"}`, {
-  //       position: toast.POSITION.TOP_RIGHT,
-  //     }),
-  //   onSuccess: (res) => setChallengesList(res.pages[0]?.data.data.challenge.data),
-  // });
-  // console.log(challengesList, "challengesList");
+  const query = useInfiniteQuery({
+    queryKey: ["getAllChallenges", uid],
+    queryFn: ({ pageParam = 1, limit = 10 }) => getAllChallenges(pageParam, limit),
+    getNextPageParam: (lastPage, pages) => lastPage.nextCursor,
+    onError: (error, variables, context) =>
+      toast.error(`${error?.response?.data?.error?.message || "Some error"}`, {
+        position: toast.POSITION.TOP_RIGHT,
+      }),
+    onSuccess: (res) => setChallengesList(res.pages[0]?.data.data.challenge.data),
+  });
+  console.log(challengesList, "challengesList");
   return (
     <>
       <ChallengesModal isOpen={isOpenChallenge} onClose={onCloseChallenge} triggeredFrom="user" />
