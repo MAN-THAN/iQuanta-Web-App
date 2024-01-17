@@ -151,7 +151,7 @@ const Quiz = () => {
   const [showResult, setShowResult] = useState(false);
   const [incorrectAnswer, setIncorrectAnswer] = useState(false);
 
-  const { isOpen:isOpenWrongResult, onOpen:onOpenWrongResult, onClose:onCloseWrongResult } = useDisclosure();
+  const { isOpen: isOpenWrongResult, onOpen: onOpenWrongResult, onClose: onCloseWrongResult } = useDisclosure();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleOptionClick = (selectedOption) => {
@@ -202,7 +202,7 @@ const Quiz = () => {
 
   return (
     <>
-        {/* <Box bg="white.900" h="auto">
+      {/* <Box bg="white.900" h="auto">
           <Box bg="#000" rounded="2xl" h="40vh">
             <VStack p="4" spacing="4" color="white.900">
               <Image boxSize="100px" rounded="xl" fit="cover" src="/static/images/profile.jpeg" />
@@ -267,120 +267,119 @@ const Quiz = () => {
             </Box>
           </Box>
         </Box> */}
-        <QuizModal isOpen={isOpen} onClose={onClose} />
-        <WrongResult isOpen={isOpenWrongResult} onClose={onCloseWrongResult}/>
-        <Box bg="#fff" rounded="2xl">
-          <Flex align="center" px="6" py="3" justify="space-between">
-            <HStack>
-              <Text color="#FB9650" fontWeight="600" borderRight="1px" pr="4">
-                29s
-              </Text>
-              <Text fontWeight="600" pr="4">
-                {currentQuestion + 1} / {questionsData.length}
-              </Text>
-            </HStack>
-            <Box display="flex" alignItems="center" gap="4">
-              <Button
-                size="md"
-                width="100%"
-                bg="white.900"
-                border="1px"
-                sx={{
-                  margin: "0 auto",
-                  fontSize: "12px",
-                }}
-                variant="solid"
-              >
-                Quit
-              </Button>
-            </Box>
-          </Flex>
-          <Progress
-            size="sm"
-            colorScheme="blackAlpha"
-            sx={{ bgColor: "#fff" }}
-            value={((currentQuestion + 1) / questionsData.length) * 100}
-            mt="2"
-          />
-
-          <VStack p="4" spacing="4" alignItems="start">
-            <Tag bg="#5146D6" p="1" color="#fff" rounded="lg">
-              QUID: 2455
-            </Tag>
-
-            <Box textAlign="start" h="30vh">
-              <HTMLConverter>{questionsData[currentQuestion].questionId.question}</HTMLConverter>
-            </Box>
-            {userAnswers[currentQuestion] !== null && (
-              <VStack fontSize="16px" fontWeight="500" width="100%" alignItems="start">
-                {questionsData[currentQuestion].questionId.options.map((option, index) => (
-                  <Flex
-                    key={index}
-                    display="flex"
-                    bg={
-                      userAnswers[currentQuestion] === option
-                        ? userAnswers[currentQuestion] === questionsData[currentQuestion].questionId.correctAnswer
-                          ? "green.500" // Green for correct answer
-                          : "red.500" // Red for incorrect answer
-                        : "#F1F2F6"
-                    }
-                    width="100%"
-                    color={userAnswers[currentQuestion] === option ? "white.900" : "black.900"}
-                    p="4"
-                    rounded="2xl"
-                    gap="6"
-                    onClick={() => handleOptionClick(option)}
-                  >
-                    <Text>{String.fromCharCode(65 + index)}.</Text>
-                    <Text fontWeight="600">{option}</Text>
-                  </Flex>
-                ))}
-                {incorrectAnswer ? (
-                  <VStack p="4" mb="4" rounded="lg" spacing="2" alignItems="start">
-                    <HStack>
-                      <Box
-                        bg="#fa324c36"
-                        boxSize="48px"
-                        display="flex"
-                        alignItems="center"
-                        rounded="full"
-                        justifyContent="center"
-                      >
-                        <Image src="/Shield Fail.svg" />
-                      </Box>
-                      <Text color="#FA324C" fontSize="lg" fontWeight="bold">
-                        Oh no! Incorrect answer
-                      </Text>
-                    </HStack>
-                    <Text fontSize="md" fontWeight="500">
-                      Correct answer:
-                      <span style={{ color: "green" }}> {questionsData[currentQuestion].questionId.correctAnswer}</span>
-                    </Text>
-                    <Text fontSize="lg" fontWeight="bold">
-                      Point: 10
-                    </Text>
-                  </VStack>
-                ) : (
-                  ""
-                )}
-              </VStack>
-            )}
+      <QuizModal isOpen={isOpen} onClose={onClose} />
+      <WrongResult isOpen={isOpenWrongResult} onClose={onCloseWrongResult} />
+      <Box bg="#fff" rounded="2xl">
+        <Flex align="center" px="6" py="3" justify="space-between">
+          <HStack>
+            <Text color="#FB9650" fontWeight="600" borderRight="1px" pr="4">
+              29s
+            </Text>
+            <Text fontWeight="600" pr="4">
+              {currentQuestion + 1} / {questionsData.length}
+            </Text>
+          </HStack>
+          <Box display="flex" alignItems="center" gap="4">
             <Button
-              size="lg"
+              size="md"
               width="100%"
-              bg="black.900"
-              color="white"
+              bg="white.900"
+              border="1px"
               sx={{
                 margin: "0 auto",
                 fontSize: "12px",
               }}
-              onClick={handleNextQuestion}
+              variant="solid"
             >
-              {currentQuestion === questionsData.length - 1 ? "Finish" : "Next Question"}
+              Quit
             </Button>
-          </VStack>
-        </Box>
-    
+          </Box>
+        </Flex>
+        <Progress
+          size="sm"
+          colorScheme="blackAlpha"
+          sx={{ bgColor: "#fff" }}
+          value={((currentQuestion + 1) / questionsData.length) * 100}
+          mt="2"
+        />
+
+        <VStack p="4" spacing="4" alignItems="start">
+          <Tag bg="#5146D6" p="1" color="#fff" rounded="lg">
+            QUID: 2455
+          </Tag>
+
+          <Box textAlign="start" h="30vh">
+            <HTMLConverter>{questionsData[currentQuestion].questionId.question}</HTMLConverter>
+          </Box>
+          {userAnswers[currentQuestion] !== null && (
+            <VStack fontSize="16px" fontWeight="500" width="100%" alignItems="start">
+              {questionsData[currentQuestion].questionId.options.map((option, index) => (
+                <Flex
+                  key={index}
+                  display="flex"
+                  bg={
+                    userAnswers[currentQuestion] === option
+                      ? userAnswers[currentQuestion] === questionsData[currentQuestion].questionId.correctAnswer
+                        ? "green.500" // Green for correct answer
+                        : "red.500" // Red for incorrect answer
+                      : "#F1F2F6"
+                  }
+                  width="100%"
+                  color={userAnswers[currentQuestion] === option ? "white.900" : "black.900"}
+                  p="4"
+                  rounded="2xl"
+                  gap="6"
+                  onClick={() => handleOptionClick(option)}
+                >
+                  <Text>{String.fromCharCode(65 + index)}.</Text>
+                  <Text fontWeight="600">{option}</Text>
+                </Flex>
+              ))}
+              {incorrectAnswer ? (
+                <VStack p="4" mb="4" rounded="lg" spacing="2" alignItems="start">
+                  <HStack>
+                    <Box
+                      bg="#fa324c36"
+                      boxSize="48px"
+                      display="flex"
+                      alignItems="center"
+                      rounded="full"
+                      justifyContent="center"
+                    >
+                      <Image src="/Shield Fail.svg" />
+                    </Box>
+                    <Text color="#FA324C" fontSize="lg" fontWeight="bold">
+                      Oh no! Incorrect answer
+                    </Text>
+                  </HStack>
+                  <Text fontSize="md" fontWeight="500">
+                    Correct answer:
+                    <span style={{ color: "green" }}> {questionsData[currentQuestion].questionId.correctAnswer}</span>
+                  </Text>
+                  <Text fontSize="lg" fontWeight="bold">
+                    Point: 10
+                  </Text>
+                </VStack>
+              ) : (
+                ""
+              )}
+            </VStack>
+          )}
+          <Button
+            size="lg"
+            width="100%"
+            bg="black.900"
+            color="white"
+            sx={{
+              margin: "0 auto",
+              fontSize: "12px",
+            }}
+            onClick={handleNextQuestion}
+          >
+            {currentQuestion === questionsData.length - 1 ? "Finish" : "Next Question"}
+          </Button>
+        </VStack>
+      </Box>
     </>
   );
 };

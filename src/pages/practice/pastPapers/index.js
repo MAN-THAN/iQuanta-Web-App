@@ -1,5 +1,5 @@
 import MockTestQuizLayout from "@/components/layouts/mockTestQuizLayout";
-import Template1 from "@/components/practice/pastPapers/template1";
+import Template1 from "@/components/practice/pastPapers/templates/template1";
 
 const PastPapers = () => {
   return (
