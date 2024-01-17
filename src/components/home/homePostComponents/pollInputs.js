@@ -7,7 +7,7 @@ const PollInputs = ({inputFields, setInputFields}) => {
 
   const handleAddField = () => {
     if (inputFields.length < 5) {
-      const newInputFields = [...inputFields, { title : "", votes : 0, id : Date.now() }];
+      const newInputFields = [...inputFields, { id: inputFields.length + 1, title: "" }];
       setInputFields(newInputFields);
     } else {
       console.log("Maximum number of fields reached (5)");
@@ -19,8 +19,8 @@ const PollInputs = ({inputFields, setInputFields}) => {
     setInputFields(updatedInputFields);
   };
 
-  const handleChange = (id, title) => {
-    const updatedInputFields = inputFields.map((field) => (field.id === id ? { ...field, title } : field));
+  const handleChange = (id, value) => {
+    const updatedInputFields = inputFields.map((field) => (field.id === id ? { ...field, title:value } : field));
     setInputFields(updatedInputFields);
   };
 

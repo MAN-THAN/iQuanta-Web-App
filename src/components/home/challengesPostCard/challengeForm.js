@@ -16,7 +16,7 @@ const ChallengeForm = ({ openModal }) => {
           />
         </Box>
         <Box width="full" onClick={openModal}>
-          <Text ml="4">Create a new challenge</Text>
+          <Text cursor={'pointer'} ml="4">Create a new challenge</Text>
         </Box>
       </Flex>
     </Box>

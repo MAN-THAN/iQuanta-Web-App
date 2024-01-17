@@ -29,14 +29,15 @@ import ChallengeLivecard from "../home/challengesPostCard/challengeLivecard";
 import SuggestionSection from "../home/suggestionSection";
 import ChallengeLeaderbordCard from "../home/challengesPostCard/challengeLeaderbordCard";
 
-const GroupTabList = ({groupId}) => {
-  console.log("32groupID",groupId);
+const GroupTabList = () => {
+ 
   const router = useRouter();
   const { isOpen: isOpenChallenge, onOpen: onOpenChallenge, onClose: onCloseChallenge } = useDisclosure();
   const { isOpen: isOpenDiscussion, onOpen: onOpenDiscussion, onClose: onCloseDiscussion } = useDisclosure();
   const [clickPhoto, setClickPhoto] = useState(false);
   const [state, setState] = useState();
   const { _id: uid } = useSelector((state) => state.userData);
+  const { _id: groupId } = useSelector((state) => state.groupData);
   const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } = useInfiniteQuery({
     queryKey: ["getGroupPosts", uid,groupId],
     queryFn: ({ pageParam = 1,limit=10 }) => getGroupPosts(pageParam,limit,uid,groupId),
@@ -47,7 +48,8 @@ const GroupTabList = ({groupId}) => {
       }),
     onSuccess: (res) => setState(res.pages[0]?.data.data.allPostData),
   });
-  console.log("49",state);
+ 
+  console.log("52:",state);
 
   const tabs = [
     {
@@ -81,11 +83,11 @@ const GroupTabList = ({groupId}) => {
       tabName: "Topics",
     },
   ];
-
+ 
   return (
     <>
-      <ChallengesModal isOpen={isOpenChallenge} onClose={onCloseChallenge} triggeredFrom="group" groupId={groupId}/>
-      <DiscussionModal isOpen={isOpenDiscussion} onClose={onCloseDiscussion} clickPhoto={clickPhoto} triggeredFrom="group" groupId={groupId}/>
+      <ChallengesModal isOpen={isOpenChallenge} onClose={onCloseChallenge} triggeredFrom="group" />
+      <DiscussionModal isOpen={isOpenDiscussion} onClose={onCloseDiscussion} clickPhoto={clickPhoto} triggeredFrom="group" />
       <Tabs variant="soft-rounded">
         <TabList gap="4" py="4" px="4" overflow="scroll" bg="white.900">
           {tabs.map((da, i) => (
@@ -156,11 +158,15 @@ const GroupTabList = ({groupId}) => {
               else if (item.postType === "poll")
                 return (
                   <PollFeedCard
-                    name={item?.createdBy?.name}
-                    uid={item?.createdBy?._id}
+                    name={item?.postTypeId.createdBy?.name}
+                    uid={item?.postTypeId.createdBy?._id}
+                    profilePic ={item?.postTypeId?.createdBy?.profilePic}
                     title={item?.postTypeId?.title}
+                    options={item?.postTypeId?.options}
                     reactionCount={item?.reactionCount}
                     commentCount={item?.commentCount}
+                    postId={item._id}
+                    triggeredFrom="group"
                   />
                 );
               

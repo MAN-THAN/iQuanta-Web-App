@@ -1,19 +1,76 @@
-import React from "react";
-import { Box, Divider, Flex, HStack, Image, Text } from "@chakra-ui/react";
+import React, { useEffect } from "react";
+import { Box, Divider, Flex, HStack, Image, RadioGroup, Radio, Stack, Text, VStack } from "@chakra-ui/react";
 import { Dot, MessageCircle, MoreVertical, Share2, ThumbsUp } from "lucide-react";
 import LikeEmojiGroup from "@/components/common/likeEmojiGroup";
 import AvatarGroups from "@/components/common/avatarGroups";
 import { MdPlayArrow } from "react-icons/md";
+import { Progress } from "@chakra-ui/react";
 import moment from "moment";
-const PollFeedCard = ({ name, uid, title, reactionCount, commentCount, createdAt, media }) => {
+import { useMutation, useQueryClient } from "react-query";
+import { groupMarkPoll } from "@/api/feed/groups/post";
+import { randomColors } from "@/utilities/commonFunctions";
+const PollFeedCard = ({
+  name,
+  uid,
+  profilePic,
+  title,
+  options,
+  reactionCount,
+  commentCount,
+  createdAt,
+  media,
+  triggeredFrom,
+  postId,
+  followingCount,
+}) => {
+
+  const [value, setValue] = React.useState();
+  useEffect(() => {
+    for (var i = 0; i < options?.length; i++) {
+      let uidIndex = options[i].uid.findIndex(it => it._id == uid);
+      if (uidIndex > -1) {
+        setValue(i);
+        break;
+      }
+    }
+  }, [])
+  const mutation = useMutation({
+    mutationFn: (payload) =>
+      triggeredFrom == "group"
+        ? groupMarkPoll(payload.postId, payload.option, payload.uid)
+        : groupMarkPoll(payload.postId, payload.option, payload.uid),
+    onMutate: (variables) => {
+      return console.log("mutation is happening");
+    },
+    onError: (error, variables, context) =>
+      toast.error(`${error?.response?.data.error?.message}`, {
+        position: toast.POSITION.TOP_RIGHT,
+      }),
+    onSuccess: (res, variables, context) => {
+      toast.success("Poll Save Successfull", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      queryClient.invalidateQueries("getAllPosts");
+      setText();
+      setSelectedFiles([]);
+      setOptions([]);
+      setSelectedComponent(null);
+      onClose();
+    },
+    onSettled: (data, error, variables, context) => { },
+  });
+  const handlePollClick = (poll) => {
+    setValue(poll);
+    mutation.mutate({ postId: postId, option: options[value]?._id, uid: uid });
+    //add api call to mark a poll
+  };
   const getTime = () => {
     const endDate = moment(createdAt);
     const duration = moment.duration(endDate.diff(moment(Date.now())));
     const hours = duration.asHours();
-    // console.log(hours, "hours");
-    // console.log(duration, "duration");
     return Math.trunc(Math.abs(hours));
   };
+
   return (
     <>
       <Box bg="white.900" w="full" mx="auto" mt="1">
@@ -30,7 +87,7 @@ const PollFeedCard = ({ name, uid, title, reactionCount, commentCount, createdAt
                 width="100%"
                 height="100%"
                 className="rounded-md"
-                src="/static/images/Profile.jpeg"
+                src={profilePic}
                 alt="Profile Image"
               />
             </Box>
@@ -39,7 +96,7 @@ const PollFeedCard = ({ name, uid, title, reactionCount, commentCount, createdAt
                 <p style={{ fontSize: "14px", color: "#171717", fontWeight: "600" }}>{name}</p> <MdPlayArrow />
                 {/* <p style={{ fontSize: "14px", color: "#171717", fontWeight: "400" }}>Posted in CAT 2021</p> */}
               </Box>
-              <p style={{ fontSize: "14px", color: "#636363" }}>{getTime()}</p>
+              <p style={{ fontSize: "14px", color: "#636363" }}>{getTime()} h ago</p>
             </Box>
           </Box>
           <Box display="flex" alignItems="center" gap="4">
@@ -49,33 +106,30 @@ const PollFeedCard = ({ name, uid, title, reactionCount, commentCount, createdAt
         <Text p="5" fontSize="md" fontWeight="semibold">
           {title}
         </Text>
-        <div className=" p-5 poll">
-          <div className="flex justify-between mb-1">
-            <span className="text-base font-semibold text-gray-600 dark:text-white">CAT</span>
-            <AvatarGroups />
-          </div>
-          <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-            <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: "45%" }}></div>
-          </div>
-        </div>
-        <div className=" p-5 poll">
-          <div className="flex justify-between mb-1">
-            <span className="text-base font-semibold text-gray-600 dark:text-white">GMAT</span>
-            <AvatarGroups />
-          </div>
-          <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-            <div className="bg-yellow-400 h-2.5 rounded-full" style={{ width: "31%" }}></div>
-          </div>
-        </div>
-        <div className=" p-5 poll">
-          <div className="flex justify-between mb-1">
-            <span className="text-base font-semibold text-gray-600 dark:text-white">Other</span>
-            <AvatarGroups />
-          </div>
-          <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-            <div className="bg-gray-500 h-2.5 rounded-full" style={{ width: "27%" }}></div>
-          </div>
-        </div>
+        <RadioGroup onChange={(value) => handlePollClick(value)} value={value} width="100%">
+          <Stack>
+            {options?.map((option, index) => {
+              return (
+                <>
+                  <Flex justifyContent="space-between" alignItems="center" px="6" pb="2" pt="4">
+                    <Radio size="lg" name="1" colorScheme="red" value={index} _active={{ bg: "red" }}>
+                      <Text>{option.title}</Text>
+                    </Radio>
+                    <AvatarGroups data={option.uid} size={3} />
+                  </Flex>
+                  <Box px="6">
+                    <Progress
+                      w="100%"
+                      colorScheme={randomColors(["green", "red", "yellow"])}
+                      rounded="full"
+                      value={Number(option.votes) * 10}
+                    />
+                  </Box>
+                </>
+              );
+            })}
+          </Stack>
+        </RadioGroup>
         <div className="flex gap-5 items-center ml-5 pb-3" style={{ display: "flex", flexDirection: "row" }}>
           <HStack align="center" fontWeight="400" fontSize="14px" padding="4">
             <Box display="flex" alignItems="center">
@@ -88,7 +142,7 @@ const PollFeedCard = ({ name, uid, title, reactionCount, commentCount, createdAt
                   paddingLeft: "5px",
                 }}
               >
-               {reactionCount}
+                {reactionCount}
               </span>
             </Box>
             <Box pl="5">
@@ -106,7 +160,7 @@ const PollFeedCard = ({ name, uid, title, reactionCount, commentCount, createdAt
             </Box>
             <Dot color="#8D96A5" />
             <Box>
-              <span style={{ fontSize: "14px", fontWeight: "600", color: "#455564" }}>53</span>
+              <span style={{ fontSize: "14px", fontWeight: "600", color: "#455564" }}>{followingCount}</span>
               <span
                 style={{
                   fontSize: "14px",
@@ -139,3 +193,4 @@ const PollFeedCard = ({ name, uid, title, reactionCount, commentCount, createdAt
 };
 
 export default PollFeedCard;
+

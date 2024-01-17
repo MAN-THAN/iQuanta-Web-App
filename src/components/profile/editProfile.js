@@ -58,7 +58,7 @@ const EditProfile = () => {
       graduationStream: state?.graduationStream || "",
       workExperience: state?.workExperience || "",
       medicalCondition: state?.medicalCondition || "",
-      address: state?.address || "",
+      address: state?.address[0] || "",
     },
     validationSchema: commonValidationSchema,
     onSubmit: (values) => {

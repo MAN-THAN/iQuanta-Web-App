@@ -22,10 +22,19 @@ import CommentSlider from "@/components/postCards/commentSlider/commentSlider";
 import { useRouter } from "next/navigation";
 import { MdPlayArrow } from "react-icons/md";
 import AvatarGroups from "@/components/common/avatarGroups";
+import moment from "moment";
 
-const ChallengeCard = ({ classId }) => {
+const ChallengeCard = ({ classId, challengeData }) => {
   const router = useRouter();
-
+  const { title, timePerQuestion, totalQuestions, createdAt, difficultyLevel } = challengeData || {};
+  const getTime = () => {
+    const endDate = moment(createdAt);
+    const duration = moment.duration(endDate.diff(moment(Date.now())));
+    const hours = duration.asHours();
+    // console.log(hours, "hours");
+    // console.log(duration, "duration");
+    return Math.trunc(Math.abs(hours));
+  };
   return (
     <Box bg="#fff" mt="1">
       <HStack align="center" justifyContent="space-between" padding={["3", null, "4"]}>
@@ -48,9 +57,9 @@ const ChallengeCard = ({ classId }) => {
           <Box ml="2">
             <Box display="flex" alignItems="center">
               <p style={{ fontSize: "14px", color: "#171717", fontWeight: "600" }}>Hardik Beniwal</p> <MdPlayArrow />{" "}
-              <p style={{ fontSize: "14px", color: "#171717", fontWeight: "400" }}>Posted in CAT 2021</p>
+              {/* <p style={{ fontSize: "14px", color: "#171717", fontWeight: "400" }}>Posted in CAT 2021</p> */}
             </Box>
-            <p style={{ fontSize: "14px", color: "#636363" }}>2h ago</p>
+            <p style={{ fontSize: "14px", color: "#636363" }}>{getTime()} h ago</p>
           </Box>
         </Box>
         <Box display="flex" alignItems="center" gap="4">
@@ -65,19 +74,19 @@ const ChallengeCard = ({ classId }) => {
           </Box>
           <AvatarGroups size="md" />
           <Text fontSize="22px" fontWeight="500" pt="4">
-            Quantitative: Advanced Maths
+            {title}{" "}
           </Text>
           <TableContainer py="4">
             <Table size="sm" variant="unstyled" spacing="0">
               <Thead>
                 <Tr color="#FFFFFFBF">
-                  <Th width='100px' fontSize="16px" fontWeight="400" px="0">
+                  <Th width="100px" fontSize="16px" fontWeight="400" px="0">
                     Questions
                   </Th>
-                  <Th  width='150px' fontSize="16px" fontWeight="400" px="0">
+                  <Th width="150px" fontSize="16px" fontWeight="400" px="0">
                     Time per Question
                   </Th>
-                  <Th width='200px' fontSize="16px" fontWeight="400" px="0">
+                  <Th width="200px" fontSize="16px" fontWeight="400" px="0">
                     Difficulty
                   </Th>
                 </Tr>
@@ -85,10 +94,10 @@ const ChallengeCard = ({ classId }) => {
               <Tbody>
                 <Tr>
                   <Td fontSize="18px" fontWeight="500" padding="0">
-                    10
+                    {totalQuestions}
                   </Td>
                   <Td fontSize="18px" fontWeight="500" padding="0">
-                    60 sec
+                    {timePerQuestion} sec
                   </Td>
                   <Td fontSize="18px" fontWeight="500" padding="0">
                     Beginner

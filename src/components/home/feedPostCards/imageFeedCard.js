@@ -6,7 +6,7 @@ import CommentSlider from "@/components/postCards/commentSlider/commentSlider";
 import { MdPlayArrow } from "react-icons/md";
 import moment from "moment";
 
-const ImageFeedCard = ({ name, uid, title, reactionCount, commentCount, createdAt, media, comments, profilePic}) => {
+const ImageFeedCard = ({ name, uid, title, reactionCount, commentCount, createdAt, media, comments, profilePic, followingCount}) => {
   const getTime = () => {
     const endDate = moment(createdAt);
     const duration = moment.duration(endDate.diff(moment(Date.now())));
@@ -16,7 +16,7 @@ const ImageFeedCard = ({ name, uid, title, reactionCount, commentCount, createdA
     return Math.trunc(Math.abs(hours));
   };
   return (
-    <Box bg="#fff" mt='1'>
+    <Box bg="#fff" mt="1">
       <HStack align="center" justifyContent="space-between" padding={["3", null, "4"]}>
         <Box
           sx={{
@@ -30,7 +30,7 @@ const ImageFeedCard = ({ name, uid, title, reactionCount, commentCount, createdA
               width="100%"
               height="100%"
               className="rounded-md"
-              src="/static/images/Profile.jpeg"
+              src={profilePic}
               alt="Profile Image"
             />
           </Box>
@@ -50,7 +50,9 @@ const ImageFeedCard = ({ name, uid, title, reactionCount, commentCount, createdA
         <Text fontSize="14px" lineHeight="24px">
           <p>{title}</p>
         </Text>
-        <Image alt="video" src={media?.[0]} />
+        <Box maxH="460px" maxW="100vh" overflow="hidden">
+          <Image alt="video" w="100%" h="100%" objectFit="cover" src={media?.[0]} />
+        </Box>
         <HStack align="center" fontWeight="400" fontSize="14px" padding="4">
           <Box display="flex" alignItems="center">
             <LikeEmojiGroup />
@@ -80,7 +82,7 @@ const ImageFeedCard = ({ name, uid, title, reactionCount, commentCount, createdA
           </Box>
           <Dot color="#8D96A5" />
           <Box>
-            <span style={{ fontSize: "14px", fontWeight: "600", color: "#455564" }}>53</span>
+            <span style={{ fontSize: "14px", fontWeight: "600", color: "#455564" }}>{followingCount}</span>
             <span
               style={{
                 fontSize: "14px",
