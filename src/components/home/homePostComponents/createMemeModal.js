@@ -24,7 +24,7 @@ import RowButton from "./rowButton";
 import PostTypeMenu from "@/components/common/postTypeMenu";
 import { toPng, toBlob } from "html-to-image";
 import { useMutation, useQueryClient } from "react-query";
-import { createPost } from "@/api/feed/userPost";
+import { createPost } from "@/api/feed/user";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useSelector } from "react-redux";

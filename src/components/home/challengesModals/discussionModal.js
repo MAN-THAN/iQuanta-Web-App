@@ -34,14 +34,14 @@ import ParticipantsModal from "../homePostComponents/participantsModal";
 import FileUploadButton from "../homePostComponents/fileUploadButton";
 import CreateMemeModal from "../homePostComponents/createMemeModal";
 import PostTypeMenu from "@/components/common/postTypeMenu";
-import { createPost } from "@/api/feed/userPost";
+import { createPost } from "@/api/feed/user";
 import { createGroupPost } from "@/api/feed/groups/post";
 import { useMutation, useQueryClient } from "react-query";
 import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const DiscussionModal = ({ isOpen, onClose, clickPhoto, triggeredFrom }) => {
+const DiscussionModal = ({ isOpen, onClose, clickPhoto ,triggeredFrom}) => {
   const [isTyping, setIsTyping] = useState(false);
   const [text, setText] = useState();
   const fileInputRef = useRef(null);
@@ -53,15 +53,15 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto, triggeredFrom }) => {
   const [options, setOptions] = useState([{ id: 1, title: "" }]);
   const [selectedType, setSelectedType] = useState(null);
   const [participants, setParticipants] = useState([]);
-  const [privacyType, setPrivacyType] = useState("public");
-  const [tempFiles, setTempFiles] = useState([]);
+  const [privacyType,setPrivacyType] = useState('public');
+  const [tempFiles,setTempFiles]=useState([]);
   const queryClient = useQueryClient();
   const { name, _id: uid } = useSelector((state) => state.userData);
   const { _id: groupId } = useSelector((state) => state.groupData);
   const handleTypingStart = useCallback(() => {
     setIsTyping(true);
   }, []);
-
+  
   const handleButtonClick = (type) => {
     setSelectedType(type);
   };
@@ -71,65 +71,79 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto, triggeredFrom }) => {
   };
 
   const handleChange = async (event) => {
-    const files = event.target.files;
-
-    setTempFiles([...tempFiles, ...files]);
-    let fileList = Object.keys(files).map((item) => {
-      return URL.createObjectURL(files[item]);
-    });
-    setSelectedFiles([...selectedFiles, ...fileList]);
+  const files = event.target.files;
+  
+  setTempFiles([...tempFiles,...files]);
+  let fileList = Object.keys(files).map(item=>{
+    
+    return URL.createObjectURL(files[item]);
+    })
+  setSelectedFiles([...selectedFiles,...fileList]);
+    
   };
 
-  const handleCreatePost = async () => {
-    if (selectedComponent == "poll") {
-      let pollData = { title: text, privacyType: privacyType, options: options, postType: "poll" };
-      if (triggeredFrom == "group") {
+  const handleCreatePost=async()=>{
+    
+    if(selectedComponent=='poll'){
+      let pollData ={title:text,privacyType:privacyType,options:options,postType:"poll"};
+       if(triggeredFrom=="group"){
         pollData.groupId = groupId;
-      }
-      mutation.mutate(pollData, "json");
+       }
+       mutation.mutate(pollData,'json');
     }
-    if (selectedComponent == "debate") {
-      let debateData = { title: text, privacyType: privacyType, participants: participants, postType: "debate" };
-      if (triggeredFrom == "group") {
+    if(selectedComponent=='debate'){
+      let debateData ={title:text,privacyType:privacyType,participants:participants,postType:"debate"};
+      if(triggeredFrom=="group"){
         debateData.groupId = groupId;
-      }
-      mutation.mutate(debateData, "json");
+       }
+       mutation.mutate(debateData,'json');
     }
-    if (selectedComponent == "photo") {
-      const formData = new FormData();
-      // Append each file to the FormData object
+    if(selectedComponent=='photo'){
+     const formData = new FormData();
+   // Append each file to the FormData object
       for (let i = 0; i < tempFiles.length; i++) {
-        if (tempFiles[i].type.includes("video")) {
-          setSelectedComponent("video");
+        if(tempFiles[i].type.includes('video'))
+        {
+          setSelectedComponent('video');
         }
-        formData.append("file", tempFiles[i]);
+        formData.append('file', tempFiles[i]);
       }
-
-      formData.append("postType", selectedComponent);
-      formData.append("title", text);
-      formData.append("privacyType", privacyType);
-      if (triggeredFrom == "group") {
-        formData.append("groupId", groupId);
+      
+      formData.append('postType',selectedComponent);
+      formData.append('title', text);
+      formData.append('privacyType',privacyType);
+      if(triggeredFrom=="group"){
+       formData.append('groupId', groupId);
       }
-      mutation.mutate(formData, "form");
+      mutation.mutate(formData,'form');
     }
-    if (selectedComponent == "video") {
-    }
-    if (selectedComponent == "fileUpload") {
-    }
-  };
+    if(selectedComponent=='video'){
 
+    }
+    if(selectedComponent=='fileUpload'){
+
+    }
+    if(selectedComponent=='memes'){
+      let pollData ={title:text,privacyType:privacyType,options:options,postType:"memes"};
+       if(triggeredFrom=="group"){
+        pollData.groupId = groupId;
+       }
+       mutation.mutate(pollData,'json');
+    }
+
+  }
+  
   const handleRemoveImage = (index) => {
     setSelectedFiles((prevFiles) => {
       const newFiles = [...prevFiles];
       newFiles.splice(index, 1);
       return newFiles;
     });
-    setTempFiles((prevFiles) => {
+    setTempFiles((prevFiles)=>{
       const newFiles = [...prevFiles];
       newFiles.splice(index, 1);
       return newFiles;
-    });
+    })
   };
 
   const handleOptionButtonClick = (componentName) => {
@@ -151,13 +165,9 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto, triggeredFrom }) => {
   const renderSelectedComponent = () => {
     switch (selectedComponent) {
       case "photo":
-        return (
-          <ImagePreview selectedFilesBlob={selectedFiles} selectedFiles={tempFiles} removeImage={handleRemoveImage} />
-        );
+      return <ImagePreview selectedFilesBlob={selectedFiles} selectedFiles={tempFiles} removeImage={handleRemoveImage} />;
       case "video":
-        return (
-          <ImagePreview selectedFilesBlob={selectedFiles} selectedFiles={tempFiles} removeImage={handleRemoveImage} />
-        );
+      return <ImagePreview selectedFilesBlob={selectedFiles} selectedFiles={tempFiles} removeImage={handleRemoveImage} />;
       case "debate":
         return <DebateCard handleParticipants={handleParticipants} />;
       case "poll":
@@ -169,8 +179,7 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto, triggeredFrom }) => {
     }
   };
   const mutation = useMutation({
-    mutationFn: (payload, contentType) =>
-      triggeredFrom == "user" ? createPost(payload, contentType, uid) : createGroupPost(payload, contentType, uid),
+    mutationFn: (payload,contentType) => triggeredFrom=="user"?createPost(payload,contentType, uid):createGroupPost(payload,contentType,uid),
     onMutate: (variables) => {
       return console.log("mutation is happening");
     },
@@ -191,6 +200,7 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto, triggeredFrom }) => {
     },
     onSettled: (data, error, variables, context) => {},
   });
+  
 
   return (
     <>
@@ -233,7 +243,7 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto, triggeredFrom }) => {
                   New Discussion
                 </Text>
                 <Box>
-                  <PostTypeMenu setPrivacyType={(value) => setPrivacyType(value)} currentValue={privacyType} />
+                  <PostTypeMenu setPrivacyType={(value)=>setPrivacyType(value)} currentValue={privacyType}/>
                 </Box>
                 {/* <Menu isLazy>
                   <MenuButton border="1px solid #8D96A5" rounded="lg" p="1">
