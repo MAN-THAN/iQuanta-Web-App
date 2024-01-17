@@ -4,6 +4,7 @@ import LikeEmojiGroup from "@/components/common/likeEmojiGroup";
 import CommentSlider from "@/components/postCards/commentSlider/commentSlider";
 import { useRouter } from "next/navigation";
 import { MdPlayArrow } from "react-icons/md";
+import moment from "moment";
 
 const TextFeedCard = ({ classId, name, uid, title, reactionCount, commentCount, createdAt, media }) => {
   const router = useRouter();

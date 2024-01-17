@@ -181,7 +181,7 @@ const FeedTabsSection = () => {
               {challengeTab &&
                 <>
                 <ChallengeForm openModal={onOpenChallenge} triggeredFrom="user" />
-                  <ChallengeList triggeredFrom="user" />
+                <ChallengeList triggeredFrom="user" />
                 </>}
             </TabPanel>
           </TabPanels>
