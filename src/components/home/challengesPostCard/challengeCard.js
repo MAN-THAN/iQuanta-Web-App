@@ -23,7 +23,7 @@ import { useRouter } from "next/navigation";
 import { MdPlayArrow } from "react-icons/md";
 import AvatarGroups from "@/components/common/avatarGroups";
 
-const ChallengeCard = ({ classId, challengeData }) => {
+const ChallengeCard = ({ challengeData }) => {
   const router = useRouter();
   const { title, timePerQuestion, totalQuestions, createdAt, difficultyLevel } = challengeData;
   const getTime = () => {

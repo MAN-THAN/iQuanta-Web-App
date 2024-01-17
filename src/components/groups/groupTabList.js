@@ -28,6 +28,7 @@ import ChallengeCard from "../home/challengesPostCard/challengeCard";
 import ChallengeLivecard from "../home/challengesPostCard/challengeLivecard";
 import SuggestionSection from "../home/suggestionSection";
 import ChallengeLeaderbordCard from "../home/challengesPostCard/challengeLeaderbordCard";
+import ChallengeList from "../home/challenge/challengeList";
 
 const GroupTabList = () => {
  
@@ -35,6 +36,7 @@ const GroupTabList = () => {
   const { isOpen: isOpenChallenge, onOpen: onOpenChallenge, onClose: onCloseChallenge } = useDisclosure();
   const { isOpen: isOpenDiscussion, onOpen: onOpenDiscussion, onClose: onCloseDiscussion } = useDisclosure();
   const [clickPhoto, setClickPhoto] = useState(false);
+  const [challengeTab, setChallengeTab] = useState(false);
   const [state, setState] = useState();
   const { _id: uid } = useSelector((state) => state.userData);
   const { _id: groupId } = useSelector((state) => state.groupData);
@@ -54,33 +56,43 @@ const GroupTabList = () => {
   const tabs = [
     {
       tabName: "Discussions",
+      challengeTab:false
     },
     {
       tabName: "Challenges",
+      challengeTab:true
     },
     {
       tabName: "Exam Details",
+      challengeTab:false
     },
     {
       tabName: "Courses",
+      challengeTab:false
     },
     {
       tabName: "Practice QAs",
+      challengeTab:false
     },
     {
       tabName: "Mock Tests",
+      challengeTab:false
     },
     {
       tabName: "Upcoming",
+      challengeTab:false
     },
     {
       tabName: "Files",
+      challengeTab:false
     },
     {
       tabName: "Media",
+      challengeTab:false
     },
     {
       tabName: "Topics",
+      challengeTab:false
     },
   ];
  
@@ -104,6 +116,7 @@ const GroupTabList = () => {
               }}
               border="1px solid"
               px="3"
+              onClick={() => setChallengeTab(da.challengeTab)}
             >
               {da.tabName}
             </Tab>
@@ -176,11 +189,11 @@ const GroupTabList = () => {
             })}
           </TabPanel>
           <TabPanel padding="0">
-            <ChallengeForm openModal={onOpenChallenge} />
-            <ChallengeCard />
-            <ChallengeLivecard />
-            <SuggestionSection />
-            <ChallengeLeaderbordCard />
+          {challengeTab &&
+                <><ChallengeForm openModal={onOpenChallenge} triggeredFrom="group" />
+                  <ChallengeList triggeredFrom="group" /></>}
+            
+            
           </TabPanel>
           <TabPanel padding="0">
             <ExamTab />

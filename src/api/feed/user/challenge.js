@@ -1,7 +1,7 @@
 import request from "@/api/request";
 
 //get ALL challenges
-export const getAllChallenges = async (uid,page, limit) => {
+export const getAllChallenges = async (page, limit,uid) => {
     try {
         console.log("66a",uid,page,limit);
       const res = await request({

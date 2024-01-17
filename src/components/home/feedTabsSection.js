@@ -61,6 +61,7 @@ const FeedTabsSection = () => {
               color="#8D96A5"
               fontSize={{ base: "16px", md: "20px" }}
               fontWeight="600"
+              onClick={() => setChallengeTab(false)}
             >
               <HStack py={{ base: "3", md: "4" }}>
                 <MessagesSquare />
@@ -84,7 +85,7 @@ const FeedTabsSection = () => {
           </TabList>
           <TabPanels>
             <TabPanel padding="0">
-              <PostFormSection openModal={onOpenDiscussion} setClickPhoto={setClickPhoto} />
+              {!challengeTab&&<><PostFormSection openModal={onOpenDiscussion} setClickPhoto={setClickPhoto} />
               <SuggestionSection />
               {/* different type of post to select */}
               {state?.map((item, ind) => {
@@ -174,12 +175,14 @@ const FeedTabsSection = () => {
                   );
 
                 // else if (item.post_type === "video") return <SuggestionSection />;
-              })}
+              })}</>}
             </TabPanel>
             <TabPanel padding="0">
               {challengeTab &&
-                <><ChallengeForm openModal={onOpenChallenge} />
-                  <ChallengeList /></>}
+                <>
+                <ChallengeForm openModal={onOpenChallenge} triggeredFrom="user" />
+                  <ChallengeList triggeredFrom="user" />
+                </>}
             </TabPanel>
           </TabPanels>
         </Tabs>
