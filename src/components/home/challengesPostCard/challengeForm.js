@@ -1,6 +1,6 @@
 import { Box, Flex, Image, Text } from "@chakra-ui/react";
 
-const ChallengeForm = ({ openModal }) => {
+const ChallengeForm = ({ openModal , triggeredFrom }) => {
   return (
     <Box bg="white.900" p="4">
      <Flex alignItems="center">

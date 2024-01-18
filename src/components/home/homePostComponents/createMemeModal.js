@@ -22,9 +22,9 @@ import React, { useCallback, useRef, useState } from "react";
 import CreateMeme from "./createMeme";
 import RowButton from "./rowButton";
 import PostTypeMenu from "@/components/common/postTypeMenu";
-import { toPng } from "html-to-image";
+import { toPng, toBlob } from "html-to-image";
 import { useMutation, useQueryClient } from "react-query";
-import { createPost } from "@/api/feed/userPost";
+import { createPost } from "@/api/feed/user";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useSelector } from "react-redux";
@@ -69,27 +69,39 @@ const CreateMemeModal = ({
   });
   console.log(text);
   const queryClient = useQueryClient();
-  const handleMemes = () => {
+  const handlePostMemes = async() => {
     if (ref.current === null) {
       return;
     }
-    toPng(ref.current, { cacheBust: true })
-      .then((dataUrl) => {
-        console.log(dataUrl);
+    console.log(ref.current);
+     // Get the data URL of the meme
+     const dataUrl = await toPng(ref.current, { cacheBust: true });
+
+     // Convert data URL to Blob
+     const blob = await toBlob(ref.current, dataUrl);
+    // toPng(ref.current, { cacheBust: true })
+    //   .then((dataUrl) => {
+        console.log(blob);
+        // const blob = await toBlob(dataUrl);
+        const formData = new FormData();
+        formData.append("file", blob);
+        formData.append("postType", "memes");
+        formData.append("title", text);
+        mutation.mutate(formData);
 
         // const link = document.createElement("a");
         // link.download = "my-image-name.png";
         // link.href = dataUrl;
         // link.click();
-        mutation.mutate({
-          title: text,
-          postType: "memes",
-          file: dataUrl
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+        // mutation.mutate({
+        //   title: text,
+        //   postType: "memes",
+        //   file: dataUrl
+        // });
+      // })
+      // .catch((err) => {
+      //   console.log(err);
+      // });
   };
 
   return (
@@ -141,6 +153,8 @@ const CreateMemeModal = ({
               </HStack>
               <Box pt="2">
                 <Textarea
+                  value={text}
+                  onChange={(e) => setText(e.target.value)}
                   width="full"
                   height="auto"
                   border="none"
@@ -165,7 +179,7 @@ const CreateMemeModal = ({
                 handleOptionButtonClick={handleOptionButtonClick}
               />
               <Button
-                onClick={() => handleMemes()}
+                onClick={() => handlePostMemes()}
                 w="full"
                 sx={{
                   bg: "black !important",

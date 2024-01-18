@@ -1,10 +1,11 @@
 import request from "@/api/request";
 
 //get ALL challenges
-export const getAllChallenges = async (page, limit) => {
+export const getAllChallenges = async (page, limit,uid) => {
     try {
+        console.log("66a",uid,page,limit);
       const res = await request({
-        url: `/feed/v1/user/challenge/list/${page}/${limit}`,
+        url: `/feed/v1/user/challenge/list/${uid}/${page}/${limit}`,
         headers: {
           "Content-Type": "application/json",
         },
@@ -36,7 +37,7 @@ export const getAllChallenges = async (page, limit) => {
   export const getAllTopics = async (entityId) => {
     try {
       const res = await request({
-        url: `/exams/v1/practice/qa/list/${entityId}`,
+        url: `/exams/v1/topic/list/${entityId}`,
         headers: {
           "Content-Type": "application/json",
         },
@@ -51,7 +52,7 @@ export const getAllChallenges = async (page, limit) => {
     export const getSubtopics = async (topicId) => {
         try {
           const res = await request({
-            url: `/exams/v1/practice/qa/list/${topicId}`,
+            url: `/exams/v1/subtopic/list/${topicId}`,
             headers: {
               "Content-Type": "application/json",
             },
