@@ -1,19 +1,19 @@
+// MockHeader.jsx
+
 import TextRadio from "@/components/common/textRadio";
 import { quesData } from "@/utilities/qusData";
 import { Box, Flex, HStack, Image, Text, useRadioGroup } from "@chakra-ui/react";
 import { Calculator, Expand } from "lucide-react";
 import React from "react";
 
-const MockHeader = () => {
-  const tags = ["Verbal Ability", "LRDI", "Quant"];
-  console.log("🚀 ~ convert:", quesData);
-
+const MockHeader = ({ onSelectSection }) => {
   const { getRootProps, getRadioProps } = useRadioGroup({
     name: "Verbal Ability",
     defaultValue: "All",
-    onChange: console.log,
+    onChange: (value) => onSelectSection(value),
   });
   const group = getRootProps();
+
   return (
     <Box width="100%">
       <Text fontSize="16px" fontWeight="600">

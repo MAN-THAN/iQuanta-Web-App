@@ -19,7 +19,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
-const ParticipantsModal = ({ closeParticipants, participants, setParticipants , triggeredFrom }) => {
+const ParticipantsModal = ({ closeParticipants, participants, setParticipants, triggeredFrom }) => {
   const { _id: uid } = useSelector((state) => state.userData);
   const [state, setState] = useState();
   const { isLoading, data, isError, error, isPending, isSuccess } = useQuery({
@@ -37,22 +37,22 @@ const ParticipantsModal = ({ closeParticipants, participants, setParticipants , 
   const handleParticipants = (obj) => {
     console.log(obj);
     // Check if the participant with the same _id exists
-    const participantExists = participants.some(item => item._id === obj._id);
-  
+    const participantExists = participants.some((item) => item._id === obj._id);
+
     if (participantExists) {
-      const filterParticipants = participants.filter(item => item._id !== obj._id);
+      const filterParticipants = participants.filter((item) => item._id !== obj._id);
       console.log(filterParticipants);
       setParticipants(filterParticipants);
     } else {
       console.log("in else");
-      setParticipants((prev) => [...prev, obj])
+      setParticipants((prev) => [...prev, obj]);
     }
   };
   const checkParticipants = (obj) => {
-    const participantExists = participants.some(item => item._id === obj._id);
-    return participantExists
+    const participantExists = participants.some((item) => item._id === obj._id);
+    return participantExists;
   };
-  console.log(participants)
+  console.log(participants);
   return (
     <>
       <Box>
@@ -100,7 +100,12 @@ const ParticipantsModal = ({ closeParticipants, participants, setParticipants , 
                     </p>
                   </Box>
                 </Box>
-                <Checkbox size="lg" colorScheme="green" isChecked={checkParticipants(item)} onChange={() => handleParticipants(item)} />
+                <Checkbox
+                  size="lg"
+                  colorScheme="green"
+                  isChecked={checkParticipants(item)}
+                  onChange={() => handleParticipants(item)}
+                />
               </ListItem>
             ))
           )}
