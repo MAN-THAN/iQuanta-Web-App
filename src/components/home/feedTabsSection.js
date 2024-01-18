@@ -10,7 +10,7 @@ import PollFeedCard from "./feedPostCards/pollFeedCard";
 import ChallengeForm from "./challengesPostCard/challengeForm";
 import ChallengeList from "./challenge/challengeList";
 import VideoFeedCard from "./feedPostCards/videoFeedCard";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import ChallengesModal from "./challengesModals/challengesModal";
 import DiscussionModal from "./challengesModals/discussionModal";
 import { useQuery, useInfiniteQuery } from "react-query";
@@ -39,7 +39,9 @@ const FeedTabsSection = () => {
     onSuccess: (res) => setState(res.pages[0]?.data.data.allPostData),
   });
 
+useEffect(()=>{
 
+},[challengeTab]);
 
   return (
     <>
@@ -85,7 +87,7 @@ const FeedTabsSection = () => {
           </TabList>
           <TabPanels>
             <TabPanel padding="0">
-              {!challengeTab&&<><PostFormSection openModal={onOpenDiscussion} setClickPhoto={setClickPhoto} />
+              {challengeTab==false&&<><PostFormSection openModal={onOpenDiscussion} setClickPhoto={setClickPhoto} />
               <SuggestionSection />
               {/* different type of post to select */}
               {state?.map((item, ind) => {
