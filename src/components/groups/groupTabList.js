@@ -15,19 +15,19 @@ import "react-toastify/dist/ReactToastify.css";
 import FeaturesCard from "../courses/featuresCard";
 import { featursCard } from "@/utilities/comanData";
 import UpComeingCard from "../feature/upComeingCard";
-import DiscussionModal from "../home/challengesModals/discussionModal";
+import DiscussionModal from "../home/challenge/challengesModals/discussionModal";
 import ExamTab from "./examTab";
 import PracticeQAs from "./practiceQAs";
 import MockTests from "./mockTests";
 import FilesTab from "./filesTab";
 import { useRouter } from "next/navigation";
 import ImageSwiper from "../home/feedPostCards/imageSwiper";
-import ChallengeForm from "../home/challengesPostCard/challengeForm";
-import ChallengesModal from "../home/challengesModals/challengesModal";
-import ChallengeCard from "../home/challengesPostCard/challengeCard";
-import ChallengeLivecard from "../home/challengesPostCard/challengeLivecard";
+import ChallengeForm from "../home/challenge/challengesPostCard/challengeForm";
+import ChallengesModal from "../home/challenge/challengesModals/challengesModal";
+import ChallengeCard from "../home/challenge/challengesPostCard/challengeCard";
+import ChallengeLivecard from "../home/challenge/challengesPostCard/challengeLivecard";
 import SuggestionSection from "../home/suggestionSection";
-import ChallengeLeaderbordCard from "../home/challengesPostCard/challengeLeaderbordCard";
+import ChallengeLeaderbordCard from "../home/challenge/challengesPostCard/challengeLeaderbordCard";
 import ChallengeList from "../home/challenge/challengeList";
 
 const GroupTabList = () => {
