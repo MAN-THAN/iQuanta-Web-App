@@ -42,8 +42,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { TbRuler } from "react-icons/tb";
 import { useSelector } from "react-redux";
 import { getFriendList } from "@/api/feed/user/friendList";
-import { TopicList } from "../challenge/topicList";
-import { SubtopicList } from "../challenge/subtopicList";
+import { TopicList } from "../topicList";
+import { SubtopicList } from "../subtopicList";
 
 const ChallengesModal = ({ isOpen, onClose, triggeredFrom }) => {
   const [showTopicList, setShowTopicList] = useState(false);

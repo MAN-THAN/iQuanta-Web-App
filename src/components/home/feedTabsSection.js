@@ -7,12 +7,12 @@ import ImageFeedCard from "./feedPostCards/imageFeedCard";
 import ImageSwiper from "./feedPostCards/imageSwiper";
 import CardFeedCard from "./feedPostCards/cardFeedCard";
 import PollFeedCard from "./feedPostCards/pollFeedCard";
-import ChallengeForm from "./challengesPostCard/challengeForm";
+import ChallengeForm from "./challenge/challengesPostCard/challengeForm";
 import ChallengeList from "./challenge/challengeList";
 import VideoFeedCard from "./feedPostCards/videoFeedCard";
-import { useState,useEffect } from "react";
-import ChallengesModal from "./challengesModals/challengesModal";
-import DiscussionModal from "./challengesModals/discussionModal";
+import { useState } from "react";
+import ChallengesModal from "./challenge/challengesModals/challengesModal";
+import DiscussionModal from "./challenge/challengesModals/discussionModal";
 import { useQuery, useInfiniteQuery } from "react-query";
 import { useSelector } from "react-redux";
 import { getAllPost } from "@/api/feed/user";
@@ -176,15 +176,18 @@ useEffect(()=>{
                     />
                   );
 
-                // else if (item.post_type === "video") return <SuggestionSection />;
-              })}</>}
+                    // else if (item.post_type === "video") return <SuggestionSection />;
+                  })}
+                </>
+              }
             </TabPanel>
             <TabPanel padding="0">
               {challengeTab==true &&
                 <>
-                <ChallengeForm openModal={onOpenChallenge} triggeredFrom="user" />
-                <ChallengeList triggeredFrom="user" />
-                </>}
+                  <ChallengeForm openModal={onOpenChallenge} triggeredFrom="user" />
+                  <ChallengeList triggeredFrom="user" />
+                </>
+              }
             </TabPanel>
           </TabPanels>
         </Tabs>

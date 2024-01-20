@@ -65,3 +65,20 @@ body {
   -webkit-user-select: none;
   user-select: none;
 }
+
+
+
+.pentagon {
+  clip-path: polygon(50% 0%, 100% 38%, 100% 100%, 0 99%, 0% 38%);
+  /* background: green !important; */
+  transition: all 0.3s ease-in;
+}
+ .custom-class .ant-timeline-item-tail {
+  border-color: #5247d6;
+
+}
+ .custom-class .ant-timeline-item-head {
+  border-color: #5247d6;
+  background-color: #5247d6;
+
+}
