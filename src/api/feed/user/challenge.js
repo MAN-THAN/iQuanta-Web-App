@@ -37,7 +37,8 @@ export const getAllChallenges = async (page, limit,uid) => {
   export const getAllTopics = async (entityId) => {
     try {
       const res = await request({
-        url: `/exams/v1/topic/list/${entityId}`,
+        //url: `/exams/v1/topic/list/${entityId}`,
+        url: `/exams/v1/topic`,
         headers: {
           "Content-Type": "application/json",
         },

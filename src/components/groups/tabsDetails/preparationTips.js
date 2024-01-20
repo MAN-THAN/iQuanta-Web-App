@@ -1,11 +1,11 @@
 import { Box, Divider, Heading, ListItem, Text, UnorderedList } from "@chakra-ui/react";
 import React from "react";
 
-const PreparationTipsDetails = () => {
+const PreparationTipsDetails = ({data}) => {
   return (
     <>
       <Box py="6" px="4">
-        <Text fontSize="18px" fontWeight="600" pt="4">
+        {/* <Text fontSize="18px" fontWeight="600" pt="4">
           Objectify the CAT syllabus
         </Text>
         <UnorderedList pt="4">
@@ -54,7 +54,8 @@ const PreparationTipsDetails = () => {
               time
             </Text>
           </ListItem>
-        </UnorderedList>
+        </UnorderedList> */}
+        {data}
       </Box>
       <Divider />
     </>

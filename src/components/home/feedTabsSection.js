@@ -10,7 +10,7 @@ import PollFeedCard from "./feedPostCards/pollFeedCard";
 import ChallengeForm from "./challenge/challengesPostCard/challengeForm";
 import ChallengeList from "./challenge/challengeList";
 import VideoFeedCard from "./feedPostCards/videoFeedCard";
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 import ChallengesModal from "./challenge/challengesModals/challengesModal";
 import DiscussionModal from "./challenge/challengesModals/discussionModal";
 import { useQuery, useInfiniteQuery } from "react-query";

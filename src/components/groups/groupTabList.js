@@ -39,7 +39,7 @@ const GroupTabList = () => {
   const [challengeTab, setChallengeTab] = useState(false);
   const [state, setState] = useState();
   const { _id: uid } = useSelector((state) => state.userData);
-  const { _id: groupId } = useSelector((state) => state.groupData);
+  const { _id: groupId,entityType:examId } = useSelector((state) => state.groupData);
   const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } = useInfiniteQuery({
     queryKey: ["getGroupPosts", uid,groupId],
     queryFn: ({ pageParam = 1,limit=10 }) => getGroupPosts(pageParam,limit,uid,groupId),
@@ -65,6 +65,7 @@ const GroupTabList = () => {
     {
       tabName: "Exam Details",
       challengeTab:false
+
     },
     {
       tabName: "Courses",
@@ -197,7 +198,7 @@ const GroupTabList = () => {
             
           </TabPanel>
           <TabPanel padding="0">
-            <ExamTab />
+            <ExamTab examId={examId} />
           </TabPanel>
           <TabPanel padding="0">
             <Box
