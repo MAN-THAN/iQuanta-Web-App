@@ -180,7 +180,7 @@ useEffect(()=>{
               })}</>}
             </TabPanel>
             <TabPanel padding="0">
-              {challengeTab &&
+              {challengeTab==true &&
                 <>
                 <ChallengeForm openModal={onOpenChallenge} triggeredFrom="user" />
                 <ChallengeList triggeredFrom="user" />

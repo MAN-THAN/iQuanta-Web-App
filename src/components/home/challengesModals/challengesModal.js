@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import {
   Button,
   Modal,
@@ -27,15 +27,23 @@ import {
   Textarea,
   Image,
   Select,
+  Portal,
+  Flex,
+  RadioGroup,
+  Radio,
 } from "@chakra-ui/react";
 import { ChevronDown, ChevronRight, Minus, Plus, SearchIcon, ChevronLeft } from "lucide-react";
 import topicsData from "@/utilities/topicsDummy";
-import { useQuery ,useMutation} from "react-query";
+import { useQuery, useMutation } from "react-query";
 import { getAllTopics } from "@/api/feed/user/challenge";
 import { getSubtopics } from "@/api/feed/user/challenge";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { TbRuler } from "react-icons/tb";
+import { useSelector } from "react-redux";
+import { getFriendList } from "@/api/feed/user/friendList";
+import { TopicList } from "../challenge/topicList";
+import { SubtopicList } from "../challenge/subtopicList";
 
 const ChallengesModal = ({ isOpen, onClose, triggeredFrom }) => {
   const [showTopicList, setShowTopicList] = useState(false);
@@ -46,54 +54,55 @@ const ChallengesModal = ({ isOpen, onClose, triggeredFrom }) => {
   const [timePerQuestion, setTimePerQuestion] = useState(60);
   const [difficulty, setDifficulty] = useState();
   const [description, setDescription] = useState();
-  const [topicList, setTopicList] = useState();
-  const [subtopicList, setSubtopicList] = useState();
-
+  const [topicList, setTopicList] = useState([]);
+  const [subtopicList, setSubtopicList] = useState([]);
+  const [showConfirmationModal, setConfirmationModal] = useState(false);
+  const { profilePic, _id: uid } = useSelector((state) => state.userData);
+  const [friendList, setFriendList] = useState([]);
+  const [selectedFriends, setSelectedFriends] = useState([]);
+  const [searchFriend, setSearchFriend] = useState();
   console.log(topicList);
   console.log(selectedTopic, "selectedTopic");
   console.log(selectedSubtopic, "selectedSubtopic");
-  console.log(subtopicList, "subtopicList")
-
-  const showSubTopicLists = (topicId) => {
-    // setSelectedTopic(topic);
-    mutation.mutate(topicId);
-    setShowSubTopicList(true);
-    setShowTopicList(false);
-  };
+  console.log(subtopicList, "subtopicList");
+  console.log(showSubTopicList, showTopicList);
 
   const resetState = () => {
     setShowTopicList(false);
     setShowSubTopicList(false);
     setSelectedTopic([]);
     setSelectedSubtopic([]);
+    setConfirmationModal(false);
   };
-  const { isLoading, data, isError, error, isPending, isSuccess } = useQuery({
-    queryKey: ["getTopicsForChallenge", "650445c6fc904d452998918c"],
-    queryFn: () => getAllTopics("650445c6fc904d452998918c"),
+  const friendListQuery = useQuery({
+    queryKey: ["getFriendList", uid],
+    queryFn: () => getFriendList(uid),
     onError: (error, variables, context) =>
       toast.error(`${error?.response?.data?.error?.message || "some error"}`, {
         position: toast.POSITION.TOP_RIGHT,
       }),
-    onSuccess: (res) => setTopicList(res.data.data.topics),
+    onSuccess: (res) => setFriendList(res?.data.data?.friendList),
   });
-  const mutation = useMutation({
-    mutationFn: (topicId) => getSubtopics(topicId),
-    onMutate: (variables) => {
-      return console.log("mutation is happening");
-    },
-    onError: (error, variables, context) =>
-      toast.error(`${error.response.data.error.message}`, {
-        position: toast.POSITION.TOP_RIGHT,
-      }),
-    onSuccess: (res, variables, context) => {
-      console.log(res);
-      setSubtopicList(res?.data?.data?.subTopic);
-    },
-    onSettled: (data, error, variables, context) => {},
-  });
-  const handleSubmit = () => {
+  console.log(friendList, "friendalIST");
 
-  }
+  const handleSubmit = () => {
+    if (showSubTopicList) {
+      setShowTopicList(true);
+      setShowSubTopicList(false);
+    } else if (showTopicList) {
+      setShowTopicList(false);
+      setShowSubTopicList(false);
+    } else if (!showTopicList && !showSubTopicList && selectedTopic.length > 0) {
+      setConfirmationModal(true);
+    }
+  };
+  // Search Func
+  const filteredFriends = useMemo(() => {
+    if (!searchFriend) {
+      return friendList;
+    }
+    return friendList.filter((item) => item?.name.toLowerCase().startsWith(searchFriend.toLowerCase()));
+  }, [friendList, searchFriend]);
 
   return (
     <>
@@ -109,18 +118,6 @@ const ChallengesModal = ({ isOpen, onClose, triggeredFrom }) => {
         <ModalContent bg="white.900" color="#000" height="80vh">
           <ModalCloseButton />
           <ModalHeader>
-            {/* {showTopicList ? (
-              <Box display={"flex"} justifyContent={"flex-start"}>
-                <Box marginTop={"2px"}>
-                  <ChevronLeft cursor={"pointer"} />
-                </Box>
-                <Text marginLeft={"0.5em"}>Select (s) Topics</Text>
-              </Box>
-            ) : selectedTopic ? (
-              "Select (s) Sub Topics"
-            ) : (
-              "New Challenge"
-            )} */}
             {(() => {
               if (showTopicList) {
                 return (
@@ -164,91 +161,130 @@ const ChallengesModal = ({ isOpen, onClose, triggeredFrom }) => {
             {(() => {
               if (showTopicList) {
                 return (
-                  <Box>
-                    <InputGroup size="md">
-                      <InputLeftElement>
-                        <SearchIcon />
-                      </InputLeftElement>
-                      <Input pl="3.0rem" placeholder="Search" />
-                    </InputGroup>
-                    <Box overflowY="scroll">
-                      <UnorderedList listStyleType="none">
-                        {topicList?.map((item, ind) => (
-                          <ListItem
-                            cursor={"pointer"}
-                            key={ind}
-                            display="flex"
-                            py="3"
-                            alignItems="center"
-                            justifyContent="space-between"
-                          >
-                            <Checkbox
-                              onChange={() => {
-                                setSelectedTopic((prev) => {
-                                  const isTopicSelected = prev.includes(item?._id);
-                                  if (isTopicSelected) {
-                                    // const filteredSubtopic = selectedSubtopic.filter((i) => !subtopicList.includes(i));
-                                    // setSelectedSubtopic(filteredSubtopic);
-                                    return prev.filter((i) => i !== item?._id);
-                                  } else {
-                                    showSubTopicLists(item?._id);
-                                    return [...prev, item?._id];
-                                  }
-                                });
-
-                              }}
-                              isChecked={selectedTopic.includes(item?._id)}
-                              gap="4"
-                              alignItems="center"
-                            >
-                              <Box>
-                                <Text>{item?.title}</Text>
-                                <Text fontSize="12px" color="#636363">
-                                  {item?.subtopicCount} Sub Topic
-                                </Text>
-                              </Box>
-                            </Checkbox>
-                            <ChevronRight />
-                          </ListItem>
-                        ))}
-                      </UnorderedList>
-                    </Box>
-                  </Box>
+                  <TopicList
+                    topicList={topicList}
+                    setTopicList={setTopicList}
+                    selectedTopic={selectedTopic}
+                    setSelectedTopic={setSelectedTopic}
+                    setShowTopicList={setShowTopicList}
+                    setShowSubTopicList={setShowSubTopicList}
+                    setSubtopicList={setSubtopicList}
+                  />
                 );
               } else if (showSubTopicList) {
                 return (
-                  <Box>
-                    <InputGroup size="md">
+                  <SubtopicList
+                    subtopicList={subtopicList}
+                    setSubtopicList={setSubtopicList}
+                    selectedSubtopic={selectedSubtopic}
+                    setSelectedSubtopic={setSelectedSubtopic}
+                  />
+                );
+              } else if (showConfirmationModal) {
+                return (
+                  <Box w="100%" display={"flex"} justifyContent={"center"} flexDirection={"column"} gap={"1em"}>
+                    <Box height={"5.5em"} width={"100%"} bgColor={"#5146D6"} p={"1.2em"} borderRadius={"10px"}>
+                      <Flex gap={"1em"}>
+                        <Image
+                          src={profilePic}
+                          alt="profile pic"
+                          width={"3em"}
+                          height={"3em"}
+                          borderRadius={"8px"}
+                        ></Image>
+                        <Box>
+                          <Text>You want to challenge in</Text>
+                          <Text fontWeight={"700"}>{selectedTopic?.map((i) => i.title + " ")}</Text>
+                        </Box>
+                      </Flex>
+                    </Box>
+                    <Text sx={{ fontSize: "16px", fontWeight: "700" }}>Challenge type</Text>
+                    <RadioGroup defaultValue="privateChallenge">
+                      <Stack>
+                        <Flex justifyContent={"space-between"}>
+                          <label htmlFor="openChallenge">
+                            <Box cursor={"pointer"}>
+                              {" "}
+                              <Text sx={{ fontSize: "14px" }}>Open Challenge</Text>
+                              <Text sx={{ fontSize: "12px", color: "grey" }}>Anyone from your followers can join</Text>
+                            </Box>
+                          </label>
+                          <Radio id="openChallenge" value="openChallenge" />
+                        </Flex>
+                        <Flex justifyContent={"space-between"}>
+                          <label htmlFor="privateChallenge">
+                            <Box cursor={"pointer"}>
+                              {" "}
+                              <Text sx={{ fontSize: "14px" }}>Private Challenge</Text>
+                              <Text sx={{ fontSize: "12px", color: "grey" }}>Only invited people can join</Text>
+                            </Box>
+                          </label>
+                          <Radio id="privateChallenge" value="privateChallenge" />
+                        </Flex>
+                      </Stack>
+                    </RadioGroup>
+                    <Text sx={{ fontSize: "16px", fontWeight: "700" }}>Who can join your challenge</Text>
+                    <InputGroup size="sm">
                       <InputLeftElement>
                         <SearchIcon />
                       </InputLeftElement>
-                      <Input pl="3.0rem" placeholder="Search" />
+                      <Input
+                        value={searchFriend}
+                        onChange={(e) => setSearchFriend(e.target.value)}
+                        pl="3.0rem"
+                        placeholder="Search for people"
+                      />
                     </InputGroup>
-                    <Box overflowY="scroll">
-                      {mutation.isLoading ? (
-                        <div>Loading</div>
-                      ) : (
-                        <UnorderedList listStyleType="none">
-                          {subtopicList?.map((subtopic, i) => (
-                            <ListItem key={i} display="flex" py="3" alignItems="center" justifyContent="space-between">
-                              <Checkbox gap="4" alignItems="center" onChange={() => setSelectedSubtopic((prev) => {
-                                const isIncluded = selectedSubtopic.includes(subtopic._id);
-                                if(isIncluded){
-                                  return selectedSubtopic.filter((i) => i !== subtopic._id)
+                    <UnorderedList listStyleType="none" overflowY="scroll">
+                      {filteredFriends?.map((item, ind) => (
+                        <ListItem
+                          key={ind}
+                          display="flex"
+                          alignItems="center"
+                          justifyContent="space-between"
+                          pr="4"
+                          pt="5"
+                        >
+                          <Box display="flex" alignItems="center">
+                            <Image
+                              boxSize="2.5rem"
+                              fit="cover"
+                              borderRadius="md"
+                              src={item?.profilePic}
+                              alt="Fluffybuns the destroyer"
+                              mr="12px"
+                            />
+                            <Box>
+                              <p style={{ fontSize: "16px", color: "#171717" }}>{item?.name}</p>
+                              <p
+                                style={{
+                                  fontSize: "12px",
+                                  color: "#636363",
+                                  textOverflow: "ellipsis",
+                                }}
+                              >
+                                Master Level
+                              </p>
+                            </Box>
+                          </Box>
+                          <Checkbox
+                            size="lg"
+                            colorScheme="green"
+                            isChecked={selectedFriends?.includes(item)}
+                            onChange={() =>
+                              setSelectedFriends((prev) => {
+                                const isIncludes = prev.includes(item);
+                                if (isIncludes) {
+                                  return prev.filter((i, ind) => i?._id !== item?._id);
+                                } else {
+                                  return [...prev, item];
                                 }
-                                else{
-                                  return [...prev, subtopic._id]
-                                }
-                              })}>
-                                <Box>
-                                  <Text>{subtopic?.title}</Text>
-                                </Box>
-                              </Checkbox>
-                            </ListItem>
-                          ))}
-                        </UnorderedList>
-                      )}
-                    </Box>
+                              })
+                            }
+                          />
+                        </ListItem>
+                      ))}
+                    </UnorderedList>
                   </Box>
                 );
               } else {
@@ -266,8 +302,16 @@ const ChallengesModal = ({ isOpen, onClose, triggeredFrom }) => {
                             onClick={() => setShowTopicList(true)}
                           >
                             <Box display="flex" alignItems="center" px="2" justifyContent="space-between">
-                              <Text fontSize="14px">Select the topic(s)</Text>
-                              <ChevronDown size="14px" />
+                              {/* <Text fontSize="14px">Select the topic(s)</Text>
+                              <ChevronDown size="14px" /> */}
+                              <Menu>
+                                <MenuButton>
+                                  {selectedTopic?.length > 0 ? selectedTopic[0].title + "..." : "Select the topic(s)"}
+                                </MenuButton>
+                                <Portal>
+                                  <MenuList></MenuList>
+                                </Portal>
+                              </Menu>
                             </Box>
                           </MenuButton>
                         </Menu>
@@ -359,10 +403,16 @@ const ChallengesModal = ({ isOpen, onClose, triggeredFrom }) => {
                 fontSize: "12px",
               }}
               variant="solid"
-              isDisabled={selectedTopic?.length > 0 || selectedSubtopic?.length > 0 ? false : true}
+              isDisabled={
+                showConfirmationModal && selectedFriends?.length > 0
+                  ? false
+                  : (selectedTopic?.length > 0 || selectedSubtopic?.length > 0) && !showConfirmationModal
+                  ? false
+                  : true
+              }
               onClick={handleSubmit}
             >
-              {showTopicList || showSubTopicList ? (<>Done</>) : (<>Next</>)}
+              {showTopicList || showSubTopicList ? <>Done</> : showConfirmationModal ? <>Post</> : <>Next</>}
             </Button>
           </ModalFooter>
         </ModalContent>

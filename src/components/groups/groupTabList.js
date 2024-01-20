@@ -116,7 +116,8 @@ const GroupTabList = () => {
               }}
               border="1px solid"
               px="3"
-              onClick={() => setChallengeTab(da.challengeTab)}
+              onClick={() => {alert('!')
+              setChallengeTab(da.challengeTab)}}
             >
               {da.tabName}
             </Tab>
@@ -189,7 +190,7 @@ const GroupTabList = () => {
             })}
           </TabPanel>
           <TabPanel padding="0">
-          {challengeTab &&
+          {challengeTab==true &&
                 <><ChallengeForm openModal={onOpenChallenge} triggeredFrom="group" />
                   <ChallengeList triggeredFrom="group" /></>}
             
