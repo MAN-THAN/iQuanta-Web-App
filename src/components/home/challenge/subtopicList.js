@@ -38,7 +38,7 @@ import { useState, useMemo } from "react";
 import { useMutation } from "react-query";
 import { getSubtopics } from "@/api/feed/user/challenge";
 
-export const SubtopicList = ({ setSubtopicList, setSelectedSubtopic, subtopicList, selectedSubtopic }) => {
+export const SubtopicList = ({ setSubtopicList, setSelectedSubtopic, subtopicList, selectedSubtopic, isLoading }) => {
   const [searchSubTopic, setSearchSubTopic] = useState();
 
   const filteredSubTopics = useMemo(() => {
@@ -61,7 +61,7 @@ export const SubtopicList = ({ setSubtopicList, setSelectedSubtopic, subtopicLis
         />
       </InputGroup>
       <Box overflowY="scroll">
-        {false ? (
+        {isLoading ? (
           <div>Loading</div>
         ) : (
           <UnorderedList listStyleType="none">

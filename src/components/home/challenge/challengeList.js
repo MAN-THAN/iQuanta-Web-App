@@ -17,7 +17,7 @@ const ChallengeList = ({ triggeredFrom }) => {
   // challenges intg
   const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [selectedChallengeIndex,setSelectedChallengeIndex]=useState(null);
+  const [selectedChallengeIndex, setSelectedChallengeIndex] = useState(null);
   const [challengeList, setChallengeList] = useState([]);
   const { _id: uid } = useSelector((state) => state.userData);
   const { _id: groupId } = useSelector((state) => state.groupData);
@@ -32,35 +32,38 @@ const ChallengeList = ({ triggeredFrom }) => {
       toast.error(`${error?.response?.data?.error?.message || "Some error"}`, {
         position: toast.POSITION.TOP_RIGHT,
       }),
-    onSuccess: (res) => setChallengeList(res?.pages[0]?.data?.data.challenge),
+    onSuccess: (res) => setChallengeList(res?.pages[0]?.data?.data.allPostData),
   });
-  
-  const handleViewChallenge=()=>{
 
-  }
-  const handleJoinChallenge=(i)=>{
+  const handleViewChallenge = () => {};
+  const handleJoinChallenge = (i) => {
     setSelectedChallengeIndex(i);
     onOpen();
-  }
+  };
   return (
     <>
-      {challengeList.length > 0 &&
-        challengeList.map((challenge, ind) => {
-          if (challenge.postTypeId.status === "created") {
-            return (
-              <Box key={ind}>
-                <ChallengeCard challengeData={challenge.postTypeId} handleJoinChallenge={()=>handleJoinChallenge(ind)} handleViewChallenge={()=>{alert('define view challenge func')}} />
-              </Box>
-            );
-          } else if (challenge.postTypeId.status === "live") {
-            return (
-              <Box key={ind}>
-                <ChallengeLivecard challengeData={challenge.postTypeId} />
-              </Box>
-            );
-          }
-        })}
-      <ChallengeDetailJoin isOpen={isOpen} onClose={onClose} challengeData={challengeList[selectedChallengeIndex]} />
+      {challengeList?.map((challenge, ind) => {
+        if (challenge.postTypeId.status === "created") {
+          return (
+            <Box key={ind}>
+              <ChallengeCard
+                challengeData={challenge.postTypeId}
+                handleJoinChallenge={handleJoinChallenge}
+                handleViewChallenge={() => {
+                  alert("define view challenge func");
+                }}
+              />
+            </Box>
+          );
+        } else if (challenge.postTypeId.status === "live") {
+          return (
+            <Box key={ind}>
+              <ChallengeLivecard challengeData={challenge.postTypeId} />
+            </Box>
+          );
+        }
+      })}
+      <ChallengeDetailJoin isOpen={isOpen} onClose={onClose} challengeData={challengeList?.[selectedChallengeIndex]} />
       <SuggestionSection />
       {/* <Box onClick={onOpen}>
         <ChallengeCard challengeData={challenge} />

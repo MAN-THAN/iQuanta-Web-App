@@ -17,7 +17,7 @@ export const getAllChallenges = async (page, limit,uid) => {
     }
   };
   //create Challenges
-  export const createChallenge = async (payload) => {
+  export const createChallenge = async (uid, payload) => {
     try {
       const res = await request({
         url: `/feed/v1/user/challenge`,
@@ -25,6 +25,7 @@ export const getAllChallenges = async (page, limit,uid) => {
         data: payload,
         headers: {
           "Content-Type": "application/json",
+          uid:uid
         },
       });
       return res;

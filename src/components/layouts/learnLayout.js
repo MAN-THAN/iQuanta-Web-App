@@ -1,7 +1,7 @@
 import { Box, Flex, } from "@chakra-ui/react";
 import React from "react";
 import MainHeader from "../mainHeader";
-import MainLeftNavigation from "@/components/leftNavigations/mainLeftNavigation";
+import MainLeftNavigation from "../leftNavigations/mainLeftnavigation";
 import UserRightSiderbar from "@/components/rightSidebars/userRightSiderbar";
 import LearnRightSidebar from "../rightSidebars/learnRightSidebar";
 

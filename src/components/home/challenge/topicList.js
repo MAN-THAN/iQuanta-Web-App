@@ -45,7 +45,8 @@ export const TopicList = ({
   setSelectedTopic,
   setShowSubTopicList,
   setShowTopicList,
-  setSubtopicList
+  setSubtopicList,
+  setLoading
 }) => {
   const [searchTopic, setSearchTopic] = useState();
   const { isLoading, data, isError, error, isPending, isSuccess } = useQuery({
@@ -75,12 +76,14 @@ export const TopicList = ({
       }),
     onSuccess: (res, variables, context) => {
       console.log(res);
+      setLoading(false);
       setSubtopicList(res?.data?.data?.subTopic);
     },
     onSettled: (data, error, variables, context) => {},
   });
   const showSubTopicLists = (topicId) => {
     // setSelectedTopic(topic);
+    setLoading(true);
     mutation.mutate(topicId);
     setShowSubTopicList(true);
     setShowTopicList(false);

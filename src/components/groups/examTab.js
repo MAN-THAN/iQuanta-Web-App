@@ -70,7 +70,7 @@ const ExamTab = ({examId}) => {
   return (
     <Box bg="white.900" p="4" mt="1">
       <Text py="2">
-        {state.title}
+        {state?.title}
       </Text>
       {currentTabData.name == null ? (
         ""
