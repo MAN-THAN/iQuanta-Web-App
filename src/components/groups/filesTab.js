@@ -1,5 +1,17 @@
-import { Box, Flex, Image, Stack, Text } from "@chakra-ui/react";
-import { Paperclip } from "lucide-react";
+import {
+  Box,
+  Flex,
+  IconButton,
+  Image,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Radio,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
+import { ListFilter, Paperclip } from "lucide-react";
 import React from "react";
 
 const FilesTab = () => {
@@ -33,11 +45,24 @@ const FilesTab = () => {
   const sortedMonths = Object.keys(groupedPdfs).sort((a, b) => new Date(b) - new Date(a));
 
   return (
-    <Box bg='white.900' p='4'>
+    <Box bg="white.900" p="4">
       <Flex fontSize="18px" fontWeight="500" alignItems="center" justifyContent="space-between">
         <Text py="4">All Files</Text>
         <Box>
-          <Image alt="icons" src="/FunnelSimple.svg" />
+          <Menu>
+            <MenuButton as={IconButton} aria-label="Options" icon={<ListFilter />} variant="outline" />
+            <MenuList>
+              <MenuItem>
+                <Stack>
+                  <Text fontSize="16px">Search By Date </Text>
+                  <Radio size="md" name="1" colorScheme="red">
+                    22/01/2024
+                  </Radio>
+                </Stack>
+              </MenuItem>
+            </MenuList>
+          </Menu>
+          {/* <Image alt="icons" src="/FunnelSimple.svg" /> */}
         </Box>
       </Flex>
       <Stack mt="5">
@@ -57,7 +82,7 @@ const FilesTab = () => {
                 rounded="2xl"
               >
                 <Flex alignItems="center" gap="2" p="4" px="10">
-                  <Box>
+                  <Box cursor="pointer">
                     <Paperclip fontSize="14px" />
                   </Box>
                   <Text fontSize="14px" fontWeight="600">

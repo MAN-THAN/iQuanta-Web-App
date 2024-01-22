@@ -1,7 +1,12 @@
+import React from "react";
 import { Box } from "@chakra-ui/react";
 import MainHeader from "../mainHeader";
-import UserRightSiderbar from "../rightSidebars/userRightSiderbar";
+import { extendTheme } from "@chakra-ui/react";
+import { ChakraProvider } from "@chakra-ui/react";
+import HomeRightSidebar from "../rightSidebars/homeRightSidebar";
 import MainLeftNavigation from "../leftNavigations/mainLeftNavigation";
+import UserAccountSidebar from "../leftSidebar/userAccountSidebar";
+import UserRightSiderbar from "../rightSidebars/userRightSiderbar";
 
 const CourseLayout = ({ children }) => {
   return (

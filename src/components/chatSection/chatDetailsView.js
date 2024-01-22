@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ChatLayout from "@/components/layouts/chatLayout";
 import { chats, messages } from "@/utilities/comanData";
-import { Box, Divider, HStack, Input, InputGroup, InputRightElement, Button, Stack } from "@chakra-ui/react";
+import { Box, Divider, HStack, Input, InputGroup, InputRightElement, Button, Stack, Flex } from "@chakra-ui/react";
 import { Camera, Mic, Upload } from "lucide-react";
 import ChatHeader from "@/components/chatSection/chatHeader";
 import MsgChatSection from "@/components/chatSection/msgChatSection";
@@ -57,7 +57,7 @@ const ChatDetailsView = () => {
   return (
     <>
       <Box>
-        <HStack alignItems="start" gap="6" justifyContent="space-between">
+        <Flex alignItems="start" gap="6" justifyContent="space-between">
           {/* <Box bg="white.900" w="30%" h="80vh" rounded="lg">
             <Flex
               alignItems="center"
@@ -135,8 +135,10 @@ const ChatDetailsView = () => {
               ))}
             </UnorderedList>
           </Box> */}
-          <PeopleList />
-          <Box bg="white.900" w="70%" h="85vh" rounded="lg">
+          <Box flexBasis="30%" display={{ base: "none", md: "block" }}>
+            <PeopleList />
+          </Box>
+          <Box bg="white.900" h="85vh" rounded="lg" flexBasis={{ base: "100%", md: "70%" }}>
             {selectedChatIndex !== null && (
               <Stack>
                 <ChatHeader chatsData={chats[selectedChatIndex]} />
@@ -182,7 +184,7 @@ const ChatDetailsView = () => {
               </Stack>
             )}
           </Box>
-        </HStack>
+        </Flex>
       </Box>
     </>
   );

@@ -12,7 +12,7 @@ const MsgChatSection = ({ messages }) => {
   };
 
   return (
-    <Flex w="100%" overflowY="scroll" flexDirection="column" p="3">
+    <Flex w="100%" overflowY="scroll" flexDirection="column" p="3" gap="4">
       {messages.map((item, index) => {
         if (item.from === "me") {
           return (

@@ -91,7 +91,7 @@ const PeopleList = () => {
   ];
 
   return (
-    <Box bg="white.900" w="30%" h="85vh" rounded="lg">
+    <Box bg="white.900"   h="85vh" rounded="lg" >
       <Flex alignItems="center" justifyContent="space-between" padding="4">
         <HStack>
           <ArrowLeft />

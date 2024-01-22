@@ -1,26 +1,24 @@
-import React from "react";
 import { Box } from "@chakra-ui/react";
 import MainHeader from "../mainHeader";
-import UserRightSiderbar from "@/components/rightSidebars/userRightSiderbar";
+import MainLeftNavigation from "../leftNavigations/mainLeftNavigation";
 import TeacherRightSidebar from "../rightSidebars/teacherRightSidebar";
-import MainLeftNavigation from "../leftNavigations/mainLeftnavigation";
 
 const TeacherLayout = ({ children }) => {
-  
   return (
-      <div style={{ marginLeft: "10%", marginRight: "10%" }}>
-        <MainHeader />
-        <div className="flex pt-8">
-          <Box>
-            <MainLeftNavigation />
-          </Box>
-          <Box overflow="hidden" flex="1" pl="6%" pr="4%">
-            {children}
-          </Box>
+    <Box marginLeft={{ sm: "0", lg: "10%" }} marginRight={{ sm: "0", lg: "10%" }}>
+      <MainHeader />
+      <div className="flex pt-8">
+        <Box>
+          <MainLeftNavigation />
+        </Box>
+        <Box overflow="hidden" flex="1" pl="6%" pr="6%">
+          {children}
+        </Box>
+        <Box display={{ md: "block", sm: "none" }}>
           <TeacherRightSidebar />
-        </div>
+        </Box>
       </div>
+    </Box>
   );
 };
-
 export default TeacherLayout;

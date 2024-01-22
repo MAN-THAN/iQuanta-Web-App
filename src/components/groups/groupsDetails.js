@@ -7,16 +7,14 @@ import GroupsMembers from "./groupsMembers";
 import { Box, Button, Card, CardBody, Flex, HStack, Image, Text, useDisclosure } from "@chakra-ui/react";
 import { Dot, MoreVertical } from "lucide-react";
 import { useRouter } from "next/router";
-import {useQuery} from 'react-query';
+import { useQuery } from "react-query";
 import { getGroupDetail } from "@/api/feed/groups";
 import { useState } from "react";
-import { useSelector,useDispatch } from "react-redux";
-import { useParams } from 'next/navigation';
+import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "next/navigation";
 import { addGroupData } from "@/store/slices/groupSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-
 
 const GroupsDetails = () => {
   const items = [
@@ -43,28 +41,28 @@ const GroupsDetails = () => {
   ];
   const router = useRouter();
   const params = useParams();
-  
+
   const groupId = params?.groupsDetails;
   const { isOpen: isOpenInvite, onOpen: onOpenInvite, onClose: onCloseInvite } = useDisclosure();
   const { isOpen: isOpenMember, onOpen: onOpenMember, onClose: onCloseMember } = useDisclosure();
   const [state, setState] = useState({});
   const { _id: uid } = useSelector((state) => state.userData);
-  
+
   const dispatch = useDispatch();
-  const { isLoading, data, isError, error, isPending, isSuccess }   =  useQuery({
-    queryKey: ["getGroupDetail", uid,groupId],
-    queryFn: () => getGroupDetail(uid,groupId),
+  const { isLoading, data, isError, error, isPending, isSuccess } = useQuery({
+    queryKey: ["getGroupDetail", uid, groupId],
+    queryFn: () => getGroupDetail(uid, groupId),
     onError: (error, variables, context) =>
       toast.error(`${error?.response?.data.error?.message}`, {
         position: toast.POSITION.TOP_RIGHT,
       }),
     onSuccess: (res) => {
-      setState(res.data?.data.groupDetail)
+      setState(res.data?.data.groupDetail);
       dispatch(addGroupData(res.data.data.groupDetail));
     },
-               })
-       
-return (
+  });
+
+  return (
     <>
       <GroupInvite isOpen={isOpenInvite} onClose={onCloseInvite} />
       <GroupsMembers isOpen={isOpenMember} onClose={onCloseMember} />
@@ -78,7 +76,7 @@ return (
           </div>
         </Box>
 
-        <Box p='4' bg='white.900'>
+        <Box p="4" bg="white.900">
           <Flex direction={{ base: "row", md: "row" }} align="center" justifyContent="space-between">
             <Text fontSize={{ base: "18px", md: "24px" }} fontWeight="600">
               {state?.title}
@@ -113,7 +111,6 @@ return (
             <AvatarGroups />
           </Box>
         </Box>
-
         <Box>
           <GroupTabList />
         </Box>

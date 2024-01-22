@@ -232,7 +232,7 @@ const EditProfile = () => {
               </Text>
               <Flex align="center" justify="center" fontSize="md" color="text.700">
                 <span>
-                  {state?.gender?.charAt(0).toUpperCase() + state?.gender?.slice(1)},{" "+ getAge() + " years"}
+                  {state?.gender?.charAt(0).toUpperCase() + state?.gender?.slice(1)},{" " + getAge() + " years"}
                 </span>
                 <span>
                   <BsDot />
@@ -260,7 +260,7 @@ const EditProfile = () => {
               My Details
             </Text>
             <FormControl display="flex" gap="1" flexWrap="wrap" mt="4">
-              <Box py="3" pr="4" width="48%">
+              <Box py="3" width={{ base: "100%", md: "48%" }}>
                 <FormLabel>Name</FormLabel>
                 <Input
                   type="text"
@@ -277,7 +277,7 @@ const EditProfile = () => {
                   <Text style={{ color: "red", marginTop: "8px", fontSize: "14px" }}>{formik.errors.name}</Text>
                 )}
               </Box>
-              <Box py="3" pl="4" width="48%">
+              <Box py="3" width={{ base: "100%", md: "48%" }}>
                 <FormLabel>Phone</FormLabel>
                 <InputGroup>
                   {/* eslint-disable-next-line */}
@@ -297,7 +297,7 @@ const EditProfile = () => {
                   <Text style={{ color: "red", marginTop: "8px", fontSize: "14px" }}>{formik.errors.phone}</Text>
                 )}
               </Box>
-              <Box py="3" pr="4" width="48%">
+              <Box py="3" width={{ base: "100%", md: "48%" }}>
                 <FormLabel>Email Id</FormLabel>
                 <Input
                   type="email"
@@ -392,7 +392,7 @@ const EditProfile = () => {
                 )}
               </Box>
               <Box py="3" pl="4" width="48%">
-                <FormLabel>Work Experience</FormLabel>
+                <FormLabel minW="400px">Work Experience</FormLabel>
                 <Input
                   type="text"
                   placeholder="Experience"
@@ -409,7 +409,7 @@ const EditProfile = () => {
                 )}
               </Box>
               <Box py="3" pr="4" width="48%">
-                <FormLabel>Medical Condition</FormLabel>
+                <FormLabel minW="400px">Medical Condition</FormLabel>
                 <Input
                   type="text"
                   placeholder="Medical Conditiom"
