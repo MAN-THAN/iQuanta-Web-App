@@ -114,7 +114,7 @@ const ChallengeCard = ({ challengeData , handleJoinChallenge,handleViewChallenge
                 Starting in <span className="font-bold">1m 30s</span>
               </Text>
             </Box>
-            {createdBy._id!==uid&& <Button
+            {createdBy?._id!==uid&& <Button
               // margin="auto 0"
               width="250px"
               variant="solid"
@@ -125,7 +125,7 @@ const ChallengeCard = ({ challengeData , handleJoinChallenge,handleViewChallenge
             >
               Join Now
             </Button>}
-            {createdBy._id==uid&&<Button
+            {createdBy?._id==uid&&<Button
               // margin="auto 0"
               width="250px"
               variant="solid"
