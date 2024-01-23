@@ -40,7 +40,7 @@ const AccelareaderTextField = () => {
         </Text>
       </Box>
       <Box mt="4" bg="#fff" p="4">
-        <Textarea placeholder="Write your answer here..." h="45vh" mb="4" />
+        <Textarea placeholder="Write your answer here..." fontWeight="500" h="45vh" mb="4" />
         <Button
           width="100%"
           marginTop="7"

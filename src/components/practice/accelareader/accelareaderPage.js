@@ -109,7 +109,7 @@ const AccelareaderPage = () => {
         </HStack>
         <Button
           width="100%"
-          mt="16"
+          mt="66px"
           sx={{
             bg: "black !important",
             color: "#fff",

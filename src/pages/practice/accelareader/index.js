@@ -9,8 +9,8 @@ const Accelareader = () => {
   return (
     <PracticeLayout>
       {/* <AccelareaderPage /> */}
-      <AccelareaderShortcuts />
-      {/* <AccelareaderTextField /> */}
+      {/* <AccelareaderShortcuts /> */}
+      <AccelareaderTextField />
     </PracticeLayout>
   );
 };
