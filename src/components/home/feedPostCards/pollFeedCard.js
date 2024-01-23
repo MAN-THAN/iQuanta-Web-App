@@ -9,6 +9,7 @@ import moment from "moment";
 import { useMutation, useQueryClient } from "react-query";
 import { groupMarkPoll } from "@/api/feed/groups/post";
 import { randomColors } from "@/utilities/commonFunctions";
+import { ReactionPanel } from "@/components/common/reactionPanel";
 const PollFeedCard = ({
   name,
   uid,
@@ -175,17 +176,7 @@ const PollFeedCard = ({
           </HStack>
         </div>
         <Divider />
-        <Flex align="center" justify="space-between" p="3">
-          <HStack>
-            <ThumbsUp /> <span>Like</span>
-          </HStack>
-          <HStack>
-            <MessageCircle /> <span>Comment</span>
-          </HStack>
-          <HStack>
-            <Share2 /> <span>Share</span>
-          </HStack>
-        </Flex>
+        <ReactionPanel />
         <Divider pb="4" />
       </Box>
     </>

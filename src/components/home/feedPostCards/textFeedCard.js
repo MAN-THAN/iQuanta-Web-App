@@ -5,6 +5,7 @@ import CommentSlider from "@/components/postCards/commentSlider/commentSlider";
 import { useRouter } from "next/navigation";
 import { MdPlayArrow } from "react-icons/md";
 import moment from "moment";
+import { ReactionPanel } from "@/components/common/reactionPanel";
 
 const TextFeedCard = ({ classId, name, uid, title, reactionCount, commentCount, createdAt, media }) => {
   const router = useRouter();
@@ -97,7 +98,7 @@ const TextFeedCard = ({ classId, name, uid, title, reactionCount, commentCount, 
           </Box>
         </HStack>
         <Divider />
-        <Flex align="center" justify="space-between" p="3">
+        {/* <Flex align="center" justify="space-between" p="3">
           <HStack>
             <ThumbsUp /> <span>Like</span>
           </HStack>
@@ -107,7 +108,8 @@ const TextFeedCard = ({ classId, name, uid, title, reactionCount, commentCount, 
           <HStack onClick={() => router.push(`/learn/class/${classId}/6`)}>
             <Share2 /> <span>Share</span>
           </HStack>
-        </Flex>
+        </Flex> */}
+        <ReactionPanel />
         <Divider />
       </Stack>
       <Box p="4">

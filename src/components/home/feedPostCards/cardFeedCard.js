@@ -4,6 +4,7 @@ import React from "react";
 import LikeEmojiGroup from "@/components/common/likeEmojiGroup";
 import CommentSlider from "@/components/postCards/commentSlider/commentSlider";
 import { MdPlayArrow } from "react-icons/md";
+import { ReactionPanel } from "@/components/common/reactionPanel";
 
 const CardFeedCard = ({ name, uid, title, reactionCount, commentCount, createdAt, media }) => {
   const getTime = () => {
@@ -69,17 +70,7 @@ const CardFeedCard = ({ name, uid, title, reactionCount, commentCount, createdAt
           </Box>
         </HStack>
         <Divider />
-        <Flex align="center" justify="space-between" p="3">
-          <HStack>
-            <ThumbsUp /> <span>Like</span>
-          </HStack>
-          <HStack>
-            <MessageCircle /> <span>Comment</span>
-          </HStack>
-          <HStack>
-            <Share2 /> <span>Share</span>
-          </HStack>
-        </Flex>
+        <ReactionPanel />
         <Divider />
       </Stack>
       <Box p="4">
