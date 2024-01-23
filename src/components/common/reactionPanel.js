@@ -22,13 +22,12 @@ export const ReactionPanel = () => {
     setPanelVisibility(false);
   };
   const handleLike = () => {
-    if(selectedReaction){
-        setSelectedReaction(null)
+    if (selectedReaction) {
+      setSelectedReaction(null);
+    } else {
+      setSelectedReaction(reactions[0]);
     }
-    else{
-        setSelectedReaction(reactions[0]);
-    }
-  }
+  };
 
   const handleMouseLeave = () => {
     // Add a delay before hiding the panel
@@ -60,8 +59,8 @@ export const ReactionPanel = () => {
       >
         {selectedReaction ? (
           <>
-            <Text  fontSize={'20px'}>{selectedReaction?.reaction}</Text>
-            <Text  fontSize={{ sm: "14px", md: "16px" }} fontWeight="800">
+            <Text fontSize={"20px"}>{selectedReaction?.reaction}</Text>
+            <Text fontSize={{ sm: "14px", md: "16px" }} fontWeight="800">
               {selectedReaction?.title}
             </Text>
           </>
@@ -91,7 +90,7 @@ export const ReactionPanel = () => {
             onMouseLeave={handleMouseLeave}
           >
             {reactions?.map((reaction, index) => (
-              <Tooltip key={index} label={`${reaction.title}`} placement="top" marginBottom={'1em'}>
+              <Tooltip key={index} label={`${reaction.title}`} placement="top" marginBottom={"1em"}>
                 <HStack
                   onClick={(e) => {
                     handleReactionClick(reaction);

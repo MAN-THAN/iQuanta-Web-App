@@ -32,14 +32,14 @@ import { ConfirmationModal } from "../confirmationModal";
 import { createChallenge } from "@/api/feed/user/challenge";
 import { useSelector } from "react-redux";
 
-const ChallengesModal = ({ isOpen, onClose, triggeredFrom }) => {
+const ChallengesModal = ({ isOpen, onClose, triggeredFrom, finalRef }) => {
   const [showTopicList, setShowTopicList] = useState(false);
   const [selectedTopic, setSelectedTopic] = useState([]);
   const [selectedSubtopic, setSelectedSubtopic] = useState([]);
   const [showSubTopicList, setShowSubTopicList] = useState(false);
   const [totalQuestions, setTotalQuestions] = useState(10);
   const [timePerQuestion, setTimePerQuestion] = useState(60);
-  const [difficulty, setDifficulty] = useState('easy');
+  const [difficulty, setDifficulty] = useState("easy");
   const [description, setDescription] = useState("");
   const [topicList, setTopicList] = useState([]);
   const [subtopicList, setSubtopicList] = useState([]);
@@ -106,7 +106,7 @@ const ChallengesModal = ({ isOpen, onClose, triggeredFrom }) => {
       toast.success("Challenge Created !", {
         position: toast.POSITION.TOP_RIGHT,
       });
-      queryClient.invalidateQueries('challengeList');
+      queryClient.invalidateQueries("challengeList");
       onClose();
       resetState();
     },
@@ -120,6 +120,7 @@ const ChallengesModal = ({ isOpen, onClose, triggeredFrom }) => {
           onClose();
           resetState();
         }}
+        finalFocusRef={finalRef}
       >
         <ModalOverlay />
         <ModalContent bg="white.900" color="#000" height="80vh">

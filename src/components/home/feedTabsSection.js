@@ -4,7 +4,7 @@ import PostFormSection from "./postFormSection";
 import SuggestionSection from "./suggestionSection";
 import ChallengeForm from "./challenge/challengesPostCard/challengeForm";
 import ChallengeList from "./challenge/challengeList";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import ChallengesModal from "./challenge/challengesModals/challengesModal";
 import DiscussionModal from "./challenge/challengesModals/discussionModal";
 import { useDisclosure } from "@chakra-ui/react";
@@ -14,13 +14,15 @@ const FeedTabsSection = () => {
   const { isOpen: isOpenChallenge, onOpen: onOpenChallenge, onClose: onCloseChallenge } = useDisclosure();
   const { isOpen: isOpenDiscussion, onOpen: onOpenDiscussion, onClose: onCloseDiscussion } = useDisclosure();
   const [clickPhoto, setClickPhoto] = useState(false);
+  const finalRef = useRef(null);
   return (
     <>
-      <ChallengesModal isOpen={isOpenChallenge} onClose={onCloseChallenge} triggeredFrom="user" />
+      <ChallengesModal isOpen={isOpenChallenge} onClose={onCloseChallenge} finalRef={finalRef} triggeredFrom="user" />
       <DiscussionModal
         isOpen={isOpenDiscussion}
         onClose={onCloseDiscussion}
         clickPhoto={clickPhoto}
+        finalRef={finalRef}
         triggeredFrom="user"
       />
       <Box mt={{ base: "6", md: "12" }}>

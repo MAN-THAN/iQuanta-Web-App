@@ -41,7 +41,7 @@ import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const DiscussionModal = ({ isOpen, onClose, clickPhoto ,triggeredFrom}) => {
+const DiscussionModal = ({ isOpen, onClose, clickPhoto ,triggeredFrom, finalRef}) => {
   const [isTyping, setIsTyping] = useState(false);
   const [text, setText] = useState();
   const fileInputRef = useRef(null);
@@ -211,6 +211,7 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto ,triggeredFrom}) => {
           setSelectedComponent(null);
           onClose();
         }}
+        finalFocusRef={finalRef}
       >
         <ModalOverlay />
         {selectedComponent == "meme" ? (
