@@ -16,24 +16,23 @@ const PracticeFeature = () => {
       description: "Solve questions with a real world time pressure of your enterence exam.",
       icon: "/Filled (1).svg",
       color: "#5146D6",
-      path:"/practice/timeQuiz"
+      path: "/practice/timeQuiz",
     },
     {
       tittle: "Past Papers",
       description: "A vast repository of past papers that will prepare you for your exams.",
       icon: "/Filled (2).svg",
       color: "#5146D6",
-      path:"/practice/pastPapers"
-
+      path: "/practice/pastPapers",
     },
     {
       tittle: "Accelareader",
       description: "Practise speed reading and save precious time during your exam.",
       icon: "/Hourglass.svg",
       color: "#5146D6",
+      path: "/practice/accelareader",
     },
-    
-    
+
     {
       tittle: "Assignments",
       description: "Practise speed reading and save precious time during your exam.",
@@ -61,7 +60,7 @@ const PracticeFeature = () => {
             p="4"
             rounded="2xl"
             cursor="pointer"
-            onClick={()=>router.push(data.path)}
+            onClick={() => router.push(data.path)}
           >
             <Box minW="40px" minH="40px" bg={data.color} rounded="lg" p="2">
               <Image alt="image" width="100%" objectFit="cover" src={data.icon} />

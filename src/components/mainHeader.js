@@ -59,15 +59,16 @@ const MainHeader = () => {
             <Box>
               <Bell size="24px" />
             </Box>
-            <Box boxSize="50px" sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-              <Image
-                rounded="full"
-                objectFit="cover"
-                width="28px"
-                src={state?.profilePic ? state.profilePic : "/noImage.svg"}
-                alt="Profile Image"
-              />
-            </Box>
+            <Box boxSize="45px">
+            <Image
+              objectFit="cover"
+              width="100%"
+              height="100%"
+              className="rounded-md"
+              src={state?.profilePic ? state.profilePic : "/noImage.svg"}
+              alt="Profile Image"
+            />
+          </Box>
             <Menu>
               <MenuButton onClick={() => router.push("/useraccount")}>
                 <Box alignItems="center" textAlign="start">

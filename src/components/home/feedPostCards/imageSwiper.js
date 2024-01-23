@@ -8,6 +8,7 @@ import { MdPlayArrow } from "react-icons/md";
 import moment from "moment";
 import { Carousel } from "antd";
 import { array } from "prop-types";
+import { ReactionPanel } from "@/components/common/reactionPanel";
 
 const ImageSwiper = ({ name, uid, profilePic, title, reactionCount, commentCount, createdAt, media }) => {
   //console.log(name, uid, profilePic, title, reactionCount, commentCount, createdAt, media,'13');
@@ -77,21 +78,23 @@ const ImageSwiper = ({ name, uid, profilePic, title, reactionCount, commentCount
               </Text>
             </Box>
           ))} */}
-          {media?.map((image,i)=>{
-           return <Box position="relative" key={i} width="100%" height="40vh">
-            {/* <Image width="100%" height="100%" objectFit="cover" src={image} alt={`Image ${i + 1}`} /> */}
-            {/* {image.substring(image.lastIndexOf(".")) == (".png"||".jpg"||".jpeg")&& */}
-           <Image width="100%" height="100%" objectFit="cover" src={image} alt={`Card Image ${i + 1}`}  />
+          {media?.map((image, i) => {
+            return (
+              <Box position="relative" key={i} width="100%" height="40vh">
+                {/* <Image width="100%" height="100%" objectFit="cover" src={image} alt={`Image ${i + 1}`} /> */}
+                {/* {image.substring(image.lastIndexOf(".")) == (".png"||".jpg"||".jpeg")&& */}
+                <Image width="100%" height="100%" objectFit="cover" src={image} alt={`Card Image ${i + 1}`} />
 
-            {/* }{image.substring(image.lastIndexOf(".")) == (".mp4"||".mpg"||".mpeg"||".mkv"||".wmv"||".mov"||".flv")&&
+                {/* }{image.substring(image.lastIndexOf(".")) == (".mp4"||".mpg"||".mpeg"||".mkv"||".wmv"||".mov"||".flv")&&
             
             <VideoPlayer width="100%" height="100%" objectFit="cover" videoUrl={image}/>
             } */}
-            {/* {console.log(image.substring(image.lastIndexOf("."))==(".mp4"||".mpg"||".mpeg"||".mkv"||".wmv"||".mov"||".flv"),"858")} */}
-            <Text color="white" position="absolute" top="2" right="2">
-              {/* {i + 1}/{sliderIMg.length} */}
-            </Text>
-          </Box>
+                {/* {console.log(image.substring(image.lastIndexOf("."))==(".mp4"||".mpg"||".mpeg"||".mkv"||".wmv"||".mov"||".flv"),"858")} */}
+                <Text color="white" position="absolute" top="2" right="2">
+                  {/* {i + 1}/{sliderIMg.length} */}
+                </Text>
+              </Box>
+            );
           })}
         </Carousel>
         <HStack align="center" fontWeight="400" fontSize="14px" padding="4">
@@ -137,17 +140,7 @@ const ImageSwiper = ({ name, uid, profilePic, title, reactionCount, commentCount
           </Box>
         </HStack>
         <Divider />
-        <Flex align="center" justify="space-between" p="3">
-          <HStack>
-            <ThumbsUp fontSize={{ sm: "14px" }} /> <Text fontSize={{ sm: "14px", md: "16px" }}>Like</Text>
-          </HStack>
-          <HStack>
-            <MessageCircle fontSize={{ sm: "14px" }} /> <Text fontSize={{ sm: "14px", md: "16px" }}>Comment</Text>
-          </HStack>
-          <HStack>
-            <Share2 fontSize={{ sm: "14px" }} /> <Text fontSize={{ sm: "14px", md: "16px" }}>Share</Text>
-          </HStack>
-        </Flex>
+        <ReactionPanel />
         <Divider />
       </Stack>
       <Box p="4">

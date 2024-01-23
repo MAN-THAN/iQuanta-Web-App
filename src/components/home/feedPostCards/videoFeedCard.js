@@ -6,6 +6,7 @@ import CommentSlider from "@/components/postCards/commentSlider/commentSlider";
 import { MdPlayArrow } from "react-icons/md";
 import moment from "moment";
 import VideoPlayer from "@/components/common/videoPlayer";
+import { ReactionPanel } from "@/components/common/reactionPanel";
 
 const VideoFeedCard = ({ name, uid, title, reactionCount, commentCount, createdAt, media, comments, profilePic }) => {
   const getTime = () => {
@@ -51,7 +52,7 @@ const VideoFeedCard = ({ name, uid, title, reactionCount, commentCount, createdA
         <Text fontSize="14px" lineHeight="24px">
           <p>{title}</p>
         </Text>
-       <Box>
+        <Box>
           <VideoPlayer videoUrl={media[0]} />
         </Box>
         <HStack align="center" fontWeight="400" fontSize="14px" padding="4">
@@ -97,17 +98,7 @@ const VideoFeedCard = ({ name, uid, title, reactionCount, commentCount, createdA
           </Box>
         </HStack>
         <Divider />
-        <Flex align="center" justify="space-between" p="3">
-          <HStack>
-            <ThumbsUp fontSize={{ sm: "14px" }} /> <Text fontSize={{ sm: "14px", md: "16px" }}>Like</Text>
-          </HStack>
-          <HStack>
-            <MessageCircle fontSize={{ sm: "14px" }} /> <Text fontSize={{ sm: "14px", md: "16px" }}>Comment</Text>
-          </HStack>
-          <HStack>
-            <Share2 fontSize={{ sm: "14px" }} /> <Text fontSize={{ sm: "14px", md: "16px" }}>Share</Text>
-          </HStack>
-        </Flex>
+        <ReactionPanel />
         <Divider />
       </Stack>
       <Box p="4">
