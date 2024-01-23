@@ -32,7 +32,7 @@ const ChallengeList = ({ triggeredFrom }) => {
       toast.error(`${error?.response?.data?.error?.message || "Some error"}`, {
         position: toast.POSITION.TOP_RIGHT,
       }),
-    onSuccess: (res) => setChallengeList(res?.pages[0]?.data?.data.allPostData),
+    onSuccess: (res) => setChallengeList(res?.pages[0]?.data?.data.challenge),
   });
 
   const handleViewChallenge = () => {};

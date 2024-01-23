@@ -9,18 +9,18 @@ import { toast } from "react-toastify";
 import { getSuggestingStudyPartnerList } from "@/api/feed/studyPartner";
 
 const SuggestionSection = () => {
-  // const [state, setState] = useState();
-  // const { _id: uid } = useSelector((state) => state.userData);
-  // const { isLoading, data, isError, error, isPending, isSuccess } = useQuery({
-  //   queryKey: ["getSuggestingStudyPartnerList", uid],
-  //   queryFn: () => getSuggestingStudyPartnerList(uid),
-  //   onError: (error, variables, context) =>
-  //     toast.error(`${error?.response?.data?.error?.message || "some error"}`, {
-  //       position: toast.POSITION.TOP_RIGHT,
-  //     }),
-  //   onSuccess: (res) => console.log(res),
-  // });
-  // console.log(state);
+  const [state, setState] = useState();
+  const { _id: uid } = useSelector((state) => state.userData);
+  const { isLoading, data, isError, error, isPending, isSuccess } = useQuery({
+    queryKey: ["getSuggestingStudyPartnerList", uid],
+    queryFn: () => getSuggestingStudyPartnerList(uid),
+    onError: (error, variables, context) =>
+      toast.error(`${error?.response?.data?.error?.message || "some error"}`, {
+        position: toast.POSITION.TOP_RIGHT,
+      }),
+    onSuccess: (res) => console.log(res),
+  });
+  console.log(state);
   const suggestionList = [
     {
       name: "Swati Rana",

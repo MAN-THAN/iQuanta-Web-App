@@ -56,7 +56,7 @@ export const TopicList = ({
       toast.error(`${error?.response?.data?.error?.message || "some error"}`, {
         position: toast.POSITION.TOP_RIGHT,
       }),
-    onSuccess: (res) => setTopicList(res.data.data.topic),
+    onSuccess: (res) => setTopicList(res.data.data.topics),
   });
   const filteredTopics = useMemo(() => {
     if (!searchTopic) {

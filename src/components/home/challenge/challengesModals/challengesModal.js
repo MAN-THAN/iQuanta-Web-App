@@ -25,7 +25,7 @@ import {
 import { ChevronDown, ChevronRight, Minus, Plus, SearchIcon, ChevronLeft } from "lucide-react";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { TopicList } from "../topicList";
 import { SubtopicList } from "../subtopicList";
 import { ConfirmationModal } from "../confirmationModal";
@@ -49,6 +49,7 @@ const ChallengesModal = ({ isOpen, onClose, triggeredFrom }) => {
   const [challenegeType, setChallengeType] = useState("Public");
   const [isLoading, setLoading] = useState(false);
   const { _id: uid } = useSelector((state) => state.userData);
+  const queryClient = useQueryClient();
   console.log(topicList);
   console.log(selectedTopic, "selectedTopic");
   console.log(selectedSubtopic, "selectedSubtopic");
@@ -105,6 +106,7 @@ const ChallengesModal = ({ isOpen, onClose, triggeredFrom }) => {
       toast.success("Challenge Created !", {
         position: toast.POSITION.TOP_RIGHT,
       });
+      queryClient.invalidateQueries('challengeList');
       onClose();
       resetState();
     },
