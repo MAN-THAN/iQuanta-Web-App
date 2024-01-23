@@ -2,7 +2,7 @@ import React from "react";
 import { Timeline } from "antd";
 import { Box, Divider, HStack, Text } from "@chakra-ui/react";
 
-const ExamTabDetails = () => {
+const ExamTabDetails = ({data}) => {
   // Define an array of events
   const events = [
     {
@@ -43,8 +43,7 @@ const ExamTabDetails = () => {
         <div className="">
           <div className="py-4">
             <p className="text-md font-[400] font-inter text-gray-700">
-              CAT 2021 registration is likely to begin in July and close by the end of September. CAT 2021 result will
-              be announced in the first week of January 2022.
+              {data?.description}
             </p>
           </div>
 
@@ -53,11 +52,11 @@ const ExamTabDetails = () => {
 
             <div className="overflow-y-scroll mt-4 scroll-smooth">
               <Timeline className="custom-class mt-5">
-                {events.map((event, index) => (
+                {data?.timeline.map((event, index) => (
                   <Box key={index}>
                     <HStack pb="6" gap="20%" fontSize="16px">
-                      <Text fontWeight="600">{event.date}</Text>
-                      <Text>{event.description}</Text>
+                      <Text fontWeight="600">{event.value}</Text>
+                      <Text>{event.label}</Text>
                     </HStack>
                     <Divider size="lg" />
                   </Box>

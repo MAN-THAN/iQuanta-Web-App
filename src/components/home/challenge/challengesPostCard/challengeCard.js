@@ -20,13 +20,15 @@ import { Dot, MessageCircle, MoreVertical, Share2, ThumbsUp } from "lucide-react
 import LikeEmojiGroup from "@/components/common/likeEmojiGroup";
 import CommentSlider from "@/components/postCards/commentSlider/commentSlider";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { MdPlayArrow } from "react-icons/md";
 import AvatarGroups from "@/components/common/avatarGroups";
 import moment from "moment";
+import { useSelector } from "react-redux";
 
-const ChallengeCard = ({ challengeData }) => {
-  const router = useRouter();
-  const { title, timePerQuestion, totalQuestions, createdAt, difficultyLevel } = challengeData || {};
+const ChallengeCard = ({ challengeData , handleJoinChallenge,handleViewChallenge }) => {
+  const {_id:uid} = useSelector((state) => state?.userData);
+  const { title, timePerQuestion, totalQuestions, createdAt, difficultyLevel,createdBy } = challengeData || {};
   const getTime = () => {
     const endDate = moment(createdAt);
     const duration = moment.duration(endDate.diff(moment(Date.now())));
@@ -112,16 +114,28 @@ const ChallengeCard = ({ challengeData }) => {
                 Starting in <span className="font-bold">1m 30s</span>
               </Text>
             </Box>
-            <Button
+            {createdBy._id!==uid&& <Button
               // margin="auto 0"
               width="250px"
               variant="solid"
               color="#fff"
               backgroundColor="#000"
               _hover={{ color: "#000", backgroundColor: "#fff", border: "1px solid #000" }}
+              onClick={handleJoinChallenge}
             >
               Join Now
-            </Button>
+            </Button>}
+            {createdBy._id==uid&&<Button
+              // margin="auto 0"
+              width="250px"
+              variant="solid"
+              color="#fff"
+              backgroundColor="#000"
+              _hover={{ color: "#000", backgroundColor: "#fff", border: "1px solid #000" }}
+              onClick={handleViewChallenge}
+            >
+              View Details
+            </Button>}
           </Flex>
         </Box>
       </Stack>

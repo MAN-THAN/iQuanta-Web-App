@@ -6,7 +6,9 @@ import ImportantNewsCraousel from "./groupExams/importantNewsCraousel";
 import ExamTabDetails from "./tabsDetails/examDateTabDetails";
 import PreparationTipsDetails from "./tabsDetails/preparationTips";
 import CollegeList from "./tabsDetails/collegeList";
-
+import { getGroupExamDetail } from "@/api/feed/groups/exam";
+import { useQuery } from "react-query";
+import { ToastContainer, toast } from "react-toastify";
 export const examTabDatas = [
   { name: "Eligibility", isOpen: false, status: "false", color: "#5146D6" },
   { name: "Exam Dates", isOpen: false, status: "false", color: "#5146D6" },
@@ -15,27 +17,39 @@ export const examTabDatas = [
   { name: "Top College List", isOpen: false, status: "false", color: "#5146D6" },
 ];
 
-const ComponentForIndex = ({ index }) => {
+const ComponentForIndex = ({ index,data }) => {
   const components = [
-    <Box key={1}>Component for Index 0</Box>,
+    <Box key={1}>{data}</Box>,
     <Box key={2}>
-      <ExamTabDetails />
+      <ExamTabDetails data={data} />
     </Box>,
     <Box key={3}>
-      <PreparationTipsDetails />
+      <PreparationTipsDetails data={data} />
     </Box>,
-    <Box key={4}>Component for Index 3</Box>,
+    <Box key={4}>{data}</Box>,
     <Box key={5}>
-      <CollegeList />
+      <CollegeList data={data} />
     </Box>,
   ];
 
   return components[index];
 };
 
-const ExamTab = () => {
+const ExamTab = ({examId}) => {
+  
   const [examTabDatasState, setExamTabDatasState] = useState(examTabDatas);
   const [currentTabData, setCurrentTabData] = useState({});
+  const [state, setState] = useState();
+  const { isLoading, data, isError, error, isPending, isSuccess } = useQuery({
+    queryKey: ["getGroupExamDetail", examId],
+    queryFn: () => getGroupExamDetail(examId),
+    onError: (error, variables, context) =>
+      toast.error(`${error?.response?.data?.error?.message || "some error"}`, {
+        position: toast.POSITION.TOP_RIGHT,
+      }),
+    onSuccess: (res) => setState(res.data.data.specificationData),
+  });
+  console.log("examData",state);
   const handleToggle = (clickedIndex) => {
     const updatedExamTabDatas = examTabDatasState.map((data, index) => ({
       ...data,
@@ -43,6 +57,7 @@ const ExamTab = () => {
       status: index === clickedIndex ? "true" : "false",
     }));
     setCurrentTabData(examTabDatasState[clickedIndex]);
+    console.log("6060",currentTabData);
     setExamTabDatasState(updatedExamTabDatas);
   };
 
@@ -55,8 +70,7 @@ const ExamTab = () => {
   return (
     <Box bg="white.900" p="4" mt="1">
       <Text py="2">
-        Get admission into a graduate management program, such as MBA and Masters in Finance-related courses in top
-        business schools across the world.
+        {state?.title}
       </Text>
       {currentTabData.name == null ? (
         ""
@@ -87,7 +101,7 @@ const ExamTab = () => {
         </Box>
       )}
       {examTabDatasState.map(
-        (data, index) => data.status === "true" && <ComponentForIndex key={index} index={index} />
+        (data, index) => data.status === "true" && <ComponentForIndex key={index} index={index} data={index==0?state.eligibility:index==1?state.examDetail:index==2?state.examTips:index==3?state.syllabus:index==4?state.topColleges:null}  />
       )}
       <Box display="flex" justifyContent="space-between" flexWrap="wrap">
         {examTabDatasState.map(

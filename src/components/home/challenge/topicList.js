@@ -45,7 +45,8 @@ export const TopicList = ({
   setSelectedTopic,
   setShowSubTopicList,
   setShowTopicList,
-  setSubtopicList
+  setSubtopicList,
+  setLoading
 }) => {
   const [searchTopic, setSearchTopic] = useState();
   const { isLoading, data, isError, error, isPending, isSuccess } = useQuery({
@@ -55,7 +56,7 @@ export const TopicList = ({
       toast.error(`${error?.response?.data?.error?.message || "some error"}`, {
         position: toast.POSITION.TOP_RIGHT,
       }),
-    onSuccess: (res) => setTopicList(res.data.data.topics),
+    onSuccess: (res) => setTopicList(res.data.data.topic),
   });
   const filteredTopics = useMemo(() => {
     if (!searchTopic) {
@@ -75,12 +76,14 @@ export const TopicList = ({
       }),
     onSuccess: (res, variables, context) => {
       console.log(res);
+      setLoading(false);
       setSubtopicList(res?.data?.data?.subTopic);
     },
     onSettled: (data, error, variables, context) => {},
   });
   const showSubTopicLists = (topicId) => {
     // setSelectedTopic(topic);
+    setLoading(true);
     mutation.mutate(topicId);
     setShowSubTopicList(true);
     setShowTopicList(false);

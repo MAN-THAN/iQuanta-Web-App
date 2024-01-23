@@ -10,7 +10,7 @@ import PollFeedCard from "./feedPostCards/pollFeedCard";
 import ChallengeForm from "./challenge/challengesPostCard/challengeForm";
 import ChallengeList from "./challenge/challengeList";
 import VideoFeedCard from "./feedPostCards/videoFeedCard";
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 import ChallengesModal from "./challenge/challengesModals/challengesModal";
 import DiscussionModal from "./challenge/challengesModals/discussionModal";
 import { useQuery, useInfiniteQuery } from "react-query";
@@ -38,6 +38,10 @@ const FeedTabsSection = () => {
       }),
     onSuccess: (res) => setState(res.pages[0]?.data.data.allPostData),
   });
+
+useEffect(()=>{
+
+},[challengeTab]);
 
   return (
     <>
@@ -83,109 +87,107 @@ const FeedTabsSection = () => {
           </TabList>
           <TabPanels>
             <TabPanel padding="0">
-              {!challengeTab && (
-                <>
-                  <PostFormSection openModal={onOpenDiscussion} setClickPhoto={setClickPhoto} />
-                  <SuggestionSection />
-                  {/* different type of post to select */}
-                  {state?.map((item, ind) => {
-                    if (item.postType === "photo") {
-                      if (item.postTypeId?.media?.length == 1)
-                        return (
-                          <ImageFeedCard
-                            name={item?.postTypeId?.createdBy?.name}
-                            profilePic={item?.postTypeId?.createdBy?.profilePic}
-                            uid={item?.postTypeId?.createdBy?._id}
-                            title={item?.postTypeId?.title}
-                            reactionCount={item?.reactionCount}
-                            commentCount={item?.commentCount}
-                            createdAt={item?.postTypeId?.createdAt}
-                            media={item?.postTypeId?.media}
-                            comments={item?.comments}
-                          />
-                        );
-                      else if (item.postTypeId?.media?.length > 1) {
-                        return (
-                          <ImageSwiper
-                            name={item?.postTypeId?.createdBy?.name}
-                            profilePic={item?.postTypeId?.createdBy?.profilePic}
-                            uid={item?.postTypeId?.createdBy?._id}
-                            title={item?.postTypeId?.title}
-                            reactionCount={item?.reactionCount}
-                            commentCount={item?.commentCount}
-                            createdAt={item?.postTypeId?.createdAt}
-                            media={item?.postTypeId?.media}
-                            comments={item?.comments}
-                          />
-                        );
-                      } else {
-                        return null;
-                      }
-                    } else if (item.postType === "video")
-                      return (
-                        <VideoFeedCard
-                          name={item?.postTypeId?.createdBy?.name}
-                          profilePic={item?.postTypeId?.createdBy?.profilePic}
-                          uid={item?.postTypeId?.createdBy?._id}
-                          title={item?.postTypeId?.title}
-                          reactionCount={item?.reactionCount}
-                          commentCount={item?.commentCount}
-                          createdAt={item?.postTypeId?.createdAt}
-                          media={item?.postTypeId?.media}
-                        />
-                      );
-                    else if (item.postType === "memes")
-                      return (
-                        <CardFeedCard
-                          name={item?.postTypeId?.createdBy?.name}
-                          profilePic={item?.postTypeId?.createdBy?.profilePic}
-                          uid={item?.postTypeId?.createdBy?._id}
-                          title={item?.postTypeId?.title}
-                          reactionCount={item?.reactionCount}
-                          commentCount={item?.commentCount}
-                          createdAt={item?.postTypeId?.createdAt}
-                          media={item?.postTypeId?.media}
-                        />
-                      );
-                    else if (item.postType === "text")
-                      return (
-                        <TextFeedCard
-                          name={item?.postTypeId?.createdBy?.name}
-                          profilePic={item?.postTypeId?.createdBy?.profilePic}
-                          uid={item?.postTypeId?.createdBy?._id}
-                          title={item?.postTypeId?.title}
-                          reactionCount={item?.reactionCount}
-                          commentCount={item?.commentCount}
-                          createdAt={item?.postTypeId?.createdAt}
-                          media={item?.postTypeId?.media}
-                        />
-                      );
-                    else if (item.postType === "poll")
-                      return (
-                        <PollFeedCard
-                          name={item?.postTypeId?.createdBy?.name}
-                          profilePic={item?.postTypeId?.createdBy?.profilePic}
-                          uid={item?.postTypeId?.createdBy?._id}
-                          title={item?.postTypeId?.title}
-                          reactionCount={item?.reactionCount}
-                          commentCount={item?.commentCount}
-                          createdAt={item?.postTypeId?.createdAt}
-                          media={item?.postTypeId?.media}
-                        />
-                      );
+              {challengeTab==false&&<><PostFormSection openModal={onOpenDiscussion} setClickPhoto={setClickPhoto} />
+              <SuggestionSection />
+              {/* different type of post to select */}
+              {state?.map((item, ind) => {
+                if (item.postType === "photo") {
+                  if (item.postTypeId?.media?.length == 1)
+                    return (
+                      <ImageFeedCard
+                        name={item?.postTypeId?.createdBy?.name}
+                        profilePic={item?.postTypeId?.createdBy?.profilePic}
+                        uid={item?.postTypeId?.createdBy?._id}
+                        title={item?.postTypeId?.title}
+                        reactionCount={item?.reactionCount}
+                        commentCount={item?.commentCount}
+                        createdAt={item?.postTypeId?.createdAt}
+                        media={item?.postTypeId?.media}
+                        comments={item?.comments}
+                      />
+                    );
+                  else if (item.postTypeId?.media?.length > 1) {
+                    return (
+                      <ImageSwiper
+                        name={item?.postTypeId?.createdBy?.name}
+                        profilePic={item?.postTypeId?.createdBy?.profilePic}
+                        uid={item?.postTypeId?.createdBy?._id}
+                        title={item?.postTypeId?.title}
+                        reactionCount={item?.reactionCount}
+                        commentCount={item?.commentCount}
+                        createdAt={item?.postTypeId?.createdAt}
+                        media={item?.postTypeId?.media}
+                        comments={item?.comments}
+                      />
+                    );
+                  } else {
+                    return null;
+                  }
+                } else if (item.postType === "video")
+                  return (
+                    <VideoFeedCard
+                      name={item?.postTypeId?.createdBy?.name}
+                      profilePic={item?.postTypeId?.createdBy?.profilePic}
+                      uid={item?.postTypeId?.createdBy?._id}
+                      title={item?.postTypeId?.title}
+                      reactionCount={item?.reactionCount}
+                      commentCount={item?.commentCount}
+                      createdAt={item?.postTypeId?.createdAt}
+                      media={item?.postTypeId?.media}
+                    />
+                  );
+                else if (item.postType === "memes")
+                  return (
+                    <CardFeedCard
+                      name={item?.postTypeId?.createdBy?.name}
+                      profilePic={item?.postTypeId?.createdBy?.profilePic}
+                      uid={item?.postTypeId?.createdBy?._id}
+                      title={item?.postTypeId?.title}
+                      reactionCount={item?.reactionCount}
+                      commentCount={item?.commentCount}
+                      createdAt={item?.postTypeId?.createdAt}
+                      media={item?.postTypeId?.media}
+                    />
+                  );
+                else if (item.postType === "text")
+                  return (
+                    <TextFeedCard
+                      name={item?.postTypeId?.createdBy?.name}
+                      profilePic={item?.postTypeId?.createdBy?.profilePic}
+                      uid={item?.postTypeId?.createdBy?._id}
+                      title={item?.postTypeId?.title}
+                      reactionCount={item?.reactionCount}
+                      commentCount={item?.commentCount}
+                      createdAt={item?.postTypeId?.createdAt}
+                      media={item?.postTypeId?.media}
+                    />
+                  );
+                else if (item.postType === "poll")
+                  return (
+                    <PollFeedCard
+                      name={item?.postTypeId?.createdBy?.name}
+                      profilePic={item?.postTypeId?.createdBy?.profilePic}
+                      uid={item?.postTypeId?.createdBy?._id}
+                      title={item?.postTypeId?.title}
+                      reactionCount={item?.reactionCount}
+                      commentCount={item?.commentCount}
+                      createdAt={item?.postTypeId?.createdAt}
+                      media={item?.postTypeId?.media}
+                    />
+                  );
 
                     // else if (item.post_type === "video") return <SuggestionSection />;
                   })}
                 </>
-              )}
+              }
             </TabPanel>
             <TabPanel padding="0">
-              {challengeTab && (
+              {challengeTab==true &&
                 <>
                   <ChallengeForm openModal={onOpenChallenge} triggeredFrom="user" />
                   <ChallengeList triggeredFrom="user" />
                 </>
-              )}
+              }
             </TabPanel>
           </TabPanels>
         </Tabs>

@@ -4,7 +4,7 @@ export const getAllPost = async (page, limit) => {
   try {
     console.log("page,limit", page, limit);
     const res = await request({
-      url: `/feed/v1/user/post/all/details/${page}/${limit}`,
+      url: `/feed/v1/user/post/all/${page}/${limit}`,
       headers: {
         "Content-Type": "application/json",
       },
