@@ -1,27 +1,32 @@
 import { Box, Divider, Flex, HStack, Image, Text } from "@chakra-ui/react";
 import { BiDoughnutChart } from "react-icons/bi";
 import { CiImageOn } from "react-icons/ci";
+import { useSelector } from "react-redux";
 
 const PostFormSection = ({ openModal, setClickPhoto }) => {
+  const { profilePic } = useSelector((state) => state.userData);
   return (
     <Box bg="#fff" p="4">
       <Flex alignItems="center">
-        <Box width="50px" height="50px">
+        <Box >
           <Image
             boxSize="2.5rem"
             borderRadius="md"
             width="100%"
-            src="/static/images/Profile.jpeg"
+            src={profilePic ? profilePic : "noImage.svg"}
             alt="Fluffybuns the destroyer"
             fit="cover"
             mr="2"
           />
         </Box>
-        <Box width="full" onClick={() => {
-          openModal();
-          setClickPhoto(false);
-        }}>
-          <Text cursor={"pointer"} ml="4">
+        <Box
+          width="full"
+          onClick={() => {
+            openModal();
+            setClickPhoto(false);
+          }}
+        >
+          <Text color={'#8D96A5'} cursor={"pointer"} ml="4">
             Create a new post
           </Text>
         </Box>
