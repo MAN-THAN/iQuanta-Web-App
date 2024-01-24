@@ -1,53 +1,60 @@
 import { Flex, HStack, Text, Tooltip, Box } from "@chakra-ui/react";
 import { ThumbsUp, MessageCircle, Share2 } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useMutation, useQueryClient } from "react-query";
+import { postUserReaction } from "@/api/feed/user/reaction";
 
-export const ReactionPanel = () => {
-  const [selectedReaction, setSelectedReaction] = useState(null);
+export const ReactionPanel = ({ postId }) => {
+  const [selectedReaction, setSelectedReaction] = useState({reactionType : 'dislike'});
   const [isPanelVisible, setPanelVisibility] = useState(false);
   const panelRef = useRef(null);
   const leaveTimeoutRef = useRef(null);
+  const { _id: uid } = useSelector((state) => state.userData);
+  const queryClient = useQueryClient();
 
   const reactions = [
-    { reaction: "👍", title: "Like" },
-    { reaction: "❤️", title: "Love" },
-    { reaction: "😂", title: "LOL" },
-    { reaction: "😯", title: "Surprise" },
-    { reaction: "😢", title: "Sad" },
-    { reaction: "😡", title: "Angry" },
+    { reaction: "👍", reactionType: "like" },
+    { reaction: "❤️", reactionType: "heart" },
+    { reaction: "😂", reactionType: "happy" },
+    { reaction: "😯", reactionType: "surprise" },
+    { reaction: "😢", reactionType: "sad" },
+    { reaction: "😡", reactionType: "angry" },
   ];
-
-  const handleReactionClick = (reaction) => {
-    setSelectedReaction(reaction);
-    setPanelVisibility(false);
-  };
   const handleLike = () => {
-    if (selectedReaction) {
-      setSelectedReaction(null);
+    console.log("im aworking");
+    if (selectedReaction?.reactionType !== 'dislike') {
+      mutation.mutate({ postId: postId, createdBy: uid, reactionType: 'dislike' });
     } else {
-      setSelectedReaction(reactions[0]);
+      mutation.mutate({ postId: postId, createdBy: uid, reactionType: 'like' });
     }
   };
-
-  const handleMouseLeave = () => {
-    // Add a delay before hiding the panel
-    leaveTimeoutRef.current = setTimeout(() => {
-      setPanelVisibility(false);
-    }, 300);
-  };
-
-  const handleMouseEnter = () => {
-    // Cancel the hiding process if the mouse enters the panel during the delay
-    clearTimeout(leaveTimeoutRef.current);
-  };
-
-  useEffect(() => {
-    // Cleanup the timeout on component unmount
+  const debounce = (func, delay) => {
     return () => {
       clearTimeout(leaveTimeoutRef.current);
+      leaveTimeoutRef.current = setTimeout(func, delay);
     };
-  }, []);
-
+  };
+  const handleMouseLeave = debounce(() => setPanelVisibility(false), 300);
+  const handleMouseEnter = () => {
+    clearTimeout(leaveTimeoutRef.current);
+  };
+  const mutation = useMutation({
+    mutationFn: (payload) => postUserReaction(payload),
+    onMutate: (variables) => {
+      return console.log("mutation is happening");
+    },
+    onError: (error, variables, context) =>
+     console.log(error),
+    onSuccess: (res, variables, context) => {
+      console.log(res);
+      setSelectedReaction(res?.data?.data.updatedReaction);
+      setPanelVisibility(false);
+      queryClient.invalidateQueries('getAllPosts');
+    },
+    onSettled: (data, error, variables, context) => {},
+  });
+  console.log(selectedReaction);
   return (
     <Flex align="center" justify="space-between" p="3">
       <HStack
@@ -57,11 +64,13 @@ export const ReactionPanel = () => {
         sx={{ position: "relative" }}
         onClick={handleLike}
       >
-        {selectedReaction ? (
+        { selectedReaction?.reactionType !== 'dislike' ? (
           <>
-            <Text fontSize={"20px"}>{selectedReaction?.reaction}</Text>
+            <Text fontSize={"20px"}>
+              {reactions.find((item, ind) => item?.reactionType === selectedReaction?.reactionType)?.reaction}
+            </Text>
             <Text fontSize={{ sm: "14px", md: "16px" }} fontWeight="800">
-              {selectedReaction?.title}
+              {selectedReaction?.reactionType}
             </Text>
           </>
         ) : (
@@ -86,14 +95,15 @@ export const ReactionPanel = () => {
             zIndex={100}
             gap={"1em"}
             p={"0.8em"}
-            onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
+            onMouseEnter={handleMouseEnter}
           >
             {reactions?.map((reaction, index) => (
-              <Tooltip key={index} label={`${reaction.title}`} placement="top" marginBottom={"1em"}>
+              <Tooltip key={index} label={`${reaction.reactionType}`} placement="top" marginBottom={"1em"}>
                 <HStack
                   onClick={(e) => {
-                    handleReactionClick(reaction);
+                    // handleReactionClick(reaction);
+                    mutation.mutate({ postId: postId, createdBy: uid, reactionType: reaction.reactionType });
                     e.stopPropagation();
                   }}
                   cursor="pointer"

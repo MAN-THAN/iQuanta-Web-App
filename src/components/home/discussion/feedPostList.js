@@ -25,6 +25,7 @@ export const FeedPostList = () => {
       }),
     onSuccess: (res) => setPostList(res.pages[0]?.data.data.allPostData),
   });
+  console.log(postList);
   return (
     <Box>
       {/* feed post list */}
@@ -42,6 +43,7 @@ export const FeedPostList = () => {
                 createdAt={item?.postTypeId?.createdAt}
                 media={item?.postTypeId?.media}
                 comments={item?.comments}
+                postId={item?.postTypeId?._id}
               />
             );
           else if (item.postTypeId?.media?.length > 1) {
@@ -56,6 +58,8 @@ export const FeedPostList = () => {
                 createdAt={item?.postTypeId?.createdAt}
                 media={item?.postTypeId?.media}
                 comments={item?.comments}
+                postId={item?.postTypeId?._id}
+
               />
             );
           } else {
@@ -72,6 +76,8 @@ export const FeedPostList = () => {
               commentCount={item?.commentCount}
               createdAt={item?.postTypeId?.createdAt}
               media={item?.postTypeId?.media}
+              postId={item?.postTypeId?._id}
+
             />
           );
         else if (item.postType === "memes")
@@ -85,6 +91,8 @@ export const FeedPostList = () => {
               commentCount={item?.commentCount}
               createdAt={item?.postTypeId?.createdAt}
               media={item?.postTypeId?.media}
+              postId={item?.postTypeId?._id}
+
             />
           );
         else if (item.postType === "text")
@@ -98,6 +106,8 @@ export const FeedPostList = () => {
               commentCount={item?.commentCount}
               createdAt={item?.postTypeId?.createdAt}
               media={item?.postTypeId?.media}
+              postId={item?.postTypeId?._id}
+
             />
           );
         else if (item.postType === "poll")
@@ -111,6 +121,8 @@ export const FeedPostList = () => {
               commentCount={item?.commentCount}
               createdAt={item?.postTypeId?.createdAt}
               media={item?.postTypeId?.media}
+              postId={item?.postTypeId?._id}
+
             />
           );
 
