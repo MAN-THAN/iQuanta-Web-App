@@ -20,15 +20,15 @@ import {
   Menu,
   Text,
 } from "@chakra-ui/react";
-import { ChevronDownIcon, Dot, MessageCircle, Share2, ThumbsUp } from "lucide-react";
+import { ChevronDownIcon, Dot } from "lucide-react";
 import React from "react";
 
 const SolutionFullScreen = () => {
   return (
     <>
-      <Flex px="16" pt="4" gap="5">
-        <Box flexBasis="75%" bg="white.900" p="4" rounded="2xl">
-          <Card h="80vh" shadow="none" border="none">
+      <Flex px={{ base: "4", md: "16" }} pt="4" gap="5" flexWrap={{ base: "wrap", md: "wrap", lg: "nowrap" }}>
+        <Box flexBasis={{ base: "100%", md: "100%", lg: "75%" }} bg="white.900" p="4" rounded="2xl">
+          <Card h={{ base: "60vh", md: "60vh", lg: "80vh" }} shadow="none" border="none">
             <CardBody>
               <Text fontWeight="500">
                 Questions : If f(5 + x) = f(5 - x) for every real x and f(x) = 0 has four distinct real roots, then the
@@ -59,8 +59,8 @@ const SolutionFullScreen = () => {
             </CardFooter>
           </Card>
         </Box>
-        <Box flexBasis="35%" bg="white.900" rounded="2xl">
-          <Card h="80vh" shadow="none" border="none">
+        <Box flexBasis={{ base: "100%", md: "100%", lg: "35%" }} bg="white.900" rounded="2xl">
+          <Card h={{ base: "30vh", md: "40vh", lg: "80vh" }} shadow="none" border="none">
             <CardBody>
               <Stack>
                 <Box px="4" py="1">
@@ -92,7 +92,7 @@ const SolutionFullScreen = () => {
                       alignItems: "center",
                     }}
                   >
-                    <Box boxSize="30px">
+                    <Box boxSize="40px">
                       <Image
                         objectFit="cover"
                         width="100%"
@@ -118,18 +118,18 @@ const SolutionFullScreen = () => {
                       </HStack>
                     </Box>
                   </Box>
-                  <Text fontSize="14px" pl="9" lineHeight="20px" py="10px" textAlign="justify">
+                  <Text fontSize="16px" pl="9" lineHeight="20px" py="10px" textAlign="justify">
                     Yes, you can! But you need to be in 99.5%iler. I was also in such a situation earlier this year. If
                     I had known this, than I wouldn’t have grinded this if it weren’t for Banking exam. Moreover, If
                     anyone is interested, feel free to go through my courses. You’ll like it :)
                   </Text>
-                  <HStack align="center" ml="9" fontWeight="500" fontSize="12px" py="2">
+                  <HStack align="center" ml="9" fontWeight="500" fontSize="14px" py="2">
                     <Text>Like</Text>
                     <Dot color="#8D96A5" />
                     <Box display="flex" alignItems="center" justifyContent="space-between">
                       <span
                         style={{
-                          fontSize: "12px",
+                          fontSize: "14px",
                           fontWeight: "600",
                           color: "#455564",
                         }}
@@ -140,14 +140,14 @@ const SolutionFullScreen = () => {
                     <Stack direction="row" h="12px">
                       <Divider border="0.2" orientation="vertical" />
                     </Stack>
-                    <Text fontSize="12px" color="#455564">
+                    <Text fontSize="14px" color="#455564">
                       Reply
                     </Text>
                     <Dot color="#8D96A5" />
                     <Box>
                       <span
                         style={{
-                          fontSize: "12px",
+                          fontSize: "14px",
                           fontWeight: "600",
                           color: "#455564",
                         }}
@@ -156,7 +156,7 @@ const SolutionFullScreen = () => {
                       </span>
                       <span
                         style={{
-                          fontSize: "12px",
+                          fontSize: "14px",
                           fontWeight: "500",
                           color: "#8D96A5",
                           paddingLeft: "5px",
@@ -169,7 +169,7 @@ const SolutionFullScreen = () => {
                 </Box>
               </Stack>
             </CardBody>
-            <CardFooter pb="0">
+            <CardFooter>
               <InputGroup width="100%" size="lg">
                 {/* eslint-disable-next-line */}
                 <InputLeftElement pointerEvents="none" color="gray.300" fontSize="1.2em">
