@@ -24,17 +24,16 @@ const PollFeedCard = ({
   postId,
   followingCount,
 }) => {
-
   const [value, setValue] = React.useState();
   useEffect(() => {
     for (var i = 0; i < options?.length; i++) {
-      let uidIndex = options[i].uid.findIndex(it => it._id == uid);
+      let uidIndex = options[i].uid.findIndex((it) => it._id == uid);
       if (uidIndex > -1) {
         setValue(i);
         break;
       }
     }
-  }, [])
+  }, []);
   const mutation = useMutation({
     mutationFn: (payload) =>
       triggeredFrom == "group"
@@ -58,7 +57,7 @@ const PollFeedCard = ({
       setSelectedComponent(null);
       onClose();
     },
-    onSettled: (data, error, variables, context) => { },
+    onSettled: (data, error, variables, context) => {},
   });
   const handlePollClick = (poll) => {
     setValue(poll);
@@ -176,7 +175,7 @@ const PollFeedCard = ({
           </HStack>
         </div>
         <Divider />
-        <ReactionPanel />
+        <ReactionPanel postId={postId} />
         <Divider pb="4" />
       </Box>
     </>
@@ -184,4 +183,3 @@ const PollFeedCard = ({
 };
 
 export default PollFeedCard;
-
