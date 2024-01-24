@@ -85,7 +85,7 @@ const PhoneAuth = () => {
     <OnBordingLayout>
       <ToastContainer />
       <Flex align="center" bg="black">
-        <Box flexBasis={{ base: "100%", md: "40%" }} position="relative" width="100%" objectFit="contain">
+        <Box flexBasis={{ base: "100%", md: "100%", lg: "40%" }} position="relative" width="100%" objectFit="contain">
           <Image alt="icon" src="/back.png" objectFit="cover" width="100%" height="100vh" />
           <div
             style={{
@@ -166,6 +166,7 @@ const PhoneAuth = () => {
                   lineHeight="16px"
                   color="white"
                   bg="black"
+                  rounded="lg"
                   px="4"
                 >
                   <div style={{ textAlign: "start" }}>or sign up with</div>

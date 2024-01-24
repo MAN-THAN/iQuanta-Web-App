@@ -3,6 +3,7 @@ import {
   Box,
   Button,
   Center,
+  Divider,
   Flex,
   FormControl,
   FormLabel,
@@ -13,37 +14,37 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
+  Radio,
   Stack,
   Text,
   Textarea,
 } from "@chakra-ui/react";
+import { ChevronDownIcon, Minus, Plus, SearchIcon } from "lucide-react";
 
-
-const AccelareaderTextField = () => {
+const AccelareaderTopicList = () => {
   return (
     <>
-      <Box mt="4" bg="#fff" roundedTop="2xl" p="4">
+      <Box bg="#fff" roundedTop="2xl" p="4">
         <HStack py="4">
           <BackButton />
           <Box>
             <Text fontSize="16px" fontWeight="600">
-              Accelareader
-            </Text>
-            <Text fontSize="12px" color="#636363">
-              Practice
+              Select the topic
             </Text>
           </Box>
         </HStack>
-        <Text p="4" py="4">
-          Accelareader will help you read faster by flashing words at you using what is called a Rapid Serial Visual
-          Presentation. Practice speed reading and save precious time during your final exam.
-        </Text>
-      </Box>
-      <Box mt="4" bg="#fff" p="4">
-        <Textarea placeholder="Write your answer here..." fontWeight="500" h="45vh" mb="4" />
+        <Stack height="60vh" overflowY="scroll">
+          {[...Array(5)].map((data, i) => (
+            <>
+              <Radio key={i} size="md" name="1" colorScheme="orange" py="3" gap="2">
+                English Language
+              </Radio>
+              <Divider />
+            </>
+          ))}
+        </Stack>
         <Button
           width="100%"
-          marginTop="7"
           sx={{
             bg: "black !important",
             color: "#fff",
@@ -59,4 +60,4 @@ const AccelareaderTextField = () => {
   );
 };
 
-export default AccelareaderTextField;
+export default AccelareaderTopicList

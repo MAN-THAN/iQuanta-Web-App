@@ -1,4 +1,4 @@
-import { Box, Flex, HStack, Image, Stack, Text } from "@chakra-ui/react";
+import { Box, HStack, Image, Stack, Text } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 
 const PracticeFeature = () => {
@@ -53,7 +53,8 @@ const PracticeFeature = () => {
         {practiceFeatureCard.map((data, i) => (
           <HStack
             key={i}
-            width="350px"
+            maxWidth={350}
+            minWidth="250px"
             maxH="90px"
             bg="brand.800"
             alignItems="start"

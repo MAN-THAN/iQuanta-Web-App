@@ -109,7 +109,7 @@ const Otp = () => {
     <>
       <ToastContainer />
       <Flex align="center" bg="black" flexWrap="wrap">
-        <Box w={{ base: "100%", md: "40%" }} position="relative">
+        <Box flexBasis={{ base: "100%", md: "100%", lg: "40%" }} position="relative" width="100%" objectFit="contain">
           <Image alt="icon" src="/back.png" objectFit="cover" width="100%" height="100vh" />
           <div
             style={{
@@ -124,9 +124,14 @@ const Otp = () => {
             }}
           ></div>
         </Box>
-        <Box w={{ base: "100%", md: "60%" }}>
+        <Box
+          flexBasis="60%"
+          w={{ base: "100%", md: "100%" }}
+          position={{ sm: "absolute", lg: "unset" }}
+          bottom={{ sm: "0" }}
+        >
           <Container gap="6" mt={{ base: "40px", md: "0" }}>
-            <Stack gap="6">
+            <Stack gap="6" bg="#05050530" p="10" rounded="2xl">
               <Box>
                 <Image alt="logo" src="/logowhite.png" />
               </Box>

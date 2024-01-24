@@ -23,26 +23,14 @@ import {
 } from "@chakra-ui/react";
 import { Image } from "@chakra-ui/react";
 import EmojiGroup from "../common/avatarGroups";
-import {
-  ChevronDownIcon,
-  Dot,
-  MessageCircle,
-  Share2,
-  ThumbsUp,
-} from "lucide-react";
+import { ChevronDownIcon, Dot, MessageCircle, Share2, ThumbsUp } from "lucide-react";
 
 const FullProfileView = ({ isOpen, onOpen, onClose }) => {
   return (
-    <Modal isOpen={isOpen}  onClose={onClose} size={["3xl", null, "6xl"]}>
+    <Modal isOpen={isOpen} onClose={onClose} size={["3xl", null, "6xl"]}>
       <ModalOverlay />
-      <ModalContent bg='brand.700' padding="10px">
-        <ModalCloseButton
-          position="absolute"
-          left="0"
-          bg="#FFFFF"
-          rounded="full"
-          ml="3"
-        />
+      <ModalContent bg="brand.700" padding="10px">
+        <ModalCloseButton position="absolute" left="0" bg="#FFFFF" rounded="full" ml="3" />
         <ModalBody height="auto" sx={{ padding: "0 !important" }}>
           <Flex flexWrap={["wrap", null, "nowrap"]}>
             <Box width={["100%", null, "67%"]}>
@@ -85,18 +73,11 @@ const FullProfileView = ({ isOpen, onOpen, onClose }) => {
                       >
                         Hardik Beniwal
                       </p>
-                      <p style={{ fontSize: "12px", color: "#636363" }}>
-                        2h ago
-                      </p>
+                      <p style={{ fontSize: "12px", color: "#636363" }}>2h ago</p>
                     </Box>
                   </Box>
                 </HStack>
-                <HStack
-                  align="center"
-                  fontWeight="400"
-                  fontSize="14px"
-                  padding="4"
-                >
+                <HStack align="center" fontWeight="400" fontSize="14px" padding="4">
                   <Box display="flex">
                     <EmojiGroup />
                     <span
@@ -196,8 +177,7 @@ const FullProfileView = ({ isOpen, onOpen, onClose }) => {
                       _expanded={{ borderColor: "black" }}
                     >
                       <HStack>
-                        <span style={{ fontSize: "14px" }}>Top Comments</span>{" "}
-                        <ChevronDownIcon size="14px" />
+                        <span style={{ fontSize: "14px" }}>Top Comments</span> <ChevronDownIcon size="14px" />
                       </HStack>
                     </MenuButton>
                     <MenuList>
@@ -236,38 +216,19 @@ const FullProfileView = ({ isOpen, onOpen, onClose }) => {
                         Hardik Beniwal
                       </p>
                       <HStack fontSize="12px" color="#636363">
-                        <p>Master Level</p> <Dot color="#8D96A5" />{" "}
-                        <span>28m</span>
+                        <p>Master Level</p> <Dot color="#8D96A5" /> <span>28m</span>
                       </HStack>
                     </Box>
                   </Box>
-                  <Text
-                    fontSize="14px"
-                    pl="9"
-                    lineHeight="20px"
-                    py="10px"
-                    textAlign="justify"
-                  >
-                    Yes, you can! But you need to be in 99.5%iler. I was also in
-                    such a situation earlier this year. If I had known this,
-                    than I wouldn’t have grinded this if it weren’t for Banking
-                    exam. Moreover, If anyone is interested, feel free to go
-                    through my courses. You’ll like it :)
+                  <Text fontSize="14px" pl="9" lineHeight="20px" py="10px" textAlign="justify">
+                    Yes, you can! But you need to be in 99.5%iler. I was also in such a situation earlier this year. If
+                    I had known this, than I wouldn’t have grinded this if it weren’t for Banking exam. Moreover, If
+                    anyone is interested, feel free to go through my courses. You’ll like it :)
                   </Text>
-                  <HStack
-                    align="center"
-                    ml="9"
-                    fontWeight="500"
-                    fontSize="12px"
-                    py="2"
-                  >
+                  <HStack align="center" ml="9" fontWeight="500" fontSize="12px" py="2">
                     <Text>Like</Text>
                     <Dot color="#8D96A5" />
-                    <Box
-                      display="flex"
-                      alignItems="center"
-                      justifyContent="space-between"
-                    >
+                    <Box display="flex" alignItems="center" justifyContent="space-between">
                       <EmojiGroup />
                       <span
                         style={{
@@ -312,11 +273,7 @@ const FullProfileView = ({ isOpen, onOpen, onClose }) => {
                 <Box px="4" pt="8">
                   <InputGroup>
                     {/* eslint-disable-next-line */}
-                    <InputLeftElement
-                      pointerEvents="none"
-                      color="gray.300"
-                      fontSize="1.2em"
-                    >
+                    <InputLeftElement pointerEvents="none" color="gray.300" fontSize="1.2em">
                       <Box boxSize="30px">
                         <Image
                           objectFit="cover"
@@ -333,12 +290,7 @@ const FullProfileView = ({ isOpen, onOpen, onClose }) => {
                       <Button variant="unstyled">
                         <ThumbsUp />
                       </Button>
-                      <Button
-                        variant="unstyled"
-                        fontSize="14px"
-                        lineHeight="12px"
-                        fontWeight="400"
-                      >
+                      <Button variant="unstyled" fontSize="14px" lineHeight="12px" fontWeight="400">
                         Post
                       </Button>
                     </InputRightElement>
