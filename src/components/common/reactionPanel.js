@@ -1,4 +1,18 @@
-import { Flex, HStack, Text, Tooltip, Box } from "@chakra-ui/react";
+import {
+  Flex,
+  HStack,
+  Text,
+  Tooltip,
+  Box,
+  Divider,
+  Collapse,
+  useDisclosure,
+  InputGroup,
+  Input,
+  InputRightElement,
+  Image,
+  InputLeftElement,
+} from "@chakra-ui/react";
 import { ThumbsUp, MessageCircle, Share2 } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";

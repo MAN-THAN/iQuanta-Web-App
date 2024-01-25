@@ -101,7 +101,7 @@ const VideoFeedCard = ({ name, uid, title, reactionCount, commentCount, createdA
         <ReactionPanel postId={postId} />
         <Divider />
       </Stack>
-      <Box p="4">
+      <Box p="0">
         <CommentSlider comments={comments} />
       </Box>
     </Box>

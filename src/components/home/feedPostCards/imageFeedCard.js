@@ -113,7 +113,7 @@ const ImageFeedCard = ({
         <ReactionPanel postId={postId} userReaction={userReaction} />
         <Divider />
       </Stack>
-      <Box p="4">
+      <Box p="0">
         <CommentSlider comments={comments} />
       </Box>
     </Box>

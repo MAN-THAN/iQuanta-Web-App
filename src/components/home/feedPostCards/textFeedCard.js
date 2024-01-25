@@ -97,7 +97,6 @@ const TextFeedCard = ({ classId, name, uid, title, reactionCount, commentCount, 
             </span>
           </Box>
         </HStack>
-        <Divider />
         {/* <Flex align="center" justify="space-between" p="3">
           <HStack>
             <ThumbsUp /> <span>Like</span>
@@ -112,7 +111,7 @@ const TextFeedCard = ({ classId, name, uid, title, reactionCount, commentCount, 
         <ReactionPanel postId={postId} />
         <Divider />
       </Stack>
-      <Box p="4">
+      <Box p="0">
         <CommentSlider />
       </Box>
     </Box>

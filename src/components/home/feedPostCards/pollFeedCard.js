@@ -10,6 +10,7 @@ import { useMutation, useQueryClient } from "react-query";
 import { groupMarkPoll } from "@/api/feed/groups/post";
 import { randomColors } from "@/utilities/commonFunctions";
 import { ReactionPanel } from "@/components/common/reactionPanel";
+import CommentSlider from "@/components/postCards/commentSlider/commentSlider";
 const PollFeedCard = ({
   name,
   uid,
@@ -103,34 +104,34 @@ const PollFeedCard = ({
             <MoreVertical size="24px" />
           </Box>
         </HStack>
-        <Text p="5" fontSize="md" fontWeight="semibold">
-          {title}
-        </Text>
-        <RadioGroup onChange={(value) => handlePollClick(value)} value={value} width="100%">
-          <Stack>
-            {options?.map((option, index) => {
-              return (
-                <>
-                  <Flex justifyContent="space-between" alignItems="center" px="6" pb="2" pt="4">
-                    <Radio size="lg" name="1" colorScheme="red" value={index} _active={{ bg: "red" }}>
-                      <Text>{option.title}</Text>
-                    </Radio>
-                    <AvatarGroups data={option.uid} size={3} />
-                  </Flex>
-                  <Box px="6">
-                    <Progress
-                      w="100%"
-                      colorScheme={randomColors(["green", "red", "yellow"])}
-                      rounded="full"
-                      value={Number(option.votes) * 10}
-                    />
-                  </Box>
-                </>
-              );
-            })}
-          </Stack>
-        </RadioGroup>
-        <div className="flex gap-5 items-center ml-5 pb-3" style={{ display: "flex", flexDirection: "row" }}>
+        <Stack padding={["3", null, "4"]}>
+          <Text p="5" fontSize="md" fontWeight="semibold">
+            {title}
+          </Text>
+          <RadioGroup onChange={(value) => handlePollClick(value)} value={value} width="100%">
+            <Stack>
+              {options?.map((option, index) => {
+                return (
+                  <>
+                    <Flex justifyContent="space-between" alignItems="center" px="6" pb="2" pt="4">
+                      <Radio size="lg" name="1" colorScheme="red" value={index} _active={{ bg: "red" }}>
+                        <Text>{option.title}</Text>
+                      </Radio>
+                      <AvatarGroups data={option.uid} size={3} />
+                    </Flex>
+                    <Box px="6">
+                      <Progress
+                        w="100%"
+                        colorScheme={randomColors(["green", "red", "yellow"])}
+                        rounded="full"
+                        value={Number(option.votes) * 10}
+                      />
+                    </Box>
+                  </>
+                );
+              })}
+            </Stack>
+          </RadioGroup>
           <HStack align="center" fontWeight="400" fontSize="14px" padding="4">
             <Box display="flex" alignItems="center">
               <LikeEmojiGroup />
@@ -173,10 +174,11 @@ const PollFeedCard = ({
               </span>
             </Box>
           </HStack>
-        </div>
-        <Divider />
-        <ReactionPanel postId={postId} />
-        <Divider pb="4" />
+          <ReactionPanel postId={postId} />
+        </Stack>
+        <Box p="0">
+          <CommentSlider />
+        </Box>
       </Box>
     </>
   );

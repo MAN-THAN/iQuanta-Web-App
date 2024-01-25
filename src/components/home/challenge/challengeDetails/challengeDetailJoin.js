@@ -25,11 +25,22 @@ import {
 } from "@chakra-ui/react";
 import { Check, Clock, DollarSignIcon, Share2, Target, X } from "lucide-react";
 import { GrAdd } from "react-icons/gr";
-import {useSelector} from 'react-redux';
+import { useSelector } from "react-redux";
 
-const ChallengeDetailJoin = ({ isOpen, onClose ,challengeData }) => {
-  const { title, timePerQuestion, totalQuestions, createdAt, difficultyLevel,createdBy ,topicId,subTopicId,challengeType,participants} = challengeData?.postTypeId || {};
-  const {_id:uid} = useSelector((state) => state?.userData);;
+const ChallengeDetailJoin = ({ isOpen, onClose, challengeData }) => {
+  const {
+    title,
+    timePerQuestion,
+    totalQuestions,
+    createdAt,
+    difficultyLevel,
+    createdBy,
+    topicId,
+    subTopicId,
+    challengeType,
+    participants,
+  } = challengeData?.postTypeId || {};
+  const { _id: uid } = useSelector((state) => state?.userData);
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false} size="3xl">
@@ -37,7 +48,7 @@ const ChallengeDetailJoin = ({ isOpen, onClose ,challengeData }) => {
         <ModalContent rounded="2xl" bg="#000" h="85vh">
           <ModalHeader color="white.900" display="flex" justifyContent="space-between">
             <HStack onClick={onClose} cursor="pointer">
-              <X onClick={onClose} cursor='pointer' />
+              <X onClick={onClose} cursor="pointer" />
               <Text>Your {title} Challenge</Text>
             </HStack>
           </ModalHeader>
@@ -55,7 +66,7 @@ const ChallengeDetailJoin = ({ isOpen, onClose ,challengeData }) => {
                 </Text>
               </Box>
             </VStack>
-            <Divider w="100px" scale='1' mx="auto" />
+            <Divider w="100px" scale="1" mx="auto" />
             <Box color="white.900" textAlign="center" fontSize={{ base: "14px", md: "18px" }} py="14px">
               <Text width="300px" mx="auto">
                 Let’s see who comes out on top this time!
@@ -75,7 +86,7 @@ const ChallengeDetailJoin = ({ isOpen, onClose ,challengeData }) => {
             >
               <Box py="5">
                 <Heading textAlign="center" fontSize="24px">
-                 {topicId?.title}
+                  {topicId?.title}
                 </Heading>
               </Box>
               <Divider />
@@ -96,7 +107,7 @@ const ChallengeDetailJoin = ({ isOpen, onClose ,challengeData }) => {
                         Question
                       </Text>
                       <Text fontSize="18px" fontWeight="600">
-                      {totalQuestions}
+                        {totalQuestions}
                       </Text>
                     </Box>
                   </Box>
@@ -117,7 +128,7 @@ const ChallengeDetailJoin = ({ isOpen, onClose ,challengeData }) => {
                         Difficulty Level
                       </Text>
                       <Text fontSize="18px" fontWeight="600">
-                      {difficultyLevel}
+                        {difficultyLevel}
                       </Text>
                     </Box>
                   </Box>
@@ -138,7 +149,7 @@ const ChallengeDetailJoin = ({ isOpen, onClose ,challengeData }) => {
                         Time per question
                       </Text>
                       <Text fontSize="18px" fontWeight="600">
-                       {timePerQuestion}
+                        {timePerQuestion}
                       </Text>
                     </Box>
                   </Box>
@@ -157,35 +168,45 @@ const ChallengeDetailJoin = ({ isOpen, onClose ,challengeData }) => {
                   <Avatar borderRadius="10px" border="none" src={da.profilePic} />
                 ))}
               </AvatarGroup>
-              {createdBy?._id==uid&&<Button variant="ghost" alignItems="center" size="sm" border="1px solid" mt="4">
-                <GrAdd fontSize="14px" fontWeight="900" />
-                <Text fontSize="14px" px="1">
-                  Add Opponents
-                </Text>
-              </Button>}
+              {createdBy?._id == uid && (
+                <Button variant="ghost" alignItems="center" size="sm" border="1px solid" mt="4">
+                  <GrAdd fontSize="14px" fontWeight="900" />
+                  <Text fontSize="14px" px="1">
+                    Add Opponents
+                  </Text>
+                </Button>
+              )}
             </Center>
           </ModalBody>
           <ModalFooter bg="white.900" roundedBottom="2xl">
-          {createdBy?._id==uid&&<Button
-              width="100%"
-              variant="solid"
-              color="#fff"
-              backgroundColor="#000"
-              _hover={{ color: "#000", backgroundColor: "#fff", border: "1px solid #000" }}
-              onClick={()=>{alert('define view challenge func')}}
-            >
-              View Challenge
-            </Button>}
-            {createdBy?._id!==uid&&<Button
-              width="100%"
-              variant="solid"
-              color="#fff"
-              backgroundColor="#000"
-              _hover={{ color: "#000", backgroundColor: "#fff", border: "1px solid #000" }}
-              onClick={()=>{alert('define start challenge func')}}
-            >
-              Start
-            </Button>}
+            {createdBy?._id == uid && (
+              <Button
+                width="100%"
+                variant="solid"
+                color="#fff"
+                backgroundColor="#000"
+                _hover={{ color: "#000", backgroundColor: "#fff", border: "1px solid #000" }}
+                onClick={() => {
+                  alert("define view challenge func");
+                }}
+              >
+                View Challenge
+              </Button>
+            )}
+            {createdBy?._id !== uid && (
+              <Button
+                width="100%"
+                variant="solid"
+                color="#fff"
+                backgroundColor="#000"
+                _hover={{ color: "#000", backgroundColor: "#fff", border: "1px solid #000" }}
+                onClick={() => {
+                  alert("define start challenge func");
+                }}
+              >
+                Start
+              </Button>
+            )}
           </ModalFooter>
         </ModalContent>
       </Modal>

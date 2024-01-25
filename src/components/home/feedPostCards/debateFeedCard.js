@@ -138,7 +138,7 @@ const DebateFeedCard = ({
         </HStack>
         <ReactionPanel postId={postId} userReaction={userReaction} />
       </Stack>
-      <Box p="4">
+      <Box p="0">
         <CommentSlider />
       </Box>
     </Box>

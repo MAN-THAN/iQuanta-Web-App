@@ -143,7 +143,7 @@ const ImageSwiper = ({ name, uid, profilePic, title, reactionCount, commentCount
         <ReactionPanel postId={postId} />
         <Divider />
       </Stack>
-      <Box p="4">
+      <Box p="0">
         <CommentSlider />
       </Box>
     </Box>

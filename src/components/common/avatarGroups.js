@@ -3,9 +3,9 @@ import React from "react";
 
 const AvatarGroups = ({ size, data }) => {
   return (
-    <AvatarGroup size='md' max={3}>
-      {data?.map((user) => (
-        <Avatar name={user.name} src={user.profilePic} />
+    <AvatarGroup size="md" max={3}>
+      {data?.map((user, i) => (
+        <Avatar key={i} name={user.name} src={user.profilePic} />
       ))}
 
       {/* <Avatar name={dat} src="https://bit.ly/sage-adebayo" />
