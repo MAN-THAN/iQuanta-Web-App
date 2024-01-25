@@ -13,7 +13,7 @@ const UpComeingCard = ({ style, id, width }) => {
         bg="#5146D6"
         h="auto"
         rounded="xl"
-        bgImage="url('/static/images/profile.jpeg')"
+        bgImage="url('/profile.jpeg')"
         bgSize="cover"
         bgRepeat="no-repeat"
         bgfilter="grayscale(100%)"

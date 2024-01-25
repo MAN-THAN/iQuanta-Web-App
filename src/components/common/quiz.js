@@ -205,7 +205,7 @@ const Quiz = () => {
       {/* <Box bg="white.900" h="auto">
           <Box bg="#000" rounded="2xl" h="40vh">
             <VStack p="4" spacing="4" color="white.900">
-              <Image boxSize="100px" rounded="xl" fit="cover" src="/static/images/profile.jpeg" />
+              <Image boxSize="100px" rounded="xl" fit="cover" src="/profile.jpeg" />
               <Text fontSize="14px" fontWeight="bold">
                 Samayra Sharma
               </Text>

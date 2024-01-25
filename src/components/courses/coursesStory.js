@@ -37,7 +37,7 @@ const CoursesStory = () => {
                 Highly recommended!”
               </Text>
               <Divider />
-              <Avatar size="md" src="/static/images/profile.jpeg" />
+              <Avatar size="md" src="/profile.jpeg" />
               <Text fontSize="12px" fontWeight="500" color="#8D96A5" pt="3">
                 Aayush Gupta
               </Text>

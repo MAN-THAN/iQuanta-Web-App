@@ -39,7 +39,7 @@ const TeacherUpcomingCard = ({ style, id }) => {
         bg="#5146D6"
         h="200px"
         rounded="xl"
-        bgImage="url('/static/images/profile.jpeg')"
+        bgImage="url('/profile.jpeg')"
         bgSize="cover"
         bgRepeat="no-repeat"
         bgfilter="grayscale(100%)"

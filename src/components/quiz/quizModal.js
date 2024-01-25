@@ -76,7 +76,7 @@ const QuizModal = ({ isOpen, onClose }) => {
                   boxSize={{ base: "70px", md: "100px" }}
                   rounded="xl"
                   fit="cover"
-                  src="/static/images/profile.jpeg"
+                  src="/profile.jpeg"
                 />
                 <Text fontSize="14px" fontWeight="bold">
                   Samayra Sharma

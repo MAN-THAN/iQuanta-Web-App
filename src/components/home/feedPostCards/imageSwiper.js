@@ -48,7 +48,7 @@ const ImageSwiper = ({ name, uid, profilePic, title, reactionCount, commentCount
               width="100%"
               height="100%"
               className="rounded-md"
-              //src="/static/images/Profile.jpeg"
+              //src="/profile.jpeg"
               src={profilePic}
               alt="Profile Image"
             />
