@@ -113,4 +113,13 @@ export const examTabDatas =[
   { name: "examDates", isOpen: false, status: "false", color: "#5146D6" },
   { name: "preparationTips", isOpen: false, status: "false", color: "#5146D6" },
   { name: "scoringSyllabus", isOpen: false, status: "false", color: "#5146D6" },
-]
+];
+
+export const reactions = [
+  { reaction: "👍", reactionType: "like", fontColor: "#DAA520" },
+  { reaction: "❤️", reactionType: "heart", fontColor: "#C92A2A" },
+  { reaction: "😂", reactionType: "happy", fontColor: "#FFD700" },
+  { reaction: "😯", reactionType: "surprise", fontColor: "#FFA500" },
+  { reaction: "😢", reactionType: "sad", fontColor: "#5E6A71" },
+  { reaction: "😡", reactionType: "angry", fontColor: "#C92A2A" },
+];

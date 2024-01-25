@@ -4,29 +4,23 @@ import { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useMutation, useQueryClient } from "react-query";
 import { postUserReaction } from "@/api/feed/user/reaction";
+import { reactions } from "@/utilities/comanData";
 
-export const ReactionPanel = ({ postId }) => {
-  const [selectedReaction, setSelectedReaction] = useState({reactionType : 'dislike'});
+export const ReactionPanel = ({ postId, userReaction }) => {
+  const [selectedReaction, setSelectedReaction] = useState(
+    userReaction ? userReaction : { reactionType: "no_reaction" }
+  );
   const [isPanelVisible, setPanelVisibility] = useState(false);
   const panelRef = useRef(null);
   const leaveTimeoutRef = useRef(null);
   const { _id: uid } = useSelector((state) => state.userData);
   const queryClient = useQueryClient();
-
-  const reactions = [
-    { reaction: "👍", reactionType: "like" },
-    { reaction: "❤️", reactionType: "heart" },
-    { reaction: "😂", reactionType: "happy" },
-    { reaction: "😯", reactionType: "surprise" },
-    { reaction: "😢", reactionType: "sad" },
-    { reaction: "😡", reactionType: "angry" },
-  ];
   const handleLike = () => {
     console.log("im aworking");
-    if (selectedReaction?.reactionType !== 'dislike') {
-      mutation.mutate({ postId: postId, createdBy: uid, reactionType: 'dislike' });
+    if (selectedReaction?.reactionType !== "no_reaction") {
+      mutation.mutate({ postId: postId, createdBy: uid, reactionType: "no_reaction" });
     } else {
-      mutation.mutate({ postId: postId, createdBy: uid, reactionType: 'like' });
+      mutation.mutate({ postId: postId, createdBy: uid, reactionType: "like" });
     }
   };
   const debounce = (func, delay) => {
@@ -44,13 +38,12 @@ export const ReactionPanel = ({ postId }) => {
     onMutate: (variables) => {
       return console.log("mutation is happening");
     },
-    onError: (error, variables, context) =>
-     console.log(error),
+    onError: (error, variables, context) => console.log(error),
     onSuccess: (res, variables, context) => {
       console.log(res);
       setSelectedReaction(res?.data?.data.updatedReaction);
       setPanelVisibility(false);
-      queryClient.invalidateQueries('getAllPosts');
+      queryClient.invalidateQueries("getAllPosts");
     },
     onSettled: (data, error, variables, context) => {},
   });
@@ -64,13 +57,19 @@ export const ReactionPanel = ({ postId }) => {
         sx={{ position: "relative" }}
         onClick={handleLike}
       >
-        { selectedReaction?.reactionType !== 'dislike' ? (
+        {selectedReaction?.reactionType !== "no_reaction" ? (
           <>
             <Text fontSize={"20px"}>
               {reactions.find((item, ind) => item?.reactionType === selectedReaction?.reactionType)?.reaction}
             </Text>
-            <Text fontSize={{ sm: "14px", md: "16px" }} fontWeight="800">
-              {selectedReaction?.reactionType}
+            <Text
+              fontSize={{ sm: "14px", md: "16px" }}
+              fontWeight="800"
+              color={() =>
+                reactions.find((item, ind) => item?.reactionType === selectedReaction?.reactionType)?.fontColor
+              }
+            >
+              {selectedReaction?.reactionType?.charAt(0).toUpperCase() + selectedReaction?.reactionType?.slice(1)}
             </Text>
           </>
         ) : (

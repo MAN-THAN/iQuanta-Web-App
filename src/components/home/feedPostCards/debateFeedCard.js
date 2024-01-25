@@ -1,25 +1,39 @@
-import { Box, Divider, Flex, HStack, Image, Stack, Tag, Text } from "@chakra-ui/react";
-import { Dot, MessageCircle, MoreHorizontal, MoreVertical, Share2, ThumbsUp } from "lucide-react";
+import {
+  Avatar,
+  AvatarGroup,
+  Box,
+  Divider,
+  Flex,
+  HStack,
+  Image,
+  Stack,
+  TableContainer,
+  Tag,
+  Text,
+} from "@chakra-ui/react";
+import { Dot, MessageCircle, MoreVertical, ThumbsUp } from "lucide-react";
 import React from "react";
-import LikeEmojiGroup from "@/components/common/likeEmojiGroup";
-import CommentSlider from "@/components/postCards/commentSlider/commentSlider";
-import { MdPlayArrow } from "react-icons/md";
+import LikeEmojiGroup from "../../common/likeEmojiGroup";
+import CommentSlider from "../../postCards/commentSlider/commentSlider";
+import AvatarGroups from "../../common/avatarGroups";
+import { ReactionPanel } from "../../common/reactionPanel";
 import moment from "moment";
-import { ReactionPanel } from "@/components/common/reactionPanel";
 
-const ImageFeedCard = ({
+const DebateFeedCard = ({
   name,
   uid,
+  profilePic,
   title,
+  options,
   reactionCount,
   commentCount,
   createdAt,
   media,
-  comments,
-  profilePic,
-  followingCount,
+  triggeredFrom,
   postId,
-  userReaction,
+  followingCount,
+  participants,
+  userReaction
 }) => {
   const getTime = () => {
     const endDate = moment(createdAt);
@@ -29,16 +43,17 @@ const ImageFeedCard = ({
     // console.log(duration, "duration");
     return Math.trunc(Math.abs(hours));
   };
-  return (
+    return (
     <Box bg="#fff" mt="1">
       <HStack align="center" justifyContent="space-between" padding={["3", null, "4"]}>
         <Box
           sx={{
             display: "flex",
             alignItems: "center",
+            width: ["auto", null, "280px"],
           }}
         >
-          <Box boxSize="40px">
+          <Box boxSize="45px">
             <Image
               objectFit="cover"
               width="100%"
@@ -49,27 +64,39 @@ const ImageFeedCard = ({
             />
           </Box>
           <Box ml="2">
-            <Box display="flex" alignItems="center">
-              <p style={{ fontSize: "14px", color: "#171717", fontWeight: "600" }}>{name}</p> <MdPlayArrow />
-              {/* <p style={{ fontSize: "14px", color: "#171717", fontWeight: "400" }}>Posted in CAT 2021</p> */}
-            </Box>
+            <p style={{ fontSize: "18px", color: "#171717", fontWeight: "600" }}>{name}</p>
             <p style={{ fontSize: "14px", color: "#636363" }}>{getTime()} h ago</p>
           </Box>
         </Box>
         <Box display="flex" alignItems="center" gap="4">
-          <MoreHorizontal size="24px" />
+          <MoreVertical size="24px" />
         </Box>
       </HStack>
       <Stack padding={["3", null, "4"]}>
-        <Text fontSize="14px" lineHeight="24px">
-          <p>{title}</p>
-        </Text>
-        <Box maxH="460px" maxW="100vh" overflow="hidden">
-          <Image alt="video" w="100%" h="100%" objectFit="cover" src={media?.[0]} />
+        <Box p="4">
+          <Box bg="brand.900" color="white.900" p="6" roundedTop="2xl" position="relative" overflow="hidden">
+            <Box position="absolute" top="0" right="0">
+              <Image alt="vector img" src="/Vector103.svg" />
+            </Box>
+            <Tag>Debate</Tag>
+            <Text fontSize="22px" fontWeight="500" pt="4" maxW="350px">
+              {title}
+            </Text>
+          </Box>
+          <Box bg="#F4F3FE" p="4" roundedBottom="2xl">
+            <HStack>
+              <Text fontSize="16px" color="#000000" fontWeight="400">
+                Participants
+              </Text>
+              <AvatarGroup max={3} size="sm" gap="0">
+                {participants?.map((item, ind) =>  <Avatar key={ind} name={item.name} src={item?.profilePic} />)}
+              </AvatarGroup>
+            </HStack>
+          </Box>
         </Box>
         <HStack align="center" fontWeight="400" fontSize="14px" padding="4">
           <Box display="flex" alignItems="center">
-            <LikeEmojiGroup />
+            <LikeEmojiGroup userReaction={userReaction} />
             <span
               style={{
                 fontSize: "14px",
@@ -109,15 +136,13 @@ const ImageFeedCard = ({
             </span>
           </Box>
         </HStack>
-        <Divider />
         <ReactionPanel postId={postId} userReaction={userReaction} />
-        <Divider />
       </Stack>
       <Box p="4">
-        <CommentSlider comments={comments} />
+        <CommentSlider />
       </Box>
     </Box>
   );
 };
 
-export default ImageFeedCard;
+export default DebateFeedCard;
