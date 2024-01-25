@@ -1,27 +1,14 @@
 import BackButton from "@/components/common/backButton";
-import {
-  Box,
-  Button,
-  Center,
-  Flex,
-  FormControl,
-  FormLabel,
-  HStack,
-  IconButton,
-  Image,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
-import { ChevronDownIcon, Minus, Plus, SearchIcon } from "lucide-react";
+import { Box, Button, Center, Flex, HStack, IconButton, Image, Stack, Text, useDisclosure } from "@chakra-ui/react";
+import AccelareaderSetting from "./accelareaderSetting";
 
-const AccelareaderShortcuts = () => {
+const AccelareaderPlayPage = () => {
+  const { isOpen, onClose, onOpen } = useDisclosure();
+
   return (
     <>
-      <Box mt="4" bg="#fff" roundedTop="2xl" p="4">
+      <AccelareaderSetting isOpen={isOpen} onClose={onClose} />
+      <Box bg="#fff" roundedTop="2xl" p="4">
         <HStack py="4">
           <BackButton />
           <Box>
@@ -53,6 +40,7 @@ const AccelareaderShortcuts = () => {
               icon={<Image src="/Repeat.svg" />}
             />
             <IconButton
+              onClick={onOpen}
               sx={{
                 bg: "black !important",
                 color: "#fff",
@@ -72,7 +60,7 @@ const AccelareaderShortcuts = () => {
             </Text>
           </Center>
         </Box>
-        <HStack>
+        <HStack fontSize={{ base: "12px", md: "14px" }}>
           <Text>
             Current Settings :<strong> 200 wpm </strong>
           </Text>
@@ -80,49 +68,45 @@ const AccelareaderShortcuts = () => {
             Text Size :<strong> Small</strong>
           </Text>
         </HStack>
-        <Box h="20vh" rounded="xl" border="1px dashed #000" my="4">
+        <Box h={{ base: "25vh", md: "15vh" }} rounded="xl" border="1px dashed #000" my="4">
           <Text py="4" fontWeight="500" textAlign="center">
             Keyboard Shortcuts
           </Text>
-          <Flex justifyContent="space-evenly" alignItems="center">
-            <Stack>
+          <Flex justifyContent="space-between" alignItems="center" flexWrap={{ base: "wrap", md: "nowrap" }}>
+            <Stack pb="4">
               <Text>Restart</Text>
               <Center boxSize="30px" border="1px solid" borderBottom="5px solid #000" rounded="lg">
                 R
               </Center>
             </Stack>
-            <Stack>
+            <Stack pb="4">
               <Text>Pause/Resume:</Text>
               <Center width="100px" border="1px solid" borderBottom="5px solid #000" rounded="lg">
                 space
               </Center>
             </Stack>
-            <HStack>
-              <Stack>
-                <Text>Increase/Decrease wpm (x25):</Text>
-                <HStack>
-                  <Center boxSize="30px" border="1px solid" borderBottom="5px solid #000" rounded="lg">
-                    <Image src="/Polygon.svg" />
-                  </Center>
-                  <Center boxSize="30px" border="1px solid" borderBottom="5px solid #000" rounded="lg">
-                    <Image src="/Polygon2.svg" />
-                  </Center>
-                </HStack>
-              </Stack>
-            </HStack>
-            <HStack>
-              <Stack>
-                <Text>Skip words:</Text>
-                <HStack>
-                  <Center boxSize="30px" border="1px solid" borderBottom="5px solid #000" rounded="lg">
-                    <Image src="/PolygonLeft.svg" />
-                  </Center>
-                  <Center boxSize="30px" border="1px solid" borderBottom="5px solid #000" rounded="lg">
-                    <Image src="/PolygonRight.svg" />
-                  </Center>
-                </HStack>
-              </Stack>
-            </HStack>
+            <Stack pb="4">
+              <Text>Increase/Decrease wpm (x25):</Text>
+              <HStack>
+                <Center boxSize="30px" border="1px solid" borderBottom="5px solid #000" rounded="lg">
+                  <Image src="/Polygon.svg" />
+                </Center>
+                <Center boxSize="30px" border="1px solid" borderBottom="5px solid #000" rounded="lg">
+                  <Image src="/Polygon2.svg" />
+                </Center>
+              </HStack>
+            </Stack>
+            <Stack pb="4">
+              <Text>Skip words:</Text>
+              <HStack>
+                <Center boxSize="30px" border="1px solid" borderBottom="5px solid #000" rounded="lg">
+                  <Image src="/PolygonLeft.svg" />
+                </Center>
+                <Center boxSize="30px" border="1px solid" borderBottom="5px solid #000" rounded="lg">
+                  <Image src="/PolygonRight.svg" />
+                </Center>
+              </HStack>
+            </Stack>
           </Flex>
         </Box>
         <Flex gap="10" my="3">
@@ -158,4 +142,4 @@ const AccelareaderShortcuts = () => {
   );
 };
 
-export default AccelareaderShortcuts;
+export default AccelareaderPlayPage;

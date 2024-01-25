@@ -49,7 +49,7 @@ const CardFeedCard = ({ name, uid, title, reactionCount, commentCount, createdAt
       <Stack padding={["3", null, "4"]}>
         <Card bg="#1D1D1D" p="20">
           <Text color="#fff" fontSize="32px">
-            {title}{" "}
+            {title}
           </Text>
         </Card>
         <HStack align="center" fontWeight="400" fontSize="14px" padding="4">
@@ -69,11 +69,9 @@ const CardFeedCard = ({ name, uid, title, reactionCount, commentCount, createdAt
             <span style={{ fontSize: "14px", fontWeight: "500", color: "#8D96A5", paddingLeft: "5px" }}>following</span>
           </Box>
         </HStack>
-        <Divider />
         <ReactionPanel />
-        <Divider />
       </Stack>
-      <Box p="4">
+      <Box p="0">
         <CommentSlider />
       </Box>
     </Box>

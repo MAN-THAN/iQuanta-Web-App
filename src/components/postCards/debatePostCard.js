@@ -118,7 +118,7 @@ const DebatePostCard = () => {
         </HStack>
         <ReactionPanel />
       </Stack>
-      <Box p="4">
+      <Box p="0">
         <CommentSlider />
       </Box>
     </Box>

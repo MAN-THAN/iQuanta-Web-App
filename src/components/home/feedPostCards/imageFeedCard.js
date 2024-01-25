@@ -96,11 +96,9 @@ const ImageFeedCard = ({ name, uid, title, reactionCount, commentCount, createdA
             </span>
           </Box>
         </HStack>
-        <Divider />
         <ReactionPanel />
-        <Divider />
       </Stack>
-      <Box p="4">
+      <Box p="0">
         <CommentSlider comments={comments} />
       </Box>
     </Box>
