@@ -11,10 +11,11 @@ import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getAllPost } from "@/api/feed/user";
+import DebatePostCard from "@/components/postCards/debatePostCard";
 
 export const FeedPostList = () => {
   const [postList, setPostList] = useState([]);
-  const {_id:uid} = useSelector(state => state.userData);
+  const { _id: uid } = useSelector((state) => state.userData);
   const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } = useInfiniteQuery({
     queryKey: ["getAllPosts", uid],
     queryFn: ({ pageParam = 1, limit = 10 }) => getAllPost(pageParam, limit),
@@ -59,7 +60,6 @@ export const FeedPostList = () => {
                 media={item?.postTypeId?.media}
                 comments={item?.comments}
                 postId={item?.postTypeId?._id}
-
               />
             );
           } else {
@@ -77,7 +77,6 @@ export const FeedPostList = () => {
               createdAt={item?.postTypeId?.createdAt}
               media={item?.postTypeId?.media}
               postId={item?.postTypeId?._id}
-
             />
           );
         else if (item.postType === "memes")
@@ -92,7 +91,6 @@ export const FeedPostList = () => {
               createdAt={item?.postTypeId?.createdAt}
               media={item?.postTypeId?.media}
               postId={item?.postTypeId?._id}
-
             />
           );
         else if (item.postType === "text")
@@ -107,7 +105,6 @@ export const FeedPostList = () => {
               createdAt={item?.postTypeId?.createdAt}
               media={item?.postTypeId?.media}
               postId={item?.postTypeId?._id}
-
             />
           );
         else if (item.postType === "poll")
@@ -122,13 +119,13 @@ export const FeedPostList = () => {
               createdAt={item?.postTypeId?.createdAt}
               media={item?.postTypeId?.media}
               postId={item?.postTypeId?._id}
-
             />
           );
 
         // else if (item.post_type === "video") return <SuggestionSection />;
       })}
       <ToastContainer />
+      <DebatePostCard />
     </Box>
   );
 };

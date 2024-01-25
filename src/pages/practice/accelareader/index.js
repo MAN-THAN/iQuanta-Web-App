@@ -10,10 +10,10 @@ import React from "react";
 const Accelareader = () => {
   return (
     <PracticeLayout>
-      {/* <AccelareaderPage /> */}
+      <AccelareaderPage />
       {/* <AccelareaderShortcuts /> */}
       {/* <AccelareaderTextField /> */}
-      <AccelareaderSetting />
+      {/* <AccelareaderSetting /> */}
       {/* <AccelareaderTopicList /> */}
     </PracticeLayout>
   );
