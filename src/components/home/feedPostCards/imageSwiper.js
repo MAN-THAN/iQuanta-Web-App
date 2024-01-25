@@ -10,7 +10,7 @@ import { Carousel } from "antd";
 import { array } from "prop-types";
 import { ReactionPanel } from "@/components/common/reactionPanel";
 
-const ImageSwiper = ({ name, uid, profilePic, title, reactionCount, commentCount, createdAt, media }) => {
+const ImageSwiper = ({ name, uid, profilePic, title, reactionCount, commentCount, createdAt, media, postId }) => {
   //console.log(name, uid, profilePic, title, reactionCount, commentCount, createdAt, media,'13');
   const getTime = () => {
     const endDate = moment(createdAt);
@@ -140,7 +140,7 @@ const ImageSwiper = ({ name, uid, profilePic, title, reactionCount, commentCount
           </Box>
         </HStack>
         <Divider />
-        <ReactionPanel />
+        <ReactionPanel postId={postId} />
         <Divider />
       </Stack>
       <Box p="4">

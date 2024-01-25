@@ -7,7 +7,7 @@ import { MdPlayArrow } from "react-icons/md";
 import moment from "moment";
 import { ReactionPanel } from "@/components/common/reactionPanel";
 
-const TextFeedCard = ({ classId, name, uid, title, reactionCount, commentCount, createdAt, media }) => {
+const TextFeedCard = ({ classId, name, uid, title, reactionCount, commentCount, createdAt, media, postId }) => {
   const router = useRouter();
   const getTime = () => {
     const endDate = moment(createdAt);
@@ -109,7 +109,7 @@ const TextFeedCard = ({ classId, name, uid, title, reactionCount, commentCount, 
             <Share2 /> <span>Share</span>
           </HStack>
         </Flex> */}
-        <ReactionPanel />
+        <ReactionPanel postId={postId} />
         <Divider />
       </Stack>
       <Box p="4">
