@@ -59,7 +59,7 @@ const ChallengeDetailJoin = ({ isOpen, onClose, challengeData }) => {
                   boxSize={{ base: "70px", md: "80px" }}
                   rounded="xl"
                   fit="cover"
-                  src="/static/images/profile.jpeg"
+                  src="/profile.jpeg"
                 />
                 <Text fontSize="14px" pt="6" color="#8D96A5" fontWeight="600">
                   You’ve posted a {challengeData?.postType} challenge successfully!

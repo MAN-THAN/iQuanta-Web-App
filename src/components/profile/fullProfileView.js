@@ -36,7 +36,7 @@ const FullProfileView = ({ isOpen, onOpen, onClose }) => {
             <Box width={["100%", null, "67%"]}>
               <Image
                 borderLeftRadius="md"
-                src="/static/images/Profile.jpeg"
+                src="/profile.jpeg"
                 alt="Profile Image"
                 objectFit="cover"
                 w="100%"
@@ -59,7 +59,7 @@ const FullProfileView = ({ isOpen, onOpen, onClose }) => {
                         width="100%"
                         height="100%"
                         className="rounded-md"
-                        src="/static/images/Profile.jpeg"
+                        src="/profile.jpeg"
                         alt="Profile Image"
                       />
                     </Box>
@@ -200,7 +200,7 @@ const FullProfileView = ({ isOpen, onOpen, onClose }) => {
                         width="100%"
                         height="100%"
                         className="rounded-md"
-                        src="/static/images/Profile.jpeg"
+                        src="/profile.jpeg"
                         alt="Profile Image"
                       />
                     </Box>
@@ -280,7 +280,7 @@ const FullProfileView = ({ isOpen, onOpen, onClose }) => {
                           width="100%"
                           height="100%"
                           className="rounded-md"
-                          src="/static/images/Profile.jpeg"
+                          src="/profile.jpeg"
                           alt="Profile Image"
                         />
                       </Box>

@@ -98,7 +98,7 @@ const SolutionFullScreen = () => {
                         width="100%"
                         height="100%"
                         className="rounded-md"
-                        src="/static/images/Profile.jpeg"
+                        src="/profile.jpeg"
                         alt="Profile Image"
                       />
                     </Box>
@@ -179,7 +179,7 @@ const SolutionFullScreen = () => {
                       width="100%"
                       height="100%"
                       className="rounded-md"
-                      src="/static/images/Profile.jpeg"
+                      src="/profile.jpeg"
                       alt="Profile Image"
                     />
                   </Box>

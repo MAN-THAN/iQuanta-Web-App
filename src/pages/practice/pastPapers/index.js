@@ -5,11 +5,10 @@ import SolutionFullScreen from "@/components/practice/practiceSolution/solutionF
 const PastPapers = () => {
   return (
     <MockTestQuizLayout>
-      {/* <Template1 /> */}
-      <SolutionFullScreen/>
+      <Template1 />
+      {/* <SolutionFullScreen/> */}
     </MockTestQuizLayout>
   );
 };
 
 export default PastPapers;
-         

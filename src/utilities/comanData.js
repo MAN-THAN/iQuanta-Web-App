@@ -96,13 +96,13 @@ export const messages = [
   {
     from: "computer",
     text: "This is image and text.",
-    img: "/static/images/Profile.jpeg",
+    img: "/profile.jpeg",
     type: "image",
   },
   {
     from: "me",
     text: "Image and text",
-    img: "/static/images/Profile.jpeg",
+    img: "/profile.jpeg",
     type: "image",
   },
 ];
