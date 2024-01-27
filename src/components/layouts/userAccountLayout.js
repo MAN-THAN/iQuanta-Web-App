@@ -4,7 +4,7 @@ import MainHeader from "../mainHeader";
 import { extendTheme } from "@chakra-ui/react";
 import { ChakraProvider } from "@chakra-ui/react";
 import HomeRightSidebar from "../rightSidebars/homeRightSidebar";
-import MainLeftNavigation from "../leftNavigations/mainLeftNavigation";
+// import MainLeftNavigation from "../leftNavigations/mainLeftnavigation";
 import UserAccountSidebar from "../leftSidebar/userAccountSidebar";
 import UserRightSiderbar from "../rightSidebars/userRightSiderbar";
 

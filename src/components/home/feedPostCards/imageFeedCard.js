@@ -29,6 +29,7 @@ const ImageFeedCard = ({
     // console.log(duration, "duration");
     return Math.trunc(Math.abs(hours));
   };
+  console.log(reactionCount);
   return (
     <Box bg="#fff" mt="1">
       <HStack align="center" justifyContent="space-between" padding={["3", null, "4"]}>
