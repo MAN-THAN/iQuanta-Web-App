@@ -1,27 +1,28 @@
 import request from "@/api/request";
 
-
 //comment apis
-export const createUserPostComment=async(postId,uid)=>{
+export const createUserPostComment = async (payload) => {
+  try {
+    const res = await request({
+      url: `/feed/v1/user/comment`,
+      type: "POST",
+      data: payload,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return res;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};
 
-}
+export const editUserPostComment = async (postId, uid) => {};
 
-export const editUserPostComment=async(postId,uid)=>{
+export const getUserPostComments = async (postId, uid) => {};
 
-} 
+export const userCommentReactToComment = async (postId, uid) => {};
 
-
-export const getUserPostComments=async(postId,uid)=>{
-
-}
-
-export const userCommentReactToComment=async(postId,uid)=>{
-
-}
-
-export const userPostCommentReport=async(postId,uid)=>{
-
-}
-export const userPostComment = () => {
-    
-}
+export const userPostCommentReport = async (postId, uid) => {};
+export const userPostComment = () => {};

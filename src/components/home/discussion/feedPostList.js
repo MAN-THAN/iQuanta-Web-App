@@ -46,7 +46,8 @@ export const FeedPostList = () => {
                 comments={item?.comments}
                 postId={item?.postTypeId?._id}
                 userReaction={item?.userReaction}
-
+                followingCount={item?.followingCount}
+                reactionCountDetail={item?.reactionCountDetail}
               />
             );
           else if (item.postTypeId?.media?.length > 1) {
@@ -63,6 +64,8 @@ export const FeedPostList = () => {
                 comments={item?.comments}
                 postId={item?.postTypeId?._id}
                 userReaction={item?.userReaction}
+                followingCount={item?.followingCount}
+                reactionCountDetail={item?.reactionCountDetail}
 
               />
             );
@@ -82,6 +85,9 @@ export const FeedPostList = () => {
               media={item?.postTypeId?.media}
               postId={item?.postTypeId?._id}
               userReaction={item?.userReaction}
+              followingCount={item?.followingCount}
+              reactionCountDetail={item?.reactionCountDetail}
+              comments={item?.comments}
 
             />
           );
@@ -98,6 +104,9 @@ export const FeedPostList = () => {
               media={item?.postTypeId?.media}
               postId={item?.postTypeId?._id}
               userReaction={item?.userReaction}
+              followingCount={item?.followingCount}
+              reactionCountDetail={item?.reactionCountDetail}
+              comments={item?.comments}
 
             />
           );
@@ -114,7 +123,9 @@ export const FeedPostList = () => {
               media={item?.postTypeId?.media}
               postId={item?.postTypeId?._id}
               userReaction={item?.userReaction}
-
+              followingCount={item?.followingCount}
+              reactionCountDetail={item?.reactionCountDetail}
+              comments={item?.comments}
             />
           );
         else if (item.postType === "poll")
@@ -130,7 +141,9 @@ export const FeedPostList = () => {
               media={item?.postTypeId?.media}
               postId={item?.postTypeId?._id}
               userReaction={item?.userReaction}
-
+              followingCount={item?.followingCount}
+              reactionCountDetail={item?.reactionCountDetail}
+              comments={item?.comments}
             />
           );
           else if (item.postType === "debate")
@@ -147,6 +160,10 @@ export const FeedPostList = () => {
               postId={item?.postTypeId?._id}
               participants={item?.postTypeId?.participants}
               userReaction={item?.userReaction}
+              followingCount={item?.followingCount}
+              reactionCountDetail={item?.reactionCountDetail}
+              comments={item?.comments}
+
             />
           );
 

@@ -14,9 +14,7 @@ import LikeEmojiGroup from "../common/likeEmojiGroup";
 import CommentSlider from "./commentSlider/commentSlider";
 
 const ImagePostCard = () => {
-  const getTime = () => {
-    
-  }
+ 
   return (
     <Box bg="#fff" mt="4">
       <HStack

@@ -59,13 +59,14 @@ const FeedTabsSection = () => {
             <TabPanel padding="0">
               <>
                 <PostFormSection openModal={onOpenDiscussion} setClickPhoto={setClickPhoto} />
-                <SuggestionSection />
+                {/* <SuggestionSection /> */}
                 <FeedPostList />
               </>
             </TabPanel>
             <TabPanel padding="0">
               <>
                 <ChallengeForm openModal={onOpenChallenge} triggeredFrom="user" />
+                <SuggestionSection />
                 <ChallengeList triggeredFrom="user" />
               </>
             </TabPanel>

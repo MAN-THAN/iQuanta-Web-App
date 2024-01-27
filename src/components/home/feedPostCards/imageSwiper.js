@@ -5,22 +5,26 @@ import LikeEmojiGroup from "@/components/common/likeEmojiGroup";
 import CommentSlider from "@/components/postCards/commentSlider/commentSlider";
 import VideoPlayer from "@/components/common/videoPlayer";
 import { MdPlayArrow } from "react-icons/md";
-import moment from "moment";
 import { Carousel } from "antd";
 import { array } from "prop-types";
 import { ReactionPanel } from "@/components/common/reactionPanel";
+import { getTimeAgo } from "@/utilities/utilityFunction";
 
-const ImageSwiper = ({ name, uid, profilePic, title, reactionCount, commentCount, createdAt, media, postId }) => {
-  //console.log(name, uid, profilePic, title, reactionCount, commentCount, createdAt, media,'13');
-  const getTime = () => {
-    const endDate = moment(createdAt);
-    const duration = moment.duration(endDate.diff(moment(Date.now())));
-    const hours = duration.asHours();
-    // console.log(hours, "hours");
-    // console.log(duration, "duration");
-    return Math.trunc(Math.abs(hours));
-  };
-
+const ImageSwiper = ({
+  name,
+  uid,
+  profilePic,
+  title,
+  reactionCount,
+  commentCount,
+  createdAt,
+  media,
+  postId,
+  followingCount,
+  reactionCountDetail,
+  userReaction,
+  comments
+}) => {
   const sliderIMg = [
     {
       img: "https://img.freepik.com/free-photo/technology-online-shopping-young-smiling-woman-looking-determined-advicing-download-app-showing_1258-121701.jpg?size=338&ext=jpg&ga=GA1.1.1546980028.1703808000&semt=ais",
@@ -58,7 +62,7 @@ const ImageSwiper = ({ name, uid, profilePic, title, reactionCount, commentCount
               <p style={{ fontSize: "14px", color: "#171717", fontWeight: "600" }}>{name}</p> <MdPlayArrow />
               {/* <p style={{ fontSize: "14px", color: "#171717", fontWeight: "400" }}>Posted in CAT 2021</p> */}
             </Box>
-            <p style={{ fontSize: "14px", color: "#636363" }}>{getTime()} h ago</p>
+            <p style={{ fontSize: "14px", color: "#636363" }}>{getTimeAgo(createdAt)}</p>
           </Box>
         </Box>
         <Box display="flex" alignItems="center" gap="4">
@@ -99,7 +103,7 @@ const ImageSwiper = ({ name, uid, profilePic, title, reactionCount, commentCount
         </Carousel>
         <HStack align="center" fontWeight="400" fontSize="14px" padding="4">
           <Box display="flex" alignItems="center">
-            <LikeEmojiGroup />
+            <LikeEmojiGroup userReaction={userReaction} reactionCountDetail={reactionCountDetail}  />
             <span
               style={{
                 fontSize: "14px",
@@ -108,11 +112,11 @@ const ImageSwiper = ({ name, uid, profilePic, title, reactionCount, commentCount
                 paddingLeft: "5px",
               }}
             >
-              {commentCount}
+              {reactionCount}
             </span>
           </Box>
           <Box pl="5">
-            <span style={{ fontSize: "14px", fontWeight: "600", color: "#455564" }}>12</span>
+            <span style={{ fontSize: "14px", fontWeight: "600", color: "#455564" }}>{commentCount}</span>
             <span
               style={{
                 fontSize: "14px",
@@ -126,7 +130,7 @@ const ImageSwiper = ({ name, uid, profilePic, title, reactionCount, commentCount
           </Box>
           <Dot color="#8D96A5" />
           <Box>
-            <span style={{ fontSize: "14px", fontWeight: "600", color: "#455564" }}>53</span>
+            <span style={{ fontSize: "14px", fontWeight: "600", color: "#455564" }}>{followingCount}</span>
             <span
               style={{
                 fontSize: "14px",
@@ -144,7 +148,7 @@ const ImageSwiper = ({ name, uid, profilePic, title, reactionCount, commentCount
         <Divider />
       </Stack>
       <Box p="0">
-        <CommentSlider />
+        <CommentSlider comments={comments} />
       </Box>
     </Box>
   );

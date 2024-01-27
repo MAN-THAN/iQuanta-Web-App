@@ -4,14 +4,6 @@ import {
   Text,
   Tooltip,
   Box,
-  Divider,
-  Collapse,
-  useDisclosure,
-  InputGroup,
-  Input,
-  InputRightElement,
-  Image,
-  InputLeftElement,
 } from "@chakra-ui/react";
 import { ThumbsUp, MessageCircle, Share2 } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
@@ -19,9 +11,10 @@ import { useSelector } from "react-redux";
 import { useMutation, useQueryClient } from "react-query";
 import { postUserReaction } from "@/api/feed/user/reaction";
 import { reactions } from "@/utilities/comanData";
+import { CommentPanel } from "./commentPanel";
+import { useDisclosure } from "@chakra-ui/react";
 
 export const ReactionPanel = ({ postId, userReaction }) => {
-
   const { isOpen: isOpenComment, onToggle: onToggleComment, onClose: onClose } = useDisclosure();
   const [selectedReaction, setSelectedReaction] = useState(
     userReaction ? userReaction : { reactionType: "no_reaction" }
@@ -145,18 +138,7 @@ export const ReactionPanel = ({ postId, userReaction }) => {
           </Text>
         </HStack>
       </Flex>
-      <Collapse in={isOpenComment} animateOpacity>
-        <InputGroup size="lg">
-          <Input type="tel" pr="6.3rem" placeholder="Type here..." />
-          <InputLeftElement>
-            <Image boxSize="40px" fit="cover" rounded="lg" src="/profile.jpeg" />
-          </InputLeftElement>
-          <InputRightElement width="100px" alignItems="center" justifyContent="space-around">
-            <Image cursor="pointer" src="/image.svg" />
-            <Text cursor="pointer">Post</Text>
-          </InputRightElement>
-        </InputGroup>
-      </Collapse>
+      <CommentPanel isOpenComment={isOpenComment} postId={postId} />
     </>
   );
 };
