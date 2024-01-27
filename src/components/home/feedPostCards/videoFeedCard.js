@@ -8,7 +8,18 @@ import moment from "moment";
 import VideoPlayer from "@/components/common/videoPlayer";
 import { ReactionPanel } from "@/components/common/reactionPanel";
 
-const VideoFeedCard = ({ name, uid, title, reactionCount, commentCount, createdAt, media, comments, profilePic, postId }) => {
+const VideoFeedCard = ({
+  name,
+  uid,
+  title,
+  reactionCount,
+  commentCount,
+  createdAt,
+  media,
+  comments,
+  profilePic,
+  postId,
+}) => {
   const getTime = () => {
     const endDate = moment(createdAt);
     const duration = moment.duration(endDate.diff(moment(Date.now())));

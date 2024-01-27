@@ -59,11 +59,7 @@ const DebateFeedCard = ({
               width="100%"
               height="100%"
               className="rounded-md"
-<<<<<<< HEAD:src/components/postCards/debatePostCard.js
-              src="/profile.jpeg"
-=======
               src={profilePic}
->>>>>>> 5d3fb377fb80d4fb9749ec4d4cd7ad2b9ea6020c:src/components/home/feedPostCards/debateFeedCard.js
               alt="Profile Image"
             />
           </Box>
