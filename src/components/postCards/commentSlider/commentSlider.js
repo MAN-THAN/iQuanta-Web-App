@@ -17,7 +17,7 @@ const CommentSlider = ({ comments }) => {
     return Math.trunc(Math.abs(hours));
   };
   return (
-    <Box width="auto">
+    <Box width="auto" p='4'>
       <Swiper
         slidesPerView={1}
         spaceBetween={10}

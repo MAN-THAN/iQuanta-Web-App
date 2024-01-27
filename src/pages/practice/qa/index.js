@@ -6,7 +6,7 @@ import React from "react";
 const Qa = () => {
   return (
     <PracticeLayout>
-      <PracticeQa/>
+      <PracticeQa />
     </PracticeLayout>
   );
 };

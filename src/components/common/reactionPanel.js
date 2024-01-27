@@ -21,6 +21,8 @@ import { postUserReaction } from "@/api/feed/user/reaction";
 import { reactions } from "@/utilities/comanData";
 
 export const ReactionPanel = ({ postId, userReaction }) => {
+
+  const { isOpen: isOpenComment, onToggle: onToggleComment, onClose: onClose } = useDisclosure();
   const [selectedReaction, setSelectedReaction] = useState(
     userReaction ? userReaction : { reactionType: "no_reaction" }
   );
@@ -63,84 +65,98 @@ export const ReactionPanel = ({ postId, userReaction }) => {
   });
   console.log(selectedReaction);
   return (
-    <Flex align="center" justify="space-between" p="3">
-      <HStack
-        cursor="pointer"
-        onMouseEnter={() => setPanelVisibility(true)}
-        onMouseLeave={handleMouseLeave}
-        sx={{ position: "relative" }}
-        onClick={handleLike}
-      >
-        {selectedReaction?.reactionType !== "no_reaction" ? (
-          <>
-            <Text fontSize={"20px"}>
-              {reactions.find((item, ind) => item?.reactionType === selectedReaction?.reactionType)?.reaction}
-            </Text>
-            <Text
-              fontSize={{ sm: "14px", md: "16px" }}
-              fontWeight="800"
-              color={() =>
-                reactions.find((item, ind) => item?.reactionType === selectedReaction?.reactionType)?.fontColor
-              }
+    <>
+      <Flex align="center" justify="space-between" p="3">
+        <HStack
+          cursor="pointer"
+          onMouseEnter={() => setPanelVisibility(true)}
+          onMouseLeave={handleMouseLeave}
+          sx={{ position: "relative" }}
+          onClick={handleLike}
+        >
+          {selectedReaction?.reactionType !== "no_reaction" ? (
+            <>
+              <Text fontSize={"20px"}>
+                {reactions.find((item, ind) => item?.reactionType === selectedReaction?.reactionType)?.reaction}
+              </Text>
+              <Text
+                fontSize={{ sm: "14px", md: "16px" }}
+                fontWeight="800"
+                color={() =>
+                  reactions.find((item, ind) => item?.reactionType === selectedReaction?.reactionType)?.fontColor
+                }
+              >
+                {selectedReaction?.reactionType?.charAt(0).toUpperCase() + selectedReaction?.reactionType?.slice(1)}
+              </Text>
+            </>
+          ) : (
+            <>
+              <ThumbsUp fontSize={{ sm: "10px" }} />
+              <Text marginTop="4px" fontSize={{ sm: "14px", md: "16px" }} fontWeight="800">
+                Like
+              </Text>
+            </>
+          )}
+          {isPanelVisible && (
+            <Flex
+              ref={panelRef}
+              direction="row"
+              position="absolute"
+              bottom="40px"
+              left="10px"
+              background="white"
+              border="1px solid #ccc"
+              borderRadius="30px"
+              padding="5px"
+              zIndex={100}
+              gap={"1em"}
+              p={"0.8em"}
+              onMouseLeave={handleMouseLeave}
+              onMouseEnter={handleMouseEnter}
             >
-              {selectedReaction?.reactionType?.charAt(0).toUpperCase() + selectedReaction?.reactionType?.slice(1)}
-            </Text>
-          </>
-        ) : (
-          <>
-            <ThumbsUp fontSize={{ sm: "10px" }} />
-            <Text marginTop="4px" fontSize={{ sm: "14px", md: "16px" }} fontWeight="800">
-              Like
-            </Text>
-          </>
-        )}
-        {isPanelVisible && (
-          <Flex
-            ref={panelRef}
-            direction="row"
-            position="absolute"
-            bottom="40px"
-            left="10px"
-            background="white"
-            border="1px solid #ccc"
-            borderRadius="30px"
-            padding="5px"
-            zIndex={100}
-            gap={"1em"}
-            p={"0.8em"}
-            onMouseLeave={handleMouseLeave}
-            onMouseEnter={handleMouseEnter}
-          >
-            {reactions?.map((reaction, index) => (
-              <Tooltip key={index} label={`${reaction.reactionType}`} placement="top" marginBottom={"1em"}>
-                <HStack
-                  onClick={(e) => {
-                    // handleReactionClick(reaction);
-                    mutation.mutate({ postId: postId, createdBy: uid, reactionType: reaction.reactionType });
-                    e.stopPropagation();
-                  }}
-                  cursor="pointer"
-                  _hover={{ transform: "scale(2)", transition: "transform 0.2s ease-in-out" }}
-                >
-                  <Text fontSize="18px">{reaction.reaction}</Text>
-                </HStack>
-              </Tooltip>
-            ))}
-          </Flex>
-        )}
-      </HStack>
-      <HStack cursor="pointer">
-        <MessageCircle fontSize={{ sm: "14px" }} />
-        <Text fontSize={{ sm: "14px", md: "16px" }} fontWeight="800">
-          Comment
-        </Text>
-      </HStack>
-      <HStack cursor="pointer">
-        <Share2 fontSize={{ sm: "14px" }} />
-        <Text fontSize={{ sm: "14px", md: "16px" }} fontWeight="800">
-          Share
-        </Text>
-      </HStack>
-    </Flex>
+              {reactions?.map((reaction, index) => (
+                <Tooltip key={index} label={`${reaction.reactionType}`} placement="top" marginBottom={"1em"}>
+                  <HStack
+                    onClick={(e) => {
+                      // handleReactionClick(reaction);
+                      mutation.mutate({ postId: postId, createdBy: uid, reactionType: reaction.reactionType });
+                      e.stopPropagation();
+                    }}
+                    cursor="pointer"
+                    _hover={{ transform: "scale(2)", transition: "transform 0.2s ease-in-out" }}
+                  >
+                    <Text fontSize="18px">{reaction.reaction}</Text>
+                  </HStack>
+                </Tooltip>
+              ))}
+            </Flex>
+          )}
+        </HStack>
+        <HStack cursor="pointer" onClick={onToggleComment}>
+          <MessageCircle fontSize={{ sm: "14px" }} />
+          <Text fontSize={{ sm: "14px", md: "16px" }} fontWeight="800">
+            Comment
+          </Text>
+        </HStack>
+        <HStack cursor="pointer">
+          <Share2 fontSize={{ sm: "14px" }} />
+          <Text fontSize={{ sm: "14px", md: "16px" }} fontWeight="800">
+            Share
+          </Text>
+        </HStack>
+      </Flex>
+      <Collapse in={isOpenComment} animateOpacity>
+        <InputGroup size="lg">
+          <Input type="tel" pr="6.3rem" placeholder="Type here..." />
+          <InputLeftElement>
+            <Image boxSize="40px" fit="cover" rounded="lg" src="/profile.jpeg" />
+          </InputLeftElement>
+          <InputRightElement width="100px" alignItems="center" justifyContent="space-around">
+            <Image cursor="pointer" src="/image.svg" />
+            <Text cursor="pointer">Post</Text>
+          </InputRightElement>
+        </InputGroup>
+      </Collapse>
+    </>
   );
 };
