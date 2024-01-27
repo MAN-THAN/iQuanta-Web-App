@@ -25,18 +25,11 @@ import { MdPlayArrow } from "react-icons/md";
 import AvatarGroups from "@/components/common/avatarGroups";
 import moment from "moment";
 import { useSelector } from "react-redux";
+import { getTimeAgo } from "@/utilities/utilityFunction";
 
 const ChallengeCard = ({ challengeData , handleJoinChallenge,handleViewChallenge }) => {
   const {_id:uid} = useSelector((state) => state?.userData);
   const { title, timePerQuestion, totalQuestions, createdAt, difficultyLevel,createdBy } = challengeData || {};
-  const getTime = () => {
-    const endDate = moment(createdAt);
-    const duration = moment.duration(endDate.diff(moment(Date.now())));
-    const hours = duration.asHours();
-    // console.log(hours, "hours");
-    // console.log(duration, "duration");
-    return Math.trunc(Math.abs(hours));
-  };
   return (
     <Box bg="#fff" mt="1">
       <HStack align="center" justifyContent="space-between" padding={["3", null, "4"]}>
@@ -61,7 +54,7 @@ const ChallengeCard = ({ challengeData , handleJoinChallenge,handleViewChallenge
               <p style={{ fontSize: "14px", color: "#171717", fontWeight: "600" }}>Hardik Beniwal</p> <MdPlayArrow />{" "}
               {/* <p style={{ fontSize: "14px", color: "#171717", fontWeight: "400" }}>Posted in CAT 2021</p> */}
             </Box>
-            <p style={{ fontSize: "14px", color: "#636363" }}>{getTime()} h ago</p>
+            <p style={{ fontSize: "14px", color: "#636363" }}>{getTimeAgo(createdAt)}</p>
           </Box>
         </Box>
         <Box display="flex" alignItems="center" gap="4">

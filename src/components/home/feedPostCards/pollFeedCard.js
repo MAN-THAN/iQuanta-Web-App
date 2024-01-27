@@ -5,12 +5,13 @@ import LikeEmojiGroup from "@/components/common/likeEmojiGroup";
 import AvatarGroups from "@/components/common/avatarGroups";
 import { MdPlayArrow } from "react-icons/md";
 import { Progress } from "@chakra-ui/react";
-import moment from "moment";
 import { useMutation, useQueryClient } from "react-query";
 import { groupMarkPoll } from "@/api/feed/groups/post";
 import { randomColors } from "@/utilities/commonFunctions";
 import { ReactionPanel } from "@/components/common/reactionPanel";
 import CommentSlider from "@/components/postCards/commentSlider/commentSlider";
+import { getTimeAgo } from "@/utilities/utilityFunction";
+
 const PollFeedCard = ({
   name,
   uid,
@@ -24,6 +25,8 @@ const PollFeedCard = ({
   triggeredFrom,
   postId,
   followingCount,
+  reactionCountDetail,
+  comments
 }) => {
   const [value, setValue] = React.useState();
   useEffect(() => {
@@ -65,12 +68,6 @@ const PollFeedCard = ({
     mutation.mutate({ postId: postId, option: options[value]?._id, uid: uid });
     //add api call to mark a poll
   };
-  const getTime = () => {
-    const endDate = moment(createdAt);
-    const duration = moment.duration(endDate.diff(moment(Date.now())));
-    const hours = duration.asHours();
-    return Math.trunc(Math.abs(hours));
-  };
 
   return (
     <>
@@ -97,7 +94,7 @@ const PollFeedCard = ({
                 <p style={{ fontSize: "14px", color: "#171717", fontWeight: "600" }}>{name}</p> <MdPlayArrow />
                 {/* <p style={{ fontSize: "14px", color: "#171717", fontWeight: "400" }}>Posted in CAT 2021</p> */}
               </Box>
-              <p style={{ fontSize: "14px", color: "#636363" }}>{getTime()} h ago</p>
+              <p style={{ fontSize: "14px", color: "#636363" }}>{getTimeAgo(createdAt)}</p>
             </Box>
           </Box>
           <Box display="flex" alignItems="center" gap="4">
@@ -177,7 +174,7 @@ const PollFeedCard = ({
           <ReactionPanel postId={postId} />
         </Stack>
         <Box p="0">
-          <CommentSlider />
+          <CommentSlider comments={comments} />
         </Box>
       </Box>
     </>

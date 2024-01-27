@@ -17,7 +17,7 @@ import LikeEmojiGroup from "../../common/likeEmojiGroup";
 import CommentSlider from "../../postCards/commentSlider/commentSlider";
 import AvatarGroups from "../../common/avatarGroups";
 import { ReactionPanel } from "../../common/reactionPanel";
-import moment from "moment";
+import { getTimeAgo } from "@/utilities/utilityFunction";
 
 const DebateFeedCard = ({
   name,
@@ -33,16 +33,11 @@ const DebateFeedCard = ({
   postId,
   followingCount,
   participants,
-  userReaction
+  userReaction,
+  reactionCountDetail,
+  comments
 }) => {
-  const getTime = () => {
-    const endDate = moment(createdAt);
-    const duration = moment.duration(endDate.diff(moment(Date.now())));
-    const hours = duration.asHours();
-    // console.log(hours, "hours");
-    // console.log(duration, "duration");
-    return Math.trunc(Math.abs(hours));
-  };
+ 
     return (
     <Box bg="#fff" mt="1">
       <HStack align="center" justifyContent="space-between" padding={["3", null, "4"]}>
@@ -65,7 +60,7 @@ const DebateFeedCard = ({
           </Box>
           <Box ml="2">
             <p style={{ fontSize: "18px", color: "#171717", fontWeight: "600" }}>{name}</p>
-            <p style={{ fontSize: "14px", color: "#636363" }}>{getTime()} h ago</p>
+            <p style={{ fontSize: "14px", color: "#636363" }}>{getTimeAgo(createdAt)}</p>
           </Box>
         </Box>
         <Box display="flex" alignItems="center" gap="4">
@@ -96,7 +91,7 @@ const DebateFeedCard = ({
         </Box>
         <HStack align="center" fontWeight="400" fontSize="14px" padding="4">
           <Box display="flex" alignItems="center">
-            <LikeEmojiGroup userReaction={userReaction} />
+            <LikeEmojiGroup userReaction={userReaction} reactionCountDetail={reactionCountDetail} />
             <span
               style={{
                 fontSize: "14px",
@@ -139,7 +134,7 @@ const DebateFeedCard = ({
         <ReactionPanel postId={postId} userReaction={userReaction} />
       </Stack>
       <Box p="0">
-        <CommentSlider />
+        <CommentSlider comments={comments} />
       </Box>
     </Box>
   );

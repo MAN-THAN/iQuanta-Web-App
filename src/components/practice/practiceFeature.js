@@ -23,7 +23,7 @@ const PracticeFeature = () => {
       description: "A vast repository of past papers that will prepare you for your exams.",
       icon: "/Filled (2).svg",
       color: "#5146D6",
-      path: "/practice/pastPapers",
+      path: "",
     },
     {
       tittle: "Accelareader",

@@ -1,23 +1,30 @@
 import { Avatar } from "antd";
 import React from "react";
 import { Text } from "@chakra-ui/react";
+import { reactions } from "@/utilities/comanData";
 
-const LikeEmojiGroup = ({userReaction}) => {
-  const reactions = [
-    { reaction: "👍", reactionType: "like", fontColor: "#DAA520" },
-    { reaction: "❤️", reactionType: "heart", fontColor: "#C92A2A" },
-    { reaction: "😂", reactionType: "happy", fontColor: "#FFD700" },
-    { reaction: "😯", reactionType: "surprise", fontColor: "#FFA500" },
-    { reaction: "😢", reactionType: "sad", fontColor: "#5E6A71" },
-    { reaction: "😡", reactionType: "angry", fontColor: "#C92A2A" },
-  ];
+const LikeEmojiGroup = ({userReaction, reactionCountDetail}) => {
+  // const reactions = [
+  //   { reaction: "👍", reactionType: "like", fontColor: "#DAA520" },
+  //   { reaction: "❤️", reactionType: "heart", fontColor: "#C92A2A" },
+  //   { reaction: "😂", reactionType: "happy", fontColor: "#FFD700" },
+  //   { reaction: "😯", reactionType: "surprise", fontColor: "#FFA500" },
+  //   { reaction: "😢", reactionType: "sad", fontColor: "#5E6A71" },
+  //   { reaction: "😡", reactionType: "angry", fontColor: "#C92A2A" },
+  // ];
+  const modifiedReactions = reactions.slice(1);
   console.log(userReaction);
   const getEmojiArrOnPosts = () => {
     const arr = [];
-    userReaction?.length > 0 && userReaction?.map((item, ind) => {
-      const obj = reactions.find((i) => i.reactionType === item.reactionType);
-      arr.push(obj)
-    })
+    reactionCountDetail?.length > 0 && reactionCountDetail?.map((item, ind) => {
+      if(item.count > 0 && !arr.find((i)=>i.reactionType === item.type) && item.type !== 'like'){
+        const obj = modifiedReactions.find((i) => i.reactionType === item.type);
+        arr.push(obj)
+      }
+    });
+    if(userReaction && userReaction?.reactionType!=='like'){
+      arr.push(userReaction)
+    }
     return arr;
   }
   console.log(getEmojiArrOnPosts())

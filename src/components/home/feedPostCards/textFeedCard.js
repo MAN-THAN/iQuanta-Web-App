@@ -4,19 +4,24 @@ import LikeEmojiGroup from "@/components/common/likeEmojiGroup";
 import CommentSlider from "@/components/postCards/commentSlider/commentSlider";
 import { useRouter } from "next/navigation";
 import { MdPlayArrow } from "react-icons/md";
-import moment from "moment";
 import { ReactionPanel } from "@/components/common/reactionPanel";
+import { getTimeAgo } from "@/utilities/utilityFunction";
 
-const TextFeedCard = ({ classId, name, uid, title, reactionCount, commentCount, createdAt, media, postId }) => {
+const TextFeedCard = ({
+  classId,
+  name,
+  uid,
+  title,
+  reactionCount,
+  commentCount,
+  createdAt,
+  media,
+  postId,
+  followingCount,
+  reactionCountDetail,
+  comments
+}) => {
   const router = useRouter();
-  const getTime = () => {
-    const endDate = moment(createdAt);
-    const duration = moment.duration(endDate.diff(moment(Date.now())));
-    const hours = duration.asHours();
-    // console.log(hours, "hours");
-    // console.log(duration, "duration");
-    return Math.trunc(Math.abs(hours));
-  };
 
   return (
     <Box bg="#fff" mt="1">
@@ -42,7 +47,7 @@ const TextFeedCard = ({ classId, name, uid, title, reactionCount, commentCount, 
               <p style={{ fontSize: "14px", color: "#171717", fontWeight: "600" }}>{name}</p> <MdPlayArrow />{" "}
               {/* <p style={{ fontSize: "14px", color: "#171717", fontWeight: "400" }}>Posted in CAT 2021</p> */}
             </Box>
-            <p style={{ fontSize: "14px", color: "#636363" }}>{getTime(createdAt)} h ago</p>
+            <p style={{ fontSize: "14px", color: "#636363" }}>{getTimeAgo(createdAt)}</p>
           </Box>
         </Box>
         <Box display="flex" alignItems="center" gap="4">
@@ -112,7 +117,7 @@ const TextFeedCard = ({ classId, name, uid, title, reactionCount, commentCount, 
         <Divider />
       </Stack>
       <Box p="0">
-        <CommentSlider />
+        <CommentSlider comments={comments} />
       </Box>
     </Box>
   );

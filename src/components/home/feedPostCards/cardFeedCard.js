@@ -5,16 +5,23 @@ import LikeEmojiGroup from "@/components/common/likeEmojiGroup";
 import CommentSlider from "@/components/postCards/commentSlider/commentSlider";
 import { MdPlayArrow } from "react-icons/md";
 import { ReactionPanel } from "@/components/common/reactionPanel";
+import { getTimeAgo } from "@/utilities/utilityFunction";
 
-const CardFeedCard = ({ name, uid, title, reactionCount, commentCount, createdAt, media, postId }) => {
-  const getTime = () => {
-    const endDate = moment(createdAt);
-    const duration = moment.duration(endDate.diff(moment(Date.now())));
-    const hours = duration.asHours();
-    // console.log(hours, "hours");
-    // console.log(duration, "duration");
-    return Math.trunc(Math.abs(hours));
-  };
+
+const CardFeedCard = ({
+  name,
+  uid,
+  title,
+  reactionCount,
+  commentCount,
+  createdAt,
+  media,
+  postId,
+  followingCount,
+  reactionCountDetail,
+  comments
+}) => {
+
   return (
     <Box bg="#fff" mt="1">
       <HStack align="center" justifyContent="space-between" padding={["3", null, "4"]}>
@@ -39,7 +46,7 @@ const CardFeedCard = ({ name, uid, title, reactionCount, commentCount, createdAt
               <p style={{ fontSize: "14px", color: "#171717", fontWeight: "600" }}>{name}</p> <MdPlayArrow />
               {/* <p style={{ fontSize: "14px", color: "#171717", fontWeight: "400" }}>Posted in CAT 2021</p> */}
             </Box>
-            <p style={{ fontSize: "14px", color: "#636363" }}>2h ago</p>
+            <p style={{ fontSize: "14px", color: "#636363" }}>{getTimeAgo(createdAt)}</p>
           </Box>
         </Box>
         <Box display="flex" alignItems="center" gap="4">
@@ -74,7 +81,7 @@ const CardFeedCard = ({ name, uid, title, reactionCount, commentCount, createdAt
         <Divider />
       </Stack>
       <Box p="0">
-        <CommentSlider />
+        <CommentSlider comments={comments} />
       </Box>
     </Box>
   );
