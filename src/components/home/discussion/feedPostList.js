@@ -5,20 +5,20 @@ import ImageSwiper from "../feedPostCards/imageSwiper";
 import CardFeedCard from "../feedPostCards/cardFeedCard";
 import PollFeedCard from "../feedPostCards/pollFeedCard";
 import VideoFeedCard from "../feedPostCards/videoFeedCard";
+import DebateFeedCard from "../feedPostCards/debateFeedCard";
 import { useState } from "react";
 import { useInfiniteQuery } from "react-query";
 import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getAllPost } from "@/api/feed/user";
-import DebatePostCard from "@/components/postCards/debatePostCard";
 
 export const FeedPostList = () => {
   const [postList, setPostList] = useState([]);
   const { _id: uid } = useSelector((state) => state.userData);
   const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } = useInfiniteQuery({
     queryKey: ["getAllPosts", uid],
-    queryFn: ({ pageParam = 1, limit = 10 }) => getAllPost(pageParam, limit),
+    queryFn: ({ pageParam = 1, limit = 10 }) => getAllPost(pageParam, limit, uid),
     getNextPageParam: (lastPage, pages) => lastPage.nextCursor,
     onError: (error, variables, context) =>
       toast.error(`${error?.response?.data?.error?.message || "Some error"}`, {
@@ -45,6 +45,8 @@ export const FeedPostList = () => {
                 media={item?.postTypeId?.media}
                 comments={item?.comments}
                 postId={item?.postTypeId?._id}
+                userReaction={item?.userReaction}
+
               />
             );
           else if (item.postTypeId?.media?.length > 1) {
@@ -60,6 +62,8 @@ export const FeedPostList = () => {
                 media={item?.postTypeId?.media}
                 comments={item?.comments}
                 postId={item?.postTypeId?._id}
+                userReaction={item?.userReaction}
+
               />
             );
           } else {
@@ -77,6 +81,8 @@ export const FeedPostList = () => {
               createdAt={item?.postTypeId?.createdAt}
               media={item?.postTypeId?.media}
               postId={item?.postTypeId?._id}
+              userReaction={item?.userReaction}
+
             />
           );
         else if (item.postType === "memes")
@@ -91,6 +97,8 @@ export const FeedPostList = () => {
               createdAt={item?.postTypeId?.createdAt}
               media={item?.postTypeId?.media}
               postId={item?.postTypeId?._id}
+              userReaction={item?.userReaction}
+
             />
           );
         else if (item.postType === "text")
@@ -105,6 +113,8 @@ export const FeedPostList = () => {
               createdAt={item?.postTypeId?.createdAt}
               media={item?.postTypeId?.media}
               postId={item?.postTypeId?._id}
+              userReaction={item?.userReaction}
+
             />
           );
         else if (item.postType === "poll")
@@ -119,13 +129,30 @@ export const FeedPostList = () => {
               createdAt={item?.postTypeId?.createdAt}
               media={item?.postTypeId?.media}
               postId={item?.postTypeId?._id}
+              userReaction={item?.userReaction}
+
+            />
+          );
+          else if (item.postType === "debate")
+          return (
+            <DebateFeedCard
+              name={item?.postTypeId?.createdBy?.name}
+              profilePic={item?.postTypeId?.createdBy?.profilePic}
+              uid={item?.postTypeId?.createdBy?._id}
+              title={item?.postTypeId?.title}
+              reactionCount={item?.reactionCount}
+              commentCount={item?.commentCount}
+              createdAt={item?.postTypeId?.createdAt}
+              media={item?.postTypeId?.media}
+              postId={item?.postTypeId?._id}
+              participants={item?.postTypeId?.participants}
+              userReaction={item?.userReaction}
             />
           );
 
         // else if (item.post_type === "video") return <SuggestionSection />;
       })}
       <ToastContainer />
-      <DebatePostCard />
     </Box>
   );
 };

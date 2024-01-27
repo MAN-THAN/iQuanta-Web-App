@@ -7,7 +7,20 @@ import { MdPlayArrow } from "react-icons/md";
 import moment from "moment";
 import { ReactionPanel } from "@/components/common/reactionPanel";
 
-const ImageFeedCard = ({ name, uid, title, reactionCount, commentCount, createdAt, media, comments, profilePic, followingCount}) => {
+const ImageFeedCard = ({
+  name,
+  uid,
+  title,
+  reactionCount,
+  commentCount,
+  createdAt,
+  media,
+  comments,
+  profilePic,
+  followingCount,
+  postId,
+  userReaction,
+}) => {
   const getTime = () => {
     const endDate = moment(createdAt);
     const duration = moment.duration(endDate.diff(moment(Date.now())));
@@ -96,7 +109,9 @@ const ImageFeedCard = ({ name, uid, title, reactionCount, commentCount, createdA
             </span>
           </Box>
         </HStack>
-        <ReactionPanel />
+        <Divider />
+        <ReactionPanel postId={postId} userReaction={userReaction} />
+        <Divider />
       </Stack>
       <Box p="0">
         <CommentSlider comments={comments} />

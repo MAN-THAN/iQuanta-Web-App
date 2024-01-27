@@ -6,7 +6,7 @@ import CommentSlider from "@/components/postCards/commentSlider/commentSlider";
 import { MdPlayArrow } from "react-icons/md";
 import { ReactionPanel } from "@/components/common/reactionPanel";
 
-const CardFeedCard = ({ name, uid, title, reactionCount, commentCount, createdAt, media }) => {
+const CardFeedCard = ({ name, uid, title, reactionCount, commentCount, createdAt, media, postId }) => {
   const getTime = () => {
     const endDate = moment(createdAt);
     const duration = moment.duration(endDate.diff(moment(Date.now())));
@@ -69,7 +69,9 @@ const CardFeedCard = ({ name, uid, title, reactionCount, commentCount, createdAt
             <span style={{ fontSize: "14px", fontWeight: "500", color: "#8D96A5", paddingLeft: "5px" }}>following</span>
           </Box>
         </HStack>
-        <ReactionPanel />
+        <Divider />
+        <ReactionPanel postId={postId} />
+        <Divider />
       </Stack>
       <Box p="0">
         <CommentSlider />
