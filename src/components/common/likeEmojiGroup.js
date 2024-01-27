@@ -3,7 +3,7 @@ import React from "react";
 import { Text } from "@chakra-ui/react";
 import { reactions } from "@/utilities/comanData";
 
-const LikeEmojiGroup = ({userReaction, reactionCountDetail}) => {
+const LikeEmojiGroup = ({ userReaction, reactionCountDetail }) => {
   // const reactions = [
   //   { reaction: "👍", reactionType: "like", fontColor: "#DAA520" },
   //   { reaction: "❤️", reactionType: "heart", fontColor: "#C92A2A" },
@@ -16,26 +16,34 @@ const LikeEmojiGroup = ({userReaction, reactionCountDetail}) => {
   console.log(userReaction);
   const getEmojiArrOnPosts = () => {
     const arr = [];
-    reactionCountDetail?.length > 0 && reactionCountDetail?.map((item, ind) => {
-      if(item.count > 0 && !arr.find((i)=>i.reactionType === item.type) && item.type !== 'like'){
-        const obj = modifiedReactions.find((i) => i.reactionType === item.type);
-        arr.push(obj)
-      }
-    });
-    if(userReaction && userReaction?.reactionType!=='like'){
-      arr.push(userReaction)
-    }
+    reactionCountDetail?.length > 0 &&
+      reactionCountDetail?.map((item, ind) => {
+        if (item.count > 0 && !arr.find((i) => i.reactionType === item.type) && item.type !== "like") {
+          const obj = modifiedReactions.find((i) => i.reactionType === item.type);
+          console.log(obj);
+          arr.push(obj);
+        }
+      });
+    // if (userReaction && userReaction?.reactionType !== "like") {
+    //   const userReactionObj = modifiedReactions.find((i) => i.reactionType === userReaction.reactionType);
+    //   console.log(userReaction)
+    //   arr.push(userReactionObj);
+    // }
     return arr;
-  }
-  console.log(getEmojiArrOnPosts())
+  };
+  console.log(getEmojiArrOnPosts());
   return (
     <>
       <Avatar.Group maxCount={3} size="small">
-        <Text fontSize={'16px'}>{"👍"}</Text>
-        {getEmojiArrOnPosts().map((i, ind) =>  <Text key={ind} fontSize={'16px'}>{i?.reaction}</Text>)}
-        {/* <Text fontSize={'16px'}>{"❤️"}</Text>
-        <Text fontSize={'16px'}>{"😂"}</Text> */}
-
+        {getEmojiArrOnPosts().length === 0 ? (
+          <Avatar fontSize={"16px"}>{"👍"}</Avatar>
+        ) : (
+          getEmojiArrOnPosts().map((i, ind) => (
+            <Avatar key={ind} fontSize={"16px"}>
+              {i?.reaction}
+            </Avatar>
+          ))
+        )}
         {/* <Avatar style={{ backgroundColor: "#fff" }} src="/Union.svg" />
         <Avatar style={{ backgroundColor: "#fff" }} src="/UnionH.svg" />
         <Avatar style={{ backgroundColor: "#fff" }} src="/Smile.svg" /> */}

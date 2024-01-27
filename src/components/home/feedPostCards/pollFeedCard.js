@@ -26,7 +26,8 @@ const PollFeedCard = ({
   postId,
   followingCount,
   reactionCountDetail,
-  comments
+  comments,
+  userReaction
 }) => {
   const [value, setValue] = React.useState();
   useEffect(() => {
@@ -131,7 +132,7 @@ const PollFeedCard = ({
           </RadioGroup>
           <HStack align="center" fontWeight="400" fontSize="14px" padding="4">
             <Box display="flex" alignItems="center">
-              <LikeEmojiGroup />
+              <LikeEmojiGroup userReaction={userReaction} reactionCountDetail={reactionCountDetail} />
               <span
                 style={{
                   fontSize: "14px",

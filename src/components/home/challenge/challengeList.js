@@ -64,7 +64,6 @@ const ChallengeList = ({ triggeredFrom }) => {
         }
       })}
       <ChallengeDetailJoin isOpen={isOpen} onClose={onClose} challengeData={challengeList?.[selectedChallengeIndex]} />
-      <SuggestionSection />
       {/* <Box onClick={onOpen}>
         <ChallengeCard challengeData={challenge} />
       </Box> */}

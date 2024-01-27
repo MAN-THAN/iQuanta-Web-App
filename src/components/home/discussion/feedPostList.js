@@ -126,8 +126,6 @@ export const FeedPostList = () => {
               followingCount={item?.followingCount}
               reactionCountDetail={item?.reactionCountDetail}
               comments={item?.comments}
-
-
             />
           );
         else if (item.postType === "poll")
@@ -146,8 +144,6 @@ export const FeedPostList = () => {
               followingCount={item?.followingCount}
               reactionCountDetail={item?.reactionCountDetail}
               comments={item?.comments}
-
-
             />
           );
           else if (item.postType === "debate")
