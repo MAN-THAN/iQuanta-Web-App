@@ -10,9 +10,9 @@ const QustionPalette = ({ questionsData, onQuestionChange }) => {
 
   return (
     <>
-      {/* <SubmitMockModal isOpen={isOpenSubmitModal} onClose={onCloseSubmitModal} /> */}
+      <SubmitMockModal isOpen={isOpenSubmitModal} onClose={onCloseSubmitModal} />
       {/* <SubmitConfirmationModal isOpen={isOpenSubmitModal} onClose={onCloseSubmitModal} /> */}
-      <SubmitLoaderModal isOpen={isOpenSubmitModal} onClose={onCloseSubmitModal}/>
+      {/* <SubmitLoaderModal isOpen={isOpenSubmitModal} onClose={onCloseSubmitModal}/> */}
       <Box textAlign="center" px="10">
         <Text pt="6" fontSize="14px">
           You are viewing <strong>Verbal Ability</strong> section
