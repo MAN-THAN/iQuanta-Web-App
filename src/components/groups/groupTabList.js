@@ -31,7 +31,6 @@ import ChallengeLeaderbordCard from "../home/challenge/challengesPostCard/challe
 import ChallengeList from "../home/challenge/challengeList";
 
 const GroupTabList = () => {
- 
   const router = useRouter();
   const { isOpen: isOpenChallenge, onOpen: onOpenChallenge, onClose: onCloseChallenge } = useDisclosure();
   const { isOpen: isOpenDiscussion, onOpen: onOpenDiscussion, onClose: onCloseDiscussion } = useDisclosure();
@@ -39,10 +38,10 @@ const GroupTabList = () => {
   const [challengeTab, setChallengeTab] = useState(false);
   const [state, setState] = useState();
   const { _id: uid } = useSelector((state) => state.userData);
-  const { _id: groupId,entityType:examId } = useSelector((state) => state.groupData);
+  const { _id: groupId, entityType: examId } = useSelector((state) => state.groupData);
   const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } = useInfiniteQuery({
-    queryKey: ["getGroupPosts", uid,groupId],
-    queryFn: ({ pageParam = 1,limit=10 }) => getGroupPosts(pageParam,limit,uid,groupId),
+    queryKey: ["getGroupPosts", uid, groupId],
+    queryFn: ({ pageParam = 1, limit = 10 }) => getGroupPosts(pageParam, limit, uid, groupId),
     getNextPageParam: (lastPage, pages) => lastPage.nextCursor,
     onError: (error, variables, context) =>
       toast.error(`${error?.response?.data?.error?.message || "Some error"}`, {
@@ -50,57 +49,65 @@ const GroupTabList = () => {
       }),
     onSuccess: (res) => setState(res.pages[0]?.data.data.allPostData),
   });
- 
-  console.log("52:",state);
+
+  console.log("52:", state);
 
   const tabs = [
     {
       tabName: "Discussions",
-      challengeTab:false
+      challengeTab: false,
     },
     {
       tabName: "Challenges",
-      challengeTab:true
+      challengeTab: true,
     },
     {
       tabName: "Exam Details",
-      challengeTab:false
-
+      challengeTab: false,
     },
     {
       tabName: "Courses",
-      challengeTab:false
+      challengeTab: false,
     },
     {
       tabName: "Practice QAs",
-      challengeTab:false
+      challengeTab: false,
     },
     {
       tabName: "Mock Tests",
-      challengeTab:false
+      challengeTab: false,
     },
     {
       tabName: "Upcoming",
-      challengeTab:false
+      challengeTab: false,
     },
     {
       tabName: "Files",
-      challengeTab:false
+      challengeTab: false,
     },
     {
       tabName: "Media",
-      challengeTab:false
+      challengeTab: false,
     },
     {
       tabName: "Topics",
-      challengeTab:false
+      challengeTab: false,
+    },
+    {
+      tabName: "Doubt",
+      challengeTab: false,
     },
   ];
- 
+
   return (
     <>
       <ChallengesModal isOpen={isOpenChallenge} onClose={onCloseChallenge} triggeredFrom="group" />
-      <DiscussionModal isOpen={isOpenDiscussion} onClose={onCloseDiscussion} clickPhoto={clickPhoto} triggeredFrom="group" />
+      <DiscussionModal
+        isOpen={isOpenDiscussion}
+        onClose={onCloseDiscussion}
+        clickPhoto={clickPhoto}
+        triggeredFrom="group"
+      />
       <Tabs variant="soft-rounded">
         <TabList gap="4" py="4" px="4" overflow="scroll" bg="white.900">
           {tabs.map((da, i) => (
@@ -117,8 +124,10 @@ const GroupTabList = () => {
               }}
               border="1px solid"
               px="3"
-              onClick={() => {alert('!')
-              setChallengeTab(da.challengeTab)}}
+              onClick={() => {
+                alert("!");
+                setChallengeTab(da.challengeTab);
+              }}
             >
               {da.tabName}
             </Tab>
@@ -140,16 +149,18 @@ const GroupTabList = () => {
                     media={item?.postTypeId?.media}
                   />
                 );
-                else if (item.postType==="video")
+              else if (item.postType === "video")
                 return (
-                <VideoFeedCard
-                  name={item?.createdBy?.name}
-                  uid={item?.createdBy?._id}
-                  title={item?.postTypeId?.title}
-                  reactionCount={item?.reactionCount}
-                  commentCount={item?.commentCount}
-                  createdAt={item?.postTypeId?.createdAt}
-                  media={item?.postTypeId?.media}/>);
+                  <VideoFeedCard
+                    name={item?.createdBy?.name}
+                    uid={item?.createdBy?._id}
+                    title={item?.postTypeId?.title}
+                    reactionCount={item?.reactionCount}
+                    commentCount={item?.commentCount}
+                    createdAt={item?.postTypeId?.createdAt}
+                    media={item?.postTypeId?.media}
+                  />
+                );
               else if (item.postType === "memes")
                 return (
                   <CardFeedCard
@@ -175,7 +186,7 @@ const GroupTabList = () => {
                   <PollFeedCard
                     name={item?.postTypeId.createdBy?.name}
                     uid={item?.postTypeId.createdBy?._id}
-                    profilePic ={item?.postTypeId?.createdBy?.profilePic}
+                    profilePic={item?.postTypeId?.createdBy?.profilePic}
                     title={item?.postTypeId?.title}
                     options={item?.postTypeId?.options}
                     reactionCount={item?.reactionCount}
@@ -184,18 +195,19 @@ const GroupTabList = () => {
                     triggeredFrom="group"
                   />
                 );
-              
+
               // else if (item.post_type === "video") return <ImageFeedCard />;
               // else if (item.post_type === "video") return <SuggestionSection />;
               // else if (item.post_type === "video") return <PollFeedCard />;
             })}
           </TabPanel>
           <TabPanel padding="0">
-          {challengeTab==true &&
-                <><ChallengeForm openModal={onOpenChallenge} triggeredFrom="group" />
-                  <ChallengeList triggeredFrom="group" /></>}
-            
-            
+            {challengeTab == true && (
+              <>
+                <ChallengeForm openModal={onOpenChallenge} triggeredFrom="group" />
+                <ChallengeList triggeredFrom="group" />
+              </>
+            )}
           </TabPanel>
           <TabPanel padding="0">
             <ExamTab examId={examId} />
@@ -221,17 +233,17 @@ const GroupTabList = () => {
           <TabPanel padding="0">
             <MockTests />
           </TabPanel>
-          <TabPanel padding="3" bg='white.900' mt='1'>
+          <TabPanel padding="3" bg="white.900" mt="1">
             {[...Array(4)].map((e, i) => (
               <Box key={i} width="100%">
                 <UpComeingCard id={i} />
               </Box>
             ))}
           </TabPanel>
-          <TabPanel padding='0'>
+          <TabPanel padding="0">
             <FilesTab />
           </TabPanel>
-          <TabPanel padding='0'>
+          <TabPanel padding="0">
             <ImageSwiper />
           </TabPanel>
           <TabPanel>

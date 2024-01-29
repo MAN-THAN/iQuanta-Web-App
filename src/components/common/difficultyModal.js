@@ -85,7 +85,7 @@ const DifficultyModal = ({ isOpen, onClose }) => {
                     <Image width="100%" src="/greenCheck.svg" alt="Checked" />
                   </Box>
                 )}
-
+                
                 <Box>
                   <Text fontSize="16px" fontWeight="600">
                     {level}

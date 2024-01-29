@@ -31,19 +31,13 @@ const Template1 = () => {
           <MockHeader onSelectSection={handleSelectSection} />
           <Box bg="brand.800" rounded="3xl" p="6" mt="4">
             <Flex gap="4">
-              <QustionSection
-                questionsData={filteredQuestions}
-                currentQuestionIndex={currentQuestionIndex}
-              />
+              <QustionSection questionsData={filteredQuestions} currentQuestionIndex={currentQuestionIndex} />
             </Flex>
             <MockFooter />
           </Box>
         </Box>
         <Box flexBasis="25%" bg="brand.800" rounded="3xl">
-          <QustionPalette
-            questionsData={filteredQuestions}
-            onQuestionChange={handleQuestionChange}
-          />
+          <QustionPalette questionsData={filteredQuestions} onQuestionChange={handleQuestionChange} />
         </Box>
       </Flex>
     </Box>
