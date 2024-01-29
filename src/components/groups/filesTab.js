@@ -12,16 +12,28 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { ListFilter, Paperclip } from "lucide-react";
-import React from "react";
-
-const FilesTab = () => {
+import React,{useState} from "react";
+import { useQuery } from "react-query";
+import { getGroupDocPostList } from "@/api/feed/groups/post";
   const pdfs = [
     { id: 1, name: "Document1.pdf", url: "https://example.com/path/to/Document1.pdf", month: "Jun’21" },
     { id: 2, name: "Document2.pdf", url: "https://example.com/path/to/Document2.pdf", month: "Jun’22" },
     { id: 1, name: "Document3.pdf", url: "https://example.com/path/to/Document1.pdf", month: "Jun’23" },
     { id: 1, name: "Document4.pdf", url: "https://example.com/path/to/Document1.pdf", month: "Jun’23" },
   ];
+const FilesTab = ({groupId}) => {
+  const [state, setState] = useState([]);
+const { isLoading, data, isError, error, isPending, isSuccess } = useQuery({
+        queryKey: ["getGroupDocList", groupId],   
+        queryFn: () => getGroupDocPostList(groupId),
+        onError: (error, variables, context) =>
+          toast.error(`${error?.response?.data?.error?.message || "some error"}`, {
+            position: toast.POSITION.TOP_RIGHT,
+          }),
+        onSuccess: (res) => setState(res.data.data.groupPost),
+      });
 
+      console.log("doc list:",state);
   const downloadPdf = (pdfUrl, pdfName) => {
     const link = document.createElement("a");
     link.href = pdfUrl;

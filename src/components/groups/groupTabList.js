@@ -12,9 +12,6 @@ import { useSelector } from "react-redux";
 import { getGroupPosts } from "@/api/feed/groups/post";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import FeaturesCard from "../courses/featuresCard";
-import { featursCard } from "@/utilities/comanData";
-import UpComeingCard from "../feature/upComeingCard";
 import DiscussionModal from "../home/challenge/challengesModals/discussionModal";
 import ExamTab from "./examTab";
 import PracticeQAs from "./practiceQAs";
@@ -25,7 +22,8 @@ import ImageSwiper from "../home/feedPostCards/imageSwiper";
 import ChallengeForm from "../home/challenge/challengesPostCard/challengeForm";
 import ChallengesModal from "../home/challenge/challengesModals/challengesModal";
 import ChallengeList from "../home/challenge/challengeList";
-
+import CourseList from "../courses/courseList";
+import EventList from "../events/eventList";
 const GroupTabList = () => {
   const router = useRouter();
   const { isOpen: isOpenChallenge, onOpen: onOpenChallenge, onClose: onCloseChallenge } = useDisclosure();
@@ -218,9 +216,8 @@ const GroupTabList = () => {
               justifyContent="space-between"
               bg="white.900"
             >
-              {featursCard.map((data, index) => (
-                <FeaturesCard data={data} key={index} onButtonClick={() => router.push(`/courses/${index}`)} />
-              ))}
+              <CourseList groupId={groupId}/>
+              
             </Box>
           </TabPanel>
           <TabPanel padding="0">
@@ -230,17 +227,15 @@ const GroupTabList = () => {
             <MockTests />
           </TabPanel>
           <TabPanel padding="3" bg="white.900" mt="1">
-            {[...Array(4)].map((e, i) => (
-              <Box key={i} width="100%">
-                <UpComeingCard id={i} />
-              </Box>
-            ))}
+            <EventList groupId={groupId}/>
+           
           </TabPanel>
           <TabPanel padding="0">
-            <FilesTab />
+            <FilesTab groupId={groupId} />
           </TabPanel>
           <TabPanel padding="0">
-            <ImageSwiper />
+            {/* <ImageSwiper /> */}
+            <MediaPostList/>
           </TabPanel>
           <TabPanel>
             <p>nine!</p>

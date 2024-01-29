@@ -189,7 +189,71 @@ export const getGroupDebateParticipants=async(groupId,uid)=>{
     throw err;
   }
 }
-  
+
+export const getGroupDocPostList=async(groupId,uid)=>{
+  try {
+    const res = await request({
+      url: `/feed/v1/group/post/all/docs/${groupId}`,
+      headers: {
+        "Content-Type": "application/json",
+         uid:uid
+      },
+    });
+    return res;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
+
+export const getGroupTopicPostList=async(groupId,uid)=>{
+  try {
+    const res = await request({
+      url: `feed/v1/group/post/all/taggedTopic/${groupId}/${page}/${limit}`,
+      headers: {
+        "Content-Type": "application/json",
+         uid:uid
+      },
+    });
+    return res;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
+
+export const getGroupMediaPostList=async(groupId,uid)=>{
+  try {
+    const res = await request({
+      url: `feed/v1/group/post/all/media/${groupId}/${page}/${limit}`,
+      headers: {
+        "Content-Type": "application/json",
+         uid:uid
+      },
+    });
+    return res;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
+
+export const getGroupReportedPostList=async(page,limit,groupId,uid)=>{
+  try {
+    const res = await request({
+      url: `feed/v1/group/post/all/reported/${groupId}/${page}/${limit}`,
+      headers: {
+        "Content-Type": "application/json",
+         uid:uid
+      },
+    });
+    return res;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
+
 
   
 
