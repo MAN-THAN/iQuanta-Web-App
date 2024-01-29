@@ -19,7 +19,8 @@ const CardFeedCard = ({
   postId,
   followingCount,
   reactionCountDetail,
-  comments
+  comments,
+  userReaction
 }) => {
 
   return (

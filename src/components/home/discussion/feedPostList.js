@@ -6,27 +6,48 @@ import CardFeedCard from "../feedPostCards/cardFeedCard";
 import PollFeedCard from "../feedPostCards/pollFeedCard";
 import VideoFeedCard from "../feedPostCards/videoFeedCard";
 import DebateFeedCard from "../feedPostCards/debateFeedCard";
-import { useState } from "react";
-import { useInfiniteQuery } from "react-query";
+import { useCallback, useState, useEffect } from "react";
+import { useInfiniteQuery, useQueryClient } from "react-query";
 import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getAllPost } from "@/api/feed/user";
+import { LoadingOutlined } from "@ant-design/icons";
+import { Spin } from "antd";
+import { throttle } from "lodash";
 
 export const FeedPostList = () => {
   const [postList, setPostList] = useState([]);
   const { _id: uid } = useSelector((state) => state.userData);
   const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } = useInfiniteQuery({
     queryKey: ["getAllPosts", uid],
-    queryFn: ({ pageParam = 1, limit = 10 }) => getAllPost(pageParam, limit, uid),
-    getNextPageParam: (lastPage, pages) => lastPage.nextCursor,
+    queryFn: ({ pageParam = 1 }) => getAllPost(pageParam, 12, uid),
+    getNextPageParam: (lastPage, pages) => lastPage.data.data.pagination.page + 1,
     onError: (error, variables, context) =>
       toast.error(`${error?.response?.data?.error?.message || "Some error"}`, {
         position: toast.POSITION.TOP_RIGHT,
       }),
-    onSuccess: (res) => setPostList(res.pages[0]?.data.data.allPostData),
+    onSuccess: (res, page) => {
+      console.log(res);
+      let currentPageParam = res?.pageParams?.length - 1;
+      setPostList((prev) => [...prev, ...res.pages[currentPageParam]?.data?.data?.allPostData]);
+    },
   });
+  // Implement scrolling detection
+  useEffect(() => {
+    const handleScroll = () => {
+      const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+      if (scrollTop + clientHeight >= scrollHeight - 5) {
+        fetchNextPage();
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   console.log(postList);
+
   return (
     <Box>
       {/* feed post list */}
@@ -66,7 +87,6 @@ export const FeedPostList = () => {
                 userReaction={item?.userReaction}
                 followingCount={item?.followingCount}
                 reactionCountDetail={item?.reactionCountDetail}
-
               />
             );
           } else {
@@ -88,7 +108,6 @@ export const FeedPostList = () => {
               followingCount={item?.followingCount}
               reactionCountDetail={item?.reactionCountDetail}
               comments={item?.comments}
-
             />
           );
         else if (item.postType === "memes")
@@ -107,7 +126,6 @@ export const FeedPostList = () => {
               followingCount={item?.followingCount}
               reactionCountDetail={item?.reactionCountDetail}
               comments={item?.comments}
-
             />
           );
         else if (item.postType === "text")
@@ -146,7 +164,7 @@ export const FeedPostList = () => {
               comments={item?.comments}
             />
           );
-          else if (item.postType === "debate")
+        else if (item.postType === "debate")
           return (
             <DebateFeedCard
               name={item?.postTypeId?.createdBy?.name}
@@ -163,12 +181,30 @@ export const FeedPostList = () => {
               followingCount={item?.followingCount}
               reactionCountDetail={item?.reactionCountDetail}
               comments={item?.comments}
-
             />
           );
 
         // else if (item.post_type === "video") return <SuggestionSection />;
       })}
+      {isFetching ? (
+        <>
+          <Box sx={{ display: "flex", justifyContent: "center", marginTop: "1em" }}>
+            <Spin
+              indicator={
+                <LoadingOutlined
+                  style={{
+                    fontSize: 28,
+                  }}
+                  spin
+                />
+              }
+            />
+          </Box>
+        </>
+      ) : (
+        <></>
+      )}
+      <Box sx={{ minHeight: "10em" }}></Box>
       <ToastContainer />
     </Box>
   );
