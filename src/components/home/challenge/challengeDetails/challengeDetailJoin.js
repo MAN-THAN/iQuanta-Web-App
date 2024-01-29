@@ -26,6 +26,7 @@ import {
 import { Check, Clock, DollarSignIcon, Share2, Target, X } from "lucide-react";
 import { GrAdd } from "react-icons/gr";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const ChallengeDetailJoin = ({ isOpen, onClose, challengeData }) => {
   const {
@@ -41,6 +42,8 @@ const ChallengeDetailJoin = ({ isOpen, onClose, challengeData }) => {
     participants,
   } = challengeData?.postTypeId || {};
   const { _id: uid } = useSelector((state) => state?.userData);
+  useEffect(()=>{},[challengeData])
+  console.log("%%%%%",challengeData);
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false} size="3xl">

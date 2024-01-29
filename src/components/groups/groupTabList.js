@@ -24,10 +24,6 @@ import { useRouter } from "next/navigation";
 import ImageSwiper from "../home/feedPostCards/imageSwiper";
 import ChallengeForm from "../home/challenge/challengesPostCard/challengeForm";
 import ChallengesModal from "../home/challenge/challengesModals/challengesModal";
-import ChallengeCard from "../home/challenge/challengesPostCard/challengeCard";
-import ChallengeLivecard from "../home/challenge/challengesPostCard/challengeLivecard";
-import SuggestionSection from "../home/suggestionSection";
-import ChallengeLeaderbordCard from "../home/challenge/challengesPostCard/challengeLeaderbordCard";
 import ChallengeList from "../home/challenge/challengeList";
 
 const GroupTabList = () => {
@@ -210,7 +206,7 @@ const GroupTabList = () => {
             )}
           </TabPanel>
           <TabPanel padding="0">
-            <ExamTab examId={examId} />
+            <ExamTab examId={examId._id} />
           </TabPanel>
           <TabPanel padding="0">
             <Box

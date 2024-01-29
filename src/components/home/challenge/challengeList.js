@@ -37,6 +37,7 @@ const ChallengeList = ({ triggeredFrom }) => {
 
   const handleViewChallenge = () => {};
   const handleJoinChallenge = (i) => {
+    alert('!!');
     setSelectedChallengeIndex(i);
     onOpen();
   };

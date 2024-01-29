@@ -49,9 +49,9 @@ const ExamTab = ({examId}) => {
       }),
     onSuccess: (res) => setState(res.data.data.specificationData),
   });
-  console.log("examData",state);
+  
   const handleToggle = (clickedIndex) => {
-    const updatedExamTabDatas = examTabDatasState.map((data, index) => ({
+    const updatedExamTabDatas = examTabDatasState?.map((data, index) => ({
       ...data,
       isOpen: index === clickedIndex ? !data.isOpen : false,
       status: index === clickedIndex ? "true" : "false",
@@ -100,11 +100,11 @@ const ExamTab = ({examId}) => {
           </Box>
         </Box>
       )}
-      {examTabDatasState.map(
+      {examTabDatasState?.map(
         (data, index) => data.status === "true" && <ComponentForIndex key={index} index={index} data={index==0?state.eligibility:index==1?state.examDetail:index==2?state.examTips:index==3?state.syllabus:index==4?state.topColleges:null}  />
       )}
       <Box display="flex" justifyContent="space-between" flexWrap="wrap">
-        {examTabDatasState.map(
+        {examTabDatasState?.map(
           (data, i) =>
             data.status === "false" && (
               <Box
