@@ -24,6 +24,7 @@ import ChallengesModal from "../home/challenge/challengesModals/challengesModal"
 import ChallengeList from "../home/challenge/challengeList";
 import CourseList from "../courses/courseList";
 import EventList from "../events/eventList";
+import MediaPostList from "./mediaPostList";
 const GroupTabList = () => {
   const router = useRouter();
   const { isOpen: isOpenChallenge, onOpen: onOpenChallenge, onClose: onCloseChallenge } = useDisclosure();
@@ -207,18 +208,7 @@ const GroupTabList = () => {
             <ExamTab examId={examId._id} />
           </TabPanel>
           <TabPanel padding="0">
-            <Box
-              display="flex"
-              flexWrap="wrap"
-              alignItems="center"
-              px="4"
-              gap="3"
-              justifyContent="space-between"
-              bg="white.900"
-            >
-              <CourseList groupId={groupId}/>
-              
-            </Box>
+            <CourseList groupId={groupId}/>
           </TabPanel>
           <TabPanel padding="0">
             <PracticeQAs />
@@ -228,14 +218,12 @@ const GroupTabList = () => {
           </TabPanel>
           <TabPanel padding="3" bg="white.900" mt="1">
             <EventList groupId={groupId}/>
-           
           </TabPanel>
           <TabPanel padding="0">
             <FilesTab groupId={groupId} />
           </TabPanel>
           <TabPanel padding="0">
-            {/* <ImageSwiper /> */}
-            <MediaPostList/>
+            <MediaPostList groupId={groupId}/>
           </TabPanel>
           <TabPanel>
             <p>nine!</p>

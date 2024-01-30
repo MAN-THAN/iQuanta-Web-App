@@ -18,9 +18,18 @@ const { isLoading, data, isError, error, isPending, isSuccess } = useQuery({
       });
 console.log("courseList",state);
   return (
-    state?.map((course,index)=>{
+    <Box
+              display="flex"
+              flexWrap="wrap"
+              alignItems="center"
+              px="4"
+              gap="3"
+              justifyContent="space-between"
+              bg="white.900"
+            >
+    {state?.map((course,index)=>{
         return <FeaturesCard data={course} onButtonClick={() => router.push(`/courses/${course._id}`)}/>
-    })
+    })}</Box>
   );
 };
 
