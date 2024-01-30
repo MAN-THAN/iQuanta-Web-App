@@ -55,7 +55,7 @@ const DifficultyModal = ({ isOpen, onClose }) => {
   return (
     <Modal
       width="460px"
-      title={
+      title={     
         <Flex justifyContent="space-between">
           <span style={{ fontSize: "18px", fontWeight: "600" }}>Select Difficulty</span>
           <span style={{ cursor: "pointer" }} onClick={() => onClose(false)}>

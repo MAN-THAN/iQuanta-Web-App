@@ -15,7 +15,7 @@ const LockedModal = ({ isOpen, onClose }) => {
       }
       centered
       open={isOpen}
-      onOk={() => onClose(false)}
+      onOk={() => onClose(false)}      
       onCancel={() => onClose(false)}
       closable={false}
       footer={null}

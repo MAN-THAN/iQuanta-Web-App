@@ -7,6 +7,7 @@ import { MdPlayArrow } from "react-icons/md";
 import VideoPlayer from "@/components/common/videoPlayer";
 import { ReactionPanel } from "@/components/common/reactionPanel";
 import { getTimeAgo } from "@/utilities/utilityFunction";
+import PostOption from "@/components/common/postOption";
 
 const VideoFeedCard = ({
   name,
@@ -52,7 +53,7 @@ const VideoFeedCard = ({
           </Box>
         </Box>
         <Box display="flex" alignItems="center" gap="4">
-          <MoreHorizontal size="24px" />
+        <PostOption />
         </Box>
       </HStack>
       <Stack padding={["3", null, "4"]}>

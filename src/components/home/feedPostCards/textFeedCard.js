@@ -1,11 +1,12 @@
 import { Box, Divider, Flex, HStack, Image, Stack, Tag, Text } from "@chakra-ui/react";
-import { Dot, MessageCircle, MoreVertical, Share2, ThumbsUp } from "lucide-react";
+import { Dot, MessageCircle, MoreHorizontal, MoreVertical, Share2, ThumbsUp } from "lucide-react";
 import LikeEmojiGroup from "@/components/common/likeEmojiGroup";
 import CommentSlider from "@/components/postCards/commentSlider/commentSlider";
 import { useRouter } from "next/navigation";
 import { MdPlayArrow } from "react-icons/md";
 import { ReactionPanel } from "@/components/common/reactionPanel";
 import { getTimeAgo } from "@/utilities/utilityFunction";
+import PostOption from "@/components/common/postOption";
 
 const TextFeedCard = ({
   classId,
@@ -52,7 +53,7 @@ const TextFeedCard = ({
           </Box>
         </Box>
         <Box display="flex" alignItems="center" gap="4">
-          <MoreVertical size="24px" />
+        <PostOption />
         </Box>
       </HStack>
       <Stack padding={["3", null, "4"]}>

@@ -9,7 +9,7 @@ const ColorSelector = ({ onColorChange }) => {
     onColorChange(color);
   };
   const colorOptions = [
-    "#5146D64D",
+    "#5146D64D",    
     "#EEB5EF",
     "#EFE2B5",
     "#B5D7EF",

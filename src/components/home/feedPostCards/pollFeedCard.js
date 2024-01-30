@@ -11,6 +11,7 @@ import { randomColors } from "@/utilities/commonFunctions";
 import { ReactionPanel } from "@/components/common/reactionPanel";
 import CommentSlider from "@/components/postCards/commentSlider/commentSlider";
 import { getTimeAgo } from "@/utilities/utilityFunction";
+import PostOption from "@/components/common/postOption";
 
 const PollFeedCard = ({
   name,
@@ -99,7 +100,7 @@ const PollFeedCard = ({
             </Box>
           </Box>
           <Box display="flex" alignItems="center" gap="4">
-            <MoreVertical size="24px" />
+          <PostOption />
           </Box>
         </HStack>
         <Stack padding={["3", null, "4"]}>

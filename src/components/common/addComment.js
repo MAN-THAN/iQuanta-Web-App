@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import { BsImages } from "react-icons/bs";
-
+   
 const AddComment = () => {
   return (
     <div className="rounded-lg  bg-white border w-full mx-auto mt-2">

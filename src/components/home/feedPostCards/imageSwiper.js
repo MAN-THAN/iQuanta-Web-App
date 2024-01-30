@@ -9,6 +9,7 @@ import { Carousel } from "antd";
 import { array } from "prop-types";
 import { ReactionPanel } from "@/components/common/reactionPanel";
 import { getTimeAgo } from "@/utilities/utilityFunction";
+import PostOption from "@/components/common/postOption";
 
 const ImageSwiper = ({
   name,
@@ -66,7 +67,7 @@ const ImageSwiper = ({
           </Box>
         </Box>
         <Box display="flex" alignItems="center" gap="4">
-          <MoreHorizontal size="24px" />
+        <PostOption />
         </Box>
       </HStack>
       <Stack>
