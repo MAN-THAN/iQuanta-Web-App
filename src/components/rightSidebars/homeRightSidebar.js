@@ -9,7 +9,7 @@ const HomeRightSidebar = () => {
 
   return (
     <>
-      <Stack>
+      <Stack position={'sticky'} top={'12vh'}>
         <Flex alignItems="center" justifyContent="space-between" pb="3">
           <Box display="flex" gap="2">
             <CalendarDays />

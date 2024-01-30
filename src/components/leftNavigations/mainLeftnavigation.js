@@ -72,7 +72,7 @@ const MainLeftNavigation = () => {
   ];
 
   return (
-    <Box bg="background.400">
+    <Box bg="background.400"  position={'sticky'} top={'12vh'}>
       <UnorderedList styleType="none" display={{ md: "none", sm: "none", lg: "block",}}>
         {Navs.map((data, index) => {
           return (
