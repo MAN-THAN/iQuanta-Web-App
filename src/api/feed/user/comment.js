@@ -1,13 +1,14 @@
 import request from "@/api/request";
 
 //comment apis
-export const createUserPostComment = async (payload) => {
+export const createUserPostComment = async (payload, uid) => {
   try {
     const res = await request({
       url: `/feed/v1/user/comment`,
       type: "POST",
       data: payload,
       headers: {
+        uid:uid,
         "Content-Type": "application/json",
       },
     });

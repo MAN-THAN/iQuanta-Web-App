@@ -44,7 +44,7 @@ export const ReactionPanel = ({ postId, userReaction }) => {
     onError: (error, variables, context) => console.log(error),
     onSuccess: (res, variables, context) => {
       console.log(res);
-      setSelectedReaction(res?.data?.data.updatedReaction);
+      setSelectedReaction(res?.data?.data.savedReactions);
       setPanelVisibility(false);
       queryClient.invalidateQueries("getAllPosts");
     },
