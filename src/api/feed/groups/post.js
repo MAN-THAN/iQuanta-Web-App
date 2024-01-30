@@ -222,7 +222,7 @@ export const getGroupTopicPostList=async(groupId,uid)=>{
   }
 }
 
-export const getGroupMediaPostList=async(groupId,uid)=>{
+export const getGroupMediaPostList=async(page,limit,uid,groupId)=>{
   try {
     const res = await request({
       url: `feed/v1/group/post/all/media/${groupId}/${page}/${limit}`,

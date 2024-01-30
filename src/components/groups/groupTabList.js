@@ -120,7 +120,7 @@ const GroupTabList = () => {
               border="1px solid"
               px="3"
               onClick={() => {
-                alert("!");
+                
                 setChallengeTab(da.challengeTab);
               }}
             >
@@ -135,45 +135,49 @@ const GroupTabList = () => {
               if (item.postType === "photo")
                 return (
                   <ImageFeedCard
-                    name={item?.createdBy?.name}
-                    uid={item?.createdBy?._id}
+                    name={item?.postTypeId?.createdBy?.name}
+                    uid={item?.postTypeId?.createdBy?._id}
                     title={item?.postTypeId?.title}
                     reactionCount={item?.reactionCount}
                     commentCount={item?.commentCount}
                     createdAt={item?.postTypeId?.createdAt}
                     media={item?.postTypeId?.media}
+                    profilePic={item?.postTypeId?.createdBy?.profilePic}
                   />
                 );
               else if (item.postType === "video")
                 return (
                   <VideoFeedCard
-                    name={item?.createdBy?.name}
-                    uid={item?.createdBy?._id}
+                    name={item?.postTypeId?.createdBy?.name}
+                    uid={item?.postTypeId?.createdBy?._id}
                     title={item?.postTypeId?.title}
                     reactionCount={item?.reactionCount}
                     commentCount={item?.commentCount}
                     createdAt={item?.postTypeId?.createdAt}
                     media={item?.postTypeId?.media}
+                    profilePic={item?.postTypeId?.createdBy?.profilePic}
                   />
                 );
               else if (item.postType === "memes")
                 return (
                   <CardFeedCard
-                    name={item?.createdBy?.name}
-                    uid={item?.createdBy?._id}
+                    name={item?.postTypeId?.createdBy?.name}
+                    uid={item?.postTypeId?.createdBy?._id}
                     title={item?.postTypeId?.title}
                     reactionCount={item?.reactionCount}
                     commentCount={item?.commentCount}
+                    profilePic={item?.postTypeId?.createdBy?.profilePic}
                   />
                 );
               else if (item.postType === "text")
                 return (
                   <TextFeedCard
-                    name={item?.createdBy?.name}
-                    uid={item?.createdBy?._id}
+                    name={item?.postTypeId?.createdBy?.name}
+                    uid={item?.postTypeId?.createdBy?._id}
                     title={item?.postTypeId?.title}
                     reactionCount={item?.reactionCount}
                     commentCount={item?.commentCount}
+                    profilePic={item?.postTypeId?.createdBy?.profilePic}
                   />
                 );
               else if (item.postType === "poll")
@@ -188,6 +192,7 @@ const GroupTabList = () => {
                     commentCount={item?.commentCount}
                     postId={item._id}
                     triggeredFrom="group"
+                   
                   />
                 );
 
@@ -205,7 +210,7 @@ const GroupTabList = () => {
             )}
           </TabPanel>
           <TabPanel padding="0">
-            <ExamTab examId={examId._id} />
+            <ExamTab examId={examId?._id} />
           </TabPanel>
           <TabPanel padding="0">
             <CourseList groupId={groupId}/>

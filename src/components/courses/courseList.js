@@ -3,8 +3,9 @@ import FeaturesCard from "./featuresCard";
 import { getGroupCourseList } from "@/api/feed/groups/exam";
 import { useQuery } from "react-query";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
-
+import {Box} from '@chakra-ui/react'
 const CourseList = ({groupId}) => {
 const [state, setState] = useState();
 const { isLoading, data, isError, error, isPending, isSuccess } = useQuery({
