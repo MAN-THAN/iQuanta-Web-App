@@ -61,3 +61,18 @@ export const turnOffCommentsUserPost = async (postId, commentAllow) => {
     throw err;
   }
 };
+export const deleteUserPost = async (postId) => {
+    try {
+      const res = await request({
+        url: `/feed/v1/user/post/${postId}`,
+        type: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      return res;
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
+  };
