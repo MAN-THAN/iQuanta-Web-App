@@ -13,14 +13,14 @@ const LikeEmojiGroup = ({ userReaction, reactionCountDetail }) => {
   //   { reaction: "😡", reactionType: "angry", fontColor: "#C92A2A" },
   // ];
   const modifiedReactions = reactions.slice(1);
-  console.log(userReaction);
+  // console.log(userReaction);
   const getEmojiArrOnPosts = () => {
     const arr = [];
     reactionCountDetail?.length > 0 &&
       reactionCountDetail?.map((item, ind) => {
         if (item.count > 0 && !arr.find((i) => i.reactionType === item.type) && item.type !== "like") {
           const obj = modifiedReactions.find((i) => i.reactionType === item.type);
-          console.log(obj);
+          // console.log(obj);
           arr.push(obj);
         }
       });
