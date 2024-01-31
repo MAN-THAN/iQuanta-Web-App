@@ -10,6 +10,8 @@ import { array } from "prop-types";
 import { ReactionPanel } from "@/components/common/reactionPanel";
 import { getTimeAgo } from "@/utilities/utilityFunction";
 import PostOption from "@/components/common/postOption";
+import { useDisclosure } from "@chakra-ui/react";
+
 
 const ImageSwiper = ({
   name,
@@ -24,7 +26,7 @@ const ImageSwiper = ({
   followingCount,
   reactionCountDetail,
   userReaction,
-  comments
+  topComments,
 }) => {
   const sliderIMg = [
     {
@@ -37,6 +39,7 @@ const ImageSwiper = ({
       img: "/back.png",
     },
   ];
+  const { isOpen: isOpenComment, onToggle: onToggleComment, onClose: onClose } = useDisclosure();
 
   return (
     <Box bg="#fff" mt="1" p="4">
@@ -67,7 +70,7 @@ const ImageSwiper = ({
           </Box>
         </Box>
         <Box display="flex" alignItems="center" gap="4">
-        <PostOption />
+          <PostOption />
         </Box>
       </HStack>
       <Stack>
@@ -104,7 +107,7 @@ const ImageSwiper = ({
         </Carousel>
         <HStack align="center" fontWeight="400" fontSize="14px" padding="4">
           <Box display="flex" alignItems="center">
-            <LikeEmojiGroup userReaction={userReaction} reactionCountDetail={reactionCountDetail}  />
+            <LikeEmojiGroup userReaction={userReaction} reactionCountDetail={reactionCountDetail} />
             <span
               style={{
                 fontSize: "14px",
@@ -145,11 +148,16 @@ const ImageSwiper = ({
           </Box>
         </HStack>
         <Divider />
-        <ReactionPanel postId={postId} />
+        <ReactionPanel
+          postId={postId}
+          userReaction={userReaction}
+          isOpenComment={isOpenComment}
+          onToggleComment={onToggleComment}
+        />
         <Divider />
       </Stack>
       <Box p="0">
-        <CommentSlider comments={comments} />
+        <CommentSlider topComments={topComments} postId={postId} isOpenComment={isOpenComment} />
       </Box>
     </Box>
   );

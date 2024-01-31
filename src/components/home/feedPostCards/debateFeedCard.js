@@ -18,6 +18,8 @@ import CommentSlider from "../../postCards/commentSlider/commentSlider";
 import AvatarGroups from "../../common/avatarGroups";
 import { ReactionPanel } from "../../common/reactionPanel";
 import { getTimeAgo } from "@/utilities/utilityFunction";
+import { useDisclosure } from "@chakra-ui/react";
+
 
 const DebateFeedCard = ({
   name,
@@ -35,10 +37,11 @@ const DebateFeedCard = ({
   participants,
   userReaction,
   reactionCountDetail,
-  comments
+  topComments,
 }) => {
- 
-    return (
+  const { isOpen: isOpenComment, onToggle: onToggleComment, onClose: onClose } = useDisclosure();
+
+  return (
     <Box bg="#fff" mt="1">
       <HStack align="center" justifyContent="space-between" padding={["3", null, "4"]}>
         <Box
@@ -84,7 +87,9 @@ const DebateFeedCard = ({
                 Participants
               </Text>
               <AvatarGroup max={3} size="sm" gap="0">
-                {participants?.map((item, ind) =>  <Avatar key={ind} name={item.name} src={item?.profilePic} />)}
+                {participants?.map((item, ind) => (
+                  <Avatar key={ind} name={item.name} src={item?.profilePic} />
+                ))}
               </AvatarGroup>
             </HStack>
           </Box>
@@ -131,10 +136,15 @@ const DebateFeedCard = ({
             </span>
           </Box>
         </HStack>
-        <ReactionPanel postId={postId} userReaction={userReaction} />
+        <ReactionPanel
+          postId={postId}
+          userReaction={userReaction}
+          isOpenComment={isOpenComment}
+          onToggleComment={onToggleComment}
+        />{" "}
       </Stack>
       <Box p="0">
-        <CommentSlider comments={comments} />
+        <CommentSlider topComments={topComments} postId={postId} isOpenComment={isOpenComment} />
       </Box>
     </Box>
   );

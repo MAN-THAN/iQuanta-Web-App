@@ -8,8 +8,8 @@ import { reactions } from "@/utilities/comanData";
 import { CommentPanel } from "./commentPanel";
 import { useDisclosure } from "@chakra-ui/react";
 
-export const ReactionPanel = ({ postId, userReaction }) => {
-  const { isOpen: isOpenComment, onToggle: onToggleComment, onClose: onClose } = useDisclosure();
+export const ReactionPanel = ({ postId, userReaction, isOpenComment, onToggleComment }) => {
+  // const { isOpen: isOpenComment, onToggle: onToggleComment, onClose: onClose } = useDisclosure();
   const [selectedReaction, setSelectedReaction] = useState(
     userReaction ? userReaction : { reactionType: "no_reaction" }
   );
@@ -46,7 +46,7 @@ export const ReactionPanel = ({ postId, userReaction }) => {
       console.log(res);
       setSelectedReaction(res?.data?.data.savedReactions);
       setPanelVisibility(false);
-      queryClient.invalidateQueries("getAllPosts");
+      // queryClient.invalidateQueries("getAllPosts");
     },
     onSettled: (data, error, variables, context) => {},
   });

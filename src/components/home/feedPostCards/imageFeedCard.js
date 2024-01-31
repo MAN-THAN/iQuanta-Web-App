@@ -7,6 +7,7 @@ import { MdPlayArrow } from "react-icons/md";
 import { ReactionPanel } from "@/components/common/reactionPanel";
 import { getTimeAgo } from "@/utilities/utilityFunction";
 import PostOption from "@/components/common/postOption";
+import { useDisclosure } from "@chakra-ui/react";
 
 const ImageFeedCard = ({
   name,
@@ -16,13 +17,14 @@ const ImageFeedCard = ({
   commentCount,
   createdAt,
   media,
-  comments,
+  topComments,
   profilePic,
   followingCount,
   postId,
   userReaction,
-  reactionCountDetail
+  reactionCountDetail,
 }) => {
+  const { isOpen: isOpenComment, onToggle: onToggleComment, onClose: onClose } = useDisclosure();
   console.log(reactionCount);
   return (
     <Box bg="#fff" mt="1">
@@ -52,7 +54,7 @@ const ImageFeedCard = ({
           </Box>
         </Box>
         <Box display="flex" alignItems="center" gap="4">
-          <PostOption postUserId={uid} postId={postId}/>
+          <PostOption postUserId={uid} postId={postId} />
         </Box>
       </HStack>
       <Stack padding={["3", null, "4"]}>
@@ -105,11 +107,20 @@ const ImageFeedCard = ({
           </Box>
         </HStack>
         <Divider />
-        <ReactionPanel postId={postId} userReaction={userReaction} />
+        <ReactionPanel
+          postId={postId}
+          userReaction={userReaction}
+          isOpenComment={isOpenComment}
+          onToggleComment={onToggleComment}
+        />
         <Divider />
       </Stack>
       <Box p="0">
-        <CommentSlider comments={comments} />
+        <CommentSlider
+          topComments={topComments}
+          postId={postId}
+          isOpenComment={isOpenComment}
+        />
       </Box>
     </Box>
   );

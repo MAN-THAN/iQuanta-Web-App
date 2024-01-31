@@ -29,23 +29,23 @@ export const FeedPostList = () => {
       }),
     onSuccess: (res, page) => {
       console.log(res);
-      // let currentPageParam = res?.pageParams?.length - 1;
-      setPostList(res.pages[0]?.data?.data?.allPostData);
+      let currentPageParam = res?.pageParams?.length - 1;
+      setPostList((prev) => [...prev, ...res.pages[currentPageParam]?.data?.data?.allPostData]);
     },
   });
   // Implement scrolling detection
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-  //     if (scrollTop + clientHeight >= scrollHeight - 5) {
-  //       fetchNextPage();
-  //     }
-  //   };
-  //   window.addEventListener("scroll", handleScroll);
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //   };
-  // }, []);
+  useEffect(() => {
+    const handleScroll = () => {
+      const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+      if (scrollTop + clientHeight >= scrollHeight - 5) {
+        fetchNextPage();
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   console.log(postList);
 
   return (
@@ -64,7 +64,7 @@ export const FeedPostList = () => {
                 commentCount={item?.commentCount}
                 createdAt={item?.postTypeId?.createdAt}
                 media={item?.postTypeId?.media}
-                comments={item?.comments}
+                topComments={item?.topComments}
                 postId={item?.postTypeId?._id}
                 userReaction={item?.userReaction}
                 followingCount={item?.followingCount}
@@ -82,7 +82,7 @@ export const FeedPostList = () => {
                 commentCount={item?.commentCount}
                 createdAt={item?.postTypeId?.createdAt}
                 media={item?.postTypeId?.media}
-                comments={item?.comments}
+                topComments={item?.topComments}
                 postId={item?.postTypeId?._id}
                 userReaction={item?.userReaction}
                 followingCount={item?.followingCount}
@@ -107,8 +107,8 @@ export const FeedPostList = () => {
               userReaction={item?.userReaction}
               followingCount={item?.followingCount}
               reactionCountDetail={item?.reactionCountDetail}
-              comments={item?.comments}
-            />
+              topComments={item?.topComments}
+              />
           );
         else if (item.postType === "memes")
           return (
@@ -125,8 +125,8 @@ export const FeedPostList = () => {
               userReaction={item?.userReaction}
               followingCount={item?.followingCount}
               reactionCountDetail={item?.reactionCountDetail}
-              comments={item?.comments}
-            />
+              topComments={item?.topComments}
+              />
           );
         else if (item.postType === "text")
           return (
@@ -143,8 +143,8 @@ export const FeedPostList = () => {
               userReaction={item?.userReaction}
               followingCount={item?.followingCount}
               reactionCountDetail={item?.reactionCountDetail}
-              comments={item?.comments}
-            />
+              topComments={item?.topComments}
+              />
           );
         else if (item.postType === "poll")
           return (
@@ -161,8 +161,8 @@ export const FeedPostList = () => {
               userReaction={item?.userReaction}
               followingCount={item?.followingCount}
               reactionCountDetail={item?.reactionCountDetail}
-              comments={item?.comments}
-            />
+              topComments={item?.topComments}
+              />
           );
         else if (item.postType === "debate")
           return (
@@ -180,8 +180,8 @@ export const FeedPostList = () => {
               userReaction={item?.userReaction}
               followingCount={item?.followingCount}
               reactionCountDetail={item?.reactionCountDetail}
-              comments={item?.comments}
-            />
+              topComments={item?.topComments}
+              />
           );
 
         // else if (item.post_type === "video") return <SuggestionSection />;

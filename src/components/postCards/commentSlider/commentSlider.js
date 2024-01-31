@@ -6,11 +6,30 @@ import { Dot, MoreVertical } from "lucide-react";
 import EmojiGroup from "@/components/common/avatarGroups";
 import LikeEmojiGroup from "@/components/common/likeEmojiGroup";
 import { getTimeAgo } from "@/utilities/utilityFunction";
+import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { useInfiniteQuery } from "react-query";
+import { getUserPostComments } from "@/api/feed/user/comments";
 
-const CommentSlider = ({ comments }) => {
+const CommentSlider = ({ topComments, postId, isOpenComment}) => {
+  console.log(isOpenComment)
+  const [commentList, setCommentList] = useState([]);
+  const { _id: uid } = useSelector((state) => state.userData);
+  const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } = useInfiniteQuery({
+    queryKey: ["getAllComments", postId],
+    queryFn: ({ pageParam = 1 }) => getUserPostComments(postId, pageParam, 10),
+    // getNextPageParam: (lastPage, pages) => lastPage.data.data.pagination.page + 1,
+    enabled:!!isOpenComment,
+    onError: (error, variables, context) => {},
+    onSuccess: (res, page) => {
+      console.log(res);
+      // let currentPageParam = res?.pageParams?.length - 1;
+      setCommentList(res.pages[0]?.data?.data?.comment);
+    },
+  });
 
   return (
-    <Box width="auto" p='4'>
+    <Box width="auto" p="4">
       <Swiper
         slidesPerView={1}
         spaceBetween={10}
@@ -35,7 +54,7 @@ const CommentSlider = ({ comments }) => {
         modules={[Navigation]}
         className="mySwiper"
       >
-        {comments?.map((item, ind) => (
+        {[...topComments, ...commentList]?.map((item, ind) => (
           <SwiperSlide key={ind}>
             <Card bg="#F1F2F6" minW="280px" rounded="2xl">
               <HStack align="center" justifyContent="space-between" padding={["3", null, "4"]}>
@@ -77,7 +96,7 @@ const CommentSlider = ({ comments }) => {
                 p={["2", null, "3"]}
                 lineHeight={["20px", null, "24px"]}
               >
-                {item?.comment}  {"...read more"}
+                {item?.comment} {"...read more"}
               </Text>
               <HStack align="center" padding={["3", null, "3"]}>
                 <Text

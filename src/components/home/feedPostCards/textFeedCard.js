@@ -7,6 +7,7 @@ import { MdPlayArrow } from "react-icons/md";
 import { ReactionPanel } from "@/components/common/reactionPanel";
 import { getTimeAgo } from "@/utilities/utilityFunction";
 import PostOption from "@/components/common/postOption";
+import { useDisclosure } from "@chakra-ui/react";
 
 const TextFeedCard = ({
   classId,
@@ -20,11 +21,11 @@ const TextFeedCard = ({
   postId,
   followingCount,
   reactionCountDetail,
-  comments,
-  userReaction
+  topComments,
+  userReaction,
 }) => {
   const router = useRouter();
-
+  const { isOpen: isOpenComment, onToggle: onToggleComment, onClose: onClose } = useDisclosure();
   return (
     <Box bg="#fff" mt="1">
       <HStack align="center" justifyContent="space-between" padding={["3", null, "4"]}>
@@ -53,7 +54,7 @@ const TextFeedCard = ({
           </Box>
         </Box>
         <Box display="flex" alignItems="center" gap="4">
-        <PostOption postUserId={uid} postId={postId} />
+          <PostOption postUserId={uid} postId={postId} />
         </Box>
       </HStack>
       <Stack padding={["3", null, "4"]}>
@@ -115,11 +116,16 @@ const TextFeedCard = ({
             <Share2 /> <span>Share</span>
           </HStack>
         </Flex> */}
-        <ReactionPanel postId={postId} />
+        <ReactionPanel
+          postId={postId}
+          userReaction={userReaction}
+          isOpenComment={isOpenComment}
+          onToggleComment={onToggleComment}
+        />{" "}
         <Divider />
       </Stack>
       <Box p="0">
-        <CommentSlider comments={comments} />
+        <CommentSlider topComments={topComments} postId={postId} isOpenComment={isOpenComment} />
       </Box>
     </Box>
   );

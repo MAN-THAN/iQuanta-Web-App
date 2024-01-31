@@ -8,7 +8,7 @@ export const createUserPostComment = async (payload, uid) => {
       type: "POST",
       data: payload,
       headers: {
-        uid:uid,
+        uid: uid,
         "Content-Type": "application/json",
       },
     });
@@ -21,7 +21,20 @@ export const createUserPostComment = async (payload, uid) => {
 
 export const editUserPostComment = async (postId, uid) => {};
 
-export const getUserPostComments = async (postId, uid) => {};
+export const getUserPostComments = async (postId, page, limit) => {
+  try {
+    const res = await request({
+      url: `/feed/v1/user/comment/list/${postId}/${page}/${limit}`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return res;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};
 
 export const userCommentReactToComment = async (postId, uid) => {};
 
