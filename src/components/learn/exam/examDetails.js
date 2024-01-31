@@ -4,6 +4,7 @@ import AllTopics from "@/components/exams/allTopics";
 import PreparationTips from "@/components/exams/preparationTips";
 import { useRouter } from "next/navigation";
 import LearnLayout from "@/components/layouts/learnLayout";
+import BackButton from "@/components/common/backButton";
 
 const ExamDetails = () => {
   const router = useRouter();
@@ -13,7 +14,7 @@ const ExamDetails = () => {
     
         <Box bg="#fff" p="6" rounded="2xl">
           <HStack>
-            <ArrowLeft />
+            <BackButton/>
             <Stack p="0" gap="0">
               <Text fontSize="16px" fontWeight="600">
                 Foreign Studies

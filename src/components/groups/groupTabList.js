@@ -25,6 +25,8 @@ import ImageSwiper from "../home/feedPostCards/imageSwiper";
 import ChallengeForm from "../home/challenge/challengesPostCard/challengeForm";
 import ChallengesModal from "../home/challenge/challengesModals/challengesModal";
 import ChallengeList from "../home/challenge/challengeList";
+import TopicDetailsTab from "./topicDetailsTab";
+import DoubtDetailsTab from "./doubtDetailsTab";
 
 const GroupTabList = () => {
   const router = useRouter();
@@ -242,11 +244,11 @@ const GroupTabList = () => {
           <TabPanel padding="0">
             <ImageSwiper />
           </TabPanel>
-          <TabPanel>
-            <p>nine!</p>
+          <TabPanel padding="0">
+            <TopicDetailsTab />
           </TabPanel>
-          <TabPanel>
-            <p>ten!</p>
+          <TabPanel padding="0">
+            <DoubtDetailsTab />
           </TabPanel>
         </TabPanels>
       </Tabs>
