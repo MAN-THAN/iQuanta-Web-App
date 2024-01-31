@@ -2,9 +2,11 @@ import BackButton from "@/components/common/backButton";
 import AllTopics from "@/components/exams/allTopics";
 import { Box, Flex, HStack, Image, Stack, Text } from "@chakra-ui/react";
 import { Dot } from "lucide-react";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const AssignmentsTopicList = () => {
+  const router = useRouter();
   return (
     <>
       <Box bg="#fff" p="6" rounded="2xl">
@@ -45,7 +47,7 @@ const AssignmentsTopicList = () => {
             rounded="2xl"
             cursor="pointer"
             onClick={() => {
-              router.push("/learn/exams/subTopics");
+              router.push("/practice/assignment/0");
             }}
           >
             <Box width="50px" height="50px" bg="#51D3E5" p="2" rounded="xl">
@@ -79,7 +81,7 @@ const AssignmentsTopicList = () => {
                 <Text>GMAT</Text> <Dot />
                 <Text color="#5146D6" fontWeight="600">
                   Important
-                </Text>{" "}
+                </Text>
               </Flex>
             </Stack>
           </HStack>

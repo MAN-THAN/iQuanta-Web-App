@@ -39,8 +39,8 @@ const ImageSwiper = ({
   ];
 
   return (
-    <Box bg="#fff" mt="1" p="4">
-      <HStack align="center" justifyContent="space-between" paddingY={["3", null, "4"]}>
+    <Box bg="#fff" mt="2">
+      <HStack align="center" justifyContent="space-between" py={["3", null, "4"]}>
         <Box
           sx={{
             display: "flex",
@@ -74,33 +74,15 @@ const ImageSwiper = ({
         <Text fontSize="14px" lineHeight="24px">
           <p>{title}</p>
         </Text>
-        <Carousel>
-          {/* {sliderIMg.map((da, i) => (
+        <Carousel >
+          {sliderIMg.map((da, i) => (
             <Box position="relative" key={i} width="100%" height="40vh">
               <Image width="100%" height="100%" objectFit="cover" src={da.img} alt={`Image ${i + 1}`} />
-              <Text color="white" position="absolute" top="2" right="2">
+              <Text color="white" bg="#000" position="absolute" top="2" right="2" px="2" rounded="full">
                 {i + 1}/{sliderIMg.length}
               </Text>
             </Box>
-          ))} */}
-          {media?.map((image, i) => {
-            return (
-              <Box position="relative" key={i} width="100%" height="40vh">
-                {/* <Image width="100%" height="100%" objectFit="cover" src={image} alt={`Image ${i + 1}`} /> */}
-                {/* {image.substring(image.lastIndexOf(".")) == (".png"||".jpg"||".jpeg")&& */}
-                <Image width="100%" height="100%" objectFit="cover" src={image} alt={`Card Image ${i + 1}`} />
-
-                {/* }{image.substring(image.lastIndexOf(".")) == (".mp4"||".mpg"||".mpeg"||".mkv"||".wmv"||".mov"||".flv")&&
-            
-            <VideoPlayer width="100%" height="100%" objectFit="cover" videoUrl={image}/>
-            } */}
-                {/* {console.log(image.substring(image.lastIndexOf("."))==(".mp4"||".mpg"||".mpeg"||".mkv"||".wmv"||".mov"||".flv"),"858")} */}
-                <Text color="white" position="absolute" top="2" right="2">
-                  {/* {i + 1}/{sliderIMg.length} */}
-                </Text>
-              </Box>
-            );
-          })}
+          ))}
         </Carousel>
         <HStack align="center" fontWeight="400" fontSize="14px" padding="4">
           <Box display="flex" alignItems="center">
