@@ -46,7 +46,7 @@ export const ReactionPanel = ({ postId, userReaction, isOpenComment, onToggleCom
       console.log(res);
       setSelectedReaction(res?.data?.data.savedReactions);
       setPanelVisibility(false);
-      // queryClient.invalidateQueries("getAllPosts");
+      queryClient.invalidateQueries("getAllPosts");
     },
     onSettled: (data, error, variables, context) => {},
   });
