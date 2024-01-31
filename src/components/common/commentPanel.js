@@ -19,10 +19,10 @@ import { useMutation, useQueryClient } from "react-query";
 import { createUserPostComment } from "@/api/feed/user/comment";
 
 export const CommentPanel = ({ isOpenComment, postId }) => {
-  const { profilePic, _id:uid } = useSelector((state) => state.userData);
+  const { profilePic, _id: uid } = useSelector((state) => state.userData);
   const [comment, setComment] = useState("");
   const date = new Date();
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
   const handleComment = () => {
     const payload = {
       postId: postId,
