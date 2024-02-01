@@ -11,7 +11,7 @@ import { deleteUserPost } from "@/api/feed/user/postAction";
 import { toast, ToastContainer } from "react-toastify";
 import EditPostModal from "../home/feedPostCards/editPostModal";
 
-const PostOption = ({ postUserId, postId }) => {
+const PostOption = ({ postUserId, postId, title }) => {
   const { isOpen: isOpenEditPost, onOpen: onOpenEditPost, onClose: onCloseEditPost } = useDisclosure();
   const { _id: uid } = useSelector((state) => state.userData);
   const queryClient = useQueryClient();
@@ -105,7 +105,7 @@ const PostOption = ({ postUserId, postId }) => {
 
   return (
     <>
-      <EditPostModal isOpen={isOpenEditPost} onClose={onCloseEditPost} />
+      <EditPostModal isOpen={isOpenEditPost} onClose={onCloseEditPost} title={title} postId={postId}/>
       <Menu>
         <MenuButton rounded="lg" bg="#fff">
           <MoreHorizontal size="24px" />

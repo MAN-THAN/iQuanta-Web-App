@@ -11,12 +11,12 @@ import { useInfiniteQuery, useQueryClient } from "react-query";
 import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { getAllPost } from "@/api/feed/user";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Spin } from "antd";
 import { throttle } from "lodash";
 import React from "react";
 import { useInView } from "react-intersection-observer";
+import { getAllPost } from "@/api/feed/user/posts";
 
 export const FeedPostList = () => {
   const { _id: uid } = useSelector((state) => state.userData);

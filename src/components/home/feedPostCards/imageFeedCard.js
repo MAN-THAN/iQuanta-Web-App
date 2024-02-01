@@ -54,7 +54,7 @@ const ImageFeedCard = ({
           </Box>
         </Box>
         <Box display="flex" alignItems="center" gap="4">
-          <PostOption postUserId={uid} postId={postId} />
+          <PostOption postUserId={uid} postId={postId} title={title}/>
         </Box>
       </HStack>
       <Stack padding={["3", null, "4"]}>

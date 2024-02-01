@@ -1,9 +1,34 @@
 import { Box, Button, HStack, Image, Textarea } from "@chakra-ui/react";
 import { Modal } from "antd";
-import React from "react";
+import React, { useState } from "react";
 import { MdPlayArrow } from "react-icons/md";
+import { useSelector } from "react-redux";
+import { useMutation, useQueryClient } from "react-query";
+import { editPost } from "@/api/feed/user/posts";
+import { toast } from "react-toastify";
 
-const EditPostModal = ({ isOpen, onClose }) => {
+const EditPostModal = ({ isOpen, onClose, title, postId }) => {
+  const { _id: uid, profilePic, name } = useSelector((state) => state.userData);
+  const [Title, setTitle] = useState(title);
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: (payload) => editPost(postId, payload),
+    onMutate: (variables) => {
+      return console.log("mutation is happening");
+    },
+    onError: (error, variables, context) =>
+      toast.error(`${error?.response?.data.error?.message}`, {
+        position: toast.POSITION.TOP_RIGHT,
+      }),
+    onSuccess: (res, variables, context) => {
+      toast.success("post updated successfully!", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      onClose(false);
+      queryClient.invalidateQueries("getAllPosts");
+    },
+    onSettled: (data, error, variables, context) => {},
+  });
   return (
     <Modal
       width="50vw"
@@ -13,7 +38,16 @@ const EditPostModal = ({ isOpen, onClose }) => {
       onCancel={() => onClose(false)}
       closable={false}
       footer={
-        <Button width='20%' rounded='2xl' bg='black.900' color='white.900'>Save</Button>
+        <Button
+          onClick={() => mutation.mutate({ title: Title })}
+          isDisabled={title === Title ? true : false}
+          width="20%"
+          rounded="2xl"
+          bg="black.900"
+          color="white.900"
+        >
+          Save
+        </Button>
       }
     >
       <HStack align="center" justifyContent="space-between">
@@ -29,28 +63,34 @@ const EditPostModal = ({ isOpen, onClose }) => {
               width="100%"
               height="100%"
               className="rounded-md"
-              src="/profile.jpeg"
+              src={profilePic}
               alt="Profile Image"
             />
           </Box>
           <Box ml="2">
             <Box display="flex" alignItems="center">
-              <p style={{ fontSize: "18px", color: "#171717", fontWeight: "600" }}>Himanshu Rohila</p> <MdPlayArrow />
+              <p style={{ fontSize: "18px", color: "#171717", fontWeight: "600" }}>{name}</p>
               {/* <p style={{ fontSize: "14px", color: "#171717", fontWeight: "400" }}>Posted in CAT 2021</p> */}
             </Box>
-            <p style={{ fontSize: "16px", color: "#636363" }}>waert</p>
+            <p style={{ fontSize: "16px", color: "#636363" }}>Public</p>
           </Box>
         </Box>
       </HStack>
       <Box height="60vh" overflowY="scroll">
         <Box py="6">
-          <Textarea focusBorderColor="none" _focusVisible={false} fontSize='18px' border='none'/>
+          <Textarea
+            value={Title}
+            onChange={(e) => setTitle(e.target.value)}
+            focusBorderColor="none"
+            _focusVisible={false}
+            fontSize="18px"
+            border="none"
+          />
         </Box>
-        <Box overflow="hidden">
+        {/* <Box overflow="hidden">
           <Image width="100%" src="/profile.jpeg" />
-        </Box>
+        </Box> */}
       </Box>
-      
     </Modal>
   );
 };
