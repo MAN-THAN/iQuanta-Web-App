@@ -60,7 +60,7 @@ export const FeedPostList = () => {
           </Box>
         </>
       ) : isError ? (
-        <Box>Error</Box>
+        <Box>{error}</Box>
       ) : (
         data?.pages.map((page, ind) => (
           <React.Fragment key={ind}>
