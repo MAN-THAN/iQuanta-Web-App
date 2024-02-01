@@ -1,21 +1,20 @@
 import React from "react";
 import { Box, HStack, Text } from "@chakra-ui/react";
 import { usePathname, useRouter } from "next/navigation";
-import { examCard } from "@/utilities/comanData";
-import ExamCard from "./examCard";
+import UpcomingTestCard from "./upcomingTestCard";
 
-const YourExam = () => {
+const UpcomingTestList = () => {
   const router = useRouter();
   const path = usePathname();
 
   return (
     <Box mt="4" bg="#fff" p="4">
-      {path === "/mockTest" ? <Text fontSize="22px">Practice For</Text> : <Text fontSize="22px"> Your Exam</Text>}
+      <Text fontSize="22px"> Upcoming Tests</Text>
       <Box>
         <HStack pt="6" pb="3" gap="3" maxW="800px" overflowX="scroll">
-          {examCard.map((data, index) => (
-            <Box key={index} onClick={() => router.push("/learn/exams")}>
-              <ExamCard data={data} />
+          {[...Array(5)].map((data, index) => (
+            <Box key={index} >
+             <UpcomingTestCard/>
             </Box>
           ))}
         </HStack>
@@ -24,4 +23,4 @@ const YourExam = () => {
   );
 };
 
-export default YourExam;
+export default UpcomingTestList;

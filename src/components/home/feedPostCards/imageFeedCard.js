@@ -61,8 +61,8 @@ const ImageFeedCard = ({
         <Text fontSize="14px" lineHeight="24px">
           <p>{title}</p>
         </Text>
-        <Box maxH="460px" maxW="100vh" overflow="hidden">
-          <Image alt="video" w="100%" h="100%" objectFit="cover" src={media?.[0]} />
+        <Box maxH="100vh " maxW="100vh" overflow="hidden" >
+          <Image alt="video" w="100%" h="100%" fit="contain" src={media?.[0]} />
         </Box>
         <HStack align="center" fontWeight="400" fontSize="14px" padding="4">
           <Box display="flex" alignItems="center">

@@ -26,7 +26,7 @@ const ImageSwiper = ({
   followingCount,
   reactionCountDetail,
   userReaction,
-  topComments,
+  comments,
 }) => {
   const sliderIMg = [
     {
@@ -77,7 +77,7 @@ const ImageSwiper = ({
         <Text fontSize="14px" lineHeight="24px">
           <p>{title}</p>
         </Text>
-        <Carousel >
+        <Carousel>
           {sliderIMg.map((da, i) => (
             <Box position="relative" key={i} width="100%" height="40vh">
               <Image width="100%" height="100%" objectFit="cover" src={da.img} alt={`Image ${i + 1}`} />
@@ -139,7 +139,7 @@ const ImageSwiper = ({
         <Divider />
       </Stack>
       <Box p="0">
-        <CommentSlider topComments={topComments} postId={postId} isOpenComment={isOpenComment} />
+        {/* <CommentSlider topComments={topComments} postId={postId} isOpenComment={isOpenComment} /> */}
       </Box>
     </Box>
   );
