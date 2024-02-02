@@ -43,7 +43,7 @@ const CreateBasicModal = ({
   setOptions,
   selectedComponent,
   setParticipantsShow,
-  setTaggedTopic
+  setTaggedTopic,
 }) => {
   const { _id: uid, name } = useSelector((state) => state.userData);
   const handleRemoveImage = (index) => {
