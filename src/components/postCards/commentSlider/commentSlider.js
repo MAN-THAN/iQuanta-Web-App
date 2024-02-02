@@ -54,7 +54,7 @@ const CommentSlider = ({ topComments, postId, isOpenComment}) => {
         modules={[Navigation]}
         className="mySwiper"
       >
-        {[...topComments, ...commentList]?.map((item, ind) => (
+        {[...commentList]?.map((item, ind) => (
           <SwiperSlide key={ind}>
             <Card bg="#F1F2F6" minW="280px" rounded="2xl">
               <HStack align="center" justifyContent="space-between" padding={["3", null, "4"]}>
