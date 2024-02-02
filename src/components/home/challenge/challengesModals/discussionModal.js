@@ -317,7 +317,7 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto, triggeredFrom, finalRef 
                     style={mentionsInputStyles}
                   >
                     <Mention
-                      data={data.data.data.friendList.map((i) => {
+                      data={data?.data.data.friendList.map((i) => {
                         return { display: i.name, id: i._id };
                       })}
                       style={mentionStyles}
