@@ -9,6 +9,11 @@ import {
   ListItem,
   Text,
   UnorderedList,
+  Button,
+  ModalContent,
+  ModalBody,
+  Divider,
+  ModalFooter,
 } from "@chakra-ui/react";
 import { SearchIcon, X } from "lucide-react";
 import React from "react";
@@ -19,7 +24,13 @@ import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
-const ParticipantsModal = ({ closeParticipants, participants, setParticipants, triggeredFrom }) => {
+const ParticipantsModal = ({
+  closeParticipants,
+  participants,
+  setParticipants,
+  triggeredFrom,
+  setParticipantsShow,
+}) => {
   const { _id: uid } = useSelector((state) => state.userData);
   const [state, setState] = useState();
   const { isLoading, data, isError, error, isPending, isSuccess } = useQuery({
@@ -55,62 +66,89 @@ const ParticipantsModal = ({ closeParticipants, participants, setParticipants, t
   console.log(participants);
   return (
     <>
-      <Box>
-        <Flex alignItems="center" gap="3" pb="6">
-          <Box onClick={closeParticipants}>
-            <X />
+      <ModalContent maxW="xl" bg="white.900" rounded="2xl" color="#000" height="60vh">
+        <ModalBody
+          overflowY="scroll"
+          overflowX="hidden"
+          css={{ scrollbarWidth: "thin", scrollbarColor: "#888 #f5f5f5" }}
+          sx={{
+            "-webkit-overflow-scrolling": "touch",
+            scrollBehavior: "smooth",
+          }}
+        >
+          <Box>
+            <Flex alignItems="center" gap="3" pb="6">
+              <Box onClick={closeParticipants}>
+                <X cursor={"pointer"} />
+              </Box>
+              <Text fontSize="18px" fontWeight="600">
+                Add Participants
+              </Text>
+            </Flex>
+            <InputGroup size="md">
+              <InputLeftElement>
+                <SearchIcon />
+              </InputLeftElement>
+              <Input pl="3.0rem" placeholder="Search" />
+            </InputGroup>
+            <UnorderedList listStyleType="none" overflowY="scroll">
+              {state?.length === 0 ? (
+                <Text marginTop={4} textAlign={"center"}>
+                  No Friends!
+                </Text>
+              ) : (
+                state?.map((item, ind) => (
+                  <ListItem key={ind} display="flex" alignItems="center" justifyContent="space-between" pr="4" pt="5">
+                    <Box display="flex" alignItems="center">
+                      <Image
+                        boxSize="2.5rem"
+                        fit="cover"
+                        borderRadius="md"
+                        src={item?.profilePic}
+                        alt="Fluffybuns the destroyer"
+                        mr="12px"
+                      />
+                      <Box>
+                        <p style={{ fontSize: "16px", color: "#171717" }}>{item?.name}</p>
+                        <p
+                          style={{
+                            fontSize: "12px",
+                            color: "#636363",
+                            textOverflow: "ellipsis",
+                          }}
+                        >
+                          Master Level
+                        </p>
+                      </Box>
+                    </Box>
+                    <Checkbox
+                      size="lg"
+                      colorScheme="green"
+                      isChecked={checkParticipants(item)}
+                      onChange={() => handleParticipants(item)}
+                    />
+                  </ListItem>
+                ))
+              )}
+            </UnorderedList>
           </Box>
-          <Text fontSize="18px" fontWeight="600">
-            Add Participants
-          </Text>
-        </Flex>
-        <InputGroup size="md">
-          <InputLeftElement>
-            <SearchIcon />
-          </InputLeftElement>
-          <Input pl="3.0rem" placeholder="Search" />
-        </InputGroup>
-        <UnorderedList listStyleType="none" overflowY="scroll">
-          {state?.length === 0 ? (
-            <Text marginTop={4} textAlign={"center"}>
-              No Friends!
-            </Text>
-          ) : (
-            state?.map((item, ind) => (
-              <ListItem key={ind} display="flex" alignItems="center" justifyContent="space-between" pr="4" pt="5">
-                <Box display="flex" alignItems="center">
-                  <Image
-                    boxSize="2.5rem"
-                    fit="cover"
-                    borderRadius="md"
-                    src={item?.profilePic}
-                    alt="Fluffybuns the destroyer"
-                    mr="12px"
-                  />
-                  <Box>
-                    <p style={{ fontSize: "16px", color: "#171717" }}>{item?.name}</p>
-                    <p
-                      style={{
-                        fontSize: "12px",
-                        color: "#636363",
-                        textOverflow: "ellipsis",
-                      }}
-                    >
-                      Master Level
-                    </p>
-                  </Box>
-                </Box>
-                <Checkbox
-                  size="lg"
-                  colorScheme="green"
-                  isChecked={checkParticipants(item)}
-                  onChange={() => handleParticipants(item)}
-                />
-              </ListItem>
-            ))
-          )}
-        </UnorderedList>
-      </Box>
+        </ModalBody>
+        <Divider />
+        <ModalFooter flexDirection="column" alignItems="start">
+          <Button
+            w="full"
+            sx={{
+              bg: "black !important",
+              color: "#fff",
+              fontSize: "12px",
+            }}
+            variant="solid"
+            onClick={() => setParticipantsShow(false)}
+          >
+            Add
+          </Button>
+        </ModalFooter>
+      </ModalContent>
     </>
   );
 };

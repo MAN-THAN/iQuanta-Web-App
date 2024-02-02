@@ -65,3 +65,18 @@ export const getDebateParticipants = async (uid) => {
     throw err;
   }
 };
+//get Topics for user feed
+export const getTopicsForFeed = async () => {
+  try {
+    const res = await request({
+      url: `/exams/v1/topic`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return res;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};

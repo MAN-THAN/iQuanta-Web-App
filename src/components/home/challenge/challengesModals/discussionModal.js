@@ -1,49 +1,17 @@
 import React, { useCallback, useState } from "react";
-import {
-  Button,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalFooter,
-  ModalBody,
-  Stack,
-  HStack,
-  Box,
-  Menu,
-  MenuButton,
-  Text,
-  MenuList,
-  MenuItem,
-  Flex,
-  Image,
-  Textarea,
-  Divider,
-  UnorderedList,
-  VStack,
-  CloseButton,
-  ModalCloseButton,
-} from "@chakra-ui/react";
+import { Button, Modal, ModalOverlay, ModalContent, ModalFooter, ModalBody, Divider } from "@chakra-ui/react";
 import { ChevronDown } from "lucide-react";
 import { useRef } from "react";
 import RowButton from "../../homePostComponents/rowButton";
-import ColumnButtons from "../../homePostComponents/columnButtons";
-import ImagePreview from "../../homePostComponents/ImagePreview";
-import PollInputs from "../../homePostComponents/pollInputs";
-import DebateCard from "../../homePostComponents/debateCard";
 import ParticipantsModal from "../../homePostComponents/participantsModal";
-import FileUploadButton from "../../homePostComponents/fileUploadButton";
 import CreateMemeModal from "../../homePostComponents/createMemeModal";
-import PostTypeMenu from "@/components/common/postTypeMenu";
 import { createGroupPost } from "@/api/feed/groups/post";
 import { useMutation, useQueryClient, useQuery } from "react-query";
 import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { createPost } from "@/api/feed/user/posts";
-import { Mention, MentionsInput } from "react-mentions";
-import mentionStyles from "@/styles/mentionStyles";
-import mentionsInputStyles from "@/styles/mentionsInputStyles";
-import { getFriendList } from "@/api/feed/user/friendList";
+import CreateBasicModal from "../../homePostComponents/createBasicModal";
 
 const DiscussionModal = ({ isOpen, onClose, clickPhoto, triggeredFrom, finalRef }) => {
   const [isTyping, setIsTyping] = useState(false);
@@ -59,6 +27,9 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto, triggeredFrom, finalRef 
   const [participants, setParticipants] = useState([]);
   const [privacyType, setPrivacyType] = useState("public");
   const [tempFiles, setTempFiles] = useState([]);
+  const [hashTags, setHashTags] = useState([]);
+  const [taggedPeople, setTaggedPeople] = useState([]);
+  const [taggedTopic, setTaggedTopic] = useState([]);
   const queryClient = useQueryClient();
   const { name, _id: uid } = useSelector((state) => state.userData);
   const { _id: groupId } = useSelector((state) => state.groupData);
@@ -66,17 +37,15 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto, triggeredFrom, finalRef 
     setIsTyping(true);
   }, []);
 
-  const handleButtonClick = (type) => {
+  const handleButtonClick = useCallback((type) => {
     setSelectedType(type);
-  };
-
-  const handleClick = () => {
+  }, []);
+  const handleClick = useCallback(() => {
     fileInputRef.current.click();
-  };
+  }, []);
 
   const handleChange = async (event) => {
     const files = event.target.files;
-
     setTempFiles([...tempFiles, ...files]);
     let fileList = Object.keys(files).map((item) => {
       return URL.createObjectURL(files[item]);
@@ -108,10 +77,17 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto, triggeredFrom, finalRef 
         }
         formData.append("file", tempFiles[i]);
       }
-
       formData.append("postType", selectedComponent);
       formData.append("title", text);
       formData.append("privacyType", privacyType);
+      for (let i = 0; i < taggedPeople.length; i++) {
+        formData.append("taggedPeople", taggedPeople[i]);
+      }
+      for (let i = 0; i < taggedTopic.length; i++) {
+        formData.append("taggedTopic", taggedTopic[i]);
+      }
+      // formData.append("taggedTopic", taggedTopic);
+      // formData.append("hashtags", hashTags);
       if (triggeredFrom == "group") {
         formData.append("groupId", groupId);
       }
@@ -130,55 +106,16 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto, triggeredFrom, finalRef 
     }
   };
 
-  const handleRemoveImage = (index) => {
-    setSelectedFiles((prevFiles) => {
-      const newFiles = [...prevFiles];
-      newFiles.splice(index, 1);
-      return newFiles;
-    });
-    setTempFiles((prevFiles) => {
-      const newFiles = [...prevFiles];
-      newFiles.splice(index, 1);
-      return newFiles;
-    });
-  };
-
-  const handleOptionButtonClick = (componentName) => {
+  const handleOptionButtonClick = useCallback((componentName) => {
     setPollOption(true);
     setSelectedComponent(componentName);
     if (componentName === "meme") {
       setCreateMemeShow(true);
     }
-  };
-
-  const handleParticipants = () => {
-    setParticipantsShow(true);
-  };
-
-  const closeParticipants = () => {
+  }, []);
+  const closeParticipants = useCallback(() => {
     setParticipantsShow(false);
-  };
-
-  const renderSelectedComponent = () => {
-    switch (selectedComponent) {
-      case "photo":
-        return (
-          <ImagePreview selectedFilesBlob={selectedFiles} selectedFiles={tempFiles} removeImage={handleRemoveImage} />
-        );
-      case "video":
-        return (
-          <ImagePreview selectedFilesBlob={selectedFiles} selectedFiles={tempFiles} removeImage={handleRemoveImage} />
-        );
-      case "debate":
-        return <DebateCard handleParticipants={handleParticipants} />;
-      case "poll":
-        return <PollInputs inputFields={options} setInputFields={setOptions} />;
-      case "fileUpload":
-        return <FileUploadButton selectedFiles={selectedFiles} removeImage={handleRemoveImage} />;
-      default:
-        return null;
-    }
-  };
+  }, []);
   const mutation = useMutation({
     mutationFn: (payload, contentType) =>
       triggeredFrom == "user" ? createPost(payload, contentType, uid) : createGroupPost(payload, contentType, uid),
@@ -202,17 +139,7 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto, triggeredFrom, finalRef 
     },
     onSettled: (data, error, variables, context) => {},
   });
-  const { data } = useQuery({
-    queryKey: ["getFriendList", uid],
-    queryFn: () => getFriendList(uid),
-    onError: (error, variables, context) =>
-      toast.error(`${error?.response?.data?.error?.message || "some error"}`, {
-        position: toast.POSITION.TOP_RIGHT,
-      }),
-    onSuccess: (res) => console.log(res),
-  });
-  console.log(data);
-
+  console.log(JSON.stringify(taggedPeople), "taggedPeople");
   return (
     <>
       <Modal
@@ -239,106 +166,24 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto, triggeredFrom, finalRef 
           />
         ) : !participantsShow ? (
           <ModalContent maxW="xl" position="absolute" bg="white.900" rounded="2xl" color="#000" height="60vh">
-            <ModalBody
-              overflowY="scroll"
-              overflowX="hidden"
-              height="30vh"
-              css={{ scrollbarWidth: "thin", scrollbarColor: "#888 #f5f5f5" }}
-              sx={{
-                "-webkit-overflow-scrolling": "touch",
-                scrollBehavior: "smooth",
-              }}
-            >
-              <Flex alignItems="center" justifyContent="space-between">
-                <ModalCloseButton position="absolute" left="2" top="2" />
-                <Text fontSize="16px" pl="6" fontWeight="600">
-                  New Discussion
-                </Text>
-                <Box>
-                  <PostTypeMenu setPrivacyType={(value) => setPrivacyType(value)} currentValue={privacyType} />
-                </Box>
-                {/* <Menu isLazy>
-                  <MenuButton border="1px solid #8D96A5" rounded="lg" p="1">
-                    <Box display="flex" alignItems="center">
-                      <Text fontSize="14px">Public</Text>
-                      <ChevronDown size="14px" />
-                    </Box>
-                  </MenuButton>
-                  <MenuList>
-                    <MenuItem>Public</MenuItem>
-                    <MenuItem>Private</MenuItem>
-                    <MenuItem>Friends Only</MenuItem>
-                  </MenuList>
-                </Menu> */}
-              </Flex>
-              <Stack direction="column" pt="4">
-                <HStack align="center">
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      width: "280px",
-                    }}
-                  >
-                    <Image boxSize="2.5rem" borderRadius="md" src="/man1.jpg" alt="user profile image" mr="12px" />
-                    <Box>
-                      <p style={{ fontSize: "16px", color: "#171717" }}>{name}</p>
-                      <p style={{ fontSize: "12px", color: "#636363" }}>Grand Master</p>
-                    </Box>
-                  </Box>
-                </HStack>
-                <Box pt="2">
-                  {/* <Textarea
-                    width="full"
-                    height="auto"
-                    border="none"
-                    placeholder="Write your post here..."
-                    resize="none"
-                    onInput={handleTypingStart}
-                    onBlur={(e) => {
-                      if (!e.target.value.trim()) {
-                        setIsTyping(false);
-                      }
-                    }}
-                    onChange={handleTextChange}
-                    value={text}
-                  /> */}
-                  <MentionsInput
-                    width="full"
-                    placeholder="Write your post here..."
-                    value={text}
-                    onChange={(e) => setText(e.target.value)}
-                    onInput={handleTypingStart}
-                    onBlur={(e) => {
-                      if (!e.target.value.trim()) {
-                        setIsTyping(false);
-                      }
-                    }}
-                    style={mentionsInputStyles}
-                  >
-                    <Mention
-                      data={data?.data.data.friendList.map((i) => {
-                        return { display: i.name, id: i._id };
-                      })}
-                      style={mentionStyles}
-                    />
-                  </MentionsInput>
-                </Box>
-              </Stack>
-            </ModalBody>
-            <Box>{renderSelectedComponent()}</Box>
-            <Box
-              padding="4"
-              display="flex"
-              overflowY="hidden"
-              overflowX="scroll"
-              css={{ scrollbarWidth: "thin", scrollbarColor: "#888 #f5f5f5" }}
-              sx={{
-                "-webkit-overflow-scrolling": "touch",
-                scrollBehavior: "smooth",
-              }}
-            ></Box>
-            <Divider />
+            <CreateBasicModal
+              privacyType={privacyType}
+              setPrivacyType={setPrivacyType}
+              text={text}
+              setText={setText}
+              handleTypingStart={handleTypingStart}
+              setIsTyping={setIsTyping}
+              setTaggedPeople={setTaggedPeople}
+              selectedFiles={selectedFiles}
+              setSelectedFiles={setSelectedFiles}
+              tempFiles={tempFiles}
+              setTempFiles={setTempFiles}
+              selectedComponent={selectedComponent}
+              options={options}
+              setOptions={setOptions}
+              setParticipantsShow={setParticipantsShow}
+              setTaggedTopic={setTaggedTopic}
+            />
             <ModalFooter flexDirection="column" alignItems="start">
               <RowButton
                 fileInputRef={fileInputRef}
@@ -363,43 +208,16 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto, triggeredFrom, finalRef 
             </ModalFooter>
           </ModalContent>
         ) : (
-          <ModalContent maxW="xl" bg="white.900" rounded="2xl" color="#000" height="60vh">
-            <ModalBody
-              overflowY="scroll"
-              overflowX="hidden"
-              css={{ scrollbarWidth: "thin", scrollbarColor: "#888 #f5f5f5" }}
-              sx={{
-                "-webkit-overflow-scrolling": "touch",
-                scrollBehavior: "smooth",
-              }}
-            >
-              <ParticipantsModal
-                closeParticipants={closeParticipants}
-                participants={participants}
-                setParticipants={setParticipants}
-                triggeredFrom={triggeredFrom}
-              />
-            </ModalBody>
-            <Divider />
-            <ModalFooter flexDirection="column" alignItems="start">
-              <Button
-                w="full"
-                sx={{
-                  bg: "black !important",
-                  color: "#fff",
-                  fontSize: "12px",
-                }}
-                variant="solid"
-                onClick={() => setParticipantsShow(false)}
-              >
-                Add
-              </Button>
-            </ModalFooter>
-          </ModalContent>
+          <ParticipantsModal
+            closeParticipants={closeParticipants}
+            participants={participants}
+            setParticipants={setParticipants}
+            triggeredFrom={triggeredFrom}
+            setParticipantsShow={setParticipantsShow}
+          />
         )}
       </Modal>
     </>
   );
 };
-
 export default DiscussionModal;
