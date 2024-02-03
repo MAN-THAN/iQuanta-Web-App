@@ -6,6 +6,7 @@ import CommentSlider from "@/components/postCards/commentSlider/commentSlider";
 import { MdPlayArrow } from "react-icons/md";
 import { ReactionPanel } from "@/components/common/reactionPanel";
 import { getTimeAgo } from "@/utilities/utilityFunction";
+import PostOption from "@/components/common/postOption";
 
 const ImageFeedCard = ({
   name,
@@ -51,7 +52,7 @@ const ImageFeedCard = ({
           </Box>
         </Box>
         <Box display="flex" alignItems="center" gap="4">
-          <MoreHorizontal size="24px" />
+          <PostOption postUserId={uid} postId={postId}/>
         </Box>
       </HStack>
       <Stack padding={["3", null, "4"]}>

@@ -45,13 +45,13 @@ const ChallengeCard = ({ challengeData , handleJoinChallenge,handleViewChallenge
               width="100%"
               height="100%"
               className="rounded-md"
-              src={createdBy.profilePic}
+              src={createdBy?.profilePic}
               alt="Profile Image"
             />
           </Box>
           <Box ml="2">
             <Box display="flex" alignItems="center">
-              <p style={{ fontSize: "14px", color: "#171717", fontWeight: "600" }}>{createdBy.name}</p> <MdPlayArrow />{" "}
+              <p style={{ fontSize: "14px", color: "#171717", fontWeight: "600" }}>{createdBy?.name}</p> <MdPlayArrow />{" "}
               {/* <p style={{ fontSize: "14px", color: "#171717", fontWeight: "400" }}>Posted in CAT 2021</p> */}
             </Box>
             <p style={{ fontSize: "14px", color: "#636363" }}>{getTimeAgo(createdAt)}</p>

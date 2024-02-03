@@ -29,23 +29,23 @@ export const FeedPostList = () => {
       }),
     onSuccess: (res, page) => {
       console.log(res);
-      let currentPageParam = res?.pageParams?.length - 1;
-      setPostList((prev) => [...prev, ...res.pages[currentPageParam]?.data?.data?.allPostData]);
+      // let currentPageParam = res?.pageParams?.length - 1;
+      setPostList(res.pages[0]?.data?.data?.allPostData);
     },
   });
   // Implement scrolling detection
-  useEffect(() => {
-    const handleScroll = () => {
-      const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-      if (scrollTop + clientHeight >= scrollHeight - 5) {
-        fetchNextPage();
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+  //     if (scrollTop + clientHeight >= scrollHeight - 5) {
+  //       fetchNextPage();
+  //     }
+  //   };
+  //   window.addEventListener("scroll", handleScroll);
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll);
+  //   };
+  // }, []);
   console.log(postList);
 
   return (

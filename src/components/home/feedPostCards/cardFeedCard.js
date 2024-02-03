@@ -6,7 +6,7 @@ import CommentSlider from "@/components/postCards/commentSlider/commentSlider";
 import { MdPlayArrow } from "react-icons/md";
 import { ReactionPanel } from "@/components/common/reactionPanel";
 import { getTimeAgo } from "@/utilities/utilityFunction";
-
+import PostOption from "@/components/common/postOption";
 
 const CardFeedCard = ({
   name,
@@ -20,9 +20,8 @@ const CardFeedCard = ({
   followingCount,
   reactionCountDetail,
   comments,
-  userReaction
+  userReaction,
 }) => {
-
   return (
     <Box bg="#fff" mt="1">
       <HStack align="center" justifyContent="space-between" padding={["3", null, "4"]}>
@@ -51,7 +50,7 @@ const CardFeedCard = ({
           </Box>
         </Box>
         <Box display="flex" alignItems="center" gap="4">
-          <MoreVertical size="24px" />
+        <PostOption postUserId={uid} postId={postId} />
         </Box>
       </HStack>
       <Stack padding={["3", null, "4"]}>

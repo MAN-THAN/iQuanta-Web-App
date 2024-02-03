@@ -23,8 +23,6 @@ const PastPapersExamList = ({ isOpen, onClose }) => {
 
   const handleClick = () => {
     setSelectedExamIndex(true);
-    // Assuming you have a function to fetch topics for the selected exam, update selectedTopics accordingly.
-    // For demonstration purposes, I'm using a dummy array.
     setSelectedTopics([`Topic 1`, `Topic 2`, `Topic 3`]);
   };
 
