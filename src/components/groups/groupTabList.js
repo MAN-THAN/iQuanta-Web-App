@@ -25,6 +25,9 @@ import ChallengeList from "../home/challenge/challengeList";
 import CourseList from "../courses/courseList";
 import EventList from "../events/eventList";
 import MediaPostList from "./mediaPostList";
+import TopicDetailsTab from "./topicDetailsTab";
+import DoubtDetailsTab from "./doubtDetailsTab";
+
 const GroupTabList = () => {
   const router = useRouter();
   const { isOpen: isOpenChallenge, onOpen: onOpenChallenge, onClose: onCloseChallenge } = useDisclosure();
@@ -230,11 +233,11 @@ const GroupTabList = () => {
           <TabPanel padding="0">
             <MediaPostList groupId={groupId}/>
           </TabPanel>
-          <TabPanel>
-            <p>nine!</p>
+          <TabPanel padding="0">
+            <TopicDetailsTab />
           </TabPanel>
-          <TabPanel>
-            <p>ten!</p>
+          <TabPanel padding="0">
+            <DoubtDetailsTab />
           </TabPanel>
         </TabPanels>
       </Tabs>

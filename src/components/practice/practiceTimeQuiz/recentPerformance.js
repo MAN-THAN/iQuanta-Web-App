@@ -3,7 +3,7 @@ import React from "react";
 
 const RecentPerformance = () => {
   return (
-    <Box p='4'> 
+    <Box p='4' bg='white.900' mt='4'> 
       <Text fontSize="18px" fontWeight="600">
         Recent Performance
       </Text>

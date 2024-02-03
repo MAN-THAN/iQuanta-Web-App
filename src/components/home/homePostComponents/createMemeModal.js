@@ -291,4 +291,4 @@ const CreateMemeModal = ({
   );
 };
 
-export default CreateMemeModal;
+export default React.memo(CreateMemeModal);

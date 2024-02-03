@@ -1,6 +1,5 @@
 import { Box, Divider, HStack, Image, Text } from "@chakra-ui/react";
 import { Progress } from "antd";
-import React from "react";
 
 const CollegeList = ({data}) => {
   

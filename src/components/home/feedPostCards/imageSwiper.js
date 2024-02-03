@@ -10,6 +10,8 @@ import { array } from "prop-types";
 import { ReactionPanel } from "@/components/common/reactionPanel";
 import { getTimeAgo } from "@/utilities/utilityFunction";
 import PostOption from "@/components/common/postOption";
+import { useDisclosure } from "@chakra-ui/react";
+
 
 const ImageSwiper = ({
   name,
@@ -24,7 +26,7 @@ const ImageSwiper = ({
   followingCount,
   reactionCountDetail,
   userReaction,
-  comments
+  comments,
 }) => {
   const sliderIMg = [
     {
@@ -37,10 +39,11 @@ const ImageSwiper = ({
       img: "/back.png",
     },
   ];
+  const { isOpen: isOpenComment, onToggle: onToggleComment, onClose: onClose } = useDisclosure();
 
   return (
-    <Box bg="#fff" mt="1" p="4">
-      <HStack align="center" justifyContent="space-between" paddingY={["3", null, "4"]}>
+    <Box bg="#fff" mt="2">
+      <HStack align="center" justifyContent="space-between" py={["3", null, "4"]}>
         <Box
           sx={{
             display: "flex",
@@ -67,7 +70,7 @@ const ImageSwiper = ({
           </Box>
         </Box>
         <Box display="flex" alignItems="center" gap="4">
-        <PostOption />
+          <PostOption />
         </Box>
       </HStack>
       <Stack>
@@ -75,36 +78,18 @@ const ImageSwiper = ({
           <p>{title}</p>
         </Text>
         <Carousel>
-          {/* {sliderIMg.map((da, i) => (
+          {sliderIMg.map((da, i) => (
             <Box position="relative" key={i} width="100%" height="40vh">
               <Image width="100%" height="100%" objectFit="cover" src={da.img} alt={`Image ${i + 1}`} />
-              <Text color="white" position="absolute" top="2" right="2">
+              <Text color="white" bg="#000" position="absolute" top="2" right="2" px="2" rounded="full">
                 {i + 1}/{sliderIMg.length}
               </Text>
             </Box>
-          ))} */}
-          {media?.map((image, i) => {
-            return (
-              <Box position="relative" key={i} width="100%" height="40vh">
-                {/* <Image width="100%" height="100%" objectFit="cover" src={image} alt={`Image ${i + 1}`} /> */}
-                {/* {image.substring(image.lastIndexOf(".")) == (".png"||".jpg"||".jpeg")&& */}
-                <Image width="100%" height="100%" objectFit="cover" src={image} alt={`Card Image ${i + 1}`} />
-
-                {/* }{image.substring(image.lastIndexOf(".")) == (".mp4"||".mpg"||".mpeg"||".mkv"||".wmv"||".mov"||".flv")&&
-            
-            <VideoPlayer width="100%" height="100%" objectFit="cover" videoUrl={image}/>
-            } */}
-                {/* {console.log(image.substring(image.lastIndexOf("."))==(".mp4"||".mpg"||".mpeg"||".mkv"||".wmv"||".mov"||".flv"),"858")} */}
-                <Text color="white" position="absolute" top="2" right="2">
-                  {/* {i + 1}/{sliderIMg.length} */}
-                </Text>
-              </Box>
-            );
-          })}
+          ))}
         </Carousel>
         <HStack align="center" fontWeight="400" fontSize="14px" padding="4">
           <Box display="flex" alignItems="center">
-            <LikeEmojiGroup userReaction={userReaction} reactionCountDetail={reactionCountDetail}  />
+            <LikeEmojiGroup userReaction={userReaction} reactionCountDetail={reactionCountDetail} />
             <span
               style={{
                 fontSize: "14px",
@@ -145,11 +130,16 @@ const ImageSwiper = ({
           </Box>
         </HStack>
         <Divider />
-        <ReactionPanel postId={postId} />
+        <ReactionPanel
+          postId={postId}
+          userReaction={userReaction}
+          isOpenComment={isOpenComment}
+          onToggleComment={onToggleComment}
+        />
         <Divider />
       </Stack>
       <Box p="0">
-        <CommentSlider comments={comments} />
+        {/* <CommentSlider topComments={topComments} postId={postId} isOpenComment={isOpenComment} /> */}
       </Box>
     </Box>
   );

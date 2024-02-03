@@ -8,6 +8,7 @@ import VideoPlayer from "@/components/common/videoPlayer";
 import { ReactionPanel } from "@/components/common/reactionPanel";
 import { getTimeAgo } from "@/utilities/utilityFunction";
 import PostOption from "@/components/common/postOption";
+import { useDisclosure } from "@chakra-ui/react";
 
 const VideoFeedCard = ({
   name,
@@ -17,13 +18,14 @@ const VideoFeedCard = ({
   commentCount,
   createdAt,
   media,
-  comments,
+  topComments,
   profilePic,
   postId,
   followingCount,
   reactionCountDetail,
-  userReaction
+  userReaction,
 }) => {
+  const { isOpen: isOpenComment, onToggle: onToggleComment, onClose: onClose } = useDisclosure();
 
   return (
     <Box bg="#fff" mt="4">
@@ -53,7 +55,7 @@ const VideoFeedCard = ({
           </Box>
         </Box>
         <Box display="flex" alignItems="center" gap="4">
-        <PostOption postUserId={uid} postId={postId}/>
+          <PostOption postUserId={uid} postId={postId} />
         </Box>
       </HStack>
       <Stack padding={["3", null, "4"]}>
@@ -106,11 +108,16 @@ const VideoFeedCard = ({
           </Box>
         </HStack>
         <Divider />
-        <ReactionPanel postId={postId} />
+        <ReactionPanel
+          postId={postId}
+          userReaction={userReaction}
+          isOpenComment={isOpenComment}
+          onToggleComment={onToggleComment}
+        />{" "}
         <Divider />
       </Stack>
       <Box p="0">
-        <CommentSlider comments={comments} />
+        <CommentSlider topComments={topComments} postId={postId} isOpenComment={isOpenComment} />
       </Box>
     </Box>
   );

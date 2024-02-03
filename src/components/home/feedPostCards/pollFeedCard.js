@@ -12,6 +12,8 @@ import { ReactionPanel } from "@/components/common/reactionPanel";
 import CommentSlider from "@/components/postCards/commentSlider/commentSlider";
 import { getTimeAgo } from "@/utilities/utilityFunction";
 import PostOption from "@/components/common/postOption";
+import { useDisclosure } from "@chakra-ui/react";
+
 
 const PollFeedCard = ({
   name,
@@ -27,9 +29,10 @@ const PollFeedCard = ({
   postId,
   followingCount,
   reactionCountDetail,
-  comments,
-  userReaction
+  topComments,
+  userReaction,
 }) => {
+  const { isOpen: isOpenComment, onToggle: onToggleComment, onClose: onClose } = useDisclosure();
   const [value, setValue] = React.useState();
   useEffect(() => {
     for (var i = 0; i < options?.length; i++) {
@@ -100,7 +103,7 @@ const PollFeedCard = ({
             </Box>
           </Box>
           <Box display="flex" alignItems="center" gap="4">
-          <PostOption postUserId={uid} postId={postId} />
+            <PostOption postUserId={uid} postId={postId} />
           </Box>
         </HStack>
         <Stack padding={["3", null, "4"]}>
@@ -173,10 +176,15 @@ const PollFeedCard = ({
               </span>
             </Box>
           </HStack>
-          <ReactionPanel postId={postId} />
+          <ReactionPanel
+            postId={postId}
+            userReaction={userReaction}
+            isOpenComment={isOpenComment}
+            onToggleComment={onToggleComment}
+          />{" "}
         </Stack>
         <Box p="0">
-          <CommentSlider comments={comments} />
+          <CommentSlider topComments={topComments} postId={postId} isOpenComment={isOpenComment} />
         </Box>
       </Box>
     </>

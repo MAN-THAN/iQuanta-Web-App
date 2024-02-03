@@ -1,4 +1,4 @@
-import { HStack, Menu, MenuButton, MenuItem, MenuList, Text } from "@chakra-ui/react";
+import { HStack, Menu, MenuButton, MenuItem, MenuList, Text, useDisclosure } from "@chakra-ui/react";
 import { MoreHorizontal } from "lucide-react";
 import React from "react";
 import { useSelector } from "react-redux";
@@ -9,8 +9,10 @@ import { followUserPost } from "@/api/feed/user/postAction";
 import { turnOffCommentsUserPost } from "@/api/feed/user/postAction";
 import { deleteUserPost } from "@/api/feed/user/postAction";
 import { toast, ToastContainer } from "react-toastify";
+import EditPostModal from "../home/feedPostCards/editPostModal";
 
-const PostOption = ({ postUserId, postId }) => {
+const PostOption = ({ postUserId, postId, title }) => {
+  const { isOpen: isOpenEditPost, onOpen: onOpenEditPost, onClose: onCloseEditPost } = useDisclosure();
   const { _id: uid } = useSelector((state) => state.userData);
   const queryClient = useQueryClient();
   const saveMutation = useMutation({
@@ -103,6 +105,7 @@ const PostOption = ({ postUserId, postId }) => {
 
   return (
     <>
+      <EditPostModal isOpen={isOpenEditPost} onClose={onCloseEditPost} title={title} postId={postId}/>
       <Menu>
         <MenuButton rounded="lg" bg="#fff">
           <MoreHorizontal size="24px" />
@@ -113,7 +116,7 @@ const PostOption = ({ postUserId, postId }) => {
           <MenuItem onClick={() => reportMutation.mutate()}>Report</MenuItem>
           <MenuItem>Copy Link</MenuItem>
           <MenuItem onClick={() => commentsMutation.mutate()}>Turn Off Comments</MenuItem>
-          {postUserId === uid && <MenuItem>Edit Post</MenuItem>}
+          {postUserId === uid && <MenuItem onClick={onOpenEditPost}>Edit Post</MenuItem>}
           {postUserId === uid && <MenuItem onClick={() => deletePostMutation.mutate()}>Delete Post</MenuItem>}
         </MenuList>
       </Menu>

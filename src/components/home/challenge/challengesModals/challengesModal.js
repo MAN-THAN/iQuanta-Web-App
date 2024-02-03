@@ -40,14 +40,6 @@ const ChallengesModal = ({ isOpen, onClose, triggeredFrom, finalRef }) => {
   const [isLoading, setLoading] = useState(false);
   const { _id: uid } = useSelector((state) => state.userData);
   const queryClient = useQueryClient();
-  console.log(topicList);
-  console.log(selectedTopic, "selectedTopic");
-  console.log(selectedSubtopic, "selectedSubtopic");
-  console.log(subtopicList, "subtopicList");
-  console.log(selectedFriends, "selectedFriends");
-  console.log(difficulty, "difficulty");
-  console.log(showTopicList, showSubTopicList, showConfirmationModal, selectedTopic);
-
   const resetState = () => {
     setShowTopicList(false);
     setShowSubTopicList(false);
@@ -55,7 +47,6 @@ const ChallengesModal = ({ isOpen, onClose, triggeredFrom, finalRef }) => {
     setSelectedSubtopic([]);
     setConfirmationModal(false);
   };
-
   const handleSubmit = () => {
     if (showSubTopicList) {
       setShowTopicList(true);

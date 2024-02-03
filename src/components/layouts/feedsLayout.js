@@ -5,7 +5,6 @@ import { extendTheme } from "@chakra-ui/react";
 import { ChakraProvider } from "@chakra-ui/react";
 import HomeRightSidebar from "../rightSidebars/homeRightSidebar";
 import MainLeftNavigation from "../leftNavigations/mainLeftnavigation";
-
 const HomeLayout = ({ children }) => {
   return (
     <Box marginLeft={{ sm: "0", lg: "10%" }} marginRight={{ sm: "0", lg: "10%" }}>

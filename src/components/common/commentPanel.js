@@ -16,7 +16,8 @@ import {
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useMutation, useQueryClient } from "react-query";
-import { createUserPostComment } from "@/api/feed/user/comment";
+import { createUserPostComment } from "@/api/feed/user/comments";
+import { exact } from "prop-types";
 
 export const CommentPanel = ({ isOpenComment, postId }) => {
   const { profilePic, _id: uid } = useSelector((state) => state.userData);
@@ -41,7 +42,7 @@ export const CommentPanel = ({ isOpenComment, postId }) => {
     onSuccess: (res, variables, context) => {
       console.log(res);
       setComment("");
-      queryClient.invalidateQueries("getAllPosts");
+      queryClient.invalidateQueries({queryKey:["getAllComments", postId], exact:true});
     },
     onSettled: (data, error, variables, context) => {},
   });

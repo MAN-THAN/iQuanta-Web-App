@@ -7,6 +7,7 @@ import { MdPlayArrow } from "react-icons/md";
 import { ReactionPanel } from "@/components/common/reactionPanel";
 import { getTimeAgo } from "@/utilities/utilityFunction";
 import PostOption from "@/components/common/postOption";
+import { useDisclosure } from "@chakra-ui/react";
 
 const ImageFeedCard = ({
   name,
@@ -16,13 +17,14 @@ const ImageFeedCard = ({
   commentCount,
   createdAt,
   media,
-  comments,
+  topComments,
   profilePic,
   followingCount,
   postId,
   userReaction,
-  reactionCountDetail
+  reactionCountDetail,
 }) => {
+  const { isOpen: isOpenComment, onToggle: onToggleComment, onClose: onClose } = useDisclosure();
   console.log(reactionCount);
   return (
     <Box bg="#fff" mt="1">
@@ -52,15 +54,15 @@ const ImageFeedCard = ({
           </Box>
         </Box>
         <Box display="flex" alignItems="center" gap="4">
-          <PostOption postUserId={uid} postId={postId}/>
+          <PostOption postUserId={uid} postId={postId} title={title}/>
         </Box>
       </HStack>
       <Stack padding={["3", null, "4"]}>
         <Text fontSize="14px" lineHeight="24px">
           <p>{title}</p>
         </Text>
-        <Box maxH="460px" maxW="100vh" overflow="hidden">
-          <Image alt="video" w="100%" h="100%" objectFit="cover" src={media?.[0]} />
+        <Box maxH="100vh " maxW="100vh" overflow="hidden" >
+          <Image alt="video" w="100%" h="100%" fit="contain" src={media?.[0]} />
         </Box>
         <HStack align="center" fontWeight="400" fontSize="14px" padding="4">
           <Box display="flex" alignItems="center">
@@ -105,11 +107,20 @@ const ImageFeedCard = ({
           </Box>
         </HStack>
         <Divider />
-        <ReactionPanel postId={postId} userReaction={userReaction} />
+        <ReactionPanel
+          postId={postId}
+          userReaction={userReaction}
+          isOpenComment={isOpenComment}
+          onToggleComment={onToggleComment}
+        />
         <Divider />
       </Stack>
       <Box p="0">
-        <CommentSlider comments={comments} />
+        <CommentSlider
+          topComments={topComments}
+          postId={postId}
+          isOpenComment={isOpenComment}
+        />
       </Box>
     </Box>
   );

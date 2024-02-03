@@ -38,7 +38,7 @@ const MainLeftNavigation = () => {
     {
       icon: <HiMiniPencilSquare className="text-xl" />,
       nav: "Mock Tests",
-      path: "",
+      path: "/mockTest",
     },
     {
       icon: <LuFileSpreadsheet className="text-xl" />,

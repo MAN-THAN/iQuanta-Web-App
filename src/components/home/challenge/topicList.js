@@ -25,14 +25,7 @@ import {
   Checkbox,
   InputGroup,
   InputLeftElement,
-  Input,
-  Textarea,
-  Image,
-  Select,
-  Portal,
-  Flex,
-  RadioGroup,
-  Radio,
+  Input
 } from "@chakra-ui/react";
 import { SearchIcon, ChevronRight } from "lucide-react";
 import { useState, useMemo } from "react";
