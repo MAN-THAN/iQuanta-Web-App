@@ -5,7 +5,7 @@ import request from "@/api/request";
 
 export const createGroupPost = async(payload,contentType,uid)=>{
     try {
-        
+        alert('create group psot')
         const res = await request({
           url: `/feed/v1/group/post`,
           type: "POST",
@@ -225,7 +225,7 @@ export const getGroupTopicPostList=async(groupId,uid)=>{
 export const getGroupMediaPostList=async(page,limit,uid,groupId)=>{
   try {
     const res = await request({
-      url: `feed/v1/group/post/all/media/${groupId}/${page}/${limit}`,
+      url: `feed/v1/group/post/media/${groupId}/${page}/${limit}`,
       headers: {
         "Content-Type": "application/json",
          uid:uid
