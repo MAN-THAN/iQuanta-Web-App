@@ -23,6 +23,7 @@ const ImageFeedCard = ({
   postId,
   userReaction,
   reactionCountDetail,
+  triggeredFrom
 }) => {
   const { isOpen: isOpenComment, onToggle: onToggleComment, onClose: onClose } = useDisclosure();
   console.log(reactionCount);
@@ -54,7 +55,7 @@ const ImageFeedCard = ({
           </Box>
         </Box>
         <Box display="flex" alignItems="center" gap="4">
-          <PostOption postUserId={uid} postId={postId} title={title}/>
+          <PostOption postUserId={uid} postId={postId} title={title} triggeredFrom= {triggeredFrom}/>
         </Box>
       </HStack>
       <Stack padding={["3", null, "4"]}>
@@ -66,7 +67,7 @@ const ImageFeedCard = ({
         </Box>
         <HStack align="center" fontWeight="400" fontSize="14px" padding="4">
           <Box display="flex" alignItems="center">
-            <LikeEmojiGroup userReaction={userReaction} reactionCountDetail={reactionCountDetail} />
+            <LikeEmojiGroup userReaction={userReaction} reactionCountDetail={reactionCountDetail} triggeredFrom= {triggeredFrom} />
             <span
               style={{
                 fontSize: "14px",
@@ -112,6 +113,7 @@ const ImageFeedCard = ({
           userReaction={userReaction}
           isOpenComment={isOpenComment}
           onToggleComment={onToggleComment}
+          triggeredFrom = {triggeredFrom}
         />
         <Divider />
       </Stack>
@@ -120,6 +122,7 @@ const ImageFeedCard = ({
           topComments={topComments}
           postId={postId}
           isOpenComment={isOpenComment}
+          triggeredFrom = {triggeredFrom}
         />
       </Box>
     </Box>

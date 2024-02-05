@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { createPost } from "@/api/feed/user/posts";
+import { DataURIToBlob } from "@/utilities/utilityFunction";
 import CreateBasicModal from "../../homePostComponents/createBasicModal";
 
 const DiscussionModal = ({ isOpen, onClose, clickPhoto, triggeredFrom, finalRef }) => {
@@ -53,7 +54,7 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto, triggeredFrom, finalRef 
     setSelectedFiles([...selectedFiles, ...fileList]);
   };
 
-  const handleCreatePost = async () => {
+  const handleCreatePost = async (data) => {
     if (selectedComponent == "poll") {
       let pollData = { title: text, privacyType: privacyType, options: options, postType: "poll" };
       if (triggeredFrom == "group") {
@@ -97,19 +98,34 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto, triggeredFrom, finalRef 
     }
     if (selectedComponent == "fileUpload") {
     }
-    if (selectedComponent == "memes") {
-      let pollData = { title: text, privacyType: privacyType, options: options, postType: "memes" };
-      if (triggeredFrom == "group") {
-        pollData.groupId = groupId;
+   if (selectedComponent == "memes") {
+    alert('create meme');
+    console.log("data::",data);
+     let file = DataURIToBlob(data);
+         const formData = new FormData();
+         formData.append('file', file, 'image.jpg');
+         formData.append("postType", 'memes');
+         formData.append("title", text);
+         formData.append("privacyType", privacyType);
+        for (let i = 0; i < taggedPeople.length; i++) {
+          formData.append("taggedPeople", taggedPeople[i]);
+        }
+        for (let i = 0; i < taggedTopic.length; i++) {
+          formData.append("taggedTopic", taggedTopic[i]);
+        }
+        
+        if (triggeredFrom == "group") {
+          formData.append("groupId", groupId);
+        }
+        mutation.mutate(formData, "form");
       }
-      mutation.mutate(pollData, "json");
-    }
+    
   };
 
   const handleOptionButtonClick = useCallback((componentName) => {
     setPollOption(true);
     setSelectedComponent(componentName);
-    if (componentName === "meme") {
+    if (componentName === "memes") {
       setCreateMemeShow(true);
     }
   }, []);
@@ -152,7 +168,7 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto, triggeredFrom, finalRef 
         finalFocusRef={finalRef}
       >
         <ModalOverlay />
-        {selectedComponent == "meme" ? (
+        {selectedComponent == "memes" ? (
           <CreateMemeModal
             handleTypingStart={handleTypingStart}
             selectedType={selectedType}
@@ -163,6 +179,7 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto, triggeredFrom, finalRef 
             selectedFiles={selectedFiles}
             handleButtonClick={handleButtonClick}
             onClose={onClose}
+            createPost={handleCreatePost}
           />
         ) : !participantsShow ? (
           <ModalContent maxW="xl" position="absolute" bg="white.900" rounded="2xl" color="#000" height="60vh">

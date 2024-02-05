@@ -8,7 +8,7 @@ import { reactions } from "@/utilities/comanData";
 import { CommentPanel } from "./commentPanel";
 import { useDisclosure } from "@chakra-ui/react";
 
-export const ReactionPanel = ({ postId, userReaction, isOpenComment, onToggleComment }) => {
+export const ReactionPanel = ({ postId, userReaction, isOpenComment, onToggleComment,triggeredFrom }) => {
   // const { isOpen: isOpenComment, onToggle: onToggleComment, onClose: onClose } = useDisclosure();
   const [selectedReaction, setSelectedReaction] = useState(
     userReaction ? userReaction : { reactionType: "no_reaction" }
@@ -17,6 +17,7 @@ export const ReactionPanel = ({ postId, userReaction, isOpenComment, onToggleCom
   const panelRef = useRef(null);
   const leaveTimeoutRef = useRef(null);
   const { _id: uid } = useSelector((state) => state.userData);
+  const { _id: groupId } = useSelector((state) => state.groupData);
   const queryClient = useQueryClient();
   const handleLike = () => {
     console.log("im aworking");
@@ -37,7 +38,7 @@ export const ReactionPanel = ({ postId, userReaction, isOpenComment, onToggleCom
     clearTimeout(leaveTimeoutRef.current);
   };
   const mutation = useMutation({
-    mutationFn: (payload) => postUserReaction(payload),
+    mutationFn: (payload) => triggeredFrom=="user"?postUserReaction(payload):groupPostUserReaction(payload),
     onMutate: (variables) => {
       return console.log("mutation is happening");
     },
@@ -106,7 +107,8 @@ export const ReactionPanel = ({ postId, userReaction, isOpenComment, onToggleCom
                   <HStack
                     onClick={(e) => {
                       // handleReactionClick(reaction);
-                      mutation.mutate({ postId: postId, createdBy: uid, reactionType: reaction.reactionType });
+                      triggeredFrom=="user"&&mutation.mutate({ postId: postId, createdBy: uid, reactionType: reaction.reactionType });
+                      triggeredFrom=="group"&&mutation.mutate({ postId: postId, createdBy: uid, reactionType: reaction.reactionType , groupId });
                       e.stopPropagation();
                     }}
                     cursor="pointer"
@@ -132,7 +134,7 @@ export const ReactionPanel = ({ postId, userReaction, isOpenComment, onToggleCom
           </Text>
         </HStack>
       </Flex>
-      <CommentPanel isOpenComment={isOpenComment} postId={postId} />
+      <CommentPanel isOpenComment={isOpenComment} postId={postId} triggeredFrom={triggeredFrom} />
     </>
   );
 };

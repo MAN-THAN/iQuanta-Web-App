@@ -95,13 +95,12 @@ export const groupPostReact=async(postId,uid)=>{
       }
   }
 
-export const groupPostSave=async(postId,uid)=>{
+export const groupPostSave=async(uid,groupId,postId,status)=>{
     try {
         
         const res = await request({
-          url: `/feed/v1/group/post`,
+          url: `/feed/v1/group/post/save/${groupId}/${postId}/${status}`,
           type: "POST",
-          data: payload,
           headers: {
             "Content-Type": "multipart/form-data",
             uid:uid
@@ -114,11 +113,11 @@ export const groupPostSave=async(postId,uid)=>{
       }
   }
 
-export const groupPostFollow=async(postId,uid,status)=>{
+export const groupPostFollow=async(uid,groupId,postId,status)=>{
     try {
         
         const res = await request({
-          url: `/feed/v1/group/post/followed/${uid}/${postId}/${status}`,
+          url: `/feed/v1/group/post/followed/${groupId}/${postId}/${status}`,
           type: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -136,13 +135,13 @@ export const groupPostReport=async(postId,uid)=>{
     try {
         
         const res = await request({
-          url: `/feed/v1/group/report/post`,
+          url: `/feed/v1/group/post/report/${groupId}/${postId}`,
           type: "POST",
           data: { 
-          "uid":"5f8a89d7ed18ea5e76ee9b82", 
-          "groupId":"657d99c95ddac8b346e4ea6b",
-          "groupPostId":"658bb140f821c40712303e8e",
-         "report":"Bad"
+          "uid":uid, 
+          "groupId":groupId,
+          "groupPostId":postId,
+          "report":"Bad"
         },
           headers: {
             "Content-Type": "application/json",
@@ -155,6 +154,48 @@ export const groupPostReport=async(postId,uid)=>{
         throw err;
       }
   }
+
+  export const groupPostDelete=async(uid,groupId,postId)=>{
+    try {
+        
+        const res = await request({
+          url: `/feed/v1/group/post/report/${groupId}/${postId}`,
+          type: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            uid:uid
+          },
+        });
+        return res;
+      } catch (err) {
+        console.log(err);
+        throw err;
+      }
+  }
+
+  export const turnOffCommentsGroupPost=async(uid,groupIdpostId, commentAllow)=>{
+    try {
+        
+        const res = await request({
+          url: `/feed/v1/group/post/comment/allow/${groupId}/${postId}/${commentAllow}`,
+          type: "POST",
+          data: { 
+          // "uid":uid, 
+          // "groupId":groupId,
+          // "groupPostId":postId,
+          // "report":"Bad"
+        },
+          headers: {
+            "Content-Type": "application/json",
+            uid:uid
+          },
+        });
+        return res;
+      } catch (err) {
+        console.log(err);
+        throw err;
+      }
+  } 
 
 export const groupMarkPoll=async(postId,option,uid)=>{
   try {

@@ -60,7 +60,7 @@ const FeedTabsSection = () => {
               <>
                 <PostFormSection openModal={onOpenDiscussion} setClickPhoto={setClickPhoto} />
                 {/* <SuggestionSection /> */}
-                <FeedPostList />
+                <FeedPostList triggeredFrom="user" />
               </>
             </TabPanel>
             <TabPanel padding="0">

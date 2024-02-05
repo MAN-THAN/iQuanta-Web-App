@@ -10,13 +10,14 @@ import { turnOffCommentsUserPost } from "@/api/feed/user/postAction";
 import { deleteUserPost } from "@/api/feed/user/postAction";
 import { toast, ToastContainer } from "react-toastify";
 import EditPostModal from "../home/feedPostCards/editPostModal";
-
-const PostOption = ({ postUserId, postId, title }) => {
+import { groupPostDelete,groupPostFollow,groupPostReport,groupPostSave,turnOffCommentsGroupPost } from "@/api/feed/groups/post";
+const PostOption = ({ postUserId, postId, title ,triggeredFrom}) => {
   const { isOpen: isOpenEditPost, onOpen: onOpenEditPost, onClose: onCloseEditPost } = useDisclosure();
   const { _id: uid } = useSelector((state) => state.userData);
+  const { _id: groupId } = useSelector((state) => state.groupData);
   const queryClient = useQueryClient();
   const saveMutation = useMutation({
-    mutationFn: () => saveUserPost(uid, postId, "saved"),
+    mutationFn: () => triggeredFrom=="user"?saveUserPost(uid, postId, "saved"):groupPostSave(uid,groupId,postId,"saved"),
     onMutate: (variables) => {
       return console.log("mutation is happening");
     },
@@ -33,7 +34,7 @@ const PostOption = ({ postUserId, postId, title }) => {
     onSettled: (data, error, variables, context) => {},
   });
   const reportMutation = useMutation({
-    mutationFn: () => reportUserPost(uid, postId),
+    mutationFn: () => triggeredFrom=="user"?reportUserPost(uid, postId):groupPostReport(uid,groupId,postId),
     onMutate: (variables) => {
       return console.log("mutation is happening");
     },
@@ -51,7 +52,7 @@ const PostOption = ({ postUserId, postId, title }) => {
     onSettled: (data, error, variables, context) => {},
   });
   const followMutation = useMutation({
-    mutationFn: () => followUserPost(uid, postId, "follow"),
+    mutationFn: () => triggeredFrom=="user"?followUserPost(uid, postId, "follow"):groupPostFollow(uid,groupId,"follow"),
     onMutate: (variables) => {
       return console.log("mutation is happening");
     },
@@ -68,7 +69,7 @@ const PostOption = ({ postUserId, postId, title }) => {
     onSettled: (data, error, variables, context) => {},
   });
   const commentsMutation = useMutation({
-    mutationFn: () => turnOffCommentsUserPost(postId, false),
+    mutationFn: () => triggeredFrom=="user"?turnOffCommentsUserPost(postId, false):turnOffCommentsGroupPost(uid,groupId,postId,false),
     onMutate: (variables) => {
       return console.log("mutation is happening");
     },
@@ -85,7 +86,7 @@ const PostOption = ({ postUserId, postId, title }) => {
     onSettled: (data, error, variables, context) => {},
   });
   const deletePostMutation = useMutation({
-    mutationFn: () => deleteUserPost(postId),
+    mutationFn: () => triggeredFrom=="user"?deleteUserPost(postId):groupPostDelete(uid,groupId,postId),
     onMutate: (variables) => {
       return console.log("mutation is happening");
     },
@@ -105,7 +106,7 @@ const PostOption = ({ postUserId, postId, title }) => {
 
   return (
     <>
-      <EditPostModal isOpen={isOpenEditPost} onClose={onCloseEditPost} title={title} postId={postId}/>
+      <EditPostModal isOpen={isOpenEditPost} onClose={onCloseEditPost} title={title} postId={postId} triggeredFrom={triggeredFrom}/>
       <Menu>
         <MenuButton rounded="lg" bg="#fff">
           <MoreHorizontal size="24px" />
