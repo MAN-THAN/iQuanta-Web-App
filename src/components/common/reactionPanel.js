@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useMutation, useQueryClient } from "react-query";
 import { postUserReaction } from "@/api/feed/user/reaction";
+import { groupPostReact } from "@/api/feed/groups/post";
 import { reactions } from "@/utilities/comanData";
 import { CommentPanel } from "./commentPanel";
 import { useDisclosure } from "@chakra-ui/react";
@@ -20,7 +21,7 @@ export const ReactionPanel = ({ postId, userReaction, isOpenComment, onToggleCom
   const { _id: groupId } = useSelector((state) => state.groupData);
   const queryClient = useQueryClient();
   const handleLike = () => {
-    console.log("im aworking");
+   
     if (selectedReaction?.reactionType !== "no_reaction") {
       mutation.mutate({ postId: postId, createdBy: uid, reactionType: "no_reaction" });
     } else {
@@ -38,7 +39,7 @@ export const ReactionPanel = ({ postId, userReaction, isOpenComment, onToggleCom
     clearTimeout(leaveTimeoutRef.current);
   };
   const mutation = useMutation({
-    mutationFn: (payload) => triggeredFrom=="user"?postUserReaction(payload):groupPostUserReaction(payload),
+    mutationFn: (payload) => triggeredFrom=="user"?postUserReaction(payload):groupPostReact(payload,uid),
     onMutate: (variables) => {
       return console.log("mutation is happening");
     },

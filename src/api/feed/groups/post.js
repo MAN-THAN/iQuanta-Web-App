@@ -76,11 +76,11 @@ export const getGroupPostDetail=async(postId,uid)=>{
       }
   }
 
-export const groupPostReact=async(postId,uid)=>{
+export const groupPostReact=async(payload,uid)=>{
     try {
         
         const res = await request({
-          url: `/feed/v1/group/post`,
+          url: `/feed/v1/group/post/reactions`,
           type: "POST",
           data: payload,
           headers: {
