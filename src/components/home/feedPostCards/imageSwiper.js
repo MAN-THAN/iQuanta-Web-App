@@ -12,7 +12,6 @@ import { getTimeAgo } from "@/utilities/utilityFunction";
 import PostOption from "@/components/common/postOption";
 import { useDisclosure } from "@chakra-ui/react";
 
-
 const ImageSwiper = ({
   name,
   uid,
@@ -26,7 +25,7 @@ const ImageSwiper = ({
   followingCount,
   reactionCountDetail,
   userReaction,
-  comments,
+  topComments,
 }) => {
   const sliderIMg = [
     {
@@ -139,7 +138,7 @@ const ImageSwiper = ({
         <Divider />
       </Stack>
       <Box p="0">
-        {/* <CommentSlider topComments={topComments} postId={postId} isOpenComment={isOpenComment} /> */}
+        <CommentSlider topComments={topComments} postId={postId} isOpenComment={isOpenComment} />
       </Box>
     </Box>
   );

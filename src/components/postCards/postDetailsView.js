@@ -24,8 +24,29 @@ import {
 import { Image } from "@chakra-ui/react";
 import EmojiGroup from "../common/avatarGroups";
 import { ChevronDownIcon, Dot, MessageCircle, Share2, ThumbsUp } from "lucide-react";
+import { getTimeAgo } from "@/utilities/utilityFunction";
+import LikeEmojiGroup from "../common/likeEmojiGroup";
+import { ReactionPanel } from "../common/reactionPanel";
+import CommentSlider from "./commentSlider/commentSlider";
 
-const PostDetailsView = ({ isOpen, onOpen, onClose }) => {
+const PostDetailsView = ({
+  isOpen,
+  onOpen,
+  onClose,
+  name,
+  profilePic,
+  media,
+  title,
+  createdAt,
+  userReaction,
+  reactionCountDetail,
+  followingCount,
+  reactionCount,
+  commentCount,
+  postId,
+  topComments
+}) => {
+  console.log(media)
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="6xl">
       <ModalOverlay />
@@ -36,7 +57,7 @@ const PostDetailsView = ({ isOpen, onOpen, onClose }) => {
             <Box width={["100%", null, "67%"]}>
               <Image
                 borderLeftRadius="md"
-                src="/profile.jpeg"
+                src={media?.length > 0 ? media[0] : ""}
                 alt="Profile Image"
                 objectFit="cover"
                 w="100%"
@@ -59,7 +80,7 @@ const PostDetailsView = ({ isOpen, onOpen, onClose }) => {
                         width="100%"
                         height="100%"
                         className="rounded-md"
-                        src="/profile.jpeg"
+                        src={profilePic}
                         alt="Profile Image"
                       />
                     </Box>
@@ -71,15 +92,15 @@ const PostDetailsView = ({ isOpen, onOpen, onClose }) => {
                           fontWeight: "600",
                         }}
                       >
-                        Hardik Beniwal
+                        {name}
                       </p>
-                      <p style={{ fontSize: "12px", color: "#636363" }}>2h ago</p>
+                      <p style={{ fontSize: "12px", color: "#636363" }}>{getTimeAgo(createdAt)}</p>
                     </Box>
                   </Box>
                 </HStack>
                 <HStack align="center" fontWeight="400" fontSize="14px" padding="4">
                   <Box display="flex">
-                    <EmojiGroup />
+                  <LikeEmojiGroup postId={postId} />
                     <span
                       style={{
                         fontSize: "14px",
@@ -88,7 +109,7 @@ const PostDetailsView = ({ isOpen, onOpen, onClose }) => {
                         paddingLeft: "5px",
                       }}
                     >
-                      423
+                      {reactionCount}
                     </span>
                   </Box>
                   <Box pl="5">
@@ -99,7 +120,7 @@ const PostDetailsView = ({ isOpen, onOpen, onClose }) => {
                         color: "#455564",
                       }}
                     >
-                      13
+                      {commentCount}
                     </span>
                     <span
                       style={{
@@ -121,7 +142,7 @@ const PostDetailsView = ({ isOpen, onOpen, onClose }) => {
                         color: "#455564",
                       }}
                     >
-                      53
+                      {followingCount}
                     </span>
                     <span
                       style={{
@@ -136,34 +157,12 @@ const PostDetailsView = ({ isOpen, onOpen, onClose }) => {
                   </Box>
                 </HStack>
                 <Divider variant="solid" border="0.2" w="full" />
-                <Stack
-                  direction="row"
-                  align="center"
-                  justify="space-between"
-                  fontSize="14px"
-                  fontWeight="500"
-                  py="1"
-                  px="4"
-                >
-                  <Box variant="link" display="flex" alignItems="flex-end">
-                    <Box>
-                      <ThumbsUp />
-                    </Box>
-                    <span>Like</span>
-                  </Box>
-                  <Box variant="link" display="flex" alignItems="flex-end">
-                    <Box>
-                      <MessageCircle />
-                    </Box>
-                    <span>Comments</span>
-                  </Box>
-                  <Box variant="link" display="flex" alignItems="flex-end">
-                    <Box>
-                      <Share2 />{" "}
-                    </Box>
-                    <span>Share</span>
-                  </Box>
-                </Stack>
+                <ReactionPanel
+                  postId={postId}
+                  userReaction={userReaction}
+                  // isOpenComment={isOpenComment}
+                  // onToggleComment={onToggleComment}
+                />
                 <Divider border="0.2" w="full" />
                 <Box px="4" py="1">
                   <Menu>
@@ -187,7 +186,7 @@ const PostDetailsView = ({ isOpen, onOpen, onClose }) => {
                     </MenuList>
                   </Menu>
                 </Box>
-                <Box px="4" py="0">
+                {/* <Box px="4" py="0">
                   <Box
                     sx={{
                       display: "flex",
@@ -269,7 +268,8 @@ const PostDetailsView = ({ isOpen, onOpen, onClose }) => {
                       </span>
                     </Box>
                   </HStack>
-                </Box>
+                </Box> */}
+                <CommentSlider topComments={topComments} postId={postId} />
                 <Box px="4" pt="8">
                   <InputGroup>
                     {/* eslint-disable-next-line */}

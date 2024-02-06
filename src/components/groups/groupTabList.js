@@ -1,33 +1,24 @@
-import { Box, GridItem, Tab, TabList, TabPanel, TabPanels, Tabs, useDisclosure } from "@chakra-ui/react";
-import { MessagesSquare, ShieldCheck } from "lucide-react";
+import { Tab, TabList, TabPanel, TabPanels, Tabs, useDisclosure } from "@chakra-ui/react";
 import PostFormSection from "../home/postFormSection";
-import TextFeedCard from "../home/feedPostCards/textFeedCard";
-import ImageFeedCard from "../home/feedPostCards/imageFeedCard";
-import VideoFeedCard from "../home/feedPostCards/videoFeedCard";
-import CardFeedCard from "../home/feedPostCards/cardFeedCard";
-import PollFeedCard from "../home/feedPostCards/pollFeedCard";
 import { useState } from "react";
-import { useQuery, useInfiniteQuery } from "react-query";
 import { useSelector } from "react-redux";
-import { getGroupPosts } from "@/api/feed/groups/post";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import FeaturesCard from "../courses/featuresCard";
-import { featursCard } from "@/utilities/comanData";
-import UpComeingCard from "../feature/upComeingCard";
 import DiscussionModal from "../home/challenge/challengesModals/discussionModal";
 import ExamTab from "./examTab";
 import PracticeQAs from "./practiceQAs";
 import MockTests from "./mockTests";
 import FilesTab from "./filesTab";
 import { useRouter } from "next/navigation";
-import ImageSwiper from "../home/feedPostCards/imageSwiper";
 import ChallengeForm from "../home/challenge/challengesPostCard/challengeForm";
 import ChallengesModal from "../home/challenge/challengesModals/challengesModal";
 import ChallengeList from "../home/challenge/challengeList";
+import CourseList from "../courses/courseList";
+import EventList from "../events/eventList";
+import MediaPostList from "./mediaPostList";
 import TopicDetailsTab from "./topicDetailsTab";
 import DoubtDetailsTab from "./doubtDetailsTab";
-import FlagFeedDeatils from "./flagFeedDeatils";
+import FlagFeedDetails from "./flagFeedDetails";
+import { FeedPostList } from "../home/discussion/feedPostList";
 
 const GroupTabList = () => {
   const router = useRouter();
@@ -35,21 +26,10 @@ const GroupTabList = () => {
   const { isOpen: isOpenDiscussion, onOpen: onOpenDiscussion, onClose: onCloseDiscussion } = useDisclosure();
   const [clickPhoto, setClickPhoto] = useState(false);
   const [challengeTab, setChallengeTab] = useState(false);
-  const [state, setState] = useState();
   const { _id: uid } = useSelector((state) => state.userData);
   const { _id: groupId, entityType: examId } = useSelector((state) => state.groupData);
-  const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } = useInfiniteQuery({
-    queryKey: ["getGroupPosts", uid, groupId],
-    queryFn: ({ pageParam = 1, limit = 10 }) => getGroupPosts(pageParam, limit, uid, groupId),
-    getNextPageParam: (lastPage, pages) => lastPage.nextCursor,
-    onError: (error, variables, context) =>
-      toast.error(`${error?.response?.data?.error?.message || "Some error"}`, {
-        position: toast.POSITION.TOP_RIGHT,
-      }),
-    onSuccess: (res) => setState(res.pages[0]?.data.data.allPostData),
-  });
-
-  console.log("52:", state);
+ 
+ 
 
   const tabs = [
     {
@@ -132,8 +112,7 @@ const GroupTabList = () => {
               border="1px solid"
               px="3"
               onClick={() => {
-                alert("!");
-                setChallengeTab(da.challengeTab);
+               setChallengeTab(da.challengeTab);
               }}
             >
               {da.tabName}
@@ -143,70 +122,7 @@ const GroupTabList = () => {
         <TabPanels>
           <TabPanel padding="0">
             <PostFormSection openModal={onOpenDiscussion} setClickPhoto={setClickPhoto} />
-            {state?.map((item, ind) => {
-              if (item.postType === "photo")
-                return (
-                  <ImageFeedCard
-                    name={item?.createdBy?.name}
-                    uid={item?.createdBy?._id}
-                    title={item?.postTypeId?.title}
-                    reactionCount={item?.reactionCount}
-                    commentCount={item?.commentCount}
-                    createdAt={item?.postTypeId?.createdAt}
-                    media={item?.postTypeId?.media}
-                  />
-                );
-              else if (item.postType === "video")
-                return (
-                  <VideoFeedCard
-                    name={item?.createdBy?.name}
-                    uid={item?.createdBy?._id}
-                    title={item?.postTypeId?.title}
-                    reactionCount={item?.reactionCount}
-                    commentCount={item?.commentCount}
-                    createdAt={item?.postTypeId?.createdAt}
-                    media={item?.postTypeId?.media}
-                  />
-                );
-              else if (item.postType === "memes")
-                return (
-                  <CardFeedCard
-                    name={item?.createdBy?.name}
-                    uid={item?.createdBy?._id}
-                    title={item?.postTypeId?.title}
-                    reactionCount={item?.reactionCount}
-                    commentCount={item?.commentCount}
-                  />
-                );
-              else if (item.postType === "text")
-                return (
-                  <TextFeedCard
-                    name={item?.createdBy?.name}
-                    uid={item?.createdBy?._id}
-                    title={item?.postTypeId?.title}
-                    reactionCount={item?.reactionCount}
-                    commentCount={item?.commentCount}
-                  />
-                );
-              else if (item.postType === "poll")
-                return (
-                  <PollFeedCard
-                    name={item?.postTypeId.createdBy?.name}
-                    uid={item?.postTypeId.createdBy?._id}
-                    profilePic={item?.postTypeId?.createdBy?.profilePic}
-                    title={item?.postTypeId?.title}
-                    options={item?.postTypeId?.options}
-                    reactionCount={item?.reactionCount}
-                    commentCount={item?.commentCount}
-                    postId={item._id}
-                    triggeredFrom="group"
-                  />
-                );
-
-              // else if (item.post_type === "video") return <ImageFeedCard />;
-              // else if (item.post_type === "video") return <SuggestionSection />;
-              // else if (item.post_type === "video") return <PollFeedCard />;
-            })}
+            <FeedPostList triggeredFrom="group"/>
           </TabPanel>
           <TabPanel padding="0">
             {challengeTab == true && (
@@ -217,22 +133,10 @@ const GroupTabList = () => {
             )}
           </TabPanel>
           <TabPanel padding="0">
-            <ExamTab examId={examId._id} />
+            <ExamTab examId={examId?._id} />
           </TabPanel>
           <TabPanel padding="0">
-            <Box
-              display="flex"
-              flexWrap="wrap"
-              alignItems="center"
-              px="4"
-              gap="3"
-              justifyContent="space-between"
-              bg="white.900"
-            >
-              {featursCard.map((data, index) => (
-                <FeaturesCard data={data} key={index} onButtonClick={() => router.push(`/courses/${index}`)} />
-              ))}
-            </Box>
+            <CourseList groupId={groupId}/>
           </TabPanel>
           <TabPanel padding="0">
             <PracticeQAs />
@@ -241,17 +145,13 @@ const GroupTabList = () => {
             <MockTests />
           </TabPanel>
           <TabPanel padding="3" bg="white.900" mt="1">
-            {[...Array(4)].map((e, i) => (
-              <Box key={i} width="100%">
-                <UpComeingCard id={i} />
-              </Box>
-            ))}
+            <EventList groupId={groupId}/>
           </TabPanel>
           <TabPanel padding="0">
-            <FilesTab />
+            <FilesTab groupId={groupId} />
           </TabPanel>
           <TabPanel padding="0">
-            <ImageSwiper />
+            <MediaPostList groupId={groupId}/>
           </TabPanel>
           <TabPanel padding="0">
             <TopicDetailsTab />
@@ -260,7 +160,7 @@ const GroupTabList = () => {
             <DoubtDetailsTab />
           </TabPanel>
           <TabPanel padding="0">
-            <FlagFeedDeatils />
+            <FlagFeedDetails />
           </TabPanel>
           <TabPanel padding="0">
             <DoubtDetailsTab />

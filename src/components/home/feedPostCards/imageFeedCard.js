@@ -24,13 +24,29 @@ const ImageFeedCard = ({
   postId,
   userReaction,
   reactionCountDetail,
+  triggeredFrom
 }) => {
   const { isOpen: isOpenComment, onToggle: onToggleComment, onClose: onCloseComment } = useDisclosure();
   const { isOpen: isOpenPostDetails, onOpen: onOpenPostDetails, onClose: onClosePostDetails } = useDisclosure();
   console.log(reactionCount);
   return (
     <>
-      <PostDetailsView isOpen={isOpenPostDetails} onClose={onClosePostDetails} />
+      <PostDetailsView
+        name={name}
+        profilePic={profilePic}
+        media={media}
+        isOpen={isOpenPostDetails}
+        onClose={onClosePostDetails}
+        createdAt={createdAt}
+        userReaction={userReaction}
+        reactionCountDetail={reactionCountDetail}
+        commentCount={commentCount}
+        followingCount={followingCount}
+        reactionCount={reactionCount}
+        postId={postId}
+        topComments={topComments}
+        triggeredFrom={triggeredFrom}
+      />
       <Box bg="#fff" mt="1">
         <HStack align="center" justifyContent="space-between" padding={["3", null, "4"]}>
           <Box
@@ -58,7 +74,7 @@ const ImageFeedCard = ({
             </Box>
           </Box>
           <Box display="flex" alignItems="center" gap="4">
-            <PostOption postUserId={uid} postId={postId} title={title} />
+            <PostOption postUserId={uid} postId={postId} title={title}triggeredFrom={triggeredFrom} />
           </Box>
         </HStack>
         <Stack padding={["3", null, "4"]}>
@@ -66,11 +82,11 @@ const ImageFeedCard = ({
             <p>{title}</p>
           </Text>
           <Box maxH="100vh " maxW="100vh" overflow="hidden" onClick={onOpenPostDetails}>
-            <Image alt="video" w="100%" h="100%" fit="contain" src={media?.[0]} />
+            <Image alt="video" w="100%" h="100%" fit="contain" src={media?.[0]} cursor={"pointer"} />
           </Box>
           <HStack align="center" fontWeight="400" fontSize="14px" padding="4">
             <Box display="flex" alignItems="center">
-              <LikeEmojiGroup userReaction={userReaction} reactionCountDetail={reactionCountDetail} />
+              <LikeEmojiGroup postId={postId} />
               <span
                 style={{
                   fontSize: "14px",
@@ -116,11 +132,12 @@ const ImageFeedCard = ({
             userReaction={userReaction}
             isOpenComment={isOpenComment}
             onToggleComment={onToggleComment}
+            triggeredFrom={triggeredFrom}
           />
           <Divider />
         </Stack>
         <Box p="0">
-          <CommentSlider topComments={topComments} postId={postId} isOpenComment={isOpenComment} />
+          <CommentSlider topComments={topComments} postId={postId} isOpenComment={isOpenComment} triggeredFrom={triggeredFrom} />
         </Box>
       </Box>
     </>

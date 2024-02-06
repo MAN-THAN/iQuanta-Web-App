@@ -3,7 +3,7 @@ import React from "react";
 import FilterTopicCard from "../common/filterCard";
 import ImagePostCard from "../postCards/imagePostCard";
 
-const FlagFeedDeatils = () => {
+const FlagFeedDetails = () => {
   return (
     <Box bg="white.900" p="6">
       {/* <Flex justifyContent="space-between">
@@ -15,4 +15,4 @@ const FlagFeedDeatils = () => {
   );
 };
 
-export default FlagFeedDeatils;
+export default FlagFeedDetails;

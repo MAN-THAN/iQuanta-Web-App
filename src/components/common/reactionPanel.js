@@ -4,11 +4,12 @@ import { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useMutation, useQueryClient } from "react-query";
 import { postUserReaction } from "@/api/feed/user/reaction";
+import { groupPostReact } from "@/api/feed/groups/post";
 import { reactions } from "@/utilities/comanData";
 import { CommentPanel } from "./commentPanel";
 import { useDisclosure } from "@chakra-ui/react";
 
-export const ReactionPanel = ({ postId, userReaction, isOpenComment, onToggleComment }) => {
+export const ReactionPanel = ({ postId, userReaction, isOpenComment, onToggleComment,triggeredFrom }) => {
   // const { isOpen: isOpenComment, onToggle: onToggleComment, onClose: onClose } = useDisclosure();
   const [selectedReaction, setSelectedReaction] = useState(
     userReaction ? userReaction : { reactionType: "no_reaction" }
@@ -17,9 +18,10 @@ export const ReactionPanel = ({ postId, userReaction, isOpenComment, onToggleCom
   const panelRef = useRef(null);
   const leaveTimeoutRef = useRef(null);
   const { _id: uid } = useSelector((state) => state.userData);
+  const { _id: groupId } = useSelector((state) => state.groupData);
   const queryClient = useQueryClient();
   const handleLike = () => {
-    console.log("im aworking");
+   
     if (selectedReaction?.reactionType !== "no_reaction") {
       mutation.mutate({ postId: postId, createdBy: uid, reactionType: "no_reaction" });
     } else {
@@ -37,7 +39,7 @@ export const ReactionPanel = ({ postId, userReaction, isOpenComment, onToggleCom
     clearTimeout(leaveTimeoutRef.current);
   };
   const mutation = useMutation({
-    mutationFn: (payload) => postUserReaction(payload),
+    mutationFn: (payload) => triggeredFrom=="group"?groupPostReact(payload,uid):postUserReaction(payload),
     onMutate: (variables) => {
       return console.log("mutation is happening");
     },
@@ -46,7 +48,7 @@ export const ReactionPanel = ({ postId, userReaction, isOpenComment, onToggleCom
       console.log(res);
       setSelectedReaction(res?.data?.data.savedReactions);
       setPanelVisibility(false);
-      queryClient.invalidateQueries("getAllPosts");
+      queryClient.invalidateQueries({ queryKey: ["getAllReactions", postId], exact: true });
     },
     onSettled: (data, error, variables, context) => {},
   });
@@ -106,7 +108,7 @@ export const ReactionPanel = ({ postId, userReaction, isOpenComment, onToggleCom
                   <HStack
                     onClick={(e) => {
                       // handleReactionClick(reaction);
-                      mutation.mutate({ postId: postId, createdBy: uid, reactionType: reaction.reactionType });
+                      triggeredFrom=="group"?mutation.mutate({ postId: postId, createdBy: uid, reactionType: reaction.reactionType , groupId }):mutation.mutate({ postId: postId, createdBy: uid, reactionType: reaction.reactionType });
                       e.stopPropagation();
                     }}
                     cursor="pointer"
@@ -132,7 +134,7 @@ export const ReactionPanel = ({ postId, userReaction, isOpenComment, onToggleCom
           </Text>
         </HStack>
       </Flex>
-      <CommentPanel isOpenComment={isOpenComment} postId={postId} />
+      <CommentPanel isOpenComment={isOpenComment} postId={postId} triggeredFrom={triggeredFrom} />
     </>
   );
 };

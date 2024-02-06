@@ -1,6 +1,6 @@
 import { Card, CardBody, Heading, Text, Button, HStack, Flex, Image, Stack, Box } from "@chakra-ui/react";
 import { Dot } from "lucide-react";
-import { randomColors } from "../../utilities/commonFunctions";
+import { HTMLConverter, randomColors } from "../../utilities/commonFunctions";
 import { useRouter } from "next/navigation";
 const FeaturesCard = ({ data, onButtonClick }) => {
   const router = useRouter();
@@ -13,13 +13,13 @@ const FeaturesCard = ({ data, onButtonClick }) => {
       overflow="hidden"
     >
       <CardBody>
-        <Image src={data.img} alt="Green double couch with wooden legs" borderRadius="lg" w="100%" />
+        <Image src={data.image} alt="Green double couch with wooden legs" borderRadius="lg" w="100%" />
         <Stack mt="6" spacing="3" color="#fff">
-          <Heading size="md">{data.name}</Heading>
-          <Text fontSize="sm" fontWeight="500">
-            Complete course for all your exams
-          </Text>
-          <ul className="text-base">
+          <Heading size="md">{data.title}</Heading>
+          <HTMLConverter fontSize="sm" fontWeight="500">
+            {data.description}
+          </HTMLConverter>
+          {/* <ul className="text-base">
             <li className="flex">
               <span>
                 <Dot transform="scale(2)" />
@@ -38,17 +38,20 @@ const FeaturesCard = ({ data, onButtonClick }) => {
               </span>
               <span> 25+ Assignments & 15+ Mock Tests</span>
             </li>
-          </ul>
+          </ul> */}
+          <HTMLConverter>
+            {data.highlights}
+          </HTMLConverter>
         </Stack>
       </CardBody>
       <Flex align="center" justify="start" gap="4" bg="#000" rounded="xl" m="2" padding="3">
         <Text fontSize="16px" color="#fff">
-          ₹2,700
+          {data.price==0?"Free":`₹ ${data.price}`}
         </Text>
-        <HStack fontSize="10px" textAlign="start">
+        {(data.price!==0&&data.discount>0)&&<HStack fontSize="10px" textAlign="start">
           <strike className="text-gray-500 text-sm">₹3000</strike>
-          <span className="text-green-500 text-sm">10% Off</span>
-        </HStack>
+          <span className="text-green-500 text-sm">{data.discount}% Off</span>
+        </HStack>}
         <Box padding="0" rounded="md">
           <Button onClick={onButtonClick} variant="text" margin="0 auto" color="#fff">
             More Details

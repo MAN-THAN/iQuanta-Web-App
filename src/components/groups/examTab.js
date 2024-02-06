@@ -9,7 +9,7 @@ import CollegeList from "./tabsDetails/collegeList";
 import { getGroupExamDetail } from "@/api/feed/groups/exam";
 import { useQuery } from "react-query";
 import { ToastContainer, toast } from "react-toastify";
-import SallybusTable from "./tabsDetails/sallybusTable";
+import SyllabusTable from "./tabsDetails/syllabusTable";
 export const examTabDatas = [
   { name: "Eligibility", isOpen: false, status: "false", color: "#5146D6" },
   { name: "Exam Dates", isOpen: false, status: "false", color: "#5146D6" },
@@ -27,7 +27,7 @@ const ComponentForIndex = ({ index,data }) => {
     <Box key={3}>
       <PreparationTipsDetails data={data} />
     </Box>,
-    <Box key={4}><SallybusTable/></Box>,
+    <Box key={4}><SyllabusTable/></Box>,
     <Box key={5}>
       <CollegeList data={data} />
     </Box>,

@@ -1,6 +1,6 @@
 import { Box, Grid, GridItem, HStack, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
-import UpComeingCard from "@/components/feature/upComeingCard";
+import UpComeingCard from "@/components/feature/upComingCard";
 import { ArrowLeft } from "lucide-react";
 import RootLayout from "@/components/layouts/layout";
 import LearnLayout from "@/components/layouts/learnLayout";

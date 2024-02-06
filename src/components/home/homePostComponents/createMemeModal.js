@@ -31,6 +31,7 @@ import { useSelector } from "react-redux";
 
 const CreateMemeModal = ({
   handleTypingStart,
+  createPost,
   selectedType,
   selectedFiles,
   fileInputRef,
@@ -43,32 +44,9 @@ const CreateMemeModal = ({
   const ref = useRef(null);
   const [text, setText] = useState();
   const { name, _id: uid } = useSelector((state) => state.userData);
-  const mutation = useMutation({
-    mutationFn: (payload) => createPost(payload, uid),
-    onMutate: (variables) => {
-      return console.log("mutation is happening");
-    },
-    onError: (error, variables, context) =>
-      toast.error(`${error?.response?.data.error?.message}`, {
-        position: toast.POSITION.TOP_RIGHT,
-      }),
-    onSuccess: (res, variables, context) => {
-      toast.success("post created successfully!", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-      console.log(res);
-      queryClient.invalidateQueries("getAllPosts");
-      setText();
-      onClose();
-      // setSelectedFiles([]);
-      // setOptions([]);
-      // setSelectedComponent(null);
-      // onClose();
-    },
-    onSettled: (data, error, variables, context) => {},
-  });
-  console.log(text);
-  const queryClient = useQueryClient();
+  
+  
+  
   const handlePostMemes = async() => {
     if (ref.current === null) {
       return;
@@ -76,32 +54,8 @@ const CreateMemeModal = ({
     console.log(ref.current);
      // Get the data URL of the meme
      const dataUrl = await toPng(ref.current, { cacheBust: true });
-
-     // Convert data URL to Blob
-     const blob = await toBlob(ref.current, dataUrl);
-    // toPng(ref.current, { cacheBust: true })
-    //   .then((dataUrl) => {
-        console.log(blob);
-        // const blob = await toBlob(dataUrl);
-        const formData = new FormData();
-        formData.append("file", blob);
-        formData.append("postType", "memes");
-        formData.append("title", text);
-        mutation.mutate(formData);
-
-        // const link = document.createElement("a");
-        // link.download = "my-image-name.png";
-        // link.href = dataUrl;
-        // link.click();
-        // mutation.mutate({
-        //   title: text,
-        //   postType: "memes",
-        //   file: dataUrl
-        // });
-      // })
-      // .catch((err) => {
-      //   console.log(err);
-      // });
+     createPost({dataUrl,text});
+        
   };
 
   return (

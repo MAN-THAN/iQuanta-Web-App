@@ -17,22 +17,25 @@ import { throttle } from "lodash";
 import React from "react";
 import { useInView } from "react-intersection-observer";
 import { getAllPost } from "@/api/feed/user/posts";
+import { getGroupPosts } from "@/api/feed/groups/post";
 
-export const FeedPostList = () => {
+export const FeedPostList = ({triggeredFrom}) => {
   const { _id: uid } = useSelector((state) => state.userData);
-  const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status, isLoading, isError } =
-    useInfiniteQuery({
-      queryKey: ["getAllPosts", uid],
-      queryFn: ({ pageParam = 1 }) => getAllPost(pageParam, 12, uid),
+  const { _id: groupId } = useSelector((state) => state.groupData);
+  const { data, error,isLoading,isError, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } = useInfiniteQuery({
+      queryKey: [triggeredFrom=="group"?"getGroupPosts":"getAllPosts", triggeredFrom == "group" ?groupId: uid],
+      queryFn: ({ pageParam = 1, limit = 10 }) =>
+        triggeredFrom == "group"?
+        getGroupPosts(pageParam, limit, uid, groupId)
+        : getAllPost(pageParam, 12, uid),
+
       getNextPageParam: (lastPage, pages) => lastPage.data.data.pagination.page + 1,
       onError: (error, variables, context) =>
         toast.error(`${error?.response?.data?.error?.message || "Some error"}`, {
           position: toast.POSITION.TOP_RIGHT,
         }),
-      onSuccess: (res, page) => {
-        console.log(res);
-      },
-    });
+      onSuccess: (res) => {console.log("res",res)},
+    });  
   // Implement scrolling detection
   const { ref, inView } = useInView();
   useEffect(() => {
@@ -65,7 +68,7 @@ export const FeedPostList = () => {
         data?.pages.map((page, ind) => (
           <React.Fragment key={ind}>
             {page.data.data.allPostData.map((item, ind) => {
-              if (item.postType === "photo") {
+              if (item.postType === "photo"||item.postType === "memes") {
                 if (item.postTypeId?.media?.length == 1)
                   return (
                     <ImageFeedCard
@@ -82,6 +85,7 @@ export const FeedPostList = () => {
                       userReaction={item?.userReaction}
                       followingCount={item?.followingCount}
                       reactionCountDetail={item?.reactionCountDetail}
+                      triggeredFrom={triggeredFrom}
                     />
                   );
                 else if (item.postTypeId?.media?.length > 1) {
@@ -100,6 +104,7 @@ export const FeedPostList = () => {
                       userReaction={item?.userReaction}
                       followingCount={item?.followingCount}
                       reactionCountDetail={item?.reactionCountDetail}
+                      triggeredFrom={triggeredFrom}
                     />
                   );
                 } else {
@@ -121,24 +126,7 @@ export const FeedPostList = () => {
                     followingCount={item?.followingCount}
                     reactionCountDetail={item?.reactionCountDetail}
                     topComments={item?.topComments}
-                  />
-                );
-              else if (item.postType === "memes")
-                return (
-                  <CardFeedCard
-                    name={item?.postTypeId?.createdBy?.name}
-                    profilePic={item?.postTypeId?.createdBy?.profilePic}
-                    uid={item?.postTypeId?.createdBy?._id}
-                    title={item?.postTypeId?.title}
-                    reactionCount={item?.reactionCount}
-                    commentCount={item?.commentCount}
-                    createdAt={item?.postTypeId?.createdAt}
-                    media={item?.postTypeId?.media}
-                    postId={item?.postTypeId?._id}
-                    userReaction={item?.userReaction}
-                    followingCount={item?.followingCount}
-                    reactionCountDetail={item?.reactionCountDetail}
-                    topComments={item?.topComments}
+                    triggeredFrom={triggeredFrom}
                   />
                 );
               else if (item.postType === "text")
@@ -157,6 +145,7 @@ export const FeedPostList = () => {
                     followingCount={item?.followingCount}
                     reactionCountDetail={item?.reactionCountDetail}
                     topComments={item?.topComments}
+                    triggeredFrom={triggeredFrom}
                   />
                 );
               else if (item.postType === "poll")
@@ -175,6 +164,7 @@ export const FeedPostList = () => {
                     followingCount={item?.followingCount}
                     reactionCountDetail={item?.reactionCountDetail}
                     topComments={item?.topComments}
+                    triggeredFrom={triggeredFrom}
                   />
                 );
               else if (item.postType === "debate")
@@ -194,6 +184,7 @@ export const FeedPostList = () => {
                     followingCount={item?.followingCount}
                     reactionCountDetail={item?.reactionCountDetail}
                     topComments={item?.topComments}
+                    triggeredFrom={triggeredFrom}
                   />
                 );
 

@@ -17,24 +17,41 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useMutation, useQueryClient } from "react-query";
 import { createUserPostComment } from "@/api/feed/user/comments";
+import { createGroupPostComment,editGroupPostComment,groupPostCommentReport,groupPostCommentReactToComment } from "@/api/feed/groups/comment";
 import { exact } from "prop-types";
 
-export const CommentPanel = ({ isOpenComment, postId }) => {
+export const CommentPanel = ({ isOpenComment, postId , triggeredFrom }) => {
   const { profilePic, _id: uid } = useSelector((state) => state.userData);
+  const { _id: groupId } = useSelector((state) => state.groupData);
   const [comment, setComment] = useState("");
   const date = new Date();
   const queryClient = useQueryClient();
   const handleComment = () => {
+    if(triggeredFrom=="group")
+   {
+
     const payload = {
       postId: postId,
       uid: uid,
+      groupId:groupId,
       timestamp: date.toISOString(),
       comment: comment,
     };
     mutation.mutate(payload);
+    
+  }
+    else{
+      const payload = {
+        postId: postId,
+        uid: uid,
+        timestamp: date.toISOString(),
+        comment: comment,
+      };
+      mutation.mutate(payload);
+    }
   };
   const mutation = useMutation({
-    mutationFn: (payload) => createUserPostComment(payload, uid),
+    mutationFn: (payload) => triggeredFrom=="group"?createGroupPostComment(payload,uid,groupId):createUserPostComment(payload, uid),
     onMutate: (variables) => {
       return console.log("mutation is happening");
     },

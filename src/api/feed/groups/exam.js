@@ -16,8 +16,6 @@ export const getGroupExamDetail = async (examId) => {
   }
 };
 
-
-
 export const getGroupCourseList = async (groupId) => {
   try {
     //alert("group exam detail");
@@ -32,3 +30,5 @@ export const getGroupCourseList = async (groupId) => {
     throw err;
   }
 };
+
+
