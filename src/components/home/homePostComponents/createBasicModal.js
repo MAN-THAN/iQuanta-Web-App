@@ -44,6 +44,7 @@ const CreateBasicModal = ({
   selectedComponent,
   setParticipantsShow,
   setTaggedTopic,
+  setHashTags
 }) => {
   const { _id: uid, name } = useSelector((state) => state.userData);
   const handleRemoveImage = (index) => {
@@ -177,13 +178,13 @@ const CreateBasicModal = ({
               <Mention
                 trigger={"#"}
                 data={[
-                  { display: "CAT2025", id: Date.now() },
-                  { display: "NMAT2025", id: Date.now() },
-                  { display: "Amazon", id: Date.now() },
+                  { display: "#CAT2025", id: Date.now() },
+                  { display: "#NMAT2025", id: Date.now() },
+                  { display: "#Amazon", id: Date.now() },
                 ]}
-                // onAdd={(e) => {
-                //   setTaggedTopic((prev) => [...prev, e]);
-                // }}
+                onAdd={(e) => {
+                  setHashTags((prev) => [...prev, e]);
+                }}
                 style={mentionStyles}
                 appendSpaceOnAdd={true}
               />

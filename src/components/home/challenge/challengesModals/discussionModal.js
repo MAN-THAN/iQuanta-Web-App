@@ -86,8 +86,9 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto, triggeredFrom, finalRef 
       for (let i = 0; i < taggedTopic.length; i++) {
         formData.append("taggedTopic", taggedTopic[i]);
       }
-      // formData.append("taggedTopic", taggedTopic);
-      // formData.append("hashtags", hashTags);
+      for (let i = 0; i < hashTags.length; i++) {
+        formData.append("hashtags", hashTags[i]);
+      }
       if (triggeredFrom == "group") {
         formData.append("groupId", groupId);
       }
@@ -183,6 +184,7 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto, triggeredFrom, finalRef 
               setOptions={setOptions}
               setParticipantsShow={setParticipantsShow}
               setTaggedTopic={setTaggedTopic}
+              setHashTags={setHashTags}
             />
             <ModalFooter flexDirection="column" alignItems="start">
               <RowButton
