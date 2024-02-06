@@ -45,6 +45,7 @@ const ImageFeedCard = ({
         reactionCount={reactionCount}
         postId={postId}
         topComments={topComments}
+        triggeredFrom={triggeredFrom}
       />
       <Box bg="#fff" mt="1">
         <HStack align="center" justifyContent="space-between" padding={["3", null, "4"]}>
@@ -73,7 +74,7 @@ const ImageFeedCard = ({
             </Box>
           </Box>
           <Box display="flex" alignItems="center" gap="4">
-            <PostOption postUserId={uid} postId={postId} title={title} />
+            <PostOption postUserId={uid} postId={postId} title={title}triggeredFrom={triggeredFrom} />
           </Box>
         </HStack>
         <Stack padding={["3", null, "4"]}>
@@ -131,11 +132,12 @@ const ImageFeedCard = ({
             userReaction={userReaction}
             isOpenComment={isOpenComment}
             onToggleComment={onToggleComment}
+            triggeredFrom={triggeredFrom}
           />
           <Divider />
         </Stack>
         <Box p="0">
-          <CommentSlider topComments={topComments} postId={postId} isOpenComment={isOpenComment} />
+          <CommentSlider topComments={topComments} postId={postId} isOpenComment={isOpenComment} triggeredFrom={triggeredFrom} />
         </Box>
       </Box>
     </>

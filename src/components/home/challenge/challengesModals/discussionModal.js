@@ -134,7 +134,7 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto, triggeredFrom, finalRef 
   }, []);
   const mutation = useMutation({
     mutationFn: (payload, contentType) =>
-      triggeredFrom == "user" ? createPost(payload, contentType, uid) : createGroupPost(payload, contentType, uid),
+      triggeredFrom == "group" ?  createGroupPost(payload, contentType, uid):createPost(payload, contentType, uid) ,
     onMutate: (variables) => {
       return console.log("mutation is happening");
     },

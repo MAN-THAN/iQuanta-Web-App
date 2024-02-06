@@ -25,11 +25,12 @@ export const FeedPostList = ({triggeredFrom}) => {
   const { _id: uid } = useSelector((state) => state.userData);
   const { _id: groupId } = useSelector((state) => state.groupData);
   const { data, error,isLoading,isError, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } = useInfiniteQuery({
-      queryKey: [triggeredFrom=="user"?"getAllPosts":"getGroupPosts", triggeredFrom == "user" ? uid : groupId],
+      queryKey: [triggeredFrom=="group"?"getGroupPosts":"getAllPosts", triggeredFrom == "group" ?groupId: uid],
       queryFn: ({ pageParam = 1, limit = 10 }) =>
-        triggeredFrom == "user"
-          ? getAllPost(pageParam, 12, uid)
-          : getGroupPosts(pageParam, limit, uid, groupId),
+        triggeredFrom == "group"?
+        getGroupPosts(pageParam, limit, uid, groupId)
+        : getAllPost(pageParam, 12, uid),
+
       getNextPageParam: (lastPage, pages) => lastPage.nextCursor,
       onError: (error, variables, context) =>
         toast.error(`${error?.response?.data?.error?.message || "Some error"}`, {
