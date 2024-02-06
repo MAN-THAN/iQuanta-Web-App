@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import { getReactionsByPostId } from "@/api/feed/user/reaction";
 
-const LikeEmojiGroup = ({ userReaction, postId }) => {
+const LikeEmojiGroup = ({ postId }) => {
   // const reactions = [
   //   { reaction: "👍", reactionType: "like", fontColor: "#DAA520" },
   //   { reaction: "❤️", reactionType: "heart", fontColor: "#C92A2A" },
@@ -18,6 +18,7 @@ const LikeEmojiGroup = ({ userReaction, postId }) => {
   // ];
   const modifiedReactions = reactions.slice(1);
   const [reactionCountDetail, setReactionCountDetail] = useState([]);
+  const [userReaction, setUserReaction] = useState();
   const { _id: uid } = useSelector((state) => state.userData);
   const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } = useQuery({
     queryKey: ["getAllReactions", postId],
@@ -26,6 +27,7 @@ const LikeEmojiGroup = ({ userReaction, postId }) => {
     onSuccess: (res, page) => {
       console.log(res);
       setReactionCountDetail(res?.data.data.reactionCountDetail);
+      setUserReaction(res?.data.data.userReaction);
     },
   });
   const getEmojiArrOnPosts = () => {
@@ -38,11 +40,11 @@ const LikeEmojiGroup = ({ userReaction, postId }) => {
           arr.push(obj);
         }
       });
-    // if (userReaction && userReaction?.reactionType !== "like") {
-    //   const userReactionObj = modifiedReactions.find((i) => i.reactionType === userReaction.reactionType);
-    //   console.log(userReaction);
-    //   arr.push(userReactionObj);
-    // }
+    if (userReaction && userReaction?.reactionType !== "like") {
+      const userReactionObj = modifiedReactions.find((i) => i.reactionType === userReaction.reactionType);
+      console.log(userReaction);
+      arr.push(userReactionObj);
+    }
     return arr;
   };
   console.log(getEmojiArrOnPosts());
