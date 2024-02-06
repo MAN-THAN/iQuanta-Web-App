@@ -19,8 +19,6 @@ import { useInView } from "react-intersection-observer";
 import { getAllPost } from "@/api/feed/user/posts";
 import { getGroupPosts } from "@/api/feed/groups/post";
 
-
-
 export const FeedPostList = ({triggeredFrom}) => {
   const { _id: uid } = useSelector((state) => state.userData);
   const { _id: groupId } = useSelector((state) => state.groupData);
@@ -31,7 +29,7 @@ export const FeedPostList = ({triggeredFrom}) => {
         getGroupPosts(pageParam, limit, uid, groupId)
         : getAllPost(pageParam, 12, uid),
 
-      getNextPageParam: (lastPage, pages) => lastPage.nextCursor,
+      getNextPageParam: (lastPage, pages) => lastPage.data.data.pagination.page + 1,
       onError: (error, variables, context) =>
         toast.error(`${error?.response?.data?.error?.message || "Some error"}`, {
           position: toast.POSITION.TOP_RIGHT,
