@@ -6,7 +6,7 @@ import { featursCard } from "@/utilities/comanData";
 
 const PreparationTips = () => {
   return (
-    <Box>
+    <Box bg='white.900' p='4' mt='2'>
       <Flex
         align="center"
         justify="space-between"
@@ -25,7 +25,7 @@ const PreparationTips = () => {
         </HStack>
       </Flex>
       <Box>
-        <HStack pt="6" pb="3" gap="3" maxW="800px" overflowX="scroll">
+        <HStack pt="4" pb="3" gap="3" maxW="800px" overflowX="scroll">
           {featursCard.map((data, index) => (
             <Box key={index}>
               <NoteCard data={data} />

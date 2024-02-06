@@ -27,6 +27,7 @@ import ChallengesModal from "../home/challenge/challengesModals/challengesModal"
 import ChallengeList from "../home/challenge/challengeList";
 import TopicDetailsTab from "./topicDetailsTab";
 import DoubtDetailsTab from "./doubtDetailsTab";
+import FlagFeedDeatils from "./flagFeedDeatils";
 
 const GroupTabList = () => {
   const router = useRouter();
@@ -93,6 +94,14 @@ const GroupTabList = () => {
     },
     {
       tabName: "Doubt",
+      challengeTab: false,
+    },
+    {
+      tabName: "Flags",
+      challengeTab: false,
+    },
+    {
+      tabName: "Hashtag",
       challengeTab: false,
     },
   ];
@@ -246,6 +255,12 @@ const GroupTabList = () => {
           </TabPanel>
           <TabPanel padding="0">
             <TopicDetailsTab />
+          </TabPanel>
+          <TabPanel padding="0">
+            <DoubtDetailsTab />
+          </TabPanel>
+          <TabPanel padding="0">
+            <FlagFeedDeatils />
           </TabPanel>
           <TabPanel padding="0">
             <DoubtDetailsTab />

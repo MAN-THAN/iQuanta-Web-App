@@ -10,7 +10,16 @@ const YourExam = () => {
 
   return (
     <Box mt="4" bg="#fff" p="4">
-      {path === "/mockTest" ? <Text fontSize="22px">Practice For</Text> : <Text fontSize="22px"> Your Exam</Text>}
+      {path === "/mockTest" ? (
+        <Text fontSize="18px" fontWeight="600">
+          Practice For
+        </Text>
+      ) : (
+        <Text fontSize="18px" fontWeight="600">
+          {" "}
+          Your Exam
+        </Text>
+      )}
       <Box>
         <HStack pt="6" pb="3" gap="3" maxW="800px" overflowX="scroll">
           {examCard.map((data, index) => (

@@ -37,6 +37,7 @@ const PracticeQa = () => {
         <TabPanels>
           <TabPanel padding="4">
             <PracticeAllTopic />
+            
           </TabPanel>
           <TabPanel padding="0"></TabPanel>
         </TabPanels>

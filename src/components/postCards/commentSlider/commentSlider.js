@@ -2,8 +2,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Scrollbar } from "swiper/modules";
 import "swiper/css";
 import { Box, Card, Divider, HStack, Image, Stack, Tag, Text } from "@chakra-ui/react";
-import { Dot, MoreVertical } from "lucide-react";
-import EmojiGroup from "@/components/common/avatarGroups";
 import LikeEmojiGroup from "@/components/common/likeEmojiGroup";
 import { getTimeAgo } from "@/utilities/utilityFunction";
 import { useSelector } from "react-redux";

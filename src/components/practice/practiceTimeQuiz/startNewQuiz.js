@@ -1,14 +1,26 @@
 import { Box, HStack, Image, Stack, Text } from "@chakra-ui/react";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const StartNewQuiz = () => {
+  const router = useRouter();
+
   return (
     <Box>
       <Text fontSize="18px" fontWeight="600">
         Start New Quiz
       </Text>
       <Box display="flex" gap="4">
-        <HStack width="350px" maxH="90px" bg="brand.800" alignItems="start" p="4" rounded="2xl" cursor="pointer">
+        <HStack
+          width="350px"
+          maxH="90px"
+          bg="brand.800"
+          alignItems="start"
+          p="4"
+          rounded="2xl"
+          cursor="pointer"
+          onClick={() => router.push("/practice/timeQuiz/timeQuizTopic")}
+        >
           <Box minW="40px" minH="40px" bg="#5146D6" rounded="lg" p="2">
             <Image alt="image" width="100%" objectFit="cover" src="/Hourglass.svg" />
           </Box>

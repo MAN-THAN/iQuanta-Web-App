@@ -9,14 +9,9 @@ import {
   Stack,
   HStack,
   Box,
-  Menu,
-  MenuButton,
   Text,
-  MenuList,
-  MenuItem,
   Flex,
   Image,
-  Textarea,
   Divider,
   UnorderedList,
   VStack,
@@ -211,7 +206,7 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto, triggeredFrom, finalRef 
       }),
     onSuccess: (res) => console.log(res),
   });
-  console.log(data);
+  console.log(data, "======>");
 
   return (
     <>
