@@ -2,8 +2,12 @@ import { Avatar } from "antd";
 import React from "react";
 import { Text } from "@chakra-ui/react";
 import { reactions } from "@/utilities/comanData";
+import { useQuery } from "react-query";
+import { useSelector } from "react-redux";
+import { useState } from "react";
+import { getReactionsByPostId } from "@/api/feed/user/reaction";
 
-const LikeEmojiGroup = ({ userReaction, reactionCountDetail }) => {
+const LikeEmojiGroup = ({ userReaction, postId }) => {
   // const reactions = [
   //   { reaction: "👍", reactionType: "like", fontColor: "#DAA520" },
   //   { reaction: "❤️", reactionType: "heart", fontColor: "#C92A2A" },
@@ -13,7 +17,17 @@ const LikeEmojiGroup = ({ userReaction, reactionCountDetail }) => {
   //   { reaction: "😡", reactionType: "angry", fontColor: "#C92A2A" },
   // ];
   const modifiedReactions = reactions.slice(1);
-  // console.log(userReaction);
+  const [reactionCountDetail, setReactionCountDetail] = useState([]);
+  const { _id: uid } = useSelector((state) => state.userData);
+  const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } = useQuery({
+    queryKey: ["getAllReactions", postId],
+    queryFn: () => getReactionsByPostId(postId, uid),
+    onError: (error, variables, context) => {},
+    onSuccess: (res, page) => {
+      console.log(res);
+      setReactionCountDetail(res?.data.data.reactionCountDetail);
+    },
+  });
   const getEmojiArrOnPosts = () => {
     const arr = [];
     reactionCountDetail?.length > 0 &&
@@ -26,7 +40,7 @@ const LikeEmojiGroup = ({ userReaction, reactionCountDetail }) => {
       });
     // if (userReaction && userReaction?.reactionType !== "like") {
     //   const userReactionObj = modifiedReactions.find((i) => i.reactionType === userReaction.reactionType);
-    //   console.log(userReaction)
+    //   console.log(userReaction);
     //   arr.push(userReactionObj);
     // }
     return arr;
