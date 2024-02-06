@@ -7,10 +7,10 @@ const StartNewQuiz = () => {
 
   return (
     <Box>
-      <Text fontSize="18px" fontWeight="600">
+      <Text fontSize="18px" fontWeight="600" px='4' pt='4'>
         Start New Quiz
       </Text>
-      <Box display="flex" gap="4">
+      <Box display="flex" gap="4" p='4'>
         <HStack
           width="350px"
           maxH="90px"

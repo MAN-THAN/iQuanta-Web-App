@@ -6,7 +6,7 @@ import { featursCard } from "@/utilities/comanData";
 
 const PreparationTips = () => {
   return (
-    <Box bg='white.900' p='4' mt='2'>
+    <Box bg='white.900' p='4' mt='1'>
       <Flex
         align="center"
         justify="space-between"

@@ -1,17 +1,14 @@
 import { Box, HStack, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from "@chakra-ui/react";
 import BackButton from "../common/backButton";
-import PracticeAllTopic from "./practiceAllTopic";
-import StartNewQuiz from "./practiceTimeQuiz/startNewQuiz";
-import RecentPerformance from "./practiceTimeQuiz/recentPerformance/recentPerformance";
-import MyNotes from "../learn/myNotes";
-import PreparationTips from "../exams/preparationTips";
+import PracticeAllTopic from "../practice/practiceAllTopic";
+import AllTopics from "../exams/allTopics";
 
-const PracticeTimeQuiz = () => {
+const AllTopicListTabs = ({pageTitle, path}) => {
   return (
     <Box roundedTop="2xl" bg="#fff">
       <HStack p="4">
         <BackButton />
-        <Text fontWeight="600">Time Quiz</Text>
+        <Text fontWeight="600">{pageTitle}</Text>
       </HStack>
       <Tabs isFitted>
         <TabList>
@@ -40,9 +37,7 @@ const PracticeTimeQuiz = () => {
         </TabList>
         <TabPanels>
           <TabPanel padding="4">
-            <StartNewQuiz />
-            <RecentPerformance />
-            <PreparationTips />
+            <AllTopics path={path}/>
           </TabPanel>
           <TabPanel padding="0"></TabPanel>
         </TabPanels>
@@ -51,4 +46,4 @@ const PracticeTimeQuiz = () => {
   );
 };
 
-export default PracticeTimeQuiz;
+export default AllTopicListTabs;

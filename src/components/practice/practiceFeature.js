@@ -115,7 +115,7 @@ const PracticeFeature = () => {
             p="4"
             rounded="2xl"
             cursor="pointer"
-            onClick={onOpenLocked}
+            onClick={()=>router.push('/practice/assignment')}
           >
             <Box minW="40px" minH="40px" bg="#5146D6" rounded="lg" p="2">
               <Image alt="image" width="100%" objectFit="cover" src="/LockedWhite.svg" />
