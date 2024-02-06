@@ -13,7 +13,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { createPost } from "@/api/feed/user/posts";
 import { DataURIToBlob } from "@/utilities/utilityFunction";
 import CreateBasicModal from "../../homePostComponents/createBasicModal";
-
+import randomstring from 'randomstring';
 const DiscussionModal = ({ isOpen, onClose, clickPhoto, triggeredFrom, finalRef }) => {
   const [isTyping, setIsTyping] = useState(false);
   const [text, setText] = useState("");
@@ -101,11 +101,12 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto, triggeredFrom, finalRef 
     }
    if (selectedComponent == "memes") {
     
-     let file = DataURIToBlob(data);
+     let file = DataURIToBlob(data.dataUrl);
          const formData = new FormData();
-         formData.append('file', file, 'image.jpg');
+         const filename = randomstring.generate(8)+'.jpg';
+         formData.append('file', file,filename );
          formData.append("postType", 'memes');
-         formData.append("title", text);
+         formData.append("title", data.text);
          formData.append("privacyType", privacyType);
         for (let i = 0; i < taggedPeople.length; i++) {
           formData.append("taggedPeople", taggedPeople[i]);
@@ -146,7 +147,7 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto, triggeredFrom, finalRef 
       toast.success("post created successfully!", {
         position: toast.POSITION.TOP_RIGHT,
       });
-      queryClient.invalidateQueries("getAllPosts");
+      triggeredFrom == "group" ?queryClient.invalidateQueries("getGroupPosts") :queryClient.invalidateQueries("getAllPosts");
       setText();
       setSelectedFiles([]);
       setOptions([]);
