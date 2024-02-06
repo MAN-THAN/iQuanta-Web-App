@@ -31,6 +31,7 @@ import { useSelector } from "react-redux";
 
 const CreateMemeModal = ({
   handleTypingStart,
+  createPost,
   selectedType,
   selectedFiles,
   fileInputRef,
@@ -76,18 +77,19 @@ const CreateMemeModal = ({
     console.log(ref.current);
      // Get the data URL of the meme
      const dataUrl = await toPng(ref.current, { cacheBust: true });
-
+     console.log("DATAURL:",dataUrl);
      // Convert data URL to Blob
-     const blob = await toBlob(ref.current, dataUrl);
+     //const blob = await toBlob(ref.current, dataUrl);
     // toPng(ref.current, { cacheBust: true })
     //   .then((dataUrl) => {
-        console.log(blob);
+        //console.log("85",blob);
+        createPost(dataUrl);
         // const blob = await toBlob(dataUrl);
-        const formData = new FormData();
-        formData.append("file", blob);
-        formData.append("postType", "memes");
-        formData.append("title", text);
-        mutation.mutate(formData);
+        // const formData = new FormData();
+        // formData.append("file", blob);
+        // formData.append("postType", "memes");
+        // formData.append("title", text);
+        // mutation.mutate(formData);
 
         // const link = document.createElement("a");
         // link.download = "my-image-name.png";

@@ -24,6 +24,7 @@ const ImageFeedCard = ({
   postId,
   userReaction,
   reactionCountDetail,
+  triggeredFrom
 }) => {
   const { isOpen: isOpenComment, onToggle: onToggleComment, onClose: onCloseComment } = useDisclosure();
   const { isOpen: isOpenPostDetails, onOpen: onOpenPostDetails, onClose: onClosePostDetails } = useDisclosure();

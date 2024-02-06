@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css"; // Import the Swiper styles
 import { Navigation, Pagination } from "swiper/modules";
-import UpComeingCard from "../feature/upComeingCard";
+import UpComeingCard from "../feature/upComingCard";
 import { Box, Flex, HStack, Heading } from "@chakra-ui/layout";
 import { CalendarDays, ChevronLeft, ChevronRight } from "lucide-react";
 import CoursesAddCard from "../feature/coursesAddCard";

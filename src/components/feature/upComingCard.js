@@ -2,7 +2,7 @@ import { Card, Box, Stack, Heading, Text, Button, HStack, Flex } from "@chakra-u
 import { CalendarDays, ChevronRight, Dot, Scale } from "lucide-react";
 import { useRouter, usePathname } from "next/navigation";
 
-const UpComeingCard = ({ style, id, width }) => {
+const UpComingCard = ({ style, id, width }) => {
   const router = useRouter();
   const path = usePathname();
   return (
@@ -79,4 +79,4 @@ const UpComeingCard = ({ style, id, width }) => {
   );
 };
 
-export default UpComeingCard;
+export default UpComingCard;
