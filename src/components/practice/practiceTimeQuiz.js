@@ -4,6 +4,7 @@ import PracticeAllTopic from "./practiceAllTopic";
 import StartNewQuiz from "./practiceTimeQuiz/startNewQuiz";
 import RecentPerformance from "./practiceTimeQuiz/recentPerformance";
 import MyNotes from "../learn/myNotes";
+import PreparationTips from "../exams/preparationTips";
 
 const PracticeTimeQuiz = () => {
   return (
@@ -40,17 +41,14 @@ const PracticeTimeQuiz = () => {
         <TabPanels>
           <TabPanel padding="4">
             <StartNewQuiz />
-            <RecentPerformance/>
-            <MyNotes/>
+            <RecentPerformance />
+            <PreparationTips/>
           </TabPanel>
-          <TabPanel padding="0">
-            
-          </TabPanel>
+          <TabPanel padding="0"></TabPanel>
         </TabPanels>
       </Tabs>
     </Box>
   );
 };
 
-
-export default PracticeTimeQuiz
+export default PracticeTimeQuiz;

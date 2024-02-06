@@ -19,6 +19,16 @@ const PracticeSubTopic = () => {
       des: "Build vocabulary to improve your ability to read, comprehend and respond",
       status: "locked",
     },
+    {
+      tittle: "Grammar - Basic",
+      des: "Build vocabulary to improve your ability to read, comprehend and respond",
+      status: "unlocked",
+    },
+    {
+      tittle: "Grammar - Basic",
+      des: "Build vocabulary to improve your ability to read, comprehend and respond",
+      status: "unlocked",
+    },
   ];
 
   return (
@@ -56,8 +66,8 @@ const PracticeSubTopic = () => {
                 </Text>
               </Box>
               <Stack pl="3" onClick={da.status !== "unlocked" ? onOpenLocked : onOpenLevels} cursor="pointer">
-                <Text fontSize="16px" fontWeight="500" p="0" display="flex" alignItems='center' gap='4'>
-                  {da.tittle} {da.status === "locked" ? <LockKeyhole size='16px'/> : ""}
+                <Text fontSize="16px" fontWeight="500" p="0" display="flex" alignItems="center" gap="4">
+                  {da.tittle} {da.status === "locked" ? <LockKeyhole size="16px" /> : ""}
                 </Text>
                 <Text fontSize="12px" color="#666666">
                   {da.des}

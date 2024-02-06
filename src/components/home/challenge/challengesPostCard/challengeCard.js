@@ -1,14 +1,12 @@
 import {
   Box,
   Button,
-  Divider,
   Flex,
   HStack,
   Image,
   Stack,
   Table,
   TableContainer,
-  Tag,
   Tbody,
   Td,
   Text,
@@ -16,14 +14,9 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { Dot, MessageCircle, MoreVertical, Share2, ThumbsUp } from "lucide-react";
-import LikeEmojiGroup from "@/components/common/likeEmojiGroup";
-import CommentSlider from "@/components/postCards/commentSlider/commentSlider";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import {  MoreVertical, } from "lucide-react";
 import { MdPlayArrow } from "react-icons/md";
 import AvatarGroups from "@/components/common/avatarGroups";
-import moment from "moment";
 import { useSelector } from "react-redux";
 import { getTimeAgo } from "@/utilities/utilityFunction";
 
