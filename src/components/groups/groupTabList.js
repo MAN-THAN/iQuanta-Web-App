@@ -17,7 +17,7 @@ import EventList from "../events/eventList";
 import MediaPostList from "./mediaPostList";
 import TopicDetailsTab from "./topicDetailsTab";
 import DoubtDetailsTab from "./doubtDetailsTab";
-import FlagFeedDeatils from "./flagFeedDeatils";
+import FlagFeedDetails from "./flagFeedDetails";
 import { FeedPostList } from "../home/discussion/feedPostList";
 
 const GroupTabList = () => {
@@ -160,7 +160,7 @@ const GroupTabList = () => {
             <DoubtDetailsTab />
           </TabPanel>
           <TabPanel padding="0">
-            <FlagFeedDeatils />
+            <FlagFeedDetails />
           </TabPanel>
           <TabPanel padding="0">
             <DoubtDetailsTab />

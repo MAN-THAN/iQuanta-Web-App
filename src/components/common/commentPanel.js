@@ -27,21 +27,23 @@ export const CommentPanel = ({ isOpenComment, postId , triggeredFrom }) => {
   const date = new Date();
   const queryClient = useQueryClient();
   const handleComment = () => {
-    if(triggeredFrom=="user")
+    if(triggeredFrom=="group")
    {
+
     const payload = {
       postId: postId,
       uid: uid,
+      groupId:groupId,
       timestamp: date.toISOString(),
       comment: comment,
     };
     mutation.mutate(payload);
+    
   }
     else{
       const payload = {
         postId: postId,
         uid: uid,
-        groupId:groupId,
         timestamp: date.toISOString(),
         comment: comment,
       };
@@ -49,7 +51,7 @@ export const CommentPanel = ({ isOpenComment, postId , triggeredFrom }) => {
     }
   };
   const mutation = useMutation({
-    mutationFn: (payload) => triggeredFrom=="user"?createUserPostComment(payload, uid):createGroupPostComment(payload,uid,groupId),
+    mutationFn: (payload) => triggeredFrom=="group"?createGroupPostComment(payload,uid,groupId):createUserPostComment(payload, uid),
     onMutate: (variables) => {
       return console.log("mutation is happening");
     },
