@@ -174,7 +174,19 @@ const CreateBasicModal = ({
                 style={mentionStyles}
                 appendSpaceOnAdd={true}
               />
-              <Mention trigger={"#"} data={[]} style={mentionStyles} />
+              <Mention
+                trigger={"#"}
+                data={[
+                  { display: "CAT2025", id: Date.now() },
+                  { display: "NMAT2025", id: Date.now() },
+                  { display: "Amazon", id: Date.now() },
+                ]}
+                // onAdd={(e) => {
+                //   setTaggedTopic((prev) => [...prev, e]);
+                // }}
+                style={mentionStyles}
+                appendSpaceOnAdd={true}
+              />
             </MentionsInput>
           </Box>
         </Stack>
