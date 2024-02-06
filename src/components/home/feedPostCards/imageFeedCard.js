@@ -131,6 +131,7 @@ const ImageFeedCard = ({
             userReaction={userReaction}
             isOpenComment={isOpenComment}
             onToggleComment={onToggleComment}
+            triggeredFrom={triggeredFrom}
           />
           <Divider />
         </Stack>
