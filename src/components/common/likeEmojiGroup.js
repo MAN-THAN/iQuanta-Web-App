@@ -40,11 +40,11 @@ const LikeEmojiGroup = ({ postId }) => {
           arr.push(obj);
         }
       });
-    if (userReaction && userReaction?.reactionType !== "like") {
-      const userReactionObj = modifiedReactions.find((i) => i.reactionType === userReaction.reactionType);
-      console.log(userReaction);
-      arr.push(userReactionObj);
-    }
+    // if (userReaction && userReaction?.reactionType !== "like") {
+    //   const userReactionObj = modifiedReactions.find((i) => i.reactionType === userReaction.reactionType);
+    //   console.log(userReaction);
+    //   arr.push(userReactionObj);
+    // }
     return arr;
   };
   console.log(getEmojiArrOnPosts());

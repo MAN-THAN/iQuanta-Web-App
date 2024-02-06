@@ -100,7 +100,7 @@ const PostDetailsView = ({
                 </HStack>
                 <HStack align="center" fontWeight="400" fontSize="14px" padding="4">
                   <Box display="flex">
-                    <LikeEmojiGroup userReaction={userReaction} reactionCountDetail={reactionCountDetail} />
+                  <LikeEmojiGroup postId={postId} />
                     <span
                       style={{
                         fontSize: "14px",
