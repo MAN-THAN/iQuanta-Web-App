@@ -39,7 +39,7 @@ export const ReactionPanel = ({ postId, userReaction, isOpenComment, onToggleCom
     clearTimeout(leaveTimeoutRef.current);
   };
   const mutation = useMutation({
-    mutationFn: (payload) => triggeredFrom=="user"?postUserReaction(payload):groupPostReact(payload,uid),
+    mutationFn: (payload) => triggeredFrom=="group"?groupPostReact(payload,uid):postUserReaction(payload),
     onMutate: (variables) => {
       return console.log("mutation is happening");
     },
@@ -108,8 +108,7 @@ export const ReactionPanel = ({ postId, userReaction, isOpenComment, onToggleCom
                   <HStack
                     onClick={(e) => {
                       // handleReactionClick(reaction);
-                      triggeredFrom=="user"&&mutation.mutate({ postId: postId, createdBy: uid, reactionType: reaction.reactionType });
-                      triggeredFrom=="group"&&mutation.mutate({ postId: postId, createdBy: uid, reactionType: reaction.reactionType , groupId });
+                      triggeredFrom=="group"?mutation.mutate({ postId: postId, createdBy: uid, reactionType: reaction.reactionType , groupId }):mutation.mutate({ postId: postId, createdBy: uid, reactionType: reaction.reactionType });
                       e.stopPropagation();
                     }}
                     cursor="pointer"

@@ -100,8 +100,7 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto, triggeredFrom, finalRef 
     if (selectedComponent == "fileUpload") {
     }
    if (selectedComponent == "memes") {
-    alert('create meme');
-    console.log("data::",data);
+    
      let file = DataURIToBlob(data);
          const formData = new FormData();
          formData.append('file', file, 'image.jpg');
