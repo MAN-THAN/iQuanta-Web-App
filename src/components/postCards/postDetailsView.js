@@ -39,7 +39,6 @@ const PostDetailsView = ({
   title,
   createdAt,
   userReaction,
-  reactionCountDetail,
   followingCount,
   reactionCount,
   commentCount,

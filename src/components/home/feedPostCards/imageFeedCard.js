@@ -23,7 +23,6 @@ const ImageFeedCard = ({
   followingCount,
   postId,
   userReaction,
-  reactionCountDetail,
   triggeredFrom
 }) => {
   const { isOpen: isOpenComment, onToggle: onToggleComment, onClose: onCloseComment } = useDisclosure();
@@ -39,7 +38,6 @@ const ImageFeedCard = ({
         onClose={onClosePostDetails}
         createdAt={createdAt}
         userReaction={userReaction}
-        reactionCountDetail={reactionCountDetail}
         commentCount={commentCount}
         followingCount={followingCount}
         reactionCount={reactionCount}
