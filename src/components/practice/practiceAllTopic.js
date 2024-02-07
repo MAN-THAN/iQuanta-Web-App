@@ -4,7 +4,7 @@ import { Dot, Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { randomColors } from "@/utilities/commonFunctions";
 
-const PracticeAllTopic = () => {
+const PracticeAllTopic = ({path}) => {
   const options = ["All", "GMT", "GRE", "GMAT"];
   const router = useRouter();
 

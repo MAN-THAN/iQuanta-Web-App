@@ -1,10 +1,12 @@
+import AllTopicListTabs from "@/components/common/allTopicListTabs";
+import PreparationTips from "@/components/exams/preparationTips";
 import PracticeLayout from "@/components/layouts/practiceLayout";
-import TopoicListTimeQuiz from "@/components/practice/practiceTimeQuiz/topoicListTimeQuiz";
 
 const Index = () => {
   return (
     <PracticeLayout>
-      <TopoicListTimeQuiz />
+      <AllTopicListTabs pageTitle={"Time Quiz"} path={"/practice/qa"}/>
+      <PreparationTips/>
     </PracticeLayout>
   );
 };

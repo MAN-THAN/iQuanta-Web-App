@@ -1,23 +1,26 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Scrollbar } from "swiper/modules";
 import "swiper/css";
-import { Box, Card, Divider, HStack, Image, Stack, Tag, Text } from "@chakra-ui/react";
+import { Box, Card, Divider, Flex, HStack, IconButton, Image, Input, Stack, Tag, Text } from "@chakra-ui/react";
 import LikeEmojiGroup from "@/components/common/likeEmojiGroup";
 import { getTimeAgo } from "@/utilities/utilityFunction";
 import { useSelector } from "react-redux";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useInfiniteQuery } from "react-query";
 import { getUserPostComments } from "@/api/feed/user/comments";
+import { Check, MoreHorizontal, X } from "lucide-react";
+import CommentCard from "./commentCard";
+import React from "react";
 
-const CommentSlider = ({ topComments, postId, isOpenComment}) => {
-  console.log(isOpenComment)
+const CommentSlider = ({ topComments, postId, isOpenComment }) => {
+  console.log(isOpenComment);
   const [commentList, setCommentList] = useState([]);
   const { _id: uid } = useSelector((state) => state.userData);
   const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } = useInfiniteQuery({
     queryKey: ["getAllComments", postId],
     queryFn: ({ pageParam = 1 }) => getUserPostComments(postId, pageParam, 10),
     // getNextPageParam: (lastPage, pages) => lastPage.data.data.pagination.page + 1,
-    enabled:!!isOpenComment,
+    enabled: !!isOpenComment,
     onError: (error, variables, context) => {},
     onSuccess: (res, page) => {
       console.log(res);
@@ -26,10 +29,17 @@ const CommentSlider = ({ topComments, postId, isOpenComment}) => {
     },
   });
 
+  const handleEdit = useCallback((isConfirmed) => {
+    if (isConfirmed === true) {
+      setShowEditComment(true);
+    }
+  }, []);
+
   return (
     <Box width="auto" p="4">
       <Swiper
-        slidesPerView={1}
+        slidesPerView={2}
+        direction="horizontal"
         spaceBetween={10}
         breakpoints={{
           "@0.00": {
@@ -50,108 +60,16 @@ const CommentSlider = ({ topComments, postId, isOpenComment}) => {
           },
         }}
         modules={[Navigation]}
-        className="mySwiper"
+        // className="mySwiper flex"
       >
         {[...commentList]?.map((item, ind) => (
           <SwiperSlide key={ind}>
-            <Card bg="#F1F2F6" minW="280px" rounded="2xl">
-              <HStack align="center" justifyContent="space-between" padding={["3", null, "4"]}>
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    width: ["auto", null, "280px"],
-                  }}
-                >
-                  <Box boxSize={["28px", null, "38px"]}>
-                    <Image
-                      objectFit="cover"
-                      width="100%"
-                      height="100%"
-                      className="rounded-md"
-                      src={item?.uid?.profilePic}
-                      alt="Profile Image"
-                    />
-                  </Box>
-                  <Box ml="2">
-                    <p
-                      style={{
-                        fontSize: ["12px", null, "14px"],
-                        color: "#171717",
-                        fontWeight: "600",
-                      }}
-                    >
-                      {item?.uid?.name}{" "}
-                    </p>
-                    <p style={{ fontSize: ["10px", null, "12px"], color: "#636363" }}>{getTimeAgo(item?.createdAt)}</p>
-                  </Box>
-                </Box>
-              </HStack>
-              <Text
-                fontSize={["12px", null, "14px"]}
-                fontWeight="500"
-                color="#16222C"
-                p={["2", null, "3"]}
-                lineHeight={["20px", null, "24px"]}
-              >
-                {item?.comment} {"...read more"}
-              </Text>
-              <HStack align="center" padding={["3", null, "3"]}>
-                <Text
-                  style={{
-                    fontSize: ["10px", null, "12px"],
-                    fontWeight: "600",
-                    color: "#455564",
-                  }}
-                >
-                  Like
-                </Text>
-                <Divider border="0.2" orientation="vertical" />
-                <Box display="flex" alignItems="center" justifyContent="space-between">
-                  <LikeEmojiGroup />
-                  <Text
-                    style={{
-                      fontSize: ["10px", null, "12px"],
-                      fontWeight: "600",
-                      color: "#455564",
-                    }}
-                  >
-                    {item?.reactionCount}
-                  </Text>
-                </Box>
-                <Divider border="0.2" orientation="vertical" />
-                <Text fontSize={{ sm: "14px", md: "16px" }} color="#455564">
-                  Reply
-                </Text>
-                <Divider border="0.2" orientation="vertical" />
-                <Box display="flex" alignItems="end">
-                  <span
-                    style={{
-                      fontSize: ["10px", null, "12px"],
-                      fontWeight: "600",
-                      color: "#455564",
-                    }}
-                  >
-                    13
-                  </span>
-                  <Text
-                    fontSize={{ sm: "14px", md: "16px" }}
-                    style={{
-                      fontWeight: "500",
-                      color: "#8D96A5",
-                      paddingLeft: ["2px", null, "5px"],
-                    }}
-                  >
-                    comments
-                  </Text>
-                </Box>
-              </HStack>
-            </Card>
+            <CommentCard key={ind} item={item} postId={postId} />
           </SwiperSlide>
         ))}
       </Swiper>
     </Box>
   );
-};
+}
 
 export default CommentSlider;

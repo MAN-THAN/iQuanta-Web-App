@@ -3,7 +3,7 @@ import HomeLayout from "@/components/layouts/feedsLayout";
 import MockTestAvailable from "@/components/mockTest/mockTestAvailable";
 import MockTestDetail from "@/components/mockTest/mockTestDetail";
 import UpcomingTestList from "@/components/mockTest/upcomingTestList";
-import RecentPerformance from "@/components/practice/practiceTimeQuiz/recentPerformance";
+import RecentPerformance from "@/components/practice/practiceTimeQuiz/recentPerformance/recentPerformance";
 import React from "react";
 
 const Index = () => {

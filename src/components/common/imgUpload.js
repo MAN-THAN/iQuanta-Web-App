@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 // import AvatarEditor from "react-avatar-editor";
 
-const ImgUpload = ({ onChange, src, id, width, height }) => {
+const ImgUpload = ({ onChange, src, id }) => {
   const [isImageSelected, setIsImageSelected] = useState(false);
   const [scale, setScale] = useState(1);
 
@@ -23,13 +23,11 @@ const ImgUpload = ({ onChange, src, id, width, height }) => {
   return (
     <label htmlFor={`photo-upload-${id}`} className="custom-file-upload fas">
       {src ? (
-        <Box p="0" fit="cover">
-          <TransformWrapper>
-            <TransformComponent>
-              <Image w="100%" h="100%" htmlFor={`photo-upload-${id}`} src={src} alt="Uploaded" />
-            </TransformComponent>
-          </TransformWrapper>
-        </Box>
+        <TransformWrapper initialScale={2}>
+          <TransformComponent>
+              <Image w="100%" fit="contain" h="100%" htmlFor={`photo-upload-${id}`} src={src} alt="Uploaded" />
+          </TransformComponent>
+        </TransformWrapper>
       ) : (
         <Stack align="center">
           <Avatar p="3" src="/Upload.svg" alt="Icon" bg="white.900" rounded="full" />

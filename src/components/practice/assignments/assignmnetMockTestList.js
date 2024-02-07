@@ -1,9 +1,11 @@
 import BackButton from "@/components/common/backButton";
-import { Box, Flex, HStack, Image, ListItem, Stack, Text, UnorderedList } from "@chakra-ui/react";
-import { CheckCircle2, Dot, PieChart } from "lucide-react";
-import React from "react";
+import { Box, Flex, HStack, Stack, Text } from "@chakra-ui/react";
+import { CheckCircle2, Dot, LockKeyhole, PieChart } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const AssignmnetMockTestList = () => {
+  const router = useRouter();
+
   const data = [
     {
       _id: "6542191eff6cf1a33a34f7d5",
@@ -51,23 +53,57 @@ const AssignmnetMockTestList = () => {
         </Stack>
       </HStack>
       <Box py="4">
-        <Text>Full Mock Test</Text>
+        <Text fontWeight="600">Full Mock Test</Text>
         {data.map((da, i) => (
-          <HStack key={i} align="center" bg="#F1F2F6" p="3" mt="4" rounded="2xl">
-            <Box
-              width="50px"
-              height="50px"
-              bg="green"
-              p="2"
-              rounded="xl"
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-            >
-              {/* <Image alt="image" width="100%" objectFit="cover" src="/CirclesThree.png" /> */}
-              {/* <CheckCircle2 size={26} color="#ffffff" strokeWidth={3} absoluteStrokeWidth />  */}
-              <PieChart size={26} color="#ffffff" strokeWidth={3} absoluteStrokeWidth />
-            </Box>
+          <HStack
+            key={i}
+            align="center"
+            bg={"#F1F2F6"}
+            p="3"
+            mt="4"
+            rounded="2xl"
+            onClick={() => router.push(`/practice/assignment/${i}`)}
+          >
+            {da.status === "completed" ? (
+              <Box
+                width="50px"
+                height="50px"
+                bg="green"
+                p="2"
+                rounded="xl"
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <CheckCircle2 size={26} color="#ffffff" strokeWidth={3} absoluteStrokeWidth />
+              </Box>
+            ) : da.status === "progressig" ? (
+              <Box
+                width="50px"
+                height="50px"
+                bg="brand.900"
+                p="2"
+                rounded="xl"
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <PieChart size={26} color="#ffffff" strokeWidth={3} absoluteStrokeWidth />
+              </Box>
+            ) : (
+              <Box
+                width="50px"
+                height="50px"
+                bg="orange"
+                p="2"
+                rounded="xl"
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <LockKeyhole size={26} color="#ffffff" strokeWidth={3} absoluteStrokeWidth />
+              </Box>
+            )}
             <Stack pl="3">
               <Text fontSize="16px" fontWeight="500" p="0">
                 {da.title}

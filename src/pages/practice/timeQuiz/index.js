@@ -9,7 +9,7 @@ import React from "react";
 const Qa = () => {
   return (
     <PracticeLayout>
-      <PracticeTimeQuiz/>
+      <PracticeTimeQuiz />
     </PracticeLayout>
     // <>
     //   <MainHeader/>

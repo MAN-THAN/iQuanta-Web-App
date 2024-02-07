@@ -1,15 +1,23 @@
 import { Box, Card, CardFooter, CardHeader, Flex, HStack, Image, Stack, Text } from "@chakra-ui/react";
 import { ChevronRight } from "lucide-react";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const RecentPerformance = () => {
+  const router = useRouter();
   return (
     <Box p="4" bg="white.900" mt="4">
       <HStack justifyContent="space-between">
         <Text fontSize="18px" fontWeight="600">
           Recent Performance
         </Text>
-        <Text fontSize="16px" fontWeight="600" display="flex" alignItems="center">
+        <Text
+          fontSize="16px"
+          fontWeight="600"
+          display="flex"
+          alignItems="center"
+          onClick={() => router.push("/recentPerformance")}
+        >
           View all <ChevronRight />
         </Text>
       </HStack>

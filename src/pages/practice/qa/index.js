@@ -1,13 +1,12 @@
+import AllTopicListTabs from "@/components/common/allTopicListTabs";
 import PreparationTips from "@/components/exams/preparationTips";
 import PracticeLayout from "@/components/layouts/practiceLayout";
 import PracticeQa from "@/components/practice/practiceQa";
-import { Box } from "@chakra-ui/react";
-import React from "react";
 
 const Qa = () => {
   return (
     <PracticeLayout>
-      <PracticeQa />
+      <AllTopicListTabs pageTitle={"Practice Q&As"} path={"/practice/qa"} />
       <PreparationTips />
     </PracticeLayout>
   );

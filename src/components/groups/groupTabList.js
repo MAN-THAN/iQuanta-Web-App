@@ -29,8 +29,6 @@ const GroupTabList = () => {
   const { _id: uid } = useSelector((state) => state.userData);
   const { _id: groupId, entityType: examId } = useSelector((state) => state.groupData);
  
- 
-
   const tabs = [
     {
       tabName: "Discussions",

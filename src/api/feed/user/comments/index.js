@@ -19,7 +19,22 @@ export const createUserPostComment = async (payload, uid) => {
   }
 };
 
-export const editUserPostComment = async (postId, uid) => {};
+export const editUserPostComment = async (commentId, payload) => {
+  try {
+    const res = await request({
+      url: `/feed/v1/user/comment/update/${commentId}`,
+      type: "PATCH",
+      data: payload,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return res;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};
 
 export const getUserPostComments = async (postId, page, limit) => {
   try {

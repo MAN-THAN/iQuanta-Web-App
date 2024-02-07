@@ -13,7 +13,7 @@ export default {
   '&multiLine': {
     control: {
       fontFamily: 'Arial, sans-serif',
-      minHeight: 100,
+      minHeight: 50,
     },
     highlighter: {
       padding: 12,
