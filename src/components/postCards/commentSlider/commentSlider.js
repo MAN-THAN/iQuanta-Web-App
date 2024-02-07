@@ -1,23 +1,28 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Scrollbar } from "swiper/modules";
 import "swiper/css";
-import { Box, Card, Divider, HStack, Image, Stack, Tag, Text } from "@chakra-ui/react";
+import { Box, Card, Divider, Flex, HStack, IconButton, Image, Input, Stack, Tag, Text } from "@chakra-ui/react";
 import LikeEmojiGroup from "@/components/common/likeEmojiGroup";
 import { getTimeAgo } from "@/utilities/utilityFunction";
 import { useSelector } from "react-redux";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useInfiniteQuery } from "react-query";
 import { getUserPostComments } from "@/api/feed/user/comments";
+import { Check, MoreHorizontal, X } from "lucide-react";
+import CommentOptions from "@/components/common/commentOptions";
 
-const CommentSlider = ({ topComments, postId, isOpenComment}) => {
-  console.log(isOpenComment)
+const CommentSlider = ({ topComments, postId, isOpenComment }) => {
+  console.log(isOpenComment);
   const [commentList, setCommentList] = useState([]);
+  const [commentEdit, setCommentEdit] = useState(false);
+
+
   const { _id: uid } = useSelector((state) => state.userData);
   const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } = useInfiniteQuery({
     queryKey: ["getAllComments", postId],
     queryFn: ({ pageParam = 1 }) => getUserPostComments(postId, pageParam, 10),
     // getNextPageParam: (lastPage, pages) => lastPage.data.data.pagination.page + 1,
-    enabled:!!isOpenComment,
+    enabled: !!isOpenComment,
     onError: (error, variables, context) => {},
     onSuccess: (res, page) => {
       console.log(res);
@@ -25,6 +30,12 @@ const CommentSlider = ({ topComments, postId, isOpenComment}) => {
       setCommentList(res.pages[0]?.data?.data?.comment);
     },
   });
+
+  const handleEdit = useCallback((isConfirmed) => {
+    if (isConfirmed === true) {
+      setShowEditComment(true);
+    }
+  }, []);
 
   return (
     <Box width="auto" p="4">
@@ -53,49 +64,66 @@ const CommentSlider = ({ topComments, postId, isOpenComment}) => {
         className="mySwiper"
       >
         {[...commentList]?.map((item, ind) => (
-          <SwiperSlide key={ind}>
+          <SwiperSlide key={ind} >
             <Card bg="#F1F2F6" minW="280px" rounded="2xl">
-              <HStack align="center" justifyContent="space-between" padding={["3", null, "4"]}>
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    width: ["auto", null, "280px"],
-                  }}
-                >
-                  <Box boxSize={["28px", null, "38px"]}>
-                    <Image
-                      objectFit="cover"
-                      width="100%"
-                      height="100%"
-                      className="rounded-md"
-                      src={item?.uid?.profilePic}
-                      alt="Profile Image"
-                    />
+              <Flex alignItems="center" justifyContent="space-between">
+                <HStack align="center" justifyContent="space-between" padding={["3", null, "4"]}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      width: ["auto", null, "280px"],
+                    }}
+                  >
+                    <Box boxSize={["28px", null, "38px"]}>
+                      <Image
+                        objectFit="cover"
+                        width="100%"
+                        height="100%"
+                        className="rounded-md"
+                        src={item?.uid?.profilePic}
+                        alt="Profile Image"
+                      />
+                    </Box>
+                    <Box ml="2">
+                      <p
+                        style={{
+                          fontSize: ["12px", null, "14px"],
+                          color: "#171717",
+                          fontWeight: "600",
+                        }}
+                      >
+                        {item?.uid?.name}{" "}
+                      </p>
+                      <p style={{ fontSize: ["10px", null, "12px"], color: "#636363" }}>
+                        {getTimeAgo(item?.createdAt)}
+                      </p>
+                    </Box>
                   </Box>
-                  <Box ml="2">
-                    <p
-                      style={{
-                        fontSize: ["12px", null, "14px"],
-                        color: "#171717",
-                        fontWeight: "600",
-                      }}
-                    >
-                      {item?.uid?.name}{" "}
-                    </p>
-                    <p style={{ fontSize: ["10px", null, "12px"], color: "#636363" }}>{getTimeAgo(item?.createdAt)}</p>
-                  </Box>
+                </HStack>
+                <Box px="4" cursor="pointer">
+                  <CommentOptions setCommentEdit={setCommentEdit} />
                 </Box>
-              </HStack>
-              <Text
-                fontSize={["12px", null, "14px"]}
-                fontWeight="500"
-                color="#16222C"
-                p={["2", null, "3"]}
-                lineHeight={["20px", null, "24px"]}
-              >
-                {item?.comment} {"...read more"}
-              </Text>
+              </Flex>
+              {!commentEdit ? (
+                <Text
+                  fontSize={["12px", null, "14px"]}
+                  fontWeight="500"
+                  color="#16222C"
+                  p={["2", null, "3"]}
+                  lineHeight={["20px", null, "24px"]}
+                >
+                  {item?.comment} {"...read more"}
+                </Text>
+              ) : (
+                <Box>
+                  <Input  placeholder="" border="none" _focusVisible={false} />
+                  <HStack px='4'>
+                    <IconButton icon={<Check />} />
+                    <IconButton onClick={() => setCommentEdit(false)} icon={<X />} />
+                  </HStack>
+                </Box>
+              )}
               <HStack align="center" padding={["3", null, "3"]}>
                 <Text
                   style={{
