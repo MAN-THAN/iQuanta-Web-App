@@ -1,6 +1,6 @@
 import { Box, Divider, Flex, HStack, Image, Stack, Tag, Text } from "@chakra-ui/react";
 import { Dot, MessageCircle, MoreHorizontal, MoreVertical, Share2, ThumbsUp } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 import LikeEmojiGroup from "@/components/common/likeEmojiGroup";
 import CommentSlider from "@/components/postCards/commentSlider/commentSlider";
 import { MdPlayArrow } from "react-icons/md";
@@ -9,6 +9,7 @@ import { getTimeAgo } from "@/utilities/utilityFunction";
 import PostOption from "@/components/common/postOption";
 import { useDisclosure } from "@chakra-ui/react";
 import PostDetailsView from "@/components/postCards/postDetailsView";
+import { readMore } from "@/utilities/utilityFunction";
 
 const ImageFeedCard = ({
   name,
@@ -27,6 +28,7 @@ const ImageFeedCard = ({
 }) => {
   const { isOpen: isOpenComment, onToggle: onToggleComment, onClose: onCloseComment } = useDisclosure();
   const { isOpen: isOpenPostDetails, onOpen: onOpenPostDetails, onClose: onClosePostDetails } = useDisclosure();
+  const [showFullDescription, setShowFullDescription] = useState(false);
   console.log(reactionCount);
   return (
     <>
@@ -77,7 +79,7 @@ const ImageFeedCard = ({
         </HStack>
         <Stack padding={["3", null, "4"]}>
           <Text fontSize="14px" lineHeight="24px">
-            <p>{title}</p>
+            <p>{readMore(showFullDescription, title, setShowFullDescription)}</p>
           </Text>
           <Box maxH="100vh " maxW="100vh" overflow="hidden" onClick={onOpenPostDetails}>
             <Image alt="video" w="100%" h="100%" fit="contain" src={media?.[0]} cursor={"pointer"} />

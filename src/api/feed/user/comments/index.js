@@ -19,7 +19,7 @@ export const createUserPostComment = async (payload, uid) => {
   }
 };
 
-export const editUserPostComment = async (commentId, payload) => {
+export const editUserPostComment = async (commentId, payload, uid) => {
   try {
     const res = await request({
       url: `/feed/v1/user/comment/update/${commentId}`,
@@ -27,6 +27,7 @@ export const editUserPostComment = async (commentId, payload) => {
       data: payload,
       headers: {
         "Content-Type": "application/json",
+        uid: uid,
       },
     });
     return res;
@@ -36,12 +37,30 @@ export const editUserPostComment = async (commentId, payload) => {
   }
 };
 
-export const getUserPostComments = async (postId, page, limit) => {
+export const getUserPostComments = async (postId, page, limit, uid) => {
   try {
     const res = await request({
       url: `/feed/v1/user/comment/list/${postId}/${page}/${limit}`,
       headers: {
         "Content-Type": "application/json",
+        uid: uid,
+      },
+    });
+    return res;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};
+// Delete  comment
+export const deleteUserPostComments = async (commentId, uid) => {
+  try {
+    const res = await request({
+      url: `/feed/v1/user/comment/delete/${commentId}`,
+      type: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        uid: uid,
       },
     });
     return res;

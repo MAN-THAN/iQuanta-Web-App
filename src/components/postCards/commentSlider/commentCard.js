@@ -15,14 +15,18 @@ import mentionStyles from "@/styles/mentionStyles";
 import mentionsInputStyles from "@/styles/mentionsInputStyles";
 import { getFriendList } from "@/api/feed/user/friendList";
 import { toast } from "react-toastify";
+import { readMore } from "@/utilities/utilityFunction";
+import { postUserReactionOnComment } from "@/api/feed/user/comments/reaction";
+import { deleteUserReactionOnComment } from "@/api/feed/user/comments/reaction";
 
 const CommentCard = ({ item, postId }) => {
   const [commentEdit, setCommentEdit] = useState(false);
   const [commentText, setCommentText] = useState(item?.comment);
-  const {_id:uid} = useSelector(state => state.userData);
+  const [showFullDescription, setShowFullDescription] = useState(false);
+  const { _id: uid } = useSelector((state) => state.userData);
   const queryClient = useQueryClient();
   const mutation = useMutation({
-    mutationFn: (commentId) => editUserPostComment(commentId, { comment: commentText }),
+    mutationFn: (commentId) => editUserPostComment(commentId, { comment: commentText }, uid),
     onMutate: (variables) => {
       return console.log("mutation is happening");
     },
@@ -41,6 +45,25 @@ const CommentCard = ({ item, postId }) => {
         position: toast.POSITION.TOP_RIGHT,
       }),
     onSuccess: (res) => console.log(res),
+  });
+  const likeMutation = useMutation({
+    mutationFn: () => {
+      if (item?.userReaction) {
+        return deleteUserReactionOnComment(item.userReaction?._id, uid);
+      } else {
+        const payload = {commentId : item?._id, uid:uid, reactionType : 'like'}
+        return postUserReactionOnComment(payload, uid)
+      }
+      editUserPostComment(commentId, { comment: commentText }, uid);
+    },
+    onMutate: (variables) => {
+      return console.log("mutation is happening");
+    },
+    onError: (error, variables, context) => {},
+    onSuccess: (res, variables, context) => {
+      queryClient.invalidateQueries({ queryKey: ["getAllComments", postId], exact: true });
+    },
+    onSettled: (data, error, variables, context) => {},
   });
   return (
     <Card bg="#F1F2F6" minW="280px" rounded="2xl">
@@ -78,7 +101,7 @@ const CommentCard = ({ item, postId }) => {
           </Box>
         </HStack>
         <Box px="4" cursor="pointer">
-          <CommentOptions setCommentEdit={setCommentEdit} />
+          <CommentOptions commentId={item?._id} setCommentEdit={setCommentEdit} postId={postId} />
         </Box>
       </Flex>
       {!commentEdit ? (
@@ -89,7 +112,7 @@ const CommentCard = ({ item, postId }) => {
           p={["2", null, "3"]}
           lineHeight={["20px", null, "24px"]}
         >
-          {item?.comment} {"...read more"}
+          {readMore(showFullDescription, item?.comment, setShowFullDescription)}
         </Text>
       ) : (
         <Box>
@@ -99,7 +122,6 @@ const CommentCard = ({ item, postId }) => {
               value={commentText}
               onChange={(e) => setCommentText(e.target.value)}
               style={mentionsInputStyles}
-              
             >
               <Mention
                 trigger={"@"}
@@ -130,13 +152,14 @@ const CommentCard = ({ item, postId }) => {
           style={{
             fontSize: ["10px", null, "12px"],
             fontWeight: "600",
-            color: "#455564",
+            color: item?.userReaction ? "blue" : "#455564",
           }}
+          onClick={() => likeMutation.mutate()}
         >
-          Like
+          {item?.userReaction ? "Liked" : "Like"}
         </Text>
         <Divider border="0.2" orientation="vertical" />
-        <Box display="flex" alignItems="center" justifyContent="space-between">
+        <Box display="flex" alignItems="center" justifyContent="space-between" gap={"8px"}>
           <LikeEmojiGroup />
           <Text
             style={{
@@ -153,7 +176,7 @@ const CommentCard = ({ item, postId }) => {
           Reply
         </Text>
         <Divider border="0.2" orientation="vertical" />
-        <Box display="flex" alignItems="end">
+        {/* <Box display="flex" alignItems="end">
           <span
             style={{
               fontSize: ["10px", null, "12px"],
@@ -173,7 +196,7 @@ const CommentCard = ({ item, postId }) => {
           >
             comments
           </Text>
-        </Box>
+        </Box> */}
       </HStack>
     </Card>
   );

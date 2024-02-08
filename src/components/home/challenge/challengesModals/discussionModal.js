@@ -148,7 +148,7 @@ const DiscussionModal = ({ isOpen, onClose, clickPhoto, triggeredFrom, finalRef 
         position: toast.POSITION.TOP_RIGHT,
       });
       triggeredFrom == "group" ?queryClient.invalidateQueries("getGroupPosts") :queryClient.invalidateQueries("getAllPosts");
-      setText();
+      setText("");
       setSelectedFiles([]);
       setOptions([]);
       setSelectedComponent(null);

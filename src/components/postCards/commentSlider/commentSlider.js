@@ -18,7 +18,7 @@ const CommentSlider = ({ topComments, postId, isOpenComment }) => {
   const { _id: uid } = useSelector((state) => state.userData);
   const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } = useInfiniteQuery({
     queryKey: ["getAllComments", postId],
-    queryFn: ({ pageParam = 1 }) => getUserPostComments(postId, pageParam, 10),
+    queryFn: ({ pageParam = 1 }) => getUserPostComments(postId, pageParam, 10, uid),
     // getNextPageParam: (lastPage, pages) => lastPage.data.data.pagination.page + 1,
     enabled: !!isOpenComment,
     onError: (error, variables, context) => {},
